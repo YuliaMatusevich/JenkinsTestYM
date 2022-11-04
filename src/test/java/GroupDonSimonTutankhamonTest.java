@@ -1,5 +1,3 @@
-package group_don_simon_tutankhamon;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -11,7 +9,7 @@ import runner.BaseTest;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class IKrlkvTest extends BaseTest {
+public class GroupDonSimonTutankhamonTest extends BaseTest {
 
     public void getToMainPage_AutomationPracticeCom() {
         getDriver().get("http://automationpractice.com/index.php");
@@ -49,7 +47,7 @@ public class IKrlkvTest extends BaseTest {
 
         subjectHeading.selectByVisibleText("Webmaster");
 
-        Thread.sleep(3000);
+        Thread.sleep(5000);
 
         Assert.assertEquals(getDriver().findElement(By.id("desc_contact1")).getText(), "If a technical problem occurs on this website");
 
