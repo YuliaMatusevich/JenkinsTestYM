@@ -48,4 +48,20 @@ public class GroupBughuntersTest extends BaseTest {
 
 
     }
+
+    @Test
+    public void testLoginSuccess() {
+        getDriver().get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+
+        String username = "Admin";
+        String password = "admin123";
+
+        getDriver().findElement(By.name("username")).sendKeys(username);
+        getDriver().findElement(By.name("password")).sendKeys(password);
+        getDriver().findElement(By.className("orangehrm-login-button")).click();
+
+        Assert.assertEquals(
+                getDriver().findElement(By.className("oxd-userdropdown-name")).getText(), "Paul Collings");
+    }
+
 }
