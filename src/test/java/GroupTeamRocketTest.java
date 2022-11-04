@@ -75,6 +75,7 @@ public class GroupTeamRocketTest extends BaseTest {
         Assert.assertEquals(getDriver().getTitle(), "Food - Los Angeles Times");
     }
 
+    @Ignore
     @Test
     public void testAboutUs(){
         getDriver().get("http://automationpractice.com/index.php");
@@ -98,6 +99,7 @@ public class GroupTeamRocketTest extends BaseTest {
         Assert.assertTrue(getDriver().findElement(By.xpath("//img[@class='captchaMediaImage']")).isDisplayed());
     }
 
+    @Ignore
     @Test
     public void testInformationDelivery() {
         getDriver().get("http://automationpractice.com/index.php");
@@ -107,6 +109,7 @@ public class GroupTeamRocketTest extends BaseTest {
         Assert.assertEquals(getDriver().getTitle(), "Delivery - My Store");
     }
 
+    @Ignore
     @Test
     public void testGoToTermsAndConditionsPage_AnastasiaYakimova() {
         getDriver().get ("http://automationpractice.com");
@@ -135,14 +138,13 @@ public class GroupTeamRocketTest extends BaseTest {
         Assert.assertEquals (getDriver ().findElement (By.xpath ("//*[@id=\"checkout_complete_container\"]/h2")).getText (), "THANK YOU FOR YOUR ORDER");
     }
 
-    @Ignore
+
     @Test
-    public void testAddToCartButton() throws InterruptedException{
+    public void testAddToCartButton() {
         getDriver().get("https://www.demoblaze.com");
-        getDriver().findElement(By.xpath("//body/div[5]/div/div[1]/div/a[4]")).click();
-        getDriver().findElement(By.xpath("//body/div[5]/div/div[2]/div/div[1]/div/div/h4/a")).click();
-        getDriver().findElement(By.xpath("//body/div[5]/div/div[2]/div[2]/div/a")).click();
-        Assert.assertTrue(getDriver().findElement(By.xpath("//body/div[5]/div/div[2]/div[2]/div/a")).isDisplayed());
+        getDriver().findElement(By.xpath("//div[@class='list-group']/a[4]")).click();
+        getDriver().findElement(By.xpath("//div[@class='card-block']/h4[1]/a[@href=\"prod.html?idp_=10\"]")).click();
+        Assert.assertTrue(getDriver().findElement(By.xpath("//a[@class='btn btn-success btn-lg']")).isDisplayed());
     }
 
      @Test
@@ -204,6 +206,7 @@ public class GroupTeamRocketTest extends BaseTest {
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
     }
 
+    @Ignore
     @Test
     public void testSaleSticker_ET() {
         getDriver().get("http://automationpractice.com/index.php");
@@ -283,5 +286,16 @@ public class GroupTeamRocketTest extends BaseTest {
         getDriver().findElement(By.xpath("//a[@title='reddit']/img")).click();
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//h1[@class='Title m-no-margin']")).isDisplayed());
+    }
+
+    @Test
+    public void testGoToStepTwoForGetQuote_VadimTref() {
+        getDriver().get("https://commercialinsurance.net/");
+        getDriver().findElement(By.xpath("//div[@id='cobranding-steps']//input[@name='zipcode']")).sendKeys("11230");
+        getDriver().findElement(By.xpath("//div[@id='cobranding-steps']//a[@class='btn next-step']")).click();
+
+        Assert.assertEquals(getDriver()
+                .findElement(By.xpath("//button[@type='submit'][@class='btn cobranding-form-submit']"))
+                .getText(), "Go To Final Step");
     }
 }
