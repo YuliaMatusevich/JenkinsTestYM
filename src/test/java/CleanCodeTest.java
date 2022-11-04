@@ -40,4 +40,13 @@ public class CleanCodeTest extends BaseTest {
         Assert.assertEquals(pageSales.getText(), "Специальные предложения");
     }
 
+    @Test
+    public void testTextContactsIsPresent()  {
+        getDriver ().get ("https://heropark.by/");
+
+        WebElement text = getDriver ().findElement (By.xpath ("//span[text()='КОНТАКТЫ']"));
+
+        Assert.assertEquals (text.getText (), "КОНТАКТЫ");
+    }
+
 }

@@ -98,7 +98,6 @@ public class SpiritMastersTest extends BaseTest {
         Assert.assertEquals(link.getText(), "Buttons");
     }
 
-
     @Ignore
     @Test
     public void testFillRegistrationForm_OlPolezhaeva() {
