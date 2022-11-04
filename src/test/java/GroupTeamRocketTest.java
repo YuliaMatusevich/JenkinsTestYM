@@ -236,6 +236,15 @@ public class GroupTeamRocketTest extends BaseTest {
     }
 
     @Test
+    public void testPriceNokia_ZoiaBut(){
+        getDriver().get("https://www.demoblaze.com/");
+        getDriver().findElement(By.xpath("//div/a[@href='prod.html?idp_=2']")).click();
+
+        Assert.assertFalse((getDriver().findElement(By.xpath("//h3[text()='$820']"))
+                        .getText().contains("$620")));
+    }
+    
+    @Test
     public void testSignGuestbookTest_NO() {
 
         String random = "" + ((int) (Math.random() * 900) + 100);
