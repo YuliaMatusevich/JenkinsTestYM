@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -62,6 +63,18 @@ public class GroupBughuntersTest extends BaseTest {
 
         Assert.assertEquals(
                 getDriver().findElement(By.className("oxd-userdropdown-name")).getText(), "Paul Collings");
+    }
+
+    @Test
+    public void testChooseCurrency() {
+        getDriver().get("https://rahulshettyacademy.com/dropdownsPractise/");
+
+        WebElement staticDropdown = getDriver().findElement(By.id("ctl00_mainContent_DropDownListCurrency"));
+
+        Select dropdown = new Select(staticDropdown);
+        dropdown.selectByIndex(3);
+
+        Assert.assertEquals(dropdown.getFirstSelectedOption().getText(), "USD");
     }
 
 }
