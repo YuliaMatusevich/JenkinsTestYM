@@ -137,7 +137,7 @@ public class GroupTeamRocketTest extends BaseTest {
 
 
     @Test
-    public void testAddToCartButton() throws InterruptedException{
+    public void testAddToCartButton() {
         getDriver().get("https://www.demoblaze.com");
         getDriver().findElement(By.xpath("//div[@class='list-group']/a[4]")).click();
         getDriver().findElement(By.xpath("//div[@class='card-block']/h4[1]/a[@href=\"prod.html?idp_=10\"]")).click();
