@@ -11,6 +11,7 @@ public class ViktoriiHukFirstTest extends BaseTest {
     public void testWenPageApiHas30OrangeButten () throws InterruptedException {
 
         String url = "https://openweathermap.org/";
+
         int expectedResult = 30;
 
         getDriver().get(url);
