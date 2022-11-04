@@ -44,4 +44,28 @@ public class PLGroupTest extends BaseTest {
 
         Assert.assertEquals(link.getText(), "What you do with that power is entirely up to you.");
     }
+
+    @Test
+    public void testSubMenu() throws InterruptedException {
+
+        getDriver().get("https://openweathermap.org/");
+
+        getDriver().manage().window().maximize();
+        WebElement support = getDriver().findElement(By.xpath(" //div[@id='support-dropdown']"));
+
+        Thread.sleep(5000);
+        support.click();
+
+        List<WebElement> allSupportMenu = getDriver().findElements(
+                By.xpath("//ul[@class='dropdown-menu dropdown-visible']/li/a")
+        );
+        String actualResult = "";
+        for (WebElement supportMenu : allSupportMenu) {
+            actualResult += supportMenu.getText() + " ";
+        }
+
+        Assert.assertEquals(actualResult, "FAQ How to start Ask a question ");
+
+    }
+
 }
