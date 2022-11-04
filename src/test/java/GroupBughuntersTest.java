@@ -53,6 +53,7 @@ public class GroupBughuntersTest extends BaseTest {
         getDriver().get("https://www.w3resource.com/index.php");
 
         WebElement link = getDriver().findElement(By.xpath("//a[@href='https://www.w3resource.com/java-tutorial/index.php']"));
+
         Assert.assertEquals(link.getText(), "Java");
     }
 }
