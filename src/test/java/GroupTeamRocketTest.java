@@ -74,7 +74,7 @@ public class GroupTeamRocketTest extends BaseTest {
         getDriver().findElement(By.xpath("//ps-header/div[1]/div[1]/div[1]/nav[1]/ul[1]/li[6]/div[1]/div[1]/a[1]")).click();
         Assert.assertEquals(getDriver().getTitle(), "Food - Los Angeles Times");
     }
-
+    @Ignore
     @Test
     public void testAboutUs(){
         getDriver().get("http://automationpractice.com/index.php");
@@ -97,7 +97,7 @@ public class GroupTeamRocketTest extends BaseTest {
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//img[@class='captchaMediaImage']")).isDisplayed());
     }
-
+    @Ignore
     @Test
     public void testInformationDelivery() {
         getDriver().get("http://automationpractice.com/index.php");
@@ -106,7 +106,7 @@ public class GroupTeamRocketTest extends BaseTest {
 
         Assert.assertEquals(getDriver().getTitle(), "Delivery - My Store");
     }
-
+    @Ignore
     @Test
     public void testGoToTermsAndConditionsPage_AnastasiaYakimova() {
         getDriver().get ("http://automationpractice.com");
@@ -144,7 +144,7 @@ public class GroupTeamRocketTest extends BaseTest {
         getDriver().findElement(By.xpath("//body/div[5]/div/div[2]/div[2]/div/a")).click();
         Assert.assertTrue(getDriver().findElement(By.xpath("//body/div[5]/div/div[2]/div[2]/div/a")).isDisplayed());
     }
-
+    @Ignore
      @Test
      public void testContactUs() {
         getDriver().get("http://automationpractice.com/index.php");
@@ -203,7 +203,7 @@ public class GroupTeamRocketTest extends BaseTest {
         getDriver().findElement(By.xpath("//div[@id='header_container']/div[2]/div[2]/span/select/option[3]")).click();
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
     }
-
+    @Ignore
     @Test
     public void testSaleSticker_ET() {
         getDriver().get("http://automationpractice.com/index.php");
