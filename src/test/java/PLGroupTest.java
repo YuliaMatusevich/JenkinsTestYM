@@ -9,15 +9,16 @@ import java.util.List;
 public class PLGroupTest extends BaseTest {
 
     @Test
-    public void testH2HeaderSeleniumInteractionsWindows(){
+    public void testH2HeaderSeleniumInteractionsWindows() {
         getDriver().get("https://www.selenium.dev/documentation/webdriver/interactions/windows/");
 
         String expectedResult = "Working with windows and tabs";
 
-        Assert.assertEquals(getDriver().findElement(By.xpath("//main/div/h1")).getText(),expectedResult);
+        Assert.assertEquals(getDriver().findElement(By.xpath("//main/div/h1")).getText(), expectedResult);
     }
 
-    @Test void testNavTest_Main(){
+    @Test
+    void testNavTest_Main() {
         getDriver().get("https://www.selenium.dev/documentation/webdriver/interactions/windows/");
 
         String expectedResult = "Java".concat("Python");
@@ -31,9 +32,10 @@ public class PLGroupTest extends BaseTest {
 
         Assert.assertTrue(columnNames.contains(expectedResult));
         Assert.assertEquals(countTableColumns.size(), 6);
-        }
+    }
 
-    public void testParagraph(){
+    @Test
+    public void testParagraph() {
         getDriver().get("https://www.selenium.dev/");
 
         WebElement link = getDriver().findElement(
