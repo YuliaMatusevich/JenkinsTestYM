@@ -36,7 +36,6 @@ public class GroupDonSimonTutankhamonTest extends BaseTest {
         Assert.assertEquals(expectedResult, getDriver().getCurrentUrl());
     }
 
-
     @Ignore
     @Test
     public void testSendMessageFromContactUsPage_AutomationPracticeCom() throws InterruptedException {
