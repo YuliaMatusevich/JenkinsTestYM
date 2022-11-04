@@ -378,7 +378,7 @@ public class SpiritMastersTest extends BaseTest {
 
         List<WebElement> listOfCheckBoxes =
                 getDriver().findElements(By.cssSelector("span" +
-                ".rct-checkbox"));
+                        ".rct-checkbox"));
         listOfCheckBoxes.get(3).click();
 
         Assert.assertEquals(getDriver().findElement(By.cssSelector("span" +
@@ -391,7 +391,7 @@ public class SpiritMastersTest extends BaseTest {
                         ".mt-4>span"));
         List<String> actualResult = new ArrayList<>();
         for (WebElement element:listOfSelectedCheckBoxesDesktop) {
-           actualResult.add(element.getText());
+            actualResult.add(element.getText());
         }
 
         Assert.assertEquals(actualResult,expectedResult);
