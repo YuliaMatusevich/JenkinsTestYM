@@ -283,4 +283,15 @@ public class GroupTeamRocketTest extends BaseTest {
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//h1[@class='Title m-no-margin']")).isDisplayed());
     }
+
+    @Test
+    public void testGoToStepTwoForGetQuote_VadimTref() {
+        getDriver().get("https://commercialinsurance.net/");
+        getDriver().findElement(By.xpath("//div[@id='cobranding-steps']//input[@name='zipcode']")).sendKeys("11230");
+        getDriver().findElement(By.xpath("//div[@id='cobranding-steps']//a[@class='btn next-step']")).click();
+
+        Assert.assertEquals(getDriver()
+                .findElement(By.xpath("//button[@type='submit'][@class='btn cobranding-form-submit']"))
+                .getText(), "Go To Final Step");
+    }
 }
