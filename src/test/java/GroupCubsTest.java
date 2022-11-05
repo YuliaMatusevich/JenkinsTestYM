@@ -36,6 +36,16 @@ public class GroupCubsTest extends BaseTest {
         WebElement link = getDriver().findElement(By.xpath("//a[@href='https://koma.lux.pl/Wszystkie-produkty,pid,9.html']"));
         Assert.assertEquals(link.getText(), "Wyszukiwanie zaawansowane");
     }
+
+    @Test
+    public void testSmetankina(){
+        getDriver().get("http://automationpractice.com/index.php");
+        WebElement link = getDriver().findElement(By.xpath("//*[@id=\"block_top_menu\"]/ul/li[3]/a"));
+        Assert.assertEquals(link.getText(), "T-shirts");
+    }
+
+
+
 @Ignore
     @Test
     public void testJudmi() {
