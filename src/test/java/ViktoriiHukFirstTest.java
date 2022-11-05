@@ -9,7 +9,7 @@ import runner.BaseTest;
 
 public class ViktoriiHukFirstTest extends BaseTest {
 
-    @Ignore
+
     @Test
     public void testWenPageApiHas30OrangeButten () throws InterruptedException {
 
@@ -21,7 +21,7 @@ public class ViktoriiHukFirstTest extends BaseTest {
         Thread.sleep(5000);
 
         WebElement MenuAPI = getDriver().findElement(
-                By.xpath("//div[@id = 'desktop-menu']//li[2]/a")
+                By.xpath("//div[@id = 'desktop-menu']/ul/li[2]/a")
         );
         MenuAPI.click();
 
