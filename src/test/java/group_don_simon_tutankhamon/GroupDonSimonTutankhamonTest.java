@@ -11,7 +11,7 @@ import runner.BaseTest;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class IKrlkvTest extends BaseTest {
+class IKrlkvTest extends BaseTest {
 
     public void getToMainPage_AutomationPracticeCom() {
         getDriver().get("http://automationpractice.com/index.php");
