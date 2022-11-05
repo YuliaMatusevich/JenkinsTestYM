@@ -39,9 +39,9 @@ public class GroupCubsTest extends BaseTest {
 
     @Test
     public void testSmetankina(){
-        getDriver().get("http://automationpractice.com/index.php");
-        WebElement link = getDriver().findElement(By.xpath("//*[@id=\"block_top_menu\"]/ul/li[3]/a"));
-        Assert.assertEquals(link.getText(), "T-shirts");
+        getDriver().get("https://demoqa.com/");
+        WebElement link = getDriver().findElement(By.xpath("//*[@id=\"app\"]/div/div/div[2]/div/div[4]/div/div[3]/h5"));
+        Assert.assertEquals(link.getText(), "Widgets");
     }
 
 
