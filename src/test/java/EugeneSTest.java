@@ -10,12 +10,12 @@ public class EugeneSTest extends BaseTest {
     @Test
     public void testWeather () throws InterruptedException {
 
-        getDriver().get("https://weather.com/");
-        WebElement link = getDriver().findElement(By.xpath("//span[contains(text(),'Boston, MA')]"));
+        getDriver().get("https://dzen.ru/");
+        WebElement link = getDriver().findElement(By.xpath("//span[contains(text(),'Войти')]"));
 
-        Thread.sleep(2000);
+        Thread.sleep(5000);
 
-        Assert.assertEquals(link.getText(), "Boston, MA");
+        Assert.assertEquals(link.getText(), "Войти");
 
 
     }
