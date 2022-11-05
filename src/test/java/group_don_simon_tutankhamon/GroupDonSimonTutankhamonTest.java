@@ -1,3 +1,5 @@
+package group_don_simon_tutankhamon;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -9,7 +11,7 @@ import runner.BaseTest;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GroupDonSimonTutankhamonTest extends BaseTest {
+class IKrlkvTest extends BaseTest {
 
     public void getToMainPage_AutomationPracticeCom() {
         getDriver().get("http://automationpractice.com/index.php");
@@ -23,7 +25,7 @@ public class GroupDonSimonTutankhamonTest extends BaseTest {
     public void getToMainPage_SelectorsHubCom() {
         getDriver().get("https://selectorshub.com/xpath-practice-page/");
     }
-
+    @Ignore
     @Test
     public void testContactUsPageAddress_AutomationPracticeCom() {
 
@@ -33,7 +35,6 @@ public class GroupDonSimonTutankhamonTest extends BaseTest {
 
         Assert.assertEquals(expectedResult, getDriver().getCurrentUrl());
     }
-
     @Ignore
     @Test
     public void testSendMessageFromContactUsPage_AutomationPracticeCom() throws InterruptedException {
@@ -44,7 +45,7 @@ public class GroupDonSimonTutankhamonTest extends BaseTest {
 
         subjectHeading.selectByVisibleText("Webmaster");
 
-        Thread.sleep(5000);
+        Thread.sleep(3000);
 
         Assert.assertEquals(getDriver().findElement(By.id("desc_contact1")).getText(), "If a technical problem occurs on this website");
 
@@ -153,22 +154,5 @@ public class GroupDonSimonTutankhamonTest extends BaseTest {
         buttonsLink.click();
 
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://formy-project.herokuapp.com/buttons");
-    }
-
-    @Test
-    public void testDoingSmthDontKnowWhatExactly_Tchernomor() {
-        String url = "https://demoqa.com/";
-        getDriver().get("https://www.toolsqa.com/selenium-training/");
-
-        WebElement findDemoSiteLink = getDriver().findElement(By.xpath(
-                "//div[@class='col-auto']//li[3]/a"
-        ));
-        findDemoSiteLink.click();
-
-        for (String pages : getDriver().getWindowHandles()) {
-            getDriver().switchTo().window(pages);
-        }
-
-        Assert.assertEquals(getDriver().getCurrentUrl(), url);
     }
 }
