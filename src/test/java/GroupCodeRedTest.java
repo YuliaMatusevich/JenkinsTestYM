@@ -308,9 +308,5 @@ public class GroupCodeRedTest extends BaseTest {
         Thread.sleep(2000);
         String actualResult = getDriver().findElement(By.xpath("//h5")).getText();
         Assert.assertEquals(actualResult,"Modal title");
-
-
-
-
     }
 }
