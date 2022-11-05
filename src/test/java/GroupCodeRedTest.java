@@ -305,7 +305,7 @@ public class GroupCodeRedTest extends BaseTest {
         modalLink.click();
         WebElement buttonOpenModal = getDriver().findElement(By.xpath("//button[@id='modal-button']"));
         buttonOpenModal.click();
-        Thread.sleep(2000);
+        Thread.sleep(1500);
         String actualResult = getDriver().findElement(By.xpath("//h5")).getText();
         Assert.assertEquals(actualResult,"Modal title");
     }
