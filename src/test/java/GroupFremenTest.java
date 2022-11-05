@@ -118,6 +118,14 @@ public class GroupFremenTest extends BaseTest {
     private static void assertSelectedValueEquals(Select select, String expectedValue) {
         Assert.assertEquals(select.getFirstSelectedOption().getAttribute("value"), expectedValue);
     }
-
-
+    @Test
+    public void testMainPageAutocompleteLink(){
+        getDriver().get(URL);
+        String expectedResult = "https://formy-project.herokuapp.com/autocomplete";
+        WebElement LinkAutocomplete = getDriver().findElement(
+                By.xpath("//div[@class = 'jumbotron-fluid']/li/a[@href = '/autocomplete']"));
+        LinkAutocomplete.click();
+        String actualResult = getDriver().getCurrentUrl();
+        Assert.assertEquals(expectedResult,actualResult);
+    }
 }
