@@ -7,6 +7,7 @@ import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -326,7 +327,7 @@ public class GroupDonSimonTutankhamonTest extends BaseTest {
         WebElement sliderValueWindow = getDriver().findElement(By.id("sliderValue"));
         Assert.assertEquals(sliderValueWindow.getAttribute("value"), String.valueOf(resultSliderValue));
     }
-
+    @Ignore
     @Test
     public void testButtonsClicks_DemoqaCom() {
 
