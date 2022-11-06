@@ -268,7 +268,7 @@ public class GroupCodeRedTest extends BaseTest {
         Assert.assertEquals(actualResult_2, expectedResult_2);
     }
     @Test
-    public void testCheckbox() {
+    public void testCheckbox()  {
         getDriver().get("https://formy-project.herokuapp.com/");
         String actualTitle = getDriver().getTitle();
         Assert.assertEquals(actualTitle, "Formy");
