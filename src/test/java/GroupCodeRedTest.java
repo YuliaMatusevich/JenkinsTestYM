@@ -100,7 +100,7 @@ public class GroupCodeRedTest extends BaseTest {
         Assert.assertEquals(actualResult, "https://formy-project.herokuapp.com/buttons");
     }
 
-    @Ignore
+
     @Test
     public void testDatepicker() {
         getDriver().get("https://formy-project.herokuapp.com/");
@@ -113,7 +113,7 @@ public class GroupCodeRedTest extends BaseTest {
         WebElement dateInput = getDriver().findElement(By.xpath("//div[@class='row']//input[@id='datepicker']"));
         dateInput.click();
         WebElement todayDate = getDriver().findElement(By.xpath
-                ("/html/body/div[2]/div[1]/table/tbody/tr[1]/td[@class='today day']"));
+                ("/html/body/div[2]/div[1]/table/tbody/tr/td[@class='today day']"));
         todayDate.click();
     }
 
