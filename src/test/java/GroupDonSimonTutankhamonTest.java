@@ -3,10 +3,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
+import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -143,6 +147,127 @@ public class GroupDonSimonTutankhamonTest extends BaseTest {
     }
 
     @Test
+    public void testTextByLink_SelectorsHubCom() throws InterruptedException {
+
+        String textByLink = "A tool to generate manual test case automatically, click to learn more";
+
+        getDriver().get("https://selectorshub.com/xpath-practice-page/");
+
+        WebElement linkByText = getDriver().findElement(By.linkText(textByLink));
+
+        Assert.assertEquals(linkByText.getTagName(), "a");
+        Assert.assertEquals(linkByText.getCssValue("box-sizing"), "border-box");
+
+        WebElement linkByPartialText = getDriver().findElement(By.partialLinkText("generate"));
+
+        Thread.sleep(1500);
+
+        Assert.assertEquals(linkByPartialText.getRect(), linkByText.getRect());
+        Assert.assertEquals(linkByPartialText.getLocation(), linkByPartialText.getLocation());
+    }
+
+    @Test
+    public void testCheckBoxes_WebdDiverUniversityCom() {
+
+        getDriver().get("https://webdriveruniversity.com/Dropdown-Checkboxes-RadioButtons/index.html");
+
+        WebElement checkedCheckbox = getDriver().findElement(By.cssSelector("[type=checkbox]:checked"));
+        Assert.assertEquals(checkedCheckbox.getAttribute("value"), "option-3");
+        Assert.assertTrue(checkedCheckbox.isSelected());
+
+        WebElement unCheckedCheckbox = getDriver().findElement(By.cssSelector("[type=checkbox]:not(:checked)"));
+        Assert.assertEquals(unCheckedCheckbox.getAttribute("value"), "option-1");
+        Assert.assertFalse(unCheckedCheckbox.isSelected());
+    }
+
+    @Test
+    public void testRadioButtons_WebdDiverUniversityCom() {
+
+        getDriver().get("https://webdriveruniversity.com/Dropdown-Checkboxes-RadioButtons/index.html");
+
+        WebElement checkedRadioButton = getDriver().findElement(By.xpath("//input[@type='radio' and @checked]"));
+        Assert.assertEquals(checkedRadioButton.getAttribute("value"), "pumpkin");
+        Assert.assertTrue(checkedRadioButton.isSelected());
+
+        WebElement unCheckedRadioButton = getDriver().findElement(By.xpath("//input[@type='radio' and not(@checked) and @value='lettuce']"));
+        Assert.assertEquals(unCheckedRadioButton.getAttribute("name"), "vegetable");
+        Assert.assertFalse(unCheckedRadioButton.isSelected());
+
+        WebElement disabledRadioButton = getDriver().findElement(By.xpath("//input[@type='radio' and @disabled]"));
+        Assert.assertEquals(disabledRadioButton.getAttribute("type"), "radio");
+        Assert.assertFalse(disabledRadioButton.isEnabled());
+    }
+
+    @Test
+    public void testRelativeLocator_WebdDiverUniversityCom() {
+
+        getDriver().get("https://webdriveruniversity.com/Data-Table/index.html");
+
+        WebElement blockQuote = getDriver().findElement(By.xpath("//blockquote/p"));
+        RelativeLocator.RelativeBy relativeBy = RelativeLocator.with(By.tagName("mark"));
+
+        WebElement fieldWithRandomText = getDriver().findElement(relativeBy.above(blockQuote));
+        Assert.assertEquals(fieldWithRandomText.getText(), "sed do eiusmod tempor incididunt ut labore");
+    }
+
+    @Test
+    public void testHiddenElements_WebdDiverUniversityCom() throws InterruptedException {
+
+        getDriver().get("https://webdriveruniversity.com/Hidden-Elements/index.html");
+
+        WebElement notDisplayedButton = getDriver().findElement(By.id("button1"));
+        Assert.assertTrue(notDisplayedButton.isEnabled());
+        Assert.assertFalse(notDisplayedButton.isDisplayed());
+
+        WebElement hiddenButton = getDriver().findElement(By.xpath("//span[@id='button2']"));
+        Assert.assertTrue(hiddenButton.isEnabled());
+        Assert.assertFalse(hiddenButton.isDisplayed());
+
+        WebElement zeroOpacityButton = getDriver().findElement(By.id("button3"));
+        Assert.assertTrue(zeroOpacityButton.isEnabled());
+        Assert.assertFalse(zeroOpacityButton.isDisplayed());
+
+        zeroOpacityButton.click();
+        Thread.sleep(300);
+
+        WebElement modalWindow = getDriver().findElement(By.id("myModalMoveClick"));
+        Assert.assertTrue(modalWindow.isDisplayed());
+    }
+
+    @Test
+    public void testDatePicker_WebdDiverUniversityCom() {
+
+        LocalDate today = LocalDate.now();
+        LocalDate todayOneYearAgo = today.minusYears(1);
+        int currentYear = today.getYear();
+        int currentMonth = today.getMonthValue();
+        int currentDay = today.getDayOfMonth();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        String expectedDate = todayOneYearAgo.format(dateFormat);
+
+        getDriver().get("https://webdriveruniversity.com/Datepicker/index.html");
+
+        WebElement datePicker = getDriver().findElement(By.xpath("//div[@id='datepicker']/input"));
+        datePicker.click();
+
+        WebElement monthAndYearButton = getDriver().findElement(By.xpath(String.format("//th[contains (text(), %s)]", currentYear)));
+        monthAndYearButton.click();
+
+        WebElement leftArrow = getDriver().findElement(RelativeLocator.with(By.tagName("th")).toRightOf(monthAndYearButton));
+        leftArrow.click();
+
+        WebElement monthToClick = getDriver().findElements(By.xpath("//div[@class='datepicker-months']//span")).get(currentMonth - 1);
+        monthToClick.click();
+
+        WebElement dayToClick = getDriver().findElements(By.xpath("//div[@class='datepicker-days']//td[@class='day']")).get(currentDay - 1);
+        dayToClick.click();
+
+        String actualDate = datePicker.getAttribute("value");
+
+        Assert.assertEquals(actualDate, expectedDate);
+    }
+
+    @Test
     public void testButtonsLinkText_HerokuApp() {
 
         getDriver().get("https://formy-project.herokuapp.com/");
@@ -179,5 +304,19 @@ public class GroupDonSimonTutankhamonTest extends BaseTest {
         }
 
         Assert.assertEquals(getDriver().getCurrentUrl(), url);
+    }
+
+    @Test
+    public void testChangeCategoryInSidebarWhenChoosingWomenCategory() {
+        getDriver().get("http://automationpractice.com/");
+
+        WebElement womenCategoryButton = getDriver().findElement(By.xpath("//li/a[@title='Women']"));
+        womenCategoryButton.click();
+
+        WebElement sidebarCategoryName = getDriver().findElement(
+                By.xpath("//div[@id='categories_block_left']/h2"));
+
+
+        Assert.assertEquals(sidebarCategoryName.getText(), "WOMEN");
     }
 }
