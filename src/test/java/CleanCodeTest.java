@@ -136,7 +136,7 @@ public class CleanCodeTest extends BaseTest {
     }
 
     @Test
-    public void eightComponents() {
+    public void  testFirst() {
         getDriver().get("https://openweathermap.org/guide");
         getDriver().manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
         getDriver().findElement(By.xpath("//div[@id='support-dropdown']")).click();
