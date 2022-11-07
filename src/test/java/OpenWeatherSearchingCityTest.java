@@ -6,7 +6,6 @@ import runner.BaseTest;
 
 public class OpenWeatherSearchingCityTest extends BaseTest {
 
-
     @Test
     public void test_SearchingCityCountry() throws InterruptedException {
 
