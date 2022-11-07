@@ -131,4 +131,13 @@ public class CleanCodeTest extends BaseTest {
         String LOGIN = getDriver().findElement(By.xpath("//div[@class='sixteen columns clearfix collection_nav']")).getText();
         Assert.assertEquals(LOGIN, "Customer Login");
     }
+    @Test
+    public void testVitebskbiz()
+    {
+       String Vitebskbiz = "https://vitebsk.biz/";
+       getDriver().get(Vitebskbiz);
+       WebElement link = getDriver().findElement(By.xpath("//div/a[@href='https://vitebsk.biz/news/tc/']"));
+       Assert.assertEquals(link.getText(), "Запостить");
+    }
+
 }
