@@ -373,6 +373,7 @@ public class GroupTeamRocketTest extends BaseTest {
                 .size(), 3);
     }
 
+    @Ignore
     @Test
     public void testContactUs_ThankYouMessagePopsUp_AnastasiaY() {
 
