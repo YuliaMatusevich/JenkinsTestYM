@@ -136,7 +136,7 @@ public class CleanCodeTest extends BaseTest {
     }
 
     @Test
-    public void sauceLabsTestEvgeniya() {
+    public void testSauceLabsEvgeniya() {
         getDriver().get("https://www.saucedemo.com/");
         getDriver().findElement(By.id("user-name")).sendKeys("standard_user");
         getDriver().findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("secret_sauce");
