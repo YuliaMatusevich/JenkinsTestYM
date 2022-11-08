@@ -144,4 +144,13 @@ public class CleanCodeTest extends BaseTest {
         String header = getDriver().findElement(By.xpath("//span[@class='title']")).getText();
         Assert.assertEquals(header,"PRODUCTS");
     }
+
+    @Test
+    public void testVitebskbiz()
+    {
+       String Vitebskbiz = "https://vitebsk.biz/";
+       getDriver().get(Vitebskbiz);
+       WebElement link = getDriver().findElement(By.xpath("//div/a[@href='https://vitebsk.biz/news/tc/']"));
+       Assert.assertEquals(link.getText(), "Запостить");
+    }
 }
