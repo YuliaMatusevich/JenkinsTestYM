@@ -1,5 +1,4 @@
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -7,8 +6,6 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import java.time.Duration;
-
-import static java.sql.DriverManager.getDriver;
 
 
 public class GroupCodeRedTest extends BaseTest {
@@ -101,50 +98,43 @@ public class GroupCodeRedTest extends BaseTest {
     }
 
     @Test
-    public void testButton() {
-        getDriver().get("https://formy-project.herokuapp.com/");
-        WebElement link = getDriver().findElement(By.xpath("//li/a[@href='/buttons']"));
-        link.click();
+    public void testFormyButton() {
+        getDriver().get(baseUrlHerokuapp);
+        getDriver().findElement(By.xpath("//li/a[@href='/buttons']")).click();
         String actualResult = getDriver().getCurrentUrl();
+
         Assert.assertEquals(actualResult, "https://formy-project.herokuapp.com/buttons");
     }
 
 
     @Test
-    public void testDatepicker() {
-        getDriver().get("https://formy-project.herokuapp.com/");
-        WebElement link = getDriver().findElement(By.xpath("//li/a[@href='/datepicker']"));
-        link.click();
+    public void testFormyDatepicker() {
+        getDriver().get(baseUrlHerokuapp);
+        getDriver().findElement(By.xpath("//li/a[@href='/datepicker']")).click();
+        getDriver().findElement(By.xpath("//div[@class='row']//input[@id='datepicker']")).click();
+        getDriver().findElement(By.xpath
+                ("/html/body/div[2]/div[1]/table/tbody/tr/td[@class='today day']")).click();
         String actualTitle = getDriver().findElement(By.xpath("/html/body/div/h1")).getText();
-        Assert.assertEquals(actualTitle, "Datepicker");
         String actualAddress = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualTitle, "Datepicker");
         Assert.assertEquals(actualAddress, "https://formy-project.herokuapp.com/datepicker");
-        WebElement dateInput = getDriver().findElement(By.xpath("//div[@class='row']//input[@id='datepicker']"));
-        dateInput.click();
-        WebElement todayDate = getDriver().findElement(By.xpath
-                ("/html/body/div[2]/div[1]/table/tbody/tr/td[@class='today day']"));
-        todayDate.click();
     }
 
     @Test
-    public void testDropdown() throws InterruptedException {
-        getDriver().get("https://formy-project.herokuapp.com/");
-        WebElement link = getDriver().findElement(By.xpath("//li/a[@href='/dropdown']"));
-        link.click();
+    public void testFormyDropdown()  {
+        String dropdownMenu = "Dropdown";
+        getDriver().get(baseUrlHerokuapp);
+        getDriver().findElement(By.linkText(dropdownMenu)).click();
+        getDriver().findElement(By.id("dropdownMenuButton")).click();
+
         String actualResult = getDriver().getCurrentUrl();
-        Assert.assertEquals(actualResult, "https://formy-project.herokuapp.com/dropdown");
         String actualTitle = getDriver().findElement(By.xpath("/html/body/div/h1")).getText();
-        Assert.assertEquals(actualTitle, "Dropdown");
-        WebElement dropDown = getDriver().findElement(By.xpath("//div[@class='dropdown']" +
-                "//button[@id=\"dropdownMenuButton\"]"));
-        dropDown.click();
-        WebElement modal = getDriver().findElement(By.xpath("/html/body/div/div/div/a[11]"));
-        modal.click();
-        String actualModalResult = getDriver().getCurrentUrl();
-        Assert.assertEquals(actualModalResult, "https://formy-project.herokuapp.com/modal");
-        Thread.sleep(100);
-        String actualModalHeader = getDriver().findElement(By.xpath("/html/body/div/h1")).getText();
-        Assert.assertEquals(actualModalHeader, "Modal");
+
+        Assert.assertEquals(actualTitle, dropdownMenu);
+        Assert.assertEquals(actualResult, "https://formy-project.herokuapp.com/dropdown");
+        Assert.assertEquals(getDriver().findElements(By.xpath(
+                "/html/body/div/div/div/a[@class='dropdown-item']")).size(),15);
     }
 
     @Test
