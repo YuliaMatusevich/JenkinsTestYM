@@ -136,22 +136,6 @@ public class CleanCodeTest extends BaseTest {
     }
 
     @Test
-    public void  testFirst() {
-        getDriver().get("https://openweathermap.org/guide");
-        getDriver().manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
-        getDriver().findElement(By.xpath("//div[@id='support-dropdown']")).click();
-        getDriver().findElement(By.xpath("//ul[@class='dropdown-menu dropdown-visible']")).isDisplayed();
-        getDriver().findElement(By.xpath("//div//ul[@id='support-dropdown-menu']//li//a[contains(text(), 'Ask a question')]")).click();
-        List<String> tabs = new ArrayList<>(getDriver().getWindowHandles());
-        Assert.assertEquals(tabs.size(), 2);
-        getDriver().switchTo().window(tabs.get(1));
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("question_form_email")));
-        String currentUrl = getDriver().getCurrentUrl();
-        Assert.assertEquals(currentUrl, "https://home.openweathermap.org/questions");
-    }
-
-    @Test
     public void sauceLabsTestEvgeniya() {
         getDriver().get("https://www.saucedemo.com/");
         getDriver().findElement(By.id("user-name")).sendKeys("standard_user");
