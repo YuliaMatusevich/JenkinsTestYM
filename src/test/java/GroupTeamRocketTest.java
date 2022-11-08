@@ -312,7 +312,7 @@ public class GroupTeamRocketTest extends BaseTest {
                 .findElement(By.xpath("//button[@type='submit'][@class='btn cobranding-form-submit']"))
                 .getText(), "Go To Final Step");
     }
-
+    @Ignore
     @Test
     public void testSamsungGalaxyS7Price_ZB() {
         getDriver().get("https://www.demoblaze.com/");
@@ -372,7 +372,7 @@ public class GroupTeamRocketTest extends BaseTest {
         Assert.assertEquals(getDriver().findElements(By.xpath("//button[@class='added-manually']"))
                 .size(), 3);
     }
-
+    @Ignore
     @Test
     public void testContactUsMessagePopsUp_WhenSendingMessage_AnastasiaYakimova() {
         getDriver().get("https://www.demoblaze.com/");
