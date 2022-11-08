@@ -150,4 +150,14 @@ public class CleanCodeTest extends BaseTest {
         String currentUrl = getDriver().getCurrentUrl();
         Assert.assertEquals(currentUrl, "https://home.openweathermap.org/questions");
     }
+
+    @Test
+    public void sauceLabsTestEvgeniya() {
+        getDriver().get("https://www.saucedemo.com/");
+        getDriver().findElement(By.id("user-name")).sendKeys("standard_user");
+        getDriver().findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("secret_sauce");
+        getDriver().findElement(By.xpath("//input[@type='submit']")).click();
+        String header = getDriver().findElement(By.xpath("//span[@class='title']")).getText();
+        Assert.assertEquals(header,"PRODUCTS");
+    }
 }
