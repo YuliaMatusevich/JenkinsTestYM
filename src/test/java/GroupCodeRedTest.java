@@ -1,4 +1,5 @@
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -6,7 +7,6 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import java.time.Duration;
-
 
 public class GroupCodeRedTest extends BaseTest {
     private final String baseUrlHerokuapp = "https://formy-project.herokuapp.com";
@@ -43,14 +43,11 @@ public class GroupCodeRedTest extends BaseTest {
         Thread.sleep(500);
         String actualResult = getDriver().findElement(By.xpath("//h1")).getText();
         Assert.assertEquals(actualResult, "Autocomplete");
-//        getDriver().findElement(By.id("autocomplete")).clear();
-//        getDriver().findElement(By.id("autocomplete")).sendKeys("Sample text");
         WebElement address = getDriver().findElement(By.xpath("//div/input[@placeholder='Enter address']"));
         address.sendKeys("555 Open road");
         Thread.sleep(500);
         getDriver().findElement(By.xpath("//button[@class='dismissButton']")).click();
         WebElement enteredAddress = getDriver().findElement(By.xpath("//input[@id='autocomplete']"));
-//        enteredAddress.clear();
         Thread.sleep(500);
         Assert.assertEquals(enteredAddress.getAttribute("value"), "555 Open road");
     }
@@ -206,6 +203,8 @@ public class GroupCodeRedTest extends BaseTest {
         inputTest.sendKeys("142 1/2 E Broadway St, Shelbyville, IN 46176");sleep(2);
 
     }
+
+    @Ignore
     @Test
     public void testEmail() throws InterruptedException {
         get(getDriver(),"https://insurance.experian.com/sign-up/email");sleep(4);
@@ -353,6 +352,7 @@ public class GroupCodeRedTest extends BaseTest {
 
         Assert.assertEquals(name3.getText(), "Checkbox3");
     }
+
     @Test
     public void test_scrollPageDownAndFillingFields() {
         final String  fullName ="Don Sanches";
@@ -371,9 +371,23 @@ public class GroupCodeRedTest extends BaseTest {
         Assert.assertEquals(elementFullName.getAttribute("value"), fullName);
         Assert.assertEquals(elementDate.getAttribute("value"), date);
 
-
     }
 
+    @Test
+    public void test_dragAndDropElement(){
+        final String EXPECTED_TEXT_DROPBOX= "Dropped!";
+
+        getDriver().get("http://jqueryui.com/droppable");
+
+        getDriver().switchTo().frame(0);
+        WebElement sourceElement=  getDriver().findElement(By.id("draggable"));
+        WebElement distinationElement=  getDriver().findElement(By.id("droppable"));
+        Actions action = new Actions( getDriver());
+        action.dragAndDrop(sourceElement, distinationElement).build().perform();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id ='droppable']/p")).getText(),
+                EXPECTED_TEXT_DROPBOX);
+    }
 
 
 }
