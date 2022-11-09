@@ -63,11 +63,9 @@ public class GroupCodeRedTest extends BaseTest {
     @Test
     public void testCompleteWebForm() {
         getDriver().get("https://formy-project.herokuapp.com/");
-        getDriver().manage().window().maximize();
-        String actualTitle = getDriver().getTitle();
-        Assert.assertEquals(actualTitle, "Formy");
         getDriver().findElement(By.xpath("//div/li/a[@href='/form']")).click();
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
         getDriver().findElement(By.id("first-name")).sendKeys("John");
         getDriver().findElement(By.id("last-name")).sendKeys("Doe");
         getDriver().findElement(By.id("job-title")).sendKeys("Unemployed");
@@ -77,6 +75,7 @@ public class GroupCodeRedTest extends BaseTest {
         dropdown.selectByValue("1");
         getDriver().findElement(By.xpath("//div/a[@href='/thanks']")).click();
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
         Assert.assertTrue(getDriver().findElement(By.xpath("//div[@class='alert alert-success']")).getText().contains("The form was successfully submitted!"));
     }
 
@@ -402,6 +401,39 @@ public class GroupCodeRedTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id ='droppable']/p")).getText(),
                 EXPECTED_TEXT_DROPBOX);
+    }
+
+    @Test
+    public void positiveLoginTest()  {
+
+        getDriver().get("http://qa.jtalks.org/jcommune/");
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+
+        getDriver().findElement(By.id("signin")).click();
+        getDriver().findElement(By.id("userName")).sendKeys("test-user");
+        getDriver().findElement(By.id("password")).sendKeys("test-user");
+        getDriver().findElement(By.id("signin-submit-button")).click();
+
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+        Assert.assertTrue(getDriver().findElement(By.id("user-dropdown-menu-link")).getText().contains("test-user"));
+    }
+
+
+    @Test
+    public void negativeLoginTest()  {
+        getDriver().get("http://qa.jtalks.org/jcommune/");
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+        getDriver().findElement(By.id("signin")).click();
+        getDriver().findElement(By.id("userName")).sendKeys("test-user");
+        getDriver().findElement(By.id("password")).sendKeys("test");
+        getDriver().findElement(By.id("signin-submit-button")).click();
+
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//span[@class = 'help-inline _error']"))
+                .getText().contains("Неверное имя пользователя или пароль"));
     }
 
 
