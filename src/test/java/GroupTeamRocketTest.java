@@ -77,6 +77,8 @@ public class GroupTeamRocketTest extends BaseTest {
         getDriver().findElement(By.id("about_sidebar_link")).click();
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://saucelabs.com/");
     }
+
+    @Ignore
     @Test
     public void testAtt_RS() {
         getDriver().get("https://www.att.com/");
