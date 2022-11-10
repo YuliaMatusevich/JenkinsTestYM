@@ -40,7 +40,6 @@ public class GroupSpiritMastersTest extends BaseTest {
         javascriptExecutor.executeScript("document.getElementById('" + elementById + "').value='" + emoji + "';");
     }
 
-
     private WebElement findCard_PK(int index) {
         getDriver().get(URL_DEMOQA);
         List<WebElement> category = getDriver().findElements(By.className("card"));
@@ -232,10 +231,12 @@ public class GroupSpiritMastersTest extends BaseTest {
     }
 
     @Test
-    public void zyzBankRegisterLogin_MW_Test() {
+    public void testBankRegisterLogin_MW() {
         getDriver().get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+
         getDriver().findElement(By.xpath("//button[normalize-space()='Bank Manager Login']")).click();
         getDriver().findElement(By.xpath("//button[normalize-space()='Add Customer']")).click();
+
         WebElement firstName = getDriver().findElement(By.xpath("//input[@placeholder='First Name']"));
         firstName.click();
         firstName.sendKeys("John");
@@ -245,19 +246,24 @@ public class GroupSpiritMastersTest extends BaseTest {
         WebElement postcode = getDriver().findElement(By.xpath("//input[@placeholder='Post Code']"));
         postcode.click();
         postcode.sendKeys("12334");
+
         getDriver().findElement(By.xpath("//button[@type='submit']")).click();
+
         Alert confAllert = getDriver().switchTo().alert();
+        String userId = confAllert.getText().substring(confAllert.getText().indexOf(":") + 1);
         confAllert.accept();
+
         getDriver().findElement(By.xpath("//button[@class='btn btn-lg tab btn-primary']")).click();
-        getDriver().findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/button[1]")).click();
+        getDriver().findElement(By.cssSelector(".btn.home")).click();
         WebElement login = getDriver().findElement(By.xpath("//button[normalize-space()='Customer Login']"));
-        Assert.assertEquals(login.getText(), "Customer Login");
         login.click();
         WebElement selectNameVariant = getDriver().findElement(By.id("userSelect"));
         Select dropdown = new Select(selectNameVariant);
-        dropdown.selectByValue("6");
+        dropdown.selectByValue(userId);
         getDriver().findElement(By.xpath("//button[@type='submit']")).click();
-        Assert.assertEquals(getDriver().findElement(By.xpath("/html/body/div/div/div[2]/div/div[1]/strong/span")).getText(), "John NeJonh");
+
+        Assert.assertEquals(
+                getDriver().findElement(By.xpath("//strong/span[@class='fontBig ng-binding']")).getText(), "John NeJonh");
     }
 
     @Test
@@ -331,6 +337,7 @@ public class GroupSpiritMastersTest extends BaseTest {
         Assert.assertEquals(actualToolTip, "You hovered over the Contrary");
     }
 
+    @Ignore
     @Test
     public void testTextBoxFields_AFedorova() {
         getDriver().get(URL_DEMOQA);
@@ -411,7 +418,7 @@ public class GroupSpiritMastersTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-
+    @Ignore
     @Test
     public void testSlider_KI() {
         getDriver().get(URL_DEMOQA);
@@ -550,6 +557,7 @@ public class GroupSpiritMastersTest extends BaseTest {
                 By.xpath("//input[@id='search_str']")).getAttribute("value").equals("Rome"));
     }
 
+    @Ignore
     @Test
     public void test5Openweathermap_captchaError_gdiksanov() {
 
@@ -607,13 +615,39 @@ public class GroupSpiritMastersTest extends BaseTest {
     }
 
     @Test
-    public void testCheckboxesPageHerokuApp_MRakhmanava() {
-        String url = "http://the-internet.herokuapp.com/checkboxes";
-        getDriver().get(url);
-        getDriver().manage().window().maximize();
+    public void testCheckboxesPage_herokuapp_MRakhmanava() {
+        getDriver().get("http://the-internet.herokuapp.com/checkboxes");
         getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         List<WebElement> checkboxes = getDriver().findElements(By.cssSelector("[type=checkbox]"));
         checkboxes.get(1).click();
         Assert.assertFalse(checkboxes.get(1).isSelected());
+    }
+
+    @Test
+    public void testCheckOpenHerokuApp_MAnna503() {
+        getDriver().get("https://formy-project.herokuapp.com/");
+
+        Assert.assertEquals(
+                getDriver().findElement(By.xpath("//li/a[@href='/radiobutton']")).getText(),
+                "Radio Button");
+    }
+
+    @Test
+    public void testOpenPageCooker() {
+
+        final String url = "https://www.russianfood.com/";
+        final String expectedResult = "Быстрый пирог-шарлотка с яблоками";
+
+        getDriver().get(url);
+
+        WebElement searchFormField = getDriver().findElement(By.id("sskw_title"));
+        searchFormField.click();
+        searchFormField.sendKeys("Быстрый пирог-шарлотка с яблоками");
+
+        getDriver().findElement(By.xpath("//button[@type='submit']")).click();
+        getDriver().findElement(By.xpath("//a[@name='el127921']")).click();
+        getDriver().findElement(By.xpath("//h1[@class ='title ']")).getText();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//h1[@class ='title ']")).getText(),expectedResult);
     }
 }
