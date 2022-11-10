@@ -1,4 +1,3 @@
-import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -306,7 +305,6 @@ public class GroupTeamRocketTest extends BaseTest {
         Assert.assertTrue(getDriver().findElement(By.xpath("//h1[@class='Title m-no-margin']")).isDisplayed());
     }
 
-
     @Test
     public void testGoToStepTwoForGetQuote_VadimTref() {
         getDriver().get("https://commercialinsurance.net/");
@@ -548,4 +546,20 @@ public class GroupTeamRocketTest extends BaseTest {
         }
     }
 
+    @Test
+    public void testSearchDuckDuckGo_AnastasiaY() {
+
+        getDriver().get("https://duckduckgo.com/");
+
+        WebElement searchInput = getDriver().findElement(By.id("search_form_input_homepage"));
+        searchInput.sendKeys("siberian tiger");
+
+        getDriver().findElement(By.id("search_button_homepage")).click();
+
+        List<WebElement> resultLinks = getDriver().findElements(
+                By.xpath("//div[@class = 'nrn-react-div']/article//div/h2"));
+        for (WebElement link: resultLinks) {
+            Assert.assertTrue(link.getText().matches("(?i).*tiger.*"));
+        }
+    }
 }
