@@ -146,7 +146,7 @@ public class GroupDreamTeamTest extends BaseTest {
     }
 
     @Test
-    public void test_appointmentDarina() {
+    public void test_appointmentDarina(){
         final var url = "https://katalon-demo-cura.herokuapp.com/";
         final var username = "John Doe";
         final var password = "ThisIsNotAPassword";
@@ -164,6 +164,15 @@ public class GroupDreamTeamTest extends BaseTest {
         var confirmationText = getDriver().findElement(By.xpath("//h2[text() = 'Appointment Confirmation']")).getText();
 
         Assert.assertEquals(confirmationText, "Appointment Confirmation");
+    }
+
+    @Test
+    public void testMintHouseSource2(){
+        getDriver().get("https://minthouse.com/");
+        String currentSource = getDriver().getPageSource();
+        boolean actualResult = currentSource.contains("div");
+
+        Assert.assertTrue(actualResult);
     }
 
     @Test
