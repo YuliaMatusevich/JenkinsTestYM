@@ -651,4 +651,13 @@ public class GroupTeamRocketTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.id("divpaxinfo")).getText(), "5 Adult");
     }
+
+    @Test
+    public void test_WixWebSiteAnnaPav() throws InterruptedException {
+        getDriver().get("https://www.wix.com/");
+        WebElement actualResult = getDriver().findElement(By.xpath("//span[contains(text(), 'Create a website without limits')]"));
+
+        Assert.assertEquals(actualResult.getText(), "Create a website without limits");
+    }
 }
+
