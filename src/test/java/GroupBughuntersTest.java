@@ -255,7 +255,6 @@ public class GroupBughuntersTest extends BaseTest {
     @Test
     public void testCheckErrorMessage (){
         String expectedResult = "Either the username or password you entered seems to be wrong.";
-
         getDriver().get("https://www.bargainmoose.ca/");
         getDriver().findElement(By.xpath("//a[@class='mainmenu--signin-item border-right pr-5 m-0']")).click();
         getDriver().findElement(By.xpath("//span[@class='input-block mb-5 ']/input[@name='identity']"))
