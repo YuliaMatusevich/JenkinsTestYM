@@ -253,7 +253,7 @@ public class GroupBughuntersTest extends BaseTest {
         Assert.assertEquals(registrationValue,registration);
     }
     @Test
-    public void checkErrorMessage (){
+    public void testCheckErrorMessage (){
         String expectedResult = "Either the username or password you entered seems to be wrong.";
 
         getDriver().get("https://www.bargainmoose.ca/");
