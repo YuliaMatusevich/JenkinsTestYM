@@ -7,7 +7,7 @@ import runner.BaseTest;
 
 import java.util.List;
 
-public class PLGroupTest extends BaseTest {
+public class GroupPLTest extends BaseTest {
 
     private final String BASE_URL = "https://www.selenium.dev/";
 
