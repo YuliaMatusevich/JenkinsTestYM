@@ -672,6 +672,7 @@ public class GroupTeamRocketTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id='main-menu-item-creation']")).getText(), "Creation");
     }
+
 @Ignore
     @Test
     public void test_WixCreationAnnaPav() throws InterruptedException {
