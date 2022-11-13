@@ -435,5 +435,6 @@ public class GroupCodeRedTest extends BaseTest {
         getDriver().findElement(By.xpath("//div[@class = \"pop-up-container\"]//button[@class = \"button-round dark\"]"))
                 .click();
 
+
     }
 }
