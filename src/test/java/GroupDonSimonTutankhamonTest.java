@@ -327,6 +327,7 @@ public class GroupDonSimonTutankhamonTest extends BaseTest {
         Assert.assertEquals(sliderValueWindow.getAttribute("value"), String.valueOf(resultSliderValue));
     }
 
+    @Ignore
     @Test
     public void testButtonsClicks_DemoqaCom_iKrlkv() {
 
