@@ -32,7 +32,7 @@ public class GroupDreamTeamTest extends BaseTest {
     }
 
     @Test
-    public void testIna() {
+    public void test_formSubmitted_IC() {
         getDriver().get(URL_WEBFORM);
         getDriver().findElement(By.id("my-text-id")).sendKeys("Hello!");
         getDriver().findElement(By.xpath("//button")).click();
@@ -158,7 +158,7 @@ public class GroupDreamTeamTest extends BaseTest {
     }
 
     @Test
-    public void test_Ina() {
+    public void test_changeColor_IC() {
         getDriver().get(URL_WEBFORM);
         WebElement color = getDriver().findElement(By.name("my-colors"));
         String initialColor = color.getAttribute("value");
@@ -227,4 +227,19 @@ public class GroupDreamTeamTest extends BaseTest {
         Assert.assertTrue(checkbox2.isSelected());
         Assert.assertTrue(buttonDefault.isSelected());
     }
+
+    @Test
+    public void test_RadioButtonCheckBox_IC(){
+        getDriver().get("https://www.selenium.dev/selenium/web/web-form.html");
+        WebElement radio2 = getDriver().findElement(By.id("my-radio-2"));
+        radio2.click();
+        WebElement check2 = getDriver().findElement(By.id("my-check-2"));
+        check2.click();
+
+        Assert.assertTrue(!(getDriver().findElement(By.id("my-radio-1")).isSelected()) && radio2.isSelected());
+        Assert.assertTrue(getDriver().findElement(By.id("my-check-1")).isSelected() && check2.isSelected());
+    }
+
+
+
 }
