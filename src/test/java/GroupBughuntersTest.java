@@ -254,5 +254,19 @@ public class GroupBughuntersTest extends BaseTest {
         String registrationValue = getDriver().findElement(By.xpath("/html/body/table/tbody/tr[6]/td[2]")).getText();
         Assert.assertEquals(registrationValue,registration);
     }
+    @Test
+    public void testCheckErrorMessage (){
+        String expectedResult = "Either the username or password you entered seems to be wrong.";
+        getDriver().get("https://www.bargainmoose.ca/");
+        getDriver().findElement(By.xpath("//a[@class='mainmenu--signin-item border-right pr-5 m-0']")).click();
+        getDriver().findElement(By.xpath("//span[@class='input-block mb-5 ']/input[@name='identity']"))
+                .sendKeys("analama");
+        getDriver().findElement(By.xpath("//span[@class='input-block mb-5 ']/input[@name='password']"))
+                .sendKeys("1234");
+        getDriver().findElement(By.xpath("//button[@class='w-100 btn btn-secondary']")).click();
+        String actualResult = getDriver().findElement(By.xpath("//div[@class='text-danger border border-danger p-3 mb-3']")).getText();
+
+        Assert.assertEquals(expectedResult, actualResult);
+    }
 
 }
