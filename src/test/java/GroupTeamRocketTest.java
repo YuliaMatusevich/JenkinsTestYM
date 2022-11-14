@@ -33,7 +33,11 @@ public class GroupTeamRocketTest extends BaseTest {
     private static final String URL_PICKNPULL = "https://www.picknpull.com/check-inventory/vehicle-search?make=182&model=3611&distance=25&zip=95123&year=";
     private static final String URL_ELCATS = "http://www.elcats.ru/mercedes/";
     private static final String URL_DEMOBLAZE = "https://www.demoblaze.com/";
+
+    private static final String URL_JENKINS = "https://www.jenkins.io/";
+
     private static final String URL_UI_TESTING_PLAYGROUND = "http://uitestingplayground.com";
+
 
     @Test
     public void testAddElementHerokuapp() {
@@ -675,7 +679,7 @@ public class GroupTeamRocketTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//*[@id='main-menu-item-creation']")).getText(), "Creation");
     }
 
-@Ignore
+    @Ignore
     @Test
     public void test_WixCreationAnnaPav() throws InterruptedException {
         getDriver().get("https://www.wix.com/");
@@ -685,7 +689,8 @@ public class GroupTeamRocketTest extends BaseTest {
 
         Assert.assertEquals(actualResult.getText(), "Log In");
     }
-@Ignore
+    
+    @Ignore
     @Test
     public void test_WixLoginAnnaPav() throws InterruptedException {
         getDriver().get("https://www.wix.com/");
@@ -697,6 +702,63 @@ public class GroupTeamRocketTest extends BaseTest {
     }
 
     @Test
+    public void testJenkinsUnstartedDemoWatchMode_EZ() {
+        getDriver().get(URL_JENKINS);
+
+        getDriver().findElement(By.xpath("//div[@id='CollapsingNavbar']/ul[1]/li/button")).click();
+        getDriver().findElement(By.xpath("//a[@href='https://jenkins-x.io/']")).click();
+        getDriver().findElement(By.xpath("//a[@href='/v3/develop/developing/#demo']")).click();
+        getDriver().switchTo().frame(getDriver()
+                .findElement(By.xpath("//iframe[@title='Demo of developing with Jenkins X']")));
+
+        String playerState = getDriver().findElement(By.id("movie_player")).getAttribute("class");
+
+        Assert.assertTrue(playerState.contains("unstarted-mode"));
+    }
+
+    @Test
+    public void testJenkinsPlayingDemoWatchMode_EZ() {
+        getDriver().get(URL_JENKINS);
+
+        getDriver().findElement(By.xpath("//div[@id='CollapsingNavbar']/ul[1]/li/button")).click();
+        getDriver().findElement(By.xpath("//a[@href='https://jenkins-x.io/']")).click();
+        getDriver().findElement(By.xpath("//a[@href='/v3/develop/developing/#demo']")).click();
+        getDriver().switchTo().frame(getDriver()
+                .findElement(By.xpath("//iframe[@title='Demo of developing with Jenkins X']")));
+
+        getDriver().findElement(By.id("player")).click();
+
+        String playerState = getDriver().findElement(By.id("movie_player")).getAttribute("class");
+
+        Assert.assertTrue(playerState.contains("playing-mode"));
+    }
+
+    @Test
+    public void testJenkinsPausedDemoWatchMode_EZ() {
+
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+
+        getDriver().get(URL_JENKINS);
+
+        getDriver().findElement(By.xpath("//div[@id='CollapsingNavbar']/ul[1]/li/button")).click();
+        getDriver().findElement(By.xpath("//a[@href='https://jenkins-x.io/']")).click();
+        getDriver().findElement(By.xpath("//a[@href='/v3/develop/developing/#demo']")).click();
+        getDriver().switchTo().frame(getDriver()
+                .findElement(By.xpath("//iframe[@title='Demo of developing with Jenkins X']")));
+
+        getDriver().findElement(By.id("player")).click();
+        wait.until(ExpectedConditions.attributeContains(getDriver()
+                .findElement(By.id("movie_player")),"class", "playing-mode"));
+
+        getDriver().findElement(By.id("player")).click();
+        wait.until(ExpectedConditions.attributeContains(getDriver()
+                .findElement(By.id("movie_player")),"class", "paused-mode"));
+
+        String playerState = getDriver().findElement(By.id("movie_player")).getAttribute("class");
+
+        Assert.assertTrue(playerState.contains("paused-mode"));
+    }
+
     public void test_UiTestingPlaygroundScrollbars_ArtCh() {
         getDriver().get(URL_UI_TESTING_PLAYGROUND);
 
@@ -707,6 +769,5 @@ public class GroupTeamRocketTest extends BaseTest {
 
         Assert.assertEquals (element.getText (), "Hiding Button");
     }
-
 }
 
