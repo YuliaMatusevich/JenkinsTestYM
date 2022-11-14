@@ -432,8 +432,10 @@ public class GroupCodeRedTest extends BaseTest {
         getDriver().findElement(By.xpath("//div[@class= 'pop-up-container']")).isDisplayed();
         Thread.sleep(5000);
         getDriver().findElement(By.xpath("//span[contains(text(),'clear sky')]/parent::li")).click();
-        getDriver().findElement(By.xpath("//div[@class = \"pop-up-container\"]//button[@class = \"button-round dark\"]"))
+        getDriver().findElement(By.xpath("//div[@class = 'pop-up-container']//button[@class = 'button-round dark']"))
                 .click();
+
+
 
     }
 }
