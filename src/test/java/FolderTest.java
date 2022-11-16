@@ -44,30 +44,31 @@ public class FolderTest extends BaseTest {
     }
 
     @Test
-    public void create() {
+    public void testCreate() {
+        String generatedString = UUID.randomUUID().toString().substring(0, 8);
         getDriver().findElement(By.linkText("New Item")).click();
-        getInputName().sendKeys("First job");
+        getInputName().sendKeys(generatedString);
         getFolder().click();
         getOkButton().click();
         getSaveButton().click();
         getDashboard().click();
-        String job = getDriver().findElement(By.xpath("//span[text()='First job']")).getText();
+        String job = getDriver().findElement(By.xpath("//span[text()='" + generatedString + "']")).getText();
 
-        Assert.assertEquals(job, "First job");
+        Assert.assertEquals(job, generatedString);
     }
 
     @Test
-    public void configureFolderDisplayName() {
-        String firstJobName = "First job";
+    public void testConfigureFolderDisplayName() {
+        String generatedString = UUID.randomUUID().toString().substring(0, 8);
         String secondJobName = "Second job";
         getDriver().findElement(By.linkText("New Item")).click();
-        getInputName().sendKeys(firstJobName);
+        getInputName().sendKeys(generatedString);
         getFolder().click();
         getOkButton().click();
         getSaveButton().click();
         getDashboard().click();
-        getDriver().findElement(By.xpath("//span[text()='" + firstJobName + "']")).click();
-        getDriver().findElement(By.xpath("//a[@href='/job/First%20job/configure']")).click();
+        getDriver().findElement(By.xpath("//span[text()='" + generatedString + "']")).click();
+        getDriver().findElement(By.xpath("//a[@href='/job/" + generatedString + "/configure']")).click();
         getDriver().findElement(By.xpath("//input[@name='_.displayNameOrNull']")).sendKeys(secondJobName);
         getDriver().findElement(By.xpath("//textarea[@name='_.description']")).sendKeys("change name");
         getSaveButton().click();
@@ -78,7 +79,7 @@ public class FolderTest extends BaseTest {
     }
 
     @Test
-    public void deleteFolder() {
+    public void testDeleteFolder() {
         String generatedString = UUID.randomUUID().toString().substring(0, 8);
         getDriver().findElement(By.linkText("New Item")).click();
         getInputName().sendKeys(generatedString);
