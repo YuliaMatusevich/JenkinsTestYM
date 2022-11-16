@@ -43,19 +43,6 @@ public class FolderTest extends BaseTest {
         return getDriver().findElement(DASHBOARD);
     }
 
-    @BeforeMethod
-    public void cleanUp() {
-        List<String> hrefs = getDriver()
-                .findElements(By.xpath("//table[@id='projectstatus']/tbody/tr/td/a"))
-                .stream()
-                .map(element -> element.getAttribute("href"))
-                .collect(Collectors.toList());
-        for (String href : hrefs) {
-            getDriver().get(href + "/delete");
-            getDriver().findElement(By.id("yui-gen1-button")).click();
-        }
-    }
-
     @Test
     public void create() {
         getDriver().findElement(By.linkText("New Item")).click();
