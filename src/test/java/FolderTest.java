@@ -87,4 +87,20 @@ public class FolderTest extends BaseTest {
 
         Assert.assertEquals(changedName, secondJobName);
     }
+
+    @Test
+    public void configureFolderAddDescription() {
+        String firstJobName = "First job";
+        getDriver().findElement(By.linkText("New Item")).click();
+        getInputName().sendKeys(firstJobName);
+        getFolder().click();
+        getOkButton().click();
+        getDriver().findElement(By.xpath("//textarea[@name='_.description']")).sendKeys("Add description");
+        getSaveButton().click();
+        getDashboard().click();
+        getDriver().findElement(By.xpath("//span[text()='" + firstJobName + "']")).click();
+        String description = getDriver().findElement(By.xpath("//div[text()='Add description']")).getText();
+
+        Assert.assertEquals(description, "Add description");
+    }
 }
