@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -6,6 +7,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class FolderTest extends BaseTest {
@@ -86,5 +88,34 @@ public class FolderTest extends BaseTest {
         String changedName = getDriver().findElement(By.xpath("//span[text()='" + secondJobName + "']")).getText();
 
         Assert.assertEquals(changedName, secondJobName);
+    }
+
+    @Test
+    public void deleteFolder() {
+        int leftLimit = 97;
+        int rightLimit = 122;
+        int targetStringLength = 10;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+                    (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        String generatedString = buffer.toString();
+        getDriver().findElement(By.linkText("New Item")).click();
+        getInputName().sendKeys(generatedString);
+        getFolder().click();
+        getOkButton().click();
+        getSaveButton().click();
+        getDashboard().click();
+        getDriver().findElement(By.xpath("//span[text()='" + generatedString + "']")).click();
+        getDriver().findElement(By.xpath("//span//*[@class='icon-edit-delete icon-md']")).click();
+        getDriver().findElement(By.id("yui-gen1-button")).click();
+        getDashboard().click();
+         try {
+            getDriver().findElement((By.xpath("//span[text()='" + generatedString + "']")));
+            Assert.fail("Folder with name " + generatedString + " expected to not to be found on the screen");
+        } catch (NoSuchElementException ignored) {}
     }
 }
