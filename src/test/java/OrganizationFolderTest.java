@@ -9,7 +9,7 @@ public class OrganizationFolderTest extends BaseTest {
     private static final By INPUT_NAME = By.xpath("//input [@name = 'name']");
     private static final By ORGANIZATION_FOLDER = By.xpath("//li[@class = 'jenkins_branch_OrganizationFolder']");
     private static final By OK_BUTTON = By.id("ok-button");
-    private static final By SAVE_BUTTON = By.id("yui-gen17-button");
+    private static final By SAVE_BUTTON = By.xpath("//button[@id='yui-gen17-button']");
     private static final By DASHBOARD = By.xpath("//a[text()='Dashboard']");
 
     public WebElement getInputName() {
