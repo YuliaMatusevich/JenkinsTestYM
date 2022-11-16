@@ -2,13 +2,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 public class FolderTest extends BaseTest {
 
@@ -95,5 +92,27 @@ public class FolderTest extends BaseTest {
             getDriver().findElement((By.xpath("//span[text()='" + generatedString + "']")));
             Assert.fail("Folder with name " + generatedString + " expected to not to be found on the screen");
         } catch (NoSuchElementException ignored) {}
+    }
+    @Test
+    public void testConfigureFolderDisplayNameSaveFirstName() {
+        String generatedString = UUID.randomUUID().toString().substring(0, 8);
+        String secondJobName = "Second job";
+        getDriver().findElement(By.linkText("New Item")).click();
+        getInputName().sendKeys(generatedString);
+        getFolder().click();
+        getOkButton().click();
+        getSaveButton().click();
+        getDashboard().click();
+        getDriver().findElement(By.xpath("//span[text()='" + generatedString + "']")).click();
+        getDriver().findElement(By.xpath("//a[@href='/job/" + generatedString + "/configure']")).click();
+        getDriver().findElement(By.xpath("//input[@name='_.displayNameOrNull']")).sendKeys(secondJobName);
+        getDriver().findElement(By.xpath("//textarea[@name='_.description']")).sendKeys("change name");
+        getSaveButton().click();
+        getDashboard().click();
+        getDriver().findElement(By.xpath("//span[text()='" + secondJobName + "']")).click();
+        String[] namesBlock = getDriver().findElement(By.id("main-panel")).getText().split("\n");
+
+        Assert.assertEquals(namesBlock[0], secondJobName);
+        Assert.assertEquals(namesBlock[1], "Folder name: " + generatedString);
     }
 }
