@@ -4,7 +4,10 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 public class FolderTest extends BaseTest {
@@ -95,8 +98,17 @@ public class FolderTest extends BaseTest {
     }
     @Test
     public void testConfigureFolderDisplayNameSaveFirstName() {
+        List<String> hrefs = getDriver()
+                .findElements(By.xpath("//table[@id='projectstatus']/tbody/tr/td/a"))
+                .stream()
+                .map(element -> element.getAttribute("href"))
+                .collect(Collectors.toList());
+        for (String href : hrefs) {
+            getDriver().get(href + "/delete");
+            getDriver().findElement(By.id("yui-gen1-button")).click();
+        }
         String generatedString = UUID.randomUUID().toString().substring(0, 8);
-        String secondJobName = "Second job";
+        String secondJobName = "Second name";
         getDriver().findElement(By.linkText("New Item")).click();
         getInputName().sendKeys(generatedString);
         getFolder().click();
