@@ -92,7 +92,7 @@ public class FolderTest extends BaseTest {
 
     @Test
     public void deleteFolder() {
-        String generatedString = UUID.randomUUID().toString();
+        String generatedString = UUID.randomUUID().toString().substring(0, 8);
         getDriver().findElement(By.linkText("New Item")).click();
         getInputName().sendKeys(generatedString);
         getFolder().click();
