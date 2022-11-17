@@ -4,7 +4,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -96,6 +95,7 @@ public class FolderTest extends BaseTest {
             Assert.fail("Folder with name " + generatedString + " expected to not to be found on the screen");
         } catch (NoSuchElementException ignored) {}
     }
+
     @Test
     public void testConfigureFolderDisplayNameSaveFirstName() {
         List<String> hrefs = getDriver()
@@ -129,16 +129,16 @@ public class FolderTest extends BaseTest {
     }
 
     @Test
-    public void configureFolderAddDescription() {
-        String firstJobName = "First job";
+    public void testConfigureFolderAddDescription() {
+        String generatedString = UUID.randomUUID().toString().substring(0, 8);
         getDriver().findElement(By.linkText("New Item")).click();
-        getInputName().sendKeys(firstJobName);
+        getInputName().sendKeys(generatedString);
         getFolder().click();
         getOkButton().click();
         getDriver().findElement(By.xpath("//textarea[@name='_.description']")).sendKeys("Add description");
         getSaveButton().click();
         getDashboard().click();
-        getDriver().findElement(By.xpath("//span[text()='" + firstJobName + "']")).click();
+        getDriver().findElement(By.xpath("//span[text()='" + generatedString + "']")).click();
         String description = getDriver().findElement(By.xpath("//div[text()='Add description']")).getText();
 
         Assert.assertEquals(description, "Add description");
