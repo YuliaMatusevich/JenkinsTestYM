@@ -40,4 +40,21 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href ='job/First%20Organization%20Folder/']"))
                 .getText(), "First Organization Folder");
     }
+
+    @Test
+    public void rename(){
+        getDriver().findElement(By.linkText("New Item")).click();
+        getInputName().sendKeys("First Organization Name");
+        getDriver().findElement(By.xpath("//li[@class='jenkins_branch_OrganizationFolder']")).click();
+        getOkButton().click();
+        getDriver().findElement(By.id("yui-gen15-button")).click();
+        getDriver().findElement(By.xpath("//a[@href='/job/First%20Organization%20Name/confirm-rename']")).click();
+        getDriver().findElement(By.xpath("//input [@checkdependson = 'newName']")).clear();
+        getDriver().findElement(By.xpath("//input [@checkdependson = 'newName']"))
+                .sendKeys("New Organization Name");
+        getDriver().findElement(By.xpath("//button[@type='submit']")).click();
+
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), "New Organization Name");
+    }
 }
