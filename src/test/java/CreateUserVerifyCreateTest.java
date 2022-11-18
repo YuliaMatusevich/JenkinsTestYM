@@ -1,4 +1,3 @@
-import com.beust.ah.A;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -90,8 +89,6 @@ public class CreateUserVerifyCreateTest extends BaseTest {
 
         Assert.assertFalse(listStringovFinal.contains(randUserName));
     }
-
-
 
     @Test
     public void testCreateNewUser() {
