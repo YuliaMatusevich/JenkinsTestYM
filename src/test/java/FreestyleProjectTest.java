@@ -14,6 +14,7 @@ import java.util.List;
 
 public class FreestyleProjectTest extends BaseTest {
 
+
     private void click(By by) {getDriver().findElement(by).click();}
     private static final String FREESTYLE_NAME = RandomStringUtils.randomAlphanumeric(10);
     private static final By LINK_NEW_ITEM = By.linkText("New Item");
@@ -139,7 +140,7 @@ public class FreestyleProjectTest extends BaseTest {
         click(By.className("label"));
         click(By.id("ok-button"));
         getDriver().findElement(By.xpath("//button[@type='submit']")).click();
-        final WebElement registeredProject = getDriver().findElement(By.xpath("//h1[@class='job-index-" +
+        WebElement registeredProject = getDriver().findElement(By.xpath("//h1[@class='job-index-" +
                 "headline page-headline']"));
 
         String actualResult = registeredProject.getText().substring(registeredProject.getText().length()-8);
