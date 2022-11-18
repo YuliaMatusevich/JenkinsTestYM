@@ -42,7 +42,7 @@ public class OrganizationFolderTest extends BaseTest {
     }
 
     @Test
-    public void testRenameOrganizationFolder() {
+    public void testRenameOrganizationFolder(){
         getDriver().findElement(By.linkText("New Item")).click();
         getInputName().sendKeys("Existing Organization Name");
         getDriver().findElement(By.xpath("//li[@class='jenkins_branch_OrganizationFolder']")).click();
