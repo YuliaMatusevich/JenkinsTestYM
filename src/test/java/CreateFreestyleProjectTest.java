@@ -4,12 +4,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-public class createFreestyleProjectTest extends BaseTest {
+public class CreateFreestyleProjectTest extends BaseTest {
 
     private void click(By by) {getDriver().findElement(by).click();}
 
     @Test
-    public void createFreestyleProjectWithEngineerName() {
+    public void testCreateFreestyleProjectWithEngineerName() {
 
         String expectedResult = "Engineer";
 
