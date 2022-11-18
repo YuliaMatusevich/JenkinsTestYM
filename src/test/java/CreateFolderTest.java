@@ -20,6 +20,7 @@ public class CreateFolderTest extends BaseTest {
         getDriver().findElement(By.xpath("//button[@type = 'submit']")).click();
         getDriver().findElement(By.id("jenkins-name-icon")).click();
         String actualFolderName = getDriver().findElement(By.linkText(folderName)).getText();
+
         Assert.assertEquals(folderName,actualFolderName);
         deleteCreatedFolder();
     }
