@@ -135,7 +135,7 @@ public class FolderTest extends BaseTest {
         getSaveButton().click();
         getDashboard().click();
         getDriver().findElement(By.xpath("//span[text()='" + generatedStringFolder2 + "']")).click();
-        getDriver().findElement(By.xpath("//img[@style='width: 24px; height: 24px; ']")).click();
+        getDriver().findElement(By.xpath("//span[text()='Move']/..")).click();
         Select select = new Select(getDriver().findElement(By.xpath("//select[@name='destination']")));
         select.selectByValue("/"+generatedString);
         getDriver().findElement(By.xpath("//button[text()='Move']")).click();
