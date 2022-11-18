@@ -4,21 +4,21 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-public class CreateFreestyleProjectTest extends BaseTest {
+public class createFreestyleProjectTest extends BaseTest {
 
     private void click(By by) {getDriver().findElement(by).click();}
 
     @Test
-    public void CreateFreestyleProjectWithEngineerName() {
+    public void createFreestyleProjectWithEngineerName() {
 
-        final String expectedResult = "Engineer";
+        String expectedResult = "Engineer";
 
         click(By.linkText("New Item"));
         getDriver().findElement(By.id("name")).sendKeys(expectedResult);
         click(By.className("label"));
         click(By.id("ok-button"));
         getDriver().findElement(By.xpath("//button[@type='submit']")).click();
-        final WebElement registeredProject = getDriver().findElement(By.xpath("//h1[@class='job-index-" +
+        WebElement registeredProject = getDriver().findElement(By.xpath("//h1[@class='job-index-" +
                 "headline page-headline']"));
 
         String actualResult = registeredProject.getText().substring(registeredProject.getText().length()-8);
