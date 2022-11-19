@@ -6,7 +6,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
 import java.time.Duration;
 
 public class UserProfileTest extends BaseTest {
@@ -39,8 +38,5 @@ public class UserProfileTest extends BaseTest {
             getWait().until(ExpectedConditions.elementToBeClickable(ADD_DES)).click();
             getDriver().findElement(INPUT_FIELD).clear();
             getDriver().findElement(SAVE_BUTTON).click();
-
         }
-
-
     }
