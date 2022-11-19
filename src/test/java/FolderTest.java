@@ -3,6 +3,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import java.util.List;
@@ -32,7 +33,7 @@ public class FolderTest extends BaseTest {
 
     String generatedString = UUID.randomUUID().toString().substring(0, 8);
 
-    public void createFolder() {
+    private void deleteAllFolders() {
         List<String> hrefs = getDriver()
                 .findElements(By.xpath("//table[@id='projectstatus']/tbody/tr/td/a"))
                 .stream()
@@ -42,6 +43,19 @@ public class FolderTest extends BaseTest {
             getDriver().get(href + "/delete");
             getDriver().findElement(By.id("yui-gen1-button")).click();
         }
+    }
+
+    @BeforeMethod
+    public void setUp() {
+        deleteAllFolders();
+    }
+
+    @BeforeMethod
+    public void tearDown() {
+        deleteAllFolders();
+    }
+
+    public void createFolder() {
         getDriver().findElement(By.linkText("New Item")).click();
         getDriver().findElement(INPUT_NAME).sendKeys(generatedString);
         getDriver().findElement(FOLDER).click();
