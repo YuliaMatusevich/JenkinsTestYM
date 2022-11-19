@@ -1,4 +1,6 @@
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -13,6 +15,26 @@ public class NewItemCreatePipelineTest extends BaseTest {
 
     private void click(By by) {
         getDriver().findElement(by).click();
+    }
+
+    private static String getRandomStr() {
+        return RandomStringUtils.random(7, true,true);
+    }
+
+    private void createPipeline(String jobName) {
+        setJobPipeline(jobName);
+        getDriver().findElement(By.id("ok-button")).click();
+    }
+
+    private void setJobPipeline(String jobName) {
+        getDriver().findElement(By.linkText("New Item")).click();
+        getDriver().findElement(By.id("name")).sendKeys(jobName);
+        getDriver().findElement(By.xpath("//span[text()='Pipeline']")).click();
+    }
+
+    private void scrollPageDown() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
     @Test
@@ -113,5 +135,19 @@ public class NewItemCreatePipelineTest extends BaseTest {
         click(By.id("jenkins-name-icon"));
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='job/Pipeline2/']")).getText(), name);
+    }
+
+    @Test
+    public void testCreateNewItemFromOtherNonExistingName() {
+        final String jobName = getRandomStr();
+
+        setJobPipeline(jobName);
+        scrollPageDown();
+        new Actions(getDriver()).pause(1500).moveToElement(getDriver().findElement(By.id("from"))).click()
+                .sendKeys(jobName).perform();
+        getDriver().findElement(By.id("ok-button")).click();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id='main-panel']/p")).getText(),
+                "No such job: " + jobName);
     }
 }
