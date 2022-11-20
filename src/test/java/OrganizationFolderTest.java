@@ -1,3 +1,4 @@
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -80,14 +81,13 @@ public class OrganizationFolderTest extends BaseTest {
     }
 
     @Test
-    public void testRenameOrganizationFolder1() {
+    public void testRenameOrganizationFolder1()  {
         createNewOrganizationFolder();
 
         getDriver().findElement(By.linkText("Rename")).click();
         getDriver().findElement(INPUT_LINE).clear();
         getDriver().findElement(INPUT_LINE).sendKeys(uniqueOrganizationFolderName + "1");
         getDriver().findElement(RENAME_BUTTON).click();
-
         Assert.assertEquals(getDriver().findElement(TITLE).getText(), uniqueOrganizationFolderName + "1");
     }
 
@@ -113,5 +113,16 @@ public class OrganizationFolderTest extends BaseTest {
         }
 
         Assert.assertTrue(actualResult);
+    }
+
+    @Test
+    public void testCreateOrgFolder() {
+        getDriver().findElement(By.linkText("New Item")).click();
+        getDriver().findElement(INPUT_NAME).sendKeys(uniqueOrganizationFolderName + 5);
+        getDriver().findElement(ORGANIZATION_FOLDER).click();
+        getDriver().findElement(OK_BUTTON).click();
+        getDriver().findElement(SAVE_BUTTON).click();
+        Assert.assertEquals(getDriver().
+                findElement(By.xpath("//div[@id='main-panel']/h1")).getText(), uniqueOrganizationFolderName + 5);
     }
 }
