@@ -13,6 +13,7 @@ import java.util.Date;
 
 public class OrganizationFolderTest extends BaseTest {
     private static final String uniqueOrganizationFolderName = "folder" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+    private static final String ORGANIZATION_FOLDER_NAME = RandomStringUtils.randomAlphanumeric(10);
 
     private static final By INPUT_NAME = By.xpath("//input [@name = 'name']");
     private static final By ORGANIZATION_FOLDER = By.xpath("//li[@class = 'jenkins_branch_OrganizationFolder']");
@@ -51,11 +52,11 @@ public class OrganizationFolderTest extends BaseTest {
         getDriver().findElement(SAVE_BUTTON).click();
     }
 
-    @Ignore
+
     @Test
-    public void testCreateOrganizationFolder(){
+    public void testCreateOrganizationFolder() {
         getDriver().findElement(By.linkText("New Item")).click();
-        getInputName().sendKeys("First Organization Folder");
+        getInputName().sendKeys(ORGANIZATION_FOLDER_NAME);
         getOrganizationFolder().click();
         getOkButton().click();
         getApplyButton().click();
