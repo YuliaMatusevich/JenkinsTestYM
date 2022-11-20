@@ -38,6 +38,9 @@ public class OrganizationFolderTest extends BaseTest {
     public WebElement getApplyButton() {
         return getDriver().findElement(APPLY_BUTTON);
     }
+    public WebElement getInputLine() {
+        return getDriver().findElement(INPUT_LINE);
+    }
 
     private void createNewOrganizationFolder() {
         getDriver().findElement(By.linkText("New Item")).click();
@@ -61,18 +64,17 @@ public class OrganizationFolderTest extends BaseTest {
                 .getText(), "First Organization Folder");
     }
 
-    @Ignore
     @Test
     public void testRenameOrganizationFolder() {
         getDriver().findElement(By.linkText("New Item")).click();
         getInputName().sendKeys("Existing Organization Name");
-        getDriver().findElement(By.xpath("//li[@class='jenkins_branch_OrganizationFolder']")).click();
+        getOrganizationFolder().click();
         getOkButton().click();
-        getDriver().findElement(By.id("yui-gen15-button")).click();
-        getDriver().findElement(By.xpath("(//a[@class='task-link '])[7]")).click();
-        getDriver().findElement(By.name("newName")).clear();
-        getDriver().findElement(By.name("newName")).sendKeys("New Organization Folder");
-        getDriver().findElement(By.id("yui-gen1-button")).click();
+        getDriver().findElement(By.xpath("//button[@type='submit']")).click();
+        getDriver().findElement(By.linkText("Rename")).click();
+        getInputLine().clear();
+        getInputLine().sendKeys("New Organization Folder");
+        getDriver().findElement(RENAME_BUTTON).click();
         getDashboard().click();
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='job/New%20Organization%20Folder/']"))
