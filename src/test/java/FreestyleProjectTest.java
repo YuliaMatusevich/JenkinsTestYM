@@ -170,7 +170,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(JOB_HEADLINE_LOCATOR).getText()
                 , String.format("Project %s", FREESTYLE_NAME));
-     }
+    }
 
     @Test(dependsOnMethods = "testCreateNewFreestyleProjectWithCorrectName", priority = 2)
     public void testNoBuildFreestyleProjectChanges() {
@@ -184,7 +184,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test(dependsOnMethods = "testCreateNewFreestyleProjectWithCorrectName")
-    public void testAddDescriptionToFreestyleProject(){
+    public void testAddDescriptionToFreestyleProject() {
         final String descriptionText = "This is job #" + FREESTYLE_NAME;
 
         getDriver().findElement(By.xpath("//a[@href='job/" + FREESTYLE_NAME + "/']")).click();
@@ -212,7 +212,7 @@ public class FreestyleProjectTest extends BaseTest {
         WebElement registeredProject = getDriver().findElement(By.xpath("//h1[@class='job-index-" +
                 "headline page-headline']"));
 
-        final String actualResult = registeredProject.getText().substring(registeredProject.getText().length()-8);
+        final String actualResult = registeredProject.getText().substring(registeredProject.getText().length() - 8);
 
         Assert.assertEquals(actualResult, expectedResult);
     }
@@ -237,5 +237,25 @@ public class FreestyleProjectTest extends BaseTest {
         int countBuildsAfterCreatingNewBuild = getDriver().findElements(countBuilds).size();
 
         Assert.assertEquals(countBuildsAfterCreatingNewBuild, countBuildsBeforeCreatingNewBuild + 1);
+    }
+
+    @Test
+    public void testFreestyleProjectPageIsOpenedFromDashboard() {
+        final String nameProject = "New freestyle project";
+
+        getDriver().findElement(By.linkText("New Item")).click();
+        getDriver().findElement(By.cssSelector("#name")).sendKeys(nameProject);
+        getDriver().findElement(By.cssSelector(".hudson_model_FreeStyleProject")).click();
+        getDriver().findElement(By.cssSelector("#ok-button")).click();
+        getDriver().findElement(By.linkText("Dashboard")).click();
+        getDriver().findElement(By.linkText(nameProject)).click();
+
+        Assert.assertEquals(
+                getDriver().findElement(By.xpath("//div[@id='main-panel']/h1")).getText(),
+                String.format("Project %s", nameProject));
+        Assert.assertEquals(
+                getDriver().findElement(By.xpath("//div[@id='main-panel']/h2")).getText(),
+                "Permalinks");
+        Assert.assertTrue(getDriver().findElement(By.cssSelector("#yui-gen1")).isEnabled());
     }
 }
