@@ -63,7 +63,7 @@ public class CreatePipelineInFolderTest extends BaseTest {
     }
 
     @Test
-    public void testCreatePipeleineFolderOptoinJob() {
+    public void testCreatePipelineFolderOptionJob() {
         linkTextClick(NEW_ITEM);
         idSendKeys(NAME, RANDOM_FOLDER_NAME);
         xpathClick(FOLDER_OPTION);
