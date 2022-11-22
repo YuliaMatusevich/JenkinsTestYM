@@ -184,6 +184,24 @@ public class FreestyleProjectTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(DESCRIPTION_TEXT).getText(), descriptionText);
     }
+
+    @Test
+    public void createFreestyleProjectWithEngineerName() {
+
+        final String expectedResult = "Engineer";
+
+        getDriver().findElement(By.linkText("New Item")).click();
+        getDriver().findElement(By.id("name")).sendKeys(expectedResult);
+        getDriver().findElement(By.className("label")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+        getDriver().findElement(By.xpath("//button[@type='submit']")).click();
+        WebElement registeredProject = getDriver().findElement(By.xpath("//h1[@class='job-index-" +
+                "headline page-headline']"));
+
+        String actualResult = registeredProject.getText().substring(registeredProject.getText().length()-8);
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
 }
 
 
