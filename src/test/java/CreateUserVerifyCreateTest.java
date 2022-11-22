@@ -123,10 +123,10 @@ public class CreateUserVerifyCreateTest extends BaseTest {
     @Test
     public void testCreateUserOfJenkins() {
 
-        String randomUsername = getRandomDigitAndLetterString();
-        String randomPasswordAndConfirmPassword = getRandomDigitAndLetterString();
-        String randomFullName = getRandomDigitAndLetterString();
-        String randomEmail = getRandomDigitAndLetterString();
+        final String randomUsername = getRandomDigitAndLetterString();
+        final String randomPasswordAndConfirmPassword = getRandomDigitAndLetterString();
+        final String randomFullName = getRandomDigitAndLetterString();
+        final String randomEmail = getRandomDigitAndLetterString();
 
         getDriver().findElement(BUTTON_MANAGE_JENKINS).click();
         getDriver().findElement(BUTTON_MANAGE_USERS).click();
