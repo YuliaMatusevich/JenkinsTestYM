@@ -198,7 +198,7 @@ public class FreestyleProjectTest extends BaseTest {
         WebElement registeredProject = getDriver().findElement(By.xpath("//h1[@class='job-index-" +
                 "headline page-headline']"));
 
-        String actualResult = registeredProject.getText().substring(registeredProject.getText().length()-8);
+        final String actualResult = registeredProject.getText().substring(registeredProject.getText().length()-8);
 
         Assert.assertEquals(actualResult, expectedResult);
     }
