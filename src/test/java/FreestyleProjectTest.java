@@ -186,7 +186,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void createFreestyleProjectWithEngineerName() {
+    public void testCreateFreestyleProjectWithEngineerName() {
 
         final String expectedResult = "Engineer";
 
