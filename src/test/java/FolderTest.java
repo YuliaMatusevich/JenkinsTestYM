@@ -3,10 +3,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -89,7 +87,7 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(job, generatedString);
     }
 
-    @Ignore
+
     @Test
     public void testConfigureFolderDisplayName() {
         String secondJobName = "Second job";
