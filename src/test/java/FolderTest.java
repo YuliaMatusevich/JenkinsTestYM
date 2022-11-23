@@ -46,7 +46,12 @@ public class FolderTest extends BaseTest {
                 .collect(Collectors.toList());
         for (String href : hrefs) {
             getDriver().get(href + "/delete");
-            getDriver().findElement(By.id("yui-gen1-button")).click();
+            try {
+                getDriver().findElement(By.id("yui-gen1-button")).click();
+            } catch (NoSuchElementException ex) {
+                String title = getDriver().getTitle();
+                System.out.println("Job not found (" + title + "): " + href);
+            }
         }
         getDriver().findElement(By.linkText("New Item")).click();
         getDriver().findElement(INPUT_NAME).sendKeys(generatedString);
