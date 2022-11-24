@@ -72,4 +72,15 @@ public class PipelineTest extends BaseTest {
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id='description']/div[1]")).getText(), pipelinePojectName + "description");
     }
+
+    @Test
+    public void testNewPipelineItemAppearedInTheList() {
+
+        String pipelineProjectName = generatePipelineProjectName();
+        createPipelineProject(pipelineProjectName);
+
+        Assert.assertEquals(getDriver().findElement(
+                By.xpath("//a[@href='job/" + pipelineProjectName + "/']")).getText(), pipelineProjectName);
+    }
+
 }
