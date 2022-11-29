@@ -17,7 +17,10 @@ public class EditViewTest extends BaseTest{
     private static final By MY_VIEWS_XP = By.xpath("//a[@href='/me/my-views']");
     private static final By REGEX_CSS = By.cssSelector("input[name='useincluderegex']+label");
     private static final By INPUT_NAME_ID = By.id("name");
+    private static final By STATUS_DRAG_HANDLE_XP = By.xpath("//div[@descriptorid='hudson.views.StatusColumn']//div[@class='dd-handle']");
+    private static final By WEATHER_DRAG_HANDLE_XP = By.xpath("//div[@descriptorid='hudson.views.WeatherColumn']//div[@class='dd-handle']");
     private static final By DELETE_VIEW_CSS = By.cssSelector("a[href='delete']");
+    private static final By ADD_COLUMN_CSS = By.cssSelector(".hetero-list-add[suffix='columns']");
 
 
     private void createItem(int i){
@@ -137,6 +140,26 @@ public class EditViewTest extends BaseTest{
     }
 
     @Test
+    public void testListViewAddNewColumn() {
+        listViewSeriesPreConditions();
+        List<WebElement> itemsToSelect = getDriver().findElements(ITEM_OPTION_CSS);
+        for (int i = 0; i < 5; i++) {
+            itemsToSelect.get(i).click();
+        }
+
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView({block: 'center'})", getDriver().findElement(ADD_COLUMN_CSS));
+        new Actions(getDriver()).pause(700).moveToElement(getDriver().findElement(ADD_COLUMN_CSS)).click().perform();
+        getDriver().findElement(By.xpath("//a[@class='yuimenuitemlabel' and text()='Git Branches']")).click();
+        getDriver().findElement(SUBMIT_BUTTON_CSS).click();
+
+        String expectedResult = "Git Branches";
+        String actualResult = getDriver().findElement(By.cssSelector("#projectstatus th:last-child a")).getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+        }
+
+@Test
     public void testListViewAddAllItems() {
         listViewSeriesPreConditions();
 
