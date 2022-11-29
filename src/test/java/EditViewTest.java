@@ -107,7 +107,6 @@ public class EditViewTest extends BaseTest{
     }
 
     @Test
-
     public void testListViewAddFiveItems() {
         listViewSeriesPreConditions();
 
@@ -136,6 +135,20 @@ public class EditViewTest extends BaseTest{
 
         Assert.assertTrue(filterBuildQueueStatus.equals("true") && filterBuildExecutorsStatus.equals("true"));
     }
+
+    @Test
+    public void testListViewAddAllItems() {
+        listViewSeriesPreConditions();
+
+        List<WebElement> itemsToSelect = getDriver().findElements(ITEM_OPTION_CSS);
+        int expectedResult = itemsToSelect.size();
+        itemsToSelect.forEach(WebElement::click);
+        getDriver().findElement(SUBMIT_BUTTON_CSS).click();
+        int actualResult = getDriver().findElements(ITEM_PATH_CSS).size();
+
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+
 
     @Test
     public void testListViewAddRegexFilter() {
