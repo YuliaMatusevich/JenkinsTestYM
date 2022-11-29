@@ -1,4 +1,5 @@
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -14,6 +15,7 @@ public class EditViewTest extends BaseTest{
     private static final By ITEM_OPTION_CSS = By.cssSelector("input[json='true']+label");
     private static final By FILTER_QUEUE_CSS = By.cssSelector("input[name=filterQueue]+label");
     private static final By MY_VIEWS_XP = By.xpath("//a[@href='/me/my-views']");
+    private static final By REGEX_CSS = By.cssSelector("input[name='useincluderegex']+label");
     private static final By INPUT_NAME_ID = By.id("name");
     private static final By DELETE_VIEW_CSS = By.cssSelector("a[href='delete']");
 
@@ -60,6 +62,7 @@ public class EditViewTest extends BaseTest{
         getDriver().findElement(SUBMIT_BUTTON_CSS).click();
     }
 
+
     public void goToEditView() {
         getDriver().findElement(DASHBOARD_CSS).click();
         getDriver().findElement(MY_VIEWS_XP).click();
@@ -72,6 +75,13 @@ public class EditViewTest extends BaseTest{
         deleteAllViews();
         createGlobalView();
     }
+
+    public void listViewSeriesPreConditions() {
+        createManyItems(1);
+        deleteAllViews();
+        createListView();
+    }
+
     public void deleteAllViews(){
         getDriver().findElement(MY_VIEWS_XP).click();
         List<WebElement> allViews = getDriver().findElements(By.xpath("//div[@class='tab']/a[contains(@href, 'my-views/view')]"));
@@ -81,12 +91,6 @@ public class EditViewTest extends BaseTest{
             getDriver().findElement(SUBMIT_BUTTON_CSS).click();
             allViews = getDriver().findElements(By.xpath("//div[@class='tab']/a[contains(@href, 'my-views/view')]"));
         }
-    }
-
-    public void listViewSeriesPreConditions() {
-        createManyItems(1);
-        deleteAllViews();
-        createListView();
     }
 
     @Test
@@ -117,6 +121,7 @@ public class EditViewTest extends BaseTest{
         Assert.assertEquals(actualResult,5);
     }
 
+    @Test
     public void testGlobalViewAddBothFilters() {
         globalViewSeriesPreConditions();
 
@@ -130,5 +135,23 @@ public class EditViewTest extends BaseTest{
                 By.cssSelector("input[name=filterExecutors]")).getAttribute("checked");
 
         Assert.assertTrue(filterBuildQueueStatus.equals("true") && filterBuildExecutorsStatus.equals("true"));
+    }
+
+    @Test
+    public void testListViewAddRegexFilter() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        createManyItems(3);
+        List<WebElement> itemsToSelect = getDriver().findElements(By.cssSelector(".jenkins-table__link"));
+        long expectedResult = itemsToSelect.stream().filter(element -> element.getText().contains("9")).count();
+        deleteAllViews();
+        createListView();
+
+        js.executeScript("arguments[0].scrollIntoView({block: 'center'})", getDriver().findElement(REGEX_CSS));
+        new Actions(getDriver()).pause(500).moveToElement(getDriver().findElement(REGEX_CSS)).click().perform();
+        getDriver().findElement(By.cssSelector("input[name='includeRegex']")).sendKeys(".*9.*");
+        getDriver().findElement(SUBMIT_BUTTON_CSS).click();
+        long actualResult = getDriver().findElements(By.cssSelector(".jenkins-table__link")).size();
+
+        Assert.assertEquals(actualResult,expectedResult);
     }
 }
