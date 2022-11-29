@@ -10,6 +10,8 @@ public class EditViewTest extends BaseTest{
     private static final String VIEW_PATH = String.format("//a[contains(@href, '/my-views/view/%s/')]", RANDOM_ALPHANUMERIC);
     private static final By DASHBOARD_CSS = By.cssSelector("#jenkins-name-icon");
     private static final By SUBMIT_BUTTON_CSS = By.cssSelector("[type='submit']");
+    private static final By ITEM_PATH_CSS = By.cssSelector(".jenkins-table__link");
+    private static final By ITEM_OPTION_CSS = By.cssSelector("input[json='true']+label");
     private static final By FILTER_QUEUE_CSS = By.cssSelector("input[name=filterQueue]+label");
     private static final By MY_VIEWS_XP = By.xpath("//a[@href='/me/my-views']");
     private static final By INPUT_NAME_ID = By.id("name");
@@ -49,6 +51,15 @@ public class EditViewTest extends BaseTest{
         getDriver().findElement(SUBMIT_BUTTON_CSS).click();
     }
 
+    public void createListView() {
+        getDriver().findElement(DASHBOARD_CSS).click();
+        getDriver().findElement(MY_VIEWS_XP).click();
+        getDriver().findElement(By.cssSelector(".addTab")).click();
+        getDriver().findElement(INPUT_NAME_ID).sendKeys(RANDOM_ALPHANUMERIC);
+        getDriver().findElement(By.xpath("//label[@class='jenkins-radio__label' and @for='hudson.model.ListView']")).click();
+        getDriver().findElement(SUBMIT_BUTTON_CSS).click();
+    }
+
     public void goToEditView() {
         getDriver().findElement(DASHBOARD_CSS).click();
         getDriver().findElement(MY_VIEWS_XP).click();
@@ -72,6 +83,12 @@ public class EditViewTest extends BaseTest{
         }
     }
 
+    public void listViewSeriesPreConditions() {
+        createManyItems(1);
+        deleteAllViews();
+        createListView();
+    }
+
     @Test
     public void testGlobalViewAddFilterBuildQueue() {
         globalViewSeriesPreConditions();
@@ -86,6 +103,20 @@ public class EditViewTest extends BaseTest{
     }
 
     @Test
+
+    public void testListViewAddFiveItems() {
+        listViewSeriesPreConditions();
+
+        List<WebElement> itemsToSelect = getDriver().findElements(ITEM_OPTION_CSS);
+        for (int i = 0; i < 5; i++) {
+            itemsToSelect.get(i).click();
+        }
+        getDriver().findElement(SUBMIT_BUTTON_CSS).click();
+        int actualResult = getDriver().findElements(ITEM_PATH_CSS).size();
+
+        Assert.assertEquals(actualResult,5);
+    }
+
     public void testGlobalViewAddBothFilters() {
         globalViewSeriesPreConditions();
 
