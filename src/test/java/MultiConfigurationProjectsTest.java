@@ -9,7 +9,7 @@ public class MultiConfigurationProjectsTest extends BaseTest {
     private static final By DASHBOARD = By.xpath("//img[@id='jenkins-head-icon']");
 
     @Test
-    public void testDisableMultiConfigurationProject() {
+    public void testDisableMultiConfigurationProject(){
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.id("name")).sendKeys(PROJECT_RANDOM_NAME);
         getDriver().findElement(By.xpath("(//label)[4]")).click();
