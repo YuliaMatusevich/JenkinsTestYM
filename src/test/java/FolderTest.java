@@ -5,7 +5,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,6 +23,8 @@ public class FolderTest extends BaseTest {
     private static final By FREESTYLE_PROJECT = By.xpath("//span[text()='Freestyle project']");
     private static final By CREATE_A_JOB = By.linkText("Create a job");
     private static final By ADD_DESCRIPTION = By.linkText("Add description");
+    private static final By SUBMIT_DELETE_BUTTON = By.xpath("//button[@type= 'submit']");
+    private static final By DESCRIPTION = By.name("_.description");
 
     public Actions getAction() {
         return new Actions(getDriver());
@@ -47,7 +48,12 @@ public class FolderTest extends BaseTest {
                 .collect(Collectors.toList());
         for (String href : hrefs) {
             getDriver().get(href + "/delete");
-            getDriver().findElement(By.id("yui-gen1-button")).click();
+            try {
+                getDriver().findElement(By.id("yui-gen1-button")).click();
+            } catch (NoSuchElementException ex) {
+                String title = getDriver().getTitle();
+                System.out.println("Job not found (" + title + "): " + href);
+            }
         }
         getDriver().findElement(By.linkText("New Item")).click();
         getDriver().findElement(INPUT_NAME).sendKeys(generatedString);
@@ -79,6 +85,11 @@ public class FolderTest extends BaseTest {
         return projectTableNames;
     }
 
+    public void scrollByVisibleElement(By by) {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
+    }
+
     @Test
     public void testCreate() {
         createFolder();
@@ -87,6 +98,7 @@ public class FolderTest extends BaseTest {
 
         Assert.assertEquals(job, generatedString);
     }
+
 
     @Test
     public void testConfigureFolderDisplayName() {
@@ -213,24 +225,18 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(getProjectNameFromProjectTable().contains(freestyleProjectName));
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreate")
     public void testCreateMultiConfigurationProjectInFolder() {
 
-        final String folderName = getRandomName ();
-        final String multiConfigurationProjectName = getRandomName ();
+        final String multiConfigurationProjectName = getRandomName();
 
-        getDriver().findElement(CREATE_NEW_ITEM).click();
-        getDriver().findElement(INPUT_NAME).sendKeys(folderName);
-        getDriver().findElement(By.className("com_cloudbees_hudson_plugins_folder_Folder")).click();
-        getDriver().findElement(OK_BUTTON).click();
-        getDriver().findElement(SAVE_BUTTON).click();
-
-        getDriver().findElement(By.xpath("//span[text() = 'Create a job']")).click();
+        getDriver().findElement(By.xpath("//span[text()='" + generatedString + "']")).click();
+        getDriver().findElement(CREATE_A_JOB).click();
         getDriver().findElement(INPUT_NAME).sendKeys(multiConfigurationProjectName);
         getDriver().findElement(By.xpath("//span[text()='Multi-configuration project']")).click();
         getDriver().findElement(OK_BUTTON).click();
         getDriver().findElement(SAVE_BUTTON).click();
-        getDriver().findElement(By.xpath("//a[text()='" + folderName + "']")).click();
+        getDriver().findElement(By.xpath("//a[text()='" + generatedString + "']")).click();
 
         Assert.assertTrue(getProjectNameFromProjectTable().contains(multiConfigurationProjectName));
     }
@@ -345,7 +351,7 @@ public class FolderTest extends BaseTest {
     }
 
     @Test
-    public void testDeleteFolderUsingDropDown(){
+    public void testDeleteFolderUsingDropDown() {
 
         final String folderName = getRandomName();
 
@@ -364,7 +370,7 @@ public class FolderTest extends BaseTest {
     }
 
     @Test
-    public void testAddFolderDescription(){
+    public void testAddFolderDescription() {
         String folderName = getRandomName();
         String folderDescription = getRandomName();
 
@@ -396,5 +402,37 @@ public class FolderTest extends BaseTest {
         getDriver().findElement(By.linkText(folderName)).click();
 
         Assert.assertTrue(getProjectNameFromProjectTable().contains(freestyleProjectName));
+    }
+
+    @Test
+    public void testCreateFreestyleProjectInFolderByNewItemDropDownInCrambMenu(){
+        final String folderName = getRandomName();
+        final String freestyleProjectName = getRandomName();
+
+        createProjectFromDashboard(FOLDER, folderName);
+
+        getDriver().findElement(By.xpath("//a[text()='" + folderName + "']//following-sibling::button")).click();
+        getDriver().findElement(By.xpath("//li/a/span[text()='New Item']")).click();
+        getDriver().findElement(INPUT_NAME).sendKeys(freestyleProjectName);
+        getDriver().findElement(FREESTYLE_PROJECT).click();
+        getDriver().findElement(OK_BUTTON).click();
+        getDriver().findElement(By.xpath("//a[text()='" + folderName + "']")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.cssSelector("#job_"+ freestyleProjectName)).isEnabled());
+    }
+    @Test
+    public void testCreateNewMagicFolder() {
+
+        getDriver().findElement(CREATE_NEW_ITEM).click();
+        getDriver().findElement(INPUT_NAME).sendKeys("Magic Folder");
+        scrollByVisibleElement(FOLDER);
+        new Actions(getDriver()).pause(1500).moveToElement(getDriver().findElement(FOLDER)).click()
+                .perform();
+        getDriver().findElement(OK_BUTTON).click();
+        getDriver().findElement(DESCRIPTION).sendKeys("Wand,mustache,top hat");
+        getDriver().findElement(SAVE_BUTTON).click();
+        getDriver().findElement(DASHBOARD).click();
+
+        Assert.assertTrue(getProjectNameFromProjectTable().contains("Magic Folder"));
     }
 }

@@ -1,24 +1,25 @@
 import org.apache.commons.lang3.RandomStringUtils;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.TestUtils;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NewItemCreatePipelineTest extends BaseTest {
 
-    private static final By NEW_ITEM = By.linkText("New Item");
-    private static final By FIELD_NAME = By.id("name");
     private static final By OK_BUTTON = By.id("ok-button");
     private static final By SAVE_BUTTON = By.id("yui-gen6-button");
     private static final By LINK_TO_DASHBOARD  = By.id("jenkins-name-icon");
+
+    private static final String RANDOM_STRING  = TestUtils.getRandomStr(7);
+    private static final String ITEM_DESCRIPTION = "This is a sample " +
+            "description for item";
 
     private static String getRandomStr() {
         return RandomStringUtils.random(7, true,true);
@@ -30,14 +31,13 @@ public class NewItemCreatePipelineTest extends BaseTest {
     }
 
     private void setJobPipeline(String jobName) {
-        getDriver().findElement(NEW_ITEM).click();
-        getDriver().findElement(FIELD_NAME).sendKeys(jobName);
+        getDriver().findElement(By.linkText("New Item")).click();
+        getDriver().findElement(By.id("name")).sendKeys(jobName);
         getDriver().findElement(By.xpath("//span[text()='Pipeline']")).click();
     }
 
     private void scrollPageDown() {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        ((JavascriptExecutor) getDriver()).executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
     @Test
@@ -98,13 +98,11 @@ public class NewItemCreatePipelineTest extends BaseTest {
 
     @Test
     public void testCreateNewPipeline() {
-        final String nameOfNewPipeline = getRandomStr();
-
-        createPipeline(nameOfNewPipeline);
+        createPipeline(RANDOM_STRING);
         new Actions(getDriver()).moveToElement(getDriver().findElement(SAVE_BUTTON)).click().perform();
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//h1[@class='job-index-headline page-headline']")).getText(),
-                String.format("Pipeline %s", nameOfNewPipeline));
+                String.format("Pipeline %s", RANDOM_STRING));
     }
 
     @Test
@@ -119,6 +117,64 @@ public class NewItemCreatePipelineTest extends BaseTest {
     }
 
     @Test
+    public void testDeletePipelineFromDashboard() {
+        final String jobName = getRandomStr();
+
+        createPipeline(jobName);
+        getDriver().findElement(LINK_TO_DASHBOARD).click();
+        getDriver().findElement(By.xpath(String.format("//a[@href='job/%s/']", jobName))).click();
+        getDriver().findElement(By.xpath("//span[text()='Delete Pipeline']")).click();
+        getDriver().switchTo().alert().accept();
+
+        List<WebElement> allJobsInDashboard = getDriver().findElements(By.xpath(
+                "//a[@class='jenkins-table__link model-link inside']"));
+        for (WebElement element : allJobsInDashboard) {
+            if (element.getText().contains(jobName)) {
+                Assert.fail();
+                break;
+            } else {
+                Assert.assertTrue(true);
+            }
+        }
+    }
+
+    @Test(dependsOnMethods = "testCreateNewPipeline")
+    public void testAddingGitRepository() {
+        final String gitHubRepo = "https://github.com/patriotby07/simple-maven-project-with-tests";
+
+        getDriver().findElement((By.xpath(String.format(
+                "//tr[@id='job_%s']//button[@class='jenkins-menu-dropdown-chevron']", RANDOM_STRING)))).click();
+        getDriver().findElement(By.linkText("Configure")).click();
+        getDriver().findElement(By.xpath("//label[text()='GitHub project']")).click();
+        new Actions(getDriver()).moveToElement(getDriver().findElement(By.name("_.projectUrlStr"))).click()
+                .sendKeys(gitHubRepo).perform();
+        getDriver().findElement(SAVE_BUTTON).click();
+
+        final WebElement sideMenuGitHub = getDriver().findElement(By.xpath("(//a[contains(@class,'task-link')])[7]"));
+
+        Assert.assertTrue(sideMenuGitHub.isDisplayed());
+        Assert.assertTrue(sideMenuGitHub.getAttribute("href").contains(gitHubRepo));
+    }
+
+    @Test(dependsOnMethods = "testAddingGitRepository")
+    public void testCheckingDisappearanceOfWarningMessage() {
+        getDriver().findElement(By.linkText("Manage Jenkins")).click();
+        getDriver().findElement(By.xpath("//a[@href='configureTools']")).click();
+        scrollPageDown();
+
+        new Actions(getDriver()).pause(1000).moveToElement(getDriver().findElement(By.id("yui-gen9-button"))).click().perform();
+        scrollPageDown();
+        WebElement fieldName = getDriver().findElement(By.cssSelector("input[checkurl$='MavenInstallation/checkName']"));
+        fieldName.click();
+        fieldName.sendKeys("Maven");
+        getDriver().findElement(By.id("yui-gen5-button")).click();
+
+        Assert.assertFalse(getDriver().findElement(
+                By.xpath("//input[contains(@checkurl,'MavenInstallation/checkName')]/parent::div/following-sibling::div"))
+                    .getText().contains("Required"));
+    }
+
+    @Test(dependsOnMethods = "testCheckingDisappearanceOfWarningMessage")
     public void testCreateNewItemFromOtherNonExistingName() {
         final String jobName = getRandomStr();
 
@@ -133,21 +189,15 @@ public class NewItemCreatePipelineTest extends BaseTest {
     }
 
     @Test
-    public void testDeletePipelineFromDashboard() {
-        final String jobName = getRandomStr();
-        final By createdJob = By.xpath("//a[@href='job/" + jobName + "/']");
+    public void testCreateNewPipelineWithDescription () {
+        final  String jobName = RANDOM_STRING;
 
-        createPipeline(jobName);
-        getDriver().findElement(LINK_TO_DASHBOARD).click();
-        new Actions(getDriver()).moveToElement(getDriver().findElement(createdJob)).click().perform();
-        new Actions(getDriver()).moveToElement(getDriver().findElement(
-                By.xpath("//span[contains(text(), 'Delete Pipeline')]"))).click().perform();
+        setJobPipeline(jobName);
+        getDriver().findElement(OK_BUTTON).click();
+        getDriver().findElement(By.cssSelector(".jenkins-input")).sendKeys(ITEM_DESCRIPTION);
+        getDriver().findElement(SAVE_BUTTON).click();
 
-        Alert alert = getDriver().switchTo().alert();
-        alert.accept();
-
-        List<WebElement> allJobsInDashboard = getDriver().findElements(
-                By.xpath("//a[@class='jenkins-table__link model-link inside']"));
-        Assert.assertFalse(allJobsInDashboard.contains(createdJob));
+        Assert.assertEquals(getDriver().findElement(By.cssSelector("#description >*:first-child"))
+                .getAttribute("textContent"),ITEM_DESCRIPTION);
     }
 }
