@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.TestUtils;
 
+import java.sql.SQLOutput;
+
 public class BuildHistoryTest extends BaseTest {
 
     private static final By BUILD_NOW_BTN = By.xpath("//body[1]/div[3]/div[1]/div[1]/div[5]/span[1]");
@@ -18,6 +20,8 @@ public class BuildHistoryTest extends BaseTest {
     private static final By A_UL_BREADCRUMBS = By.xpath("//ul[@id='breadcrumbs']//a");
     private static final By BUILD_HISTORY = By.linkText("Build History");
     private static final By H1_HEADER_BULD_HISTORY = By.xpath("//div[@class='jenkins-app-bar__content']/h1");
+    private static final By BUILD_NOW = By.linkText("Build Now");
+    private static final By TREND_BUILD = By.xpath("//div[@class='jenkins-pane__header--build-history']/a");
 
     private void inputName(By by) {
         getDriver().findElement(by).sendKeys(TestUtils.getRandomStr(8));
@@ -91,5 +95,16 @@ public class BuildHistoryTest extends BaseTest {
         Assert.assertEquals(getText(H1_HEADER_BULD_HISTORY), "Build History of Jenkins");
     }
 
+    @Test
+    public void testCheckValidityCreateBuildOnPage() {
+        getDriver().findElement(NEW_ITEM).click();
+        getDriver().findElement(INPUT_NAME).sendKeys(TestUtils.getRandomStr(8));
+        getDriver().findElement(FREESTYLE_PROJECT).click();
+        getDriver().findElement(OK_BUTTON).click();
+        getDriver().findElement(SAVE_BUTTON).click();
+        getDriver().findElement(BUILD_NOW).click();
+        getDriver().findElement(TREND_BUILD).click();
 
+        Assert.assertTrue(getDriver().findElement(By.id("map")).isDisplayed());
+    }
 }
