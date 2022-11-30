@@ -39,7 +39,14 @@ public class BuildHistoryTest extends BaseTest {
         return getDriver().findElement(by).getText();
     }
 
-
+    private void createProject() {
+        clickElement(NEW_ITEM);
+        inputName(INPUT_NAME);
+        clickElement(FREESTYLE_PROJECT);
+        clickElement(OK_BUTTON);
+        inputName(DESCRIPTION_FIELD);
+        clickElement(SAVE_BUTTON);
+    }
 
     @Test
     public void testVerifyRedirectToMainPage() {
@@ -85,13 +92,7 @@ public class BuildHistoryTest extends BaseTest {
 
     @Test
     public void testH1Header_BuildHistory() {
-        clickElement(NEW_ITEM);
-        clickElement(INPUT_NAME);
-        inputName(INPUT_NAME);
-        clickElement(FREESTYLE_PROJECT);
-        clickElement(OK_BUTTON);
-        inputName(DESCRIPTION_FIELD);
-        clickElement(SAVE_BUTTON);
+        createProject();
         clickElement(A_UL_BREADCRUMBS);
         clickElement(BUILD_HISTORY);
 
@@ -100,23 +101,19 @@ public class BuildHistoryTest extends BaseTest {
 
     @Test
     public void testCheckValidityCreateBuildOnPage() {
-        getDriver().findElement(NEW_ITEM).click();
-        getDriver().findElement(INPUT_NAME).sendKeys(TestUtils.getRandomStr(8));
-        getDriver().findElement(FREESTYLE_PROJECT).click();
-        getDriver().findElement(OK_BUTTON).click();
-        getDriver().findElement(SAVE_BUTTON).click();
-        getDriver().findElement(BUILD_NOW).click();
-        getDriver().findElement(TREND_BUILD).click();
+        createProject();
+        clickElement(BUILD_NOW);
+        clickElement(TREND_BUILD);
 
         Assert.assertTrue(getDriver().findElement(By.id("map")).isDisplayed());
     }
+
     @Test
     public void testIfSMLIconsExist() {
-        getDriver().findElement(BUILD_HISTORY).click();
+        clickElement(BUILD_HISTORY);
+
         Assert.assertTrue(getDriver().findElement(BUTTON_S).isDisplayed());
         Assert.assertTrue(getDriver().findElement(BUTTON_M).isDisplayed());
         Assert.assertTrue(getDriver().findElement(BUTTON_L).isDisplayed());
-
     }
-
 }
