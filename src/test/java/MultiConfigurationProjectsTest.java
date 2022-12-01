@@ -21,4 +21,15 @@ public class MultiConfigurationProjectsTest extends BaseTest {
         Assert.assertTrue(getDriver().findElement
                 (By.xpath("(//*[local-name()='svg' and @tooltip='Disabled'])[2]")).isDisplayed());
     }
+
+    @Test (dependsOnMethods = "testDisableMultiConfigurationProject")
+    public void testEnableMultiConfigurationProject(){
+
+        getDriver().findElement(By.xpath("//a[@href='job/" + PROJECT_RANDOM_NAME + "/']")).click();
+        getDriver().findElement(By.id("yui-gen1-button")).click();
+        getDriver().findElement(DASHBOARD).click();
+
+        Assert.assertTrue(getDriver().findElement
+                (By.xpath("(//*[local-name()='svg' and @aria-hidden='true'])")).isDisplayed());
+    }
 }
