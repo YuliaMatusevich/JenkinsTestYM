@@ -23,7 +23,7 @@ public class MultiConfigurationProjectsTest extends BaseTest {
     }
 
     @Test (dependsOnMethods = "testDisableMultiConfigurationProject")
-    public void testEnableMultiConfigurationProject(){
+    public void testEnableMultiConfigurationProject() {
 
         getDriver().findElement(By.xpath("//a[@href='job/" + PROJECT_RANDOM_NAME + "/']")).click();
         getDriver().findElement(By.id("yui-gen1-button")).click();
