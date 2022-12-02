@@ -1,5 +1,7 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -211,5 +213,37 @@ public class NewItemCreatePipelineTest extends BaseTest {
                 .getAttribute("textContent").substring(9),jobName);
         Assert.assertEquals(getDriver().findElement(By.cssSelector("#description >*:first-child"))
                 .getAttribute("textContent"),ITEM_DESCRIPTION);
+    }
+
+    @Test(dependsOnMethods = "testCreatePipelineWithName")
+    public void testPipelineStepFromSCMConfiguration() {
+
+        getDriver().findElements(By.xpath("//tr/td/a")).get(0).click();
+        getDriver().findElement(By.linkText("Configure")).click();
+
+        List<WebElement> selectDropDownList = getDriver().findElements(By.className("dropdownList"));
+        new Select(selectDropDownList.get(1)).selectByVisibleText("Pipeline script from SCM");
+
+        new Select(getDriver().findElement(By.cssSelector(".dropdownList-container.tr .dropdownList"))).selectByValue("1");
+        getDriver().findElement(By.xpath("//input[@checkdependson='credentialsId']")).sendKeys("https://github.com/olpolezhaeva/MyAppium");
+
+        WebElement branchField = getDriver().findElement(By.xpath("//div[@name='branches']//input[@default='*/master']"));
+        branchField.clear();
+        branchField.sendKeys("*/main");
+
+        WebElement jenkinsFilePathField = getDriver().findElement(By.xpath("//input[@default='Jenkinsfile']"));
+        jenkinsFilePathField.clear();
+        jenkinsFilePathField.sendKeys("jenkins/first.jenkins");
+
+        getDriver().findElement(SAVE_BUTTON).click();
+
+        getDriver().findElement(By.linkText("Build Now")).click();
+        getWait(20).until(ExpectedConditions.presenceOfElementLocated(By.className("build-icon"))).click();
+
+        String stepEchoTotalText = getDriver().findElement(By.xpath("//span[@class='pipeline-node-17']")).getText();
+
+        Assert.assertEquals(
+                stepEchoTotalText.replace(getDriver().findElement(By.xpath("//span[@class='timestamp']")).getText(), "").trim(),
+                "This is MyPipelineJob!");
     }
 }
