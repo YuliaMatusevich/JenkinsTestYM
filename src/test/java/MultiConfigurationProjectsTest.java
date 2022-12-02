@@ -28,8 +28,9 @@ public class MultiConfigurationProjectsTest extends BaseTest {
         getDriver().findElement(By.xpath("//a[@href='job/" + PROJECT_RANDOM_NAME + "/']")).click();
         getDriver().findElement(By.id("yui-gen1-button")).click();
         getDriver().findElement(DASHBOARD).click();
+        getDriver().findElement(By.xpath("//a[@href='job/" + PROJECT_RANDOM_NAME + "/']/button")).click();
 
-        Assert.assertTrue(getDriver().findElement
-                (By.xpath("(//*[local-name()='svg' and @aria-hidden='true'])")).isDisplayed());
+        Assert.assertEquals(getDriver().findElement
+                (By.xpath("(//a[@class='yuimenuitemlabel'])[3]/span")).getText(), "Build Now");
     }
 }
