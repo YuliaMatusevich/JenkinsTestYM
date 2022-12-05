@@ -69,21 +69,13 @@ public class OrganizationFolderTest extends BaseTest {
     public WebElement getSaveButton() {
         return getDriver().findElement(SAVE_BUTTON);
     }
+
     private void createNewOrganizationFolder() {
         getDriver().findElement(By.linkText("New Item")).click();
         getDriver().findElement(INPUT_NAME).sendKeys(uniqueOrganizationFolderName);
         getDriver().findElement(ORGANIZATION_FOLDER).click();
         getDriver().findElement(OK_BUTTON).click();
         getDriver().findElement(SAVE_BUTTON).click();
-    }
-
-    private boolean isElementExist(String name) {
-        try {
-            getDriver().findElement(By.xpath("//span[text()='" + name + "']"));
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
     }
 
     @Test
@@ -178,8 +170,9 @@ public class OrganizationFolderTest extends BaseTest {
         getDriver().findElement(NEW_ITEM).click();
         getDriver().findElement(INPUT_NAME).sendKeys(NAME_ORG_FOLDER);
         WebElement element = getDriver().findElement(By.className("jenkins_branch_OrganizationFolder"));
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", element);
+        TestUtils.scrollToElement(getDriver(), element);
+        element.click();
+
         getDriver().findElement(OK_BUTTON).click();
         getDriver().findElement(By.id("yui-gen15-button")).click();
         getDashboard().click();
@@ -201,28 +194,31 @@ public class OrganizationFolderTest extends BaseTest {
 
     @Test(dependsOnMethods = {"testFolderCreation", "testOrgFolderCreation"})
     public void testMoveOrgFolderToFolder() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(ITEM_ORG_FOLDER));
+        TestUtils.scrollToElement(getDriver(), getDriver().findElement(ITEM_ORG_FOLDER));
+        getDriver().findElement(ITEM_ORG_FOLDER).click();
 
-        wait.until(ExpectedConditions.elementToBeClickable(ITEM_ORG_FOLDER));
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);",
-                getDriver().findElement(ITEM_ORG_FOLDER));
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();",
-                getDriver().findElement(ITEM_ORG_FOLDER));
         getDriver().findElement(By.linkText("Move")).click();
         getDriver().findElement(By.name("destination")).click();
         getDriver().findElement(By.xpath("//option[contains(text(),'" + NAME_FOLDER + "')]")).click();
         getDriver().findElement(By.id("yui-gen1-button")).click();
         getDashboard().click();
 
-        wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.className("dashboard"))));
+        getWait(5).until(ExpectedConditions.visibilityOf(getDriver().findElement(By.className("dashboard"))));
         WebElement myFolder = getDriver().findElement(ITEM_FOLDER);
 
-        Assert.assertFalse(isElementExist(NAME_ORG_FOLDER));
-        Assert.assertTrue(myFolder.isDisplayed());
+        List<String> listFolders = getDriver()
+                .findElements(By.xpath("//tr/td[3]/a/span"))
+                .stream()
+                .map(element -> element.getText())
+                .collect(Collectors.toList());
 
-        wait.until(ExpectedConditions.elementToBeClickable(myFolder));
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", myFolder);
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", myFolder);
+        Assert.assertFalse(listFolders.contains(NAME_ORG_FOLDER));
+        Assert.assertTrue(listFolders.contains(NAME_FOLDER));
+
+        getWait(5).until(ExpectedConditions.elementToBeClickable(myFolder));
+        TestUtils.scrollToElement(getDriver(), myFolder);
+        myFolder.click();
 
         Assert.assertTrue(getDriver().findElement(ITEM_ORG_FOLDER).isDisplayed());
     }
@@ -257,14 +253,11 @@ public class OrganizationFolderTest extends BaseTest {
     public void testMoveOrgFolderToDashboard() {
         getDashboard().click();
 
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-
-        wait.until(ExpectedConditions.elementToBeClickable(ITEM_FOLDER));
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);",
-                getDriver().findElement(ITEM_FOLDER));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(ITEM_FOLDER));
+        TestUtils.scrollToElement(getDriver(), getDriver().findElement(ITEM_FOLDER));
         getDriver().findElement(ITEM_FOLDER).click();
 
-        wait.until(ExpectedConditions.elementToBeClickable(ITEM_ORG_FOLDER));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(ITEM_ORG_FOLDER));
         getDriver().findElement(ITEM_ORG_FOLDER).click();
 
         getDriver().findElement(By.linkText("Move")).click();
@@ -273,16 +266,15 @@ public class OrganizationFolderTest extends BaseTest {
         getDriver().findElement(By.id("yui-gen1-button")).click();
         getDashboard().click();
 
-        wait.until(ExpectedConditions.visibilityOf(getDriver().findElement(By.className("dashboard"))));
+        getWait(5).until(ExpectedConditions.visibilityOf(getDriver().findElement(By.className("dashboard"))));
 
         Assert.assertTrue(getDriver().findElement(ITEM_ORG_FOLDER).isDisplayed());
 
         WebElement myFolder = getDriver().findElement(ITEM_FOLDER);
-        wait.until(ExpectedConditions.elementToBeClickable(myFolder));
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", myFolder);
+        getWait(5).until(ExpectedConditions.elementToBeClickable(myFolder));
+        TestUtils.scrollToElement(getDriver(), myFolder);
         myFolder.click();
 
-        Assert.assertFalse(isElementExist(NAME_ORG_FOLDER));
         Assert.assertEquals(getDriver().findElement(By.xpath("//h2[@class='h4']")).getText(),
                 "This folder is empty");
     }
