@@ -1,3 +1,4 @@
+import model.HomePage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -13,15 +14,14 @@ public class ProjectsInFolderTest extends BaseTest {
     private static final By SUBMIT = By.xpath("//button[@type='submit']");
 
     @Test
-    public void testCreateFolder(){
-        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
-        getDriver().findElement(By.id("name")).sendKeys(RANDOM_NAME);
-        getDriver().findElement(By.className("com_cloudbees_hudson_plugins_folder_Folder")).click();
-        getDriver().findElement(OKAY_BUTTON).click();
-        getDriver().findElement(DASHBOARD).click();
+    public void testCreateFolder() {
+        HomePage homePage = new HomePage(getDriver())
+                .clickNewItem()
+                .typeName(RANDOM_NAME)
+                .selectFolderAndClickOk()
+                .clickDashboard();
 
-        Assert.assertTrue(getDriver()
-                .findElement(By.xpath("//a[@href='job/" + RANDOM_NAME + "/']")).isDisplayed());
+        Assert.assertTrue(homePage.getJobList().contains(RANDOM_NAME));
     }
 
     @Test (dependsOnMethods = "testCreateFolder")
