@@ -2,6 +2,7 @@ import model.HomePage;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -60,6 +61,7 @@ public class FolderTest extends BaseTest {
             }
         }
         getDriver().findElement(By.linkText("New Item")).click();
+        getWait(10).until(ExpectedConditions.visibilityOfElementLocated(INPUT_NAME));
         getDriver().findElement(INPUT_NAME).sendKeys(generatedString);
         getDriver().findElement(FOLDER).click();
         getDriver().findElement(OK_BUTTON).click();
@@ -153,11 +155,11 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(namesBlock[1], "Folder name: " + generatedString);
     }
 
-    @Ignore
     @Test
     public void testConfigureFolderAddDescription() {
         String generatedString = UUID.randomUUID().toString().substring(0, 8);
         getDriver().findElement(By.linkText("New Item")).click();
+        getWait(10).until(ExpectedConditions.visibilityOfElementLocated(INPUT_NAME));
         getDriver().findElement(INPUT_NAME).sendKeys(generatedString);
         getDriver().findElement(FOLDER).click();
         getDriver().findElement(OK_BUTTON).click();
@@ -170,13 +172,13 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(description, "Add description");
     }
 
-    @Ignore
     @Test
     public void testMoveFolderInFolder() {
         createFolder();
         getDashboard().click();
         String generatedStringFolder2 = UUID.randomUUID().toString().substring(0, 8);
         getDriver().findElement(By.linkText("New Item")).click();
+        getWait(10).until(ExpectedConditions.visibilityOfElementLocated(INPUT_NAME));
         getDriver().findElement(INPUT_NAME).sendKeys(generatedStringFolder2);
         getDriver().findElement(FOLDER).click();
         getDriver().findElement(OK_BUTTON).click();
