@@ -102,19 +102,7 @@ public class OrganizationFolderTest extends BaseTest {
                 .clearAndInputNewName ("New name " + nameOrgFolderPOM)
                 .goToDashboard();
 
-        boolean actualResult = false;
-        List<WebElement> folders = getDriver().findElements(By.cssSelector(".jenkins-table__link.model-link.inside span"));
-
-        Assert.assertTrue(folders.size() > 0);
-
-        for (WebElement a : folders) {
-            if (a.getText().equals("New name " + nameOrgFolderPOM)) {
-                actualResult = true;
-                break;
-            }
-        }
-
-        Assert.assertTrue(actualResult);
+        Assert.assertTrue(homePage.getJobList().contains("New name " + nameOrgFolderPOM));
     }
 
     @Test
