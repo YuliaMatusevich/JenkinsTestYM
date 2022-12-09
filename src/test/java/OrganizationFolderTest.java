@@ -1,4 +1,5 @@
 import model.HomePage;
+import model.OrgFolderStatusPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -90,22 +91,30 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(TITLE).getText(), uniqueOrganizationFolderName + "2");
     }
 
-    @Ignore
     @Test
     public void testRenameOrganizationFolder() {
-        getDriver().findElement(By.linkText("New Item")).click();
-        getInputName().sendKeys("Existing Organization Name");
-        getOrganizationFolder().click();
-        getOkButton().click();
-        getDriver().findElement(By.xpath("//button[@type='submit']")).click();
-        getDriver().findElement(By.linkText("Rename")).click();
-        getInputLine().clear();
-        getInputLine().sendKeys("New Organization Folder");
-        getDriver().findElement(RENAME_BUTTON).click();
-        getDashboard().click();
+        HomePage homePage = new HomePage(getDriver())
+                .clickNewItem()
+                .setProjectName(nameOrgFolderPOM)
+                .selectOrgFolderAndClickOk()
+                .clickSaveButton()
+                .clickRenameButton()
+                .clearAndInputNewName ("New name " + nameOrgFolderPOM)
+                .goToDashboard();
 
-        Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='job/New%20Organization%20Folder/']"))
-                .getText(), "New Organization Folder");
+        boolean actualResult = false;
+        List<WebElement> folders = getDriver().findElements(By.cssSelector(".jenkins-table__link.model-link.inside span"));
+
+        Assert.assertTrue(folders.size() > 0);
+
+        for (WebElement a : folders) {
+            if (a.getText().equals("New name " + nameOrgFolderPOM)) {
+                actualResult = true;
+                break;
+            }
+        }
+
+        Assert.assertTrue(actualResult);
     }
 
     @Test
