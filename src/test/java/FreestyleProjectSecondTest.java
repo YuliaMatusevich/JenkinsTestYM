@@ -112,6 +112,7 @@ public class FreestyleProjectSecondTest extends BaseTest {
         Assert.assertEquals(actualMaxNumberToKeepBuilds,expectedMaxNumberToKeepBuilds);
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testConfigurationProvideKeepMaxNumberOfOldBuilds")
     public void testVerifyOptionsInBuildStepsSection() throws InterruptedException {
 
