@@ -3,7 +3,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.TestUtils;
@@ -112,7 +111,6 @@ public class FreestyleProjectSecondTest extends BaseTest {
         Assert.assertEquals(actualMaxNumberToKeepBuilds,expectedMaxNumberToKeepBuilds);
     }
 
-    @Ignore
     @Test(dependsOnMethods = "testConfigurationProvideKeepMaxNumberOfOldBuilds")
     public void testVerifyOptionsInBuildStepsSection() {
 
@@ -145,7 +143,6 @@ public class FreestyleProjectSecondTest extends BaseTest {
         Assert.assertEquals(actualOptions, expectedOptions);
     }
 
-    @Ignore
     @Test(dependsOnMethods = "testVerifyOptionsInBuildStepsSection")
     public void testSelectBuildPeriodicallyCheckbox() {
         boolean selectedCheckbox;
@@ -158,7 +155,8 @@ public class FreestyleProjectSecondTest extends BaseTest {
                 ExpectedConditions.elementIsNotMoving(By.xpath("//label[text()='Build periodically']")));
         getDriver().findElement(By.xpath("//label[text()='Build periodically']")).click();
 
-        selectedCheckbox = getDriver().findElement(By.name("hudson-triggers-TimerTrigger")).isSelected();
+        selectedCheckbox = getWait(10).until(ExpectedConditions
+                .elementSelectionStateToBe(By.name("hudson-triggers-TimerTrigger"),true));
 
         getWait(10).until(TestUtils.
                 ExpectedConditions.elementIsNotMoving(By.xpath("//label[text()='Build periodically']")));
