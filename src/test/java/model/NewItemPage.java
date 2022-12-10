@@ -123,8 +123,8 @@ public class NewItemPage extends HomePage {
         return nameRequiredMessage.getText();
     }
 
-    public WebElement getOkButton() {
-        return okButton;
+    public boolean isOkButtonEnabled() {
+        return okButton.isEnabled();
     }
 
     public PipelineConfigPage selectPipelineAndClickOk() {
