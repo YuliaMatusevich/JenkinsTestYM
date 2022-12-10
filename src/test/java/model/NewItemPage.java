@@ -45,6 +45,9 @@ public class NewItemPage extends HomePage {
     @FindBy(css = "div#itemname-invalid" )
     private WebElement nameErrorMessage;
 
+    @FindBy(css = "#itemname-required")
+    private WebElement emptyNameErrorMessage;
+
 
     public NewItemPage(WebDriver driver) {
         super(driver);
@@ -100,6 +103,13 @@ public class NewItemPage extends HomePage {
         return new CreateItemErrorPage(getDriver());
     }
 
+    public NewItemPage setItem(int index) {
+        getAction().scrollByAmount(0, 250).perform();
+        itemsList.get(index).click();
+
+        return this;
+    }
+
     public int getItemsListSize() {
         getWait(5).until(ExpectedConditions.visibilityOfAllElements(itemsList));
         return itemsList.size();
@@ -136,5 +146,10 @@ public class NewItemPage extends HomePage {
 
     public String getNameErrorMessageText() {
         return nameErrorMessage.getAttribute("textContent");
+    }
+
+    public String getEmptyNameErrorMessage() {
+
+        return emptyNameErrorMessage.getAttribute("textContent");
     }
 }

@@ -63,14 +63,6 @@ public class NewItemCreatePipelineTest extends BaseTest {
     }
 
     @Test
-    public void testCreatePipelineWithoutName() {
-        setJobPipeline("");
-
-        Assert.assertEquals(getDriver().findElement(By.id("itemname-required")).getText(),
-                "» This field cannot be empty, please enter a valid name");
-    }
-
-    @Test
     public void testCreateNewItemWithoutChooseAnyFolder(){
         setJobPipeline("");
 
@@ -274,7 +266,7 @@ public class NewItemCreatePipelineTest extends BaseTest {
                 .clickPipelineProjectName()
                 .editDescription(newDescription)
                 .clickSaveButton()
-                .getDescription("textContent");
+                .getDescription();
 
         Assert.assertEquals(actualDescription, newDescription);
     }
