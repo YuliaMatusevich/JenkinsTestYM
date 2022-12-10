@@ -14,6 +14,9 @@ import static runner.TestUtils.scrollToElement;
 
 public class HomePage extends BasePage {
 
+    @FindBy(linkText = "Build History")
+    private WebElement buildHistory;
+
     @FindBy(css = "#breadcrumbs li a")
     private WebElement topMenuRoot;
 
@@ -174,5 +177,15 @@ public class HomePage extends BasePage {
         scrollToElement(getDriver(), moveButtonDropdown);
         moveButtonDropdown.click();
         return new MovePage(getDriver());
+    }
+
+    public BuildHistoryPage clickBuildHistory() {
+        buildHistory.click();
+
+        return new BuildHistoryPage(getDriver());
+    }
+
+    public String getpageHeader() {
+        return header.getText();
     }
 }
