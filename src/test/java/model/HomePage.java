@@ -14,7 +14,6 @@ import static runner.TestUtils.scrollToElement;
 
 public class HomePage extends BasePage {
 
-
     @FindBy(css = "#breadcrumbs li a")
     private WebElement topMenuRoot;
 
@@ -73,8 +72,10 @@ public class HomePage extends BasePage {
         return new HomePage(getDriver());
     }
 
-    public void clickViewLink() {
+    public HomePage clickViewLink() {
         openViewLink.click();
+
+        return this;
     }
 
     public NewViewPage clickAddViewLink() {
