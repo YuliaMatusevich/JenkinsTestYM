@@ -28,6 +28,9 @@ public class MultiConfigurationProjectStatusPage extends BasePage{
     @FindBy(xpath = "//span[text()='Delete Multi-configuration project']")
     private WebElement deleteOption;
 
+    @FindBy(xpath = "//li[@class='item'][last()-1]")
+    private WebElement breadcrumbsParentFolderLink;
+
     public MultiConfigurationProjectStatusPage(WebDriver driver) {
         super(driver);
     }
@@ -72,5 +75,11 @@ public class MultiConfigurationProjectStatusPage extends BasePage{
         getDriver().switchTo().alert().accept();
 
         return new MulticonfigurationProjectConfigPage(getDriver());
+    }
+
+    public FolderStatusPage clickParentFolderInBreadcrumbs(){
+        breadcrumbsParentFolderLink.click();
+
+        return new FolderStatusPage(getDriver());
     }
 }
