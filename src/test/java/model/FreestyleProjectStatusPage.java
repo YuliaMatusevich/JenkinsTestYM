@@ -122,4 +122,8 @@ public class FreestyleProjectStatusPage extends BasePage {
 
         return projectButton.getText();
     }
+
+    public String getProjectName() {
+        return headline.getText().substring(8);
+    }
 }
