@@ -162,6 +162,12 @@ public class HomePage extends BasePage {
         return new FolderStatusPage(getDriver());
     }
 
+    public FolderConfigPage clickConfigureDropDownMenuForFolder() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
+
+        return new FolderConfigPage(getDriver());
+    }
+
     public ManageJenkinsPage clickMenuManageJenkins() {
         menuManageJenkins.click();
 
