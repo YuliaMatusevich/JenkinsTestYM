@@ -23,6 +23,9 @@ public class EditViewPage extends HomePage {
     @FindBy(css = "div:nth-of-type(5) > .jenkins-section__title")
     private WebElement uniqueSectionOnListViewEditPage;
 
+    @FindBy(xpath = "//textarea[@name='description']")
+    private WebElement description;
+
     public EditViewPage(WebDriver driver) {
         super(driver);
     }
@@ -53,10 +56,8 @@ public class EditViewPage extends HomePage {
     }
 
     public EditViewPage addJobToView(String name) {
-        TestUtils.scrollToElement_PlaceInCenter(getDriver(),
-                getDriver().findElement(By.xpath("//label[@title='" + name + "']")));
-        getWait(10).until(TestUtils.ExpectedConditions.elementIsNotMoving(
-                By.xpath("//label[@title='" + name + "']"))).click();
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(
+                By.xpath(String.format("//label[@title='%s']", name)))).click();
 
         return this;
     }
@@ -69,5 +70,11 @@ public class EditViewPage extends HomePage {
     public String getUniqueSectionOnListViewEditPage() {
 
         return uniqueSectionOnListViewEditPage.getText();
+    }
+
+    public EditViewPage addDescription(String desc) {
+        description.sendKeys(desc);
+
+        return new EditViewPage(getDriver());
     }
 }

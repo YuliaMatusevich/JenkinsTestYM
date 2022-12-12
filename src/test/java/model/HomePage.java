@@ -305,4 +305,10 @@ public class HomePage extends BasePage {
 
         return buildStatusIcon.getAttribute("tooltip");
     }
+
+    public ViewPage clickView(String name) {
+        getDriver().findElement(By.xpath(String.format("//a[@href='/view/%s/']", name))).click();
+
+        return new ViewPage(getDriver());
+    }
 }
