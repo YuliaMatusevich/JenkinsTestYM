@@ -1,5 +1,6 @@
 import model.HomePage;
 import model.PipelineConfigPage;
+import model.MyViewsPage;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -12,6 +13,9 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectUtils;
 import runner.TestUtils;
+import runner.TestUtils;
+
+import static runner.TestUtils.getRandomStr;
 
 public class PipelineTest extends BaseTest {
     private static final String RENAME_SUFFIX = "renamed";
@@ -113,17 +117,19 @@ public class PipelineTest extends BaseTest {
                 .contains("This project is currently disabled"));
     }
 
-    @Ignore
     @Test
     public void testCreatedPipelineDisplayedOnMyViews() {
 
-        String pipelinePojectName = generatePipelineProjectName();
-        createPipelineProject(pipelinePojectName);
-        getDriver().findElement(DASHBOARD).click();
-        getDriver().findElement(By.xpath("//a[@href='/me/my-views']")).click();
+        final String pipelineName = TestUtils.getRandomStr(5);
 
-        Assert.assertTrue(getDriver().findElement(By.xpath("//a[@href='job/" + pipelinePojectName + "/']"))
-                .isDisplayed());
+        MyViewsPage pipelineNameInMyViewList = new HomePage(getDriver())
+                .clickNewItem()
+                .setProjectName(pipelineName)
+                .selectPipelineAndClickOk()
+                .clickDashboard()
+                .clickMyViews();
+
+        Assert.assertTrue(pipelineNameInMyViewList.getListProjectsNames().contains(pipelineName));
     }
 
     @Ignore
