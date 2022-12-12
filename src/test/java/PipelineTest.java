@@ -1,5 +1,4 @@
 import model.HomePage;
-import model.PipelineConfigPage;
 import model.MyViewsPage;
 import model.PipelineProjectPage;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -14,9 +13,6 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectUtils;
 import runner.TestUtils;
-import runner.TestUtils;
-
-import static runner.TestUtils.getRandomStr;
 
 public class PipelineTest extends BaseTest {
     private static final String RENAME_SUFFIX = "renamed";
@@ -349,15 +345,15 @@ public class PipelineTest extends BaseTest {
     public void testAddingGitRepository() {
         final String gitHubRepo = "https://github.com/patriotby07/simple-maven-project-with-tests";
 
-        PipelineConfigPage pipelineConfigPage = new HomePage(getDriver())
+        PipelineProjectPage pipelineProjectPage = new HomePage(getDriver())
                 .clickJobDropDownMenu(RANDOM_STRING)
                 .clickConfigureDropDownMenu()
                 .clickGitHubCheckbox()
                 .setGitHubRepo(gitHubRepo)
-                .saveConfigAndGoToProject();
+                .saveConfigAndGoToProjectPage();
 
-        Assert.assertTrue(pipelineConfigPage.isDisplayedGitHubOnSideMenu());
-        Assert.assertTrue(pipelineConfigPage.getAttributeGitHubSideMenu("href").contains(gitHubRepo));
+        Assert.assertTrue(pipelineProjectPage.isDisplayedGitHubOnSideMenu());
+        Assert.assertTrue(pipelineProjectPage.getAttributeGitHubSideMenu("href").contains(gitHubRepo));
     }
 
     @Test(dependsOnMethods = "testAddingGitRepository")
