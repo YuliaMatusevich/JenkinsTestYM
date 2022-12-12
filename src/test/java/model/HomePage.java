@@ -74,6 +74,9 @@ public class HomePage extends BasePage {
     @FindBy(css = ".first-of-type > .yuimenuitem")
     private List<WebElement> userDropdownMenuItems;
 
+    @FindBy(xpath = "//span[text()='Edit View']/..")
+    private WebElement editView;
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -256,5 +259,13 @@ public class HomePage extends BasePage {
         }
 
         return itemsNames.toString().trim();
+    }
+
+    public EditViewPage goToEditView(String viewName) {
+        clickMyViews();
+        getDriver().findElement(By.linkText(viewName)).click();
+        editView.click();
+
+        return new EditViewPage(getDriver());
     }
 }
