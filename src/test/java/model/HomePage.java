@@ -15,13 +15,14 @@ import static runner.TestUtils.scrollToElement;
 public class HomePage extends BasePage {
 
     public boolean getProjectNameFromProjectTabl;
+
     @FindBy(linkText = "Build History")
     private WebElement buildHistory;
 
     @FindBy(css = "#breadcrumbs li a")
     private WebElement topMenuRoot;
 
-    @FindBy(xpath = "//a[@href='/view/all/newJob']")
+    @FindBy(linkText = "New Item")
     private WebElement newItem;
 
     @FindBy(css = "tr td a.model-link")
