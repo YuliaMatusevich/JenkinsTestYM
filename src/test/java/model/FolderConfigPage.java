@@ -48,5 +48,4 @@ public class FolderConfigPage extends HomePage {
 
         return new FolderConfigPage(getDriver());
     }
-
 }
