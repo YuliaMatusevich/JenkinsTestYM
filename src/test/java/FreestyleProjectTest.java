@@ -86,15 +86,14 @@ public class FreestyleProjectTest extends BaseTest {
     @Test(dependsOnMethods = "testCreateFreestyleProjectWithSpacesInsteadOfName")
     public void testCreateFreestyleProjectWithIncorrectCharacters() {
         final List<Character> incorrectNameCharacters = List.of('!', '@', '#', '$', '%', '^', '&', '*', '[', ']', '\\', '|', ';', ':', '/', '?', '<', '>');
+        NewItemPage newItemPage = new HomePage(getDriver()).clickNewItem();
 
-        getDriver().findElement(BY_BUTTON_ADD_NEW_ITEM).click();
         for (Character character : incorrectNameCharacters) {
-            getDriver().findElement(BY_FIELD_ENTER_NAME).click();
-            getDriver().findElement(BY_FIELD_ENTER_NAME).clear();
-            getDriver().findElement(BY_FIELD_ENTER_NAME).sendKeys(String.valueOf(character));
-            getDriver().findElement(BY_BUTTON_SELECT_FREESTYLE_PROJECT).click();
+            newItemPage.clearItemName()
+                    .setProjectName(String.valueOf(character))
+                    .selectFreestyleProject();
 
-            Assert.assertEquals(getWait(1).until(ExpectedConditions.presenceOfElementLocated(BY_ITEM_NAME_INVALID_MESSAGE)).getText(), "» ‘" + character + "’ is an unsafe character");
+            Assert.assertEquals(newItemPage.getItemNameInvalidMsg(), String.format("» ‘%s’ is an unsafe character", character));
         }
     }
 

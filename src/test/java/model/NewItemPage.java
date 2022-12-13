@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
+
 import java.util.List;
 
 public class NewItemPage extends BasePage {
@@ -17,6 +18,12 @@ public class NewItemPage extends BasePage {
 
     @FindBy(id = "itemname-required")
     private WebElement itemNameRequiredMsg;
+
+    @FindBy(id = "itemname-invalid")
+    private WebElement itemNameInvalidMsg;
+
+    @FindBy(id = "itemtype-required")
+    private WebElement itemTypeRequiredMsg;
 
     @FindBy(xpath = "//div[@class='icon']")
     private List<WebElement> itemsList;
@@ -42,15 +49,18 @@ public class NewItemPage extends BasePage {
     @FindBy(xpath = "//span[text() = 'Pipeline']")
     private WebElement pipeline;
 
-    @FindBy(id = "itemname-invalid" )
-    private WebElement itemNameInvalidMsg;
-
     @FindBy(id = "from")
     private WebElement copyFrom;
 
 
     public NewItemPage(WebDriver driver) {
         super(driver);
+    }
+
+    public NewItemPage clearItemName() {
+        itemName.clear();
+
+        return this;
     }
 
     public NewItemPage setProjectName(String name) {
@@ -61,6 +71,7 @@ public class NewItemPage extends BasePage {
 
     public NewItemPage selectFreestyleProject() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(freestyleProject)).click();
+
         return this;
     }
 
@@ -138,6 +149,10 @@ public class NewItemPage extends BasePage {
         return itemNameRequiredMsg.getText();
     }
 
+    public String getItemNameInvalidMsg() {
+        return itemNameInvalidMsg.getText();
+    }
+
     public boolean isOkButtonEnabled() {
         return okButton.isEnabled();
     }
@@ -147,10 +162,6 @@ public class NewItemPage extends BasePage {
         okButton.click();
 
         return new PipelineConfigPage(getDriver());
-    }
-
-    public String getItemNameInvalidMsg() {
-        return itemNameInvalidMsg.getAttribute("textContent");
     }
 
     public NewItemPage selectPipeline() {
