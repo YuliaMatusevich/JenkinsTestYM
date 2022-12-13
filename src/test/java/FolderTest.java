@@ -68,7 +68,6 @@ public class FolderTest extends BaseTest {
                 .clickSaveButton();
     }
 
-
     private List<String> getProjectNameFromProjectTable() {
         List<WebElement> projectTable = getDriver().findElements(By.xpath("//tr/td/a"));
         List<String> projectTableNames = new ArrayList<>();
@@ -83,7 +82,6 @@ public class FolderTest extends BaseTest {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
     }
-
 
     @Test
     public void testCreate() {
@@ -128,7 +126,6 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(allJobsAfterDelete.isEmpty());
     }
 
-
     @Test
     public void testConfigureFolderDisplayNameSaveFirstName() {
         String secondJobName = "Second name";
@@ -159,7 +156,6 @@ public class FolderTest extends BaseTest {
                 .getTextDescription(addDescription);
         Assert.assertEquals(folderStatusPage, addDescription);
     }
-
 
     @Test
     public void testMoveFolderInFolder() {
