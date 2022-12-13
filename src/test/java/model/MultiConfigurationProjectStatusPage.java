@@ -84,7 +84,7 @@ public class MultiConfigurationProjectStatusPage extends BasePage{
         return new FolderStatusPage(getDriver());
     }
 
-    public MultiConfigurationProjectStatusPage  clickDisableButton(){
+    public MultiConfigurationProjectStatusPage clickDisableButton(){
         disableButton.click();
 
         return new MultiConfigurationProjectStatusPage(getDriver());
