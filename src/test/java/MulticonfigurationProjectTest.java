@@ -345,7 +345,7 @@ public class MulticonfigurationProjectTest extends BaseTest {
     }
 
     @Test(dependsOnMethods = "testCreateMultiConfigurationProjectWithValidName")
-    public void testDisableMultiConfigurationProject(){
+    public void testDisableMultiConfigurationProject() {
         Boolean projectIconText = new HomePage(getDriver())
                 .clickProject(PROJECT_NAME)
                 .clickDisableButton()
