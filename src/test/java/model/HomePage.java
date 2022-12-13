@@ -78,6 +78,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//span[text()='Edit View']/..")
     private WebElement editView;
 
+    @FindBy(css = "a[href*=configure]")
+    private WebElement editViewMenuLink;
+
     @FindBy(linkText = "Builds")
     private WebElement buildsItemInUserDropdownMenu;
 
@@ -254,6 +257,12 @@ public class HomePage extends BasePage {
         iconUserName.click();
 
         return new StatusUserPage(getDriver());
+    }
+
+    public EditViewPage clickEditViewLink() {
+        editViewMenuLink.click();
+
+        return new EditViewPage(getDriver());
     }
 
     public HomePage clickUserDropdownMenu() {
