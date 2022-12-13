@@ -110,6 +110,9 @@ public class HomePage extends Header {
     @FindBy(linkText = "Credentials")
     private WebElement credentialsItemInUserDropdownMenu;
 
+    @FindBy(xpath = "(//a[@class='yuimenuitemlabel'])[3]/span")
+    private WebElement buildNowButton;
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -469,5 +472,12 @@ public class HomePage extends Header {
                 credentialsItemInUserDropdownMenu)).click();
 
         return new CredentialsPage(getDriver());
+    }
+
+    public boolean clickProjectDropdownMenu(String projectName) {
+        getWait(5).until(ExpectedConditions
+                .elementToBeClickable(By.xpath("//a[@href='job/" + projectName + "/']/button"))).click();
+
+        return buildNowButton.isDisplayed();
     }
 }
