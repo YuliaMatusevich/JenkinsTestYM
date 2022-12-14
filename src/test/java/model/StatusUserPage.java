@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.w3c.dom.Text;
 
 public class StatusUserPage extends BasePage {
 
@@ -30,6 +31,10 @@ public class StatusUserPage extends BasePage {
 
     @FindBy(xpath = "//a[@class='textarea-hide-preview']")
     private  WebElement hidePreviewLink;
+
+    @FindBy(id ="yui-gen1-button")
+    private  WebElement saveButton;
+
 
     public StatusUserPage(WebDriver driver) {
         super(driver);
@@ -91,5 +96,10 @@ public class StatusUserPage extends BasePage {
     public boolean isDisplayedPreviewField() {
 
         return previewField.isDisplayed();
+    }
+    public StatusUserPage clickSaveButton() {
+        saveButton.click();
+
+        return this;
     }
 }
