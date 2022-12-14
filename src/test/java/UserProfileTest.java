@@ -36,15 +36,15 @@ public class UserProfileTest extends BaseTest {
 
     @Test
     public void testUserProfileAddDescription() {
-        StatusUserPage statusUserPage = new HomePage(getDriver())
+        String actualResult = new HomePage(getDriver())
                 .clickUserIcon()
                 .clickAddDescriptionLink()
                 .clearDescriptionInputField()
                 .inputTextInDescriptionField(TEXT)
-                .clickSaveButton();
+                .clickSaveButton()
+                .getDescriptionText();
 
-        Assert.assertTrue(getDriver().
-                findElement(By.xpath("//div[contains(text(),'" + TEXT + "')]")).isDisplayed());
+        Assert.assertEquals(actualResult, TEXT);
     }
     @Test
     public void testUserProfileHidePreviewDescription() {

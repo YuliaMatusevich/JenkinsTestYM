@@ -35,6 +35,9 @@ public class StatusUserPage extends BasePage {
     @FindBy(id ="yui-gen1-button")
     private  WebElement saveButton;
 
+    @FindBy(xpath = "//div[@id='description']/div[1]")
+    private WebElement displayedDescriptionText;
+
 
     public StatusUserPage(WebDriver driver) {
         super(driver);
@@ -101,5 +104,9 @@ public class StatusUserPage extends BasePage {
         saveButton.click();
 
         return this;
+    }
+    public String getDescriptionText() {
+
+        return displayedDescriptionText.getText();
     }
 }
