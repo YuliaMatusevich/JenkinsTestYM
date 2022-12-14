@@ -53,7 +53,7 @@ public abstract class BaseTest {
         }
     }
 
-    protected void clearData() {
+    protected static void clearData() {
         BaseUtils.log("Clear data");
         JenkinsUtils.deleteViews();
         JenkinsUtils.deleteJobs();
