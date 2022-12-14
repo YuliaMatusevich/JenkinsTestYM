@@ -21,35 +21,31 @@ public class UserProfileTest extends BaseTest {
 
     private WebDriverWait wait;
 
-    private WebDriverWait getWait() {
-        if (wait == null) {
-            wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
+   private WebDriverWait getWait() {
+       if (wait == null) {
+          wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
         }
         return wait;
     }
 
     public void deleteDescription (){
-        getWait().until(ExpectedConditions.elementToBeClickable(ADD_DES)).click();
-        getDriver().findElement(INPUT_FIELD).clear();
+       getWait().until(ExpectedConditions.elementToBeClickable(ADD_DES)).click();
+       getDriver().findElement(INPUT_FIELD).clear();
         getDriver().findElement(SAVE_BUTTON).click();
     }
 
     @Test
     public void testUserProfileAddDescription() {
-        getWait().until(ExpectedConditions.elementToBeClickable(USER_ICON)).click();
-        getWait().until(ExpectedConditions.elementToBeClickable(ADD_DES)).click();
-        getDriver().findElement(INPUT_FIELD).clear();
-        getDriver().findElement(INPUT_FIELD).sendKeys(TEXT);
-        getDriver().findElement(SAVE_BUTTON).click();
+        String actualResult = new HomePage(getDriver())
+                .clickUserIcon()
+                .clickAddDescriptionLink()
+                .clearDescriptionInputField()
+                .inputTextInDescriptionField(TEXT)
+                .clickSaveButton()
+                .getDescriptionText();
 
-        Assert.assertTrue(getDriver().
-                findElement(By.xpath("//div[contains(text(),'" + TEXT + "')]")).isDisplayed());
-
-        getWait().until(ExpectedConditions.elementToBeClickable(ADD_DES)).click();
-        getDriver().findElement(INPUT_FIELD).clear();
-        getDriver().findElement(SAVE_BUTTON).click();
+        Assert.assertEquals(actualResult, TEXT);
     }
-
     @Test
     public void testUserProfileHidePreviewDescription() {
         StatusUserPage statusUserPage = new HomePage(getDriver())
@@ -88,6 +84,6 @@ public class UserProfileTest extends BaseTest {
         Assert.assertTrue(getDriver().
                 findElement(By.xpath("//div[contains(text(),'"+TEXT_EDIT+"')]")).isDisplayed());
 
-        deleteDescription();;
+        deleteDescription();
     }
 }
