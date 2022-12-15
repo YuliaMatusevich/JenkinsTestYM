@@ -101,6 +101,9 @@ public class HomePage extends Header {
     @FindBy(xpath = "//div[@id='description']//textarea")
     private WebElement descriptionTextarea;
 
+    @FindBy(linkText = "Configure")
+    private WebElement configureItemInUserDropdownMenu;
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -441,4 +444,10 @@ public class HomePage extends Header {
         }
     }
 
+    public ConfigureUserPage clickConfigureItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                configureItemInUserDropdownMenu)).click();
+
+        return new ConfigureUserPage(getDriver());
+    }
 }
