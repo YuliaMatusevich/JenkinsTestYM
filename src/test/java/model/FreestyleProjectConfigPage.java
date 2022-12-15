@@ -68,7 +68,6 @@ public class FreestyleProjectConfigPage extends BaseConfigPage {
     @FindBy(xpath = "//div[@class = 'jenkins-form-item hetero-list-container with-drag-drop  ']/div[3]//input[@name = 'parameter.name']")
     private WebElement fieldInputBooleanParameterName;
 
-
     @FindBy(xpath = "//label[text() = 'Set by Default']")
     private WebElement setByDefault;
 
@@ -89,6 +88,15 @@ public class FreestyleProjectConfigPage extends BaseConfigPage {
 
     @FindBy(linkText = "Build Now")
     private WebElement buildNowButton;
+
+    @FindBy(xpath = "//button[@data-section-id='build-triggers']")
+    private WebElement buildTriggersSideMenuOption;
+
+    @FindBy(xpath = "//label[text()='Build periodically']")
+    private WebElement buildPeriodicallyOption;
+
+    @FindBy(name = "hudson-triggers-TimerTrigger")
+    private WebElement buildPeriodicallyCheckbox;
 
     public FreestyleProjectConfigPage(WebDriver driver) {
         super(driver);
@@ -277,5 +285,33 @@ public class FreestyleProjectConfigPage extends BaseConfigPage {
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toCollection(HashSet::new));
+    }
+
+    public FreestyleProjectConfigPage clickBuildTriggersSideMenuOption() {
+        buildTriggersSideMenuOption.click();
+
+        return this;
+    }
+
+    public FreestyleProjectConfigPage scrollAndClickBuildPeriodicallyCheckbox() {
+        scrollToElement_PlaceInCenter(getDriver(), buildPeriodicallyOption);
+        getWait(10).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildPeriodicallyOption)).click();
+        getWait(10).until(ExpectedConditions
+                .elementSelectionStateToBe(By.name("hudson-triggers-TimerTrigger"), true));
+
+        return this;
+    }
+
+    public boolean verifyThatBuildPeriodicallyCheckboxIsSelected() {
+
+        return buildPeriodicallyCheckbox.isSelected();
+    }
+
+    public FreestyleProjectConfigPage uncheckBuildPeriodicallyCheckbox() {
+        if (buildPeriodicallyCheckbox.isSelected()) {
+            getWait(10).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildPeriodicallyOption)).click();
+        }
+
+        return this;
     }
 }
