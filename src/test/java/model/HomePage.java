@@ -42,7 +42,10 @@ public class HomePage extends Header {
     private WebElement menuManageJenkins;
 
     @FindBy(css = "a[href='/me/my-views']")
-    private WebElement myViews;
+    private WebElement myViewsSideMenuLink;
+
+    @FindBy(css = ".item a[class=''][href$='/my-views/']")
+    private WebElement myViewsTopMenuLink;
 
     @FindBy(xpath = "//a[@href='/manage']")
     private WebElement manageJenkins;
@@ -77,9 +80,6 @@ public class HomePage extends Header {
     @FindBy(xpath = "//span[text()='Edit View']/..")
     private WebElement editView;
 
-    @FindBy(css = "a[href*=configure]")
-    private WebElement editViewMenuLink;
-
     @FindBy(linkText = "Builds")
     private WebElement buildsItemInUserDropdownMenu;
 
@@ -100,6 +100,12 @@ public class HomePage extends Header {
 
     @FindBy(xpath = "//div[@id='description']//textarea")
     private WebElement descriptionTextarea;
+
+    @FindBy(linkText = "Configure")
+    private WebElement configureItemInUserDropdownMenu;
+
+    @FindBy(linkText = "My Views")
+    private WebElement myViewItemInUserDropdownMenu;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -229,8 +235,14 @@ public class HomePage extends Header {
         return new ManageJenkinsPage(getDriver());
     }
 
-    public MyViewsPage clickMyViews() {
-        myViews.click();
+    public MyViewsPage clickMyViewsSideMenuLink() {
+        myViewsSideMenuLink.click();
+
+        return new MyViewsPage(getDriver());
+    }
+
+    public MyViewsPage clickMyViewsTopMenuLink() {
+        myViewsTopMenuLink.click();
 
         return new MyViewsPage(getDriver());
     }
@@ -282,12 +294,6 @@ public class HomePage extends Header {
         return new StatusUserPage(getDriver());
     }
 
-    public EditViewPage clickEditViewLink() {
-        editViewMenuLink.click();
-
-        return new EditViewPage(getDriver());
-    }
-
     public HomePage clickUserDropdownMenu() {
         userDropdownMenu.click();
 
@@ -317,7 +323,7 @@ public class HomePage extends Header {
     }
 
     public EditViewPage goToEditView(String viewName) {
-        clickMyViews();
+        clickMyViewsSideMenuLink();
         getDriver().findElement(By.linkText(viewName)).click();
         editView.click();
 
@@ -441,4 +447,17 @@ public class HomePage extends Header {
         }
     }
 
+    public ConfigureUserPage clickConfigureItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                configureItemInUserDropdownMenu)).click();
+
+        return new ConfigureUserPage(getDriver());
+    }
+
+    public MyViewsPage clickMyViewItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                myViewItemInUserDropdownMenu)).click();
+
+        return new MyViewsPage(getDriver());
+    }
 }

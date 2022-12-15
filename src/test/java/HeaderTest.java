@@ -1,6 +1,4 @@
-import model.BuildsUserPage;
-import model.HomePage;
-import model.ManageJenkinsPage;
+import model.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -72,7 +70,7 @@ public class HeaderTest extends BaseTest {
     }
 
     @Test
-    public void testUserDropdownMenuToOpenPageUserBuilds() {
+    public void testUserDropdownMenuToOpenBuildsUserPage() {
         BuildsUserPage buildsUserPage = new HomePage(getDriver())
                 .clickUserDropdownMenu()
                 .clickBuildsItemInUserDropdownMenu();
@@ -105,29 +103,27 @@ public class HeaderTest extends BaseTest {
     }
 
     @Test
-    public void testUserDropdownMenuToOpenPageUserConfigure() {
-        openUserDropdownMenu();
-        getWait(5).until(ExpectedConditions.elementToBeClickable(
-                By.linkText("Configure"))).click();
+    public void testUserDropdownMenuToOpenConfigureUserPage() {
+        ConfigureUserPage configureUserPage = new HomePage(getDriver())
+                .clickUserDropdownMenu()
+                .clickConfigureItemInUserDropdownMenu();
 
-        Assert.assertEquals(getDriver().findElement(
-                        By.cssSelector("#yui-gen2-button")).getText(),
+        Assert.assertEquals(configureUserPage.getAddNewTokenButtonName(),
                 "Add new Token");
     }
 
     @Test
-    public void testUserDropdownMenuToOpenPageUserMyViews() {
-        openUserDropdownMenu();
-        getWait(5).until(ExpectedConditions.elementToBeClickable(
-                By.linkText("My Views"))).click();
+    public void testUserDropdownMenuToOpenMyViewsUserPage() {
+        MyViewsPage myViewsPage = new HomePage(getDriver())
+                .clickUserDropdownMenu()
+                .clickMyViewItemInUserDropdownMenu();
 
-        Assert.assertEquals(getDriver().findElement(
-                        By.xpath("//ul[@id='breadcrumbs']/li[5]")).getText(),
+        Assert.assertEquals(myViewsPage.getMyViewItemNameOnTopBar(),
                 "My Views");
     }
 
     @Test
-    public void testUserDropdownMenuToOpenPageUserCredentials() {
+    public void testUserDropdownMenuToOpenCredentialsUserPage() {
         openUserDropdownMenu();
         getWait(5).until(ExpectedConditions.elementToBeClickable(
                 By.linkText("Credentials"))).click();
