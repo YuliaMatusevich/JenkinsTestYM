@@ -75,6 +75,15 @@ public class FreestyleProjectStatusPage extends BaseStatusPage {
     @FindBy(name = "Submit")
     private WebElement disableProjectBtn;
 
+    @FindBy(linkText = "Changes")
+    private WebElement linkChanges;
+
+    @FindBy(linkText = "Edit description")
+    private WebElement buttonEditDescription;
+
+    @FindBy(xpath = "//div[@class = 'warning']")
+    private WebElement warningMessage;
+
     public FreestyleProjectStatusPage(WebDriver driver) {
         super(driver);
     }
@@ -120,7 +129,8 @@ public class FreestyleProjectStatusPage extends BaseStatusPage {
     }
 
     public FreestyleProjectStatusPage inputAndSaveDescriptionText(String description) {
-        getWait(10).until(ExpectedConditions.elementToBeClickable(fieldDescriptionText)).sendKeys(description);
+        getWait(10).until(ExpectedConditions.elementToBeClickable(fieldDescriptionText)).clear();
+        fieldDescriptionText.sendKeys(description);
         getWait(10).until(ExpectedConditions.elementToBeClickable(buttonSave)).click();
 
         return this;
@@ -194,5 +204,17 @@ public class FreestyleProjectStatusPage extends BaseStatusPage {
 
     public String getWarningMsg() {
         return warningForm.getText().substring(0, warningForm.getText().indexOf("\n"));
+    }
+
+    public ChangesBuildsPage clickLinkChanges() {
+        linkChanges.click();
+
+        return new ChangesBuildsPage(getDriver());
+    }
+
+    public FreestyleProjectStatusPage clickButtonEditDescription() {
+        buttonEditDescription.click();
+
+        return this;
     }
 }
