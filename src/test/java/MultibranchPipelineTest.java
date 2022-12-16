@@ -194,7 +194,7 @@ public class MultibranchPipelineTest extends BaseTest {
     public void testRename_MultiBranch_Pipeline_From_Dropdown() {
         createMultibranchPipeline(RANDOM_MULTIBRANCHPIPELINE_NAME);
         FreestyleProjectStatusPage actualMultibranchPipeline = new HomePage(getDriver())
-                .clickFolderDropdownMenu(RANDOM_MULTIBRANCHPIPELINE_NAME)
+                .clickJobDropDownMenu(RANDOM_MULTIBRANCHPIPELINE_NAME)
                 .clickRenameDropDownMenu()
                 .clearFieldAndInputNewName(RANDOM_MULTIBRANCHPIPELINE_NAME + "_Renamed")
                 .clickSubmitButton();
@@ -219,5 +219,20 @@ public class MultibranchPipelineTest extends BaseTest {
         redirectToDashboardPage();
 
         Assert.assertEquals(getDriver().findElement(MULTIBRANCH_PIPELINE_NAME).getText(), Renamed);
+    }
+
+    @Test
+    public void testDeleteMultibranchPipelineUsingDropDown() {
+        HomePage homePage = new HomePage(getDriver())
+                .clickNewItem()
+                .setProjectName(RANDOM_MULTIBRANCHPIPELINE_NAME)
+                .selectMultibranchPipelineAndClickOk()
+                .clickSaveButton()
+                .clickDashboard()
+                .clickJobDropdownMenu(RANDOM_MULTIBRANCHPIPELINE_NAME)
+                .clickDeleteMbPipelineDropDownMenu()
+                .clickSubmitButtonToHomePage();
+
+        Assert.assertEquals(homePage.getHeaderText(), "Welcome to Jenkins!");
     }
 }
