@@ -1,6 +1,7 @@
 package model.multiconfiguration;
 
 import model.HomePage;
+import model.RenameItemPage;
 import model.base.BasePage;
 import model.folder.FolderStatusPage;
 import org.openqa.selenium.By;
@@ -77,11 +78,11 @@ public class MultiConfigurationProjectStatusPage extends BasePage {
         return getDriver().findElement(By.xpath("//li[@class='item']//a[@href='/job/" + name + "/']")).getText();
     }
 
-    public MulticonfigurationProjectConfigPage deleteMultiConfigProject() {
+    public HomePage deleteMultiConfigProject() {
         deleteOption.click();
         getDriver().switchTo().alert().accept();
 
-        return new MulticonfigurationProjectConfigPage(getDriver());
+        return new HomePage(getDriver());
     }
 
     public FolderStatusPage clickParentFolderInBreadcrumbs() {
@@ -100,5 +101,11 @@ public class MultiConfigurationProjectStatusPage extends BasePage {
         enableButton.click();
 
         return new MultiConfigurationProjectStatusPage(getDriver());
+    }
+
+    public RenameItemPage clickRenameSideMenu(String name) {
+        getDriver().findElement(By.xpath(String.format("//a[@href='/job/%s/confirm-rename']", name))).click();
+
+        return new RenameItemPage(getDriver());
     }
 }
