@@ -213,7 +213,7 @@ public class NewViewTest extends BaseTest {
     }
 
     @Test
-    public void testCreateListViewWithAddSettings(){
+    public void testCreateListViewWithAddSettings() {
         int countColumnsBeforeAdd = new HomePage(getDriver())
                 .clickNewItem()
                 .setItemName(PROJECT_RANDOM_NAME)
