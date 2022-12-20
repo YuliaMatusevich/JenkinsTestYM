@@ -15,7 +15,7 @@ public class CucumberDriver {
 
         ProjectUtils.get(driver);
         ProjectUtils.login(driver);
-        JenkinsUtils.clearData();
+        clearData();
     }
     
     @After
@@ -25,5 +25,10 @@ public class CucumberDriver {
 
     public static WebDriver getDriver(){
         return driver;
+    }
+
+    private static void clearData(){
+        BaseUtils.log("Clear data");
+        JenkinsUtils.clearData();
     }
 }
