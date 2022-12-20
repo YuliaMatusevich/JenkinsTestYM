@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 
 @Listeners({FilterForTests.class, OrderForTests.class})
 public abstract class BaseTest {
@@ -53,7 +55,7 @@ public abstract class BaseTest {
         }
     }
 
-    protected static void clearData() {
+    protected void clearData() {
         BaseUtils.log("Clear data");
         JenkinsUtils.deleteViews();
         JenkinsUtils.deleteJobs();

@@ -144,4 +144,11 @@ public class JenkinsUtils {
                         .filter(user -> !user.equals(ProjectUtils.getUserName())).collect(Collectors.toSet()),
                 getCrumbFromPage(userPage));
     }
+
+    public static void clearData(){
+        BaseUtils.log("Clear data");
+        JenkinsUtils.deleteViews();
+        JenkinsUtils.deleteJobs();
+        JenkinsUtils.deleteUsers();
+    }
 }

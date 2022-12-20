@@ -16,7 +16,7 @@ public class CucumberDriver {
 
         ProjectUtils.get(driver);
         ProjectUtils.login(driver);
-        BaseTest.clearData();
+        JenkinsUtils.clearData();
     }
     @After
     public static void after(Scenario scenario){
