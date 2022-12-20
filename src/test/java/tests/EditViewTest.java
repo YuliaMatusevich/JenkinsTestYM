@@ -18,15 +18,11 @@ public class EditViewTest extends BaseTest {
     private static final int waitTime = 5;
     private static final By DASHBOARD = By.cssSelector("#jenkins-name-icon");
     private static final By SUBMIT_BUTTON = By.cssSelector("[type='submit']");
-    private static final By JOB_PATH = By.cssSelector(".jenkins-table__link");
     private static final By ITEM_OPTION = By.cssSelector("input[json='true']+label");
     private static final By FILTER_QUEUE = By.cssSelector("input[name=filterQueue]+label");
     private static final By MY_VIEWS = By.xpath("//a[@href='/me/my-views']");
-    private static final By REGEX_FIELD = By.cssSelector("input[name='useincluderegex']+label");
     private static final By INPUT_NAME = By.cssSelector("[name='name']");
     private static final By PANE_HEADER = By.cssSelector(".pane-header-title");
-    private static final By STATUS_DRAG_HANDLE = By
-            .xpath("//div[@descriptorid='hudson.views.StatusColumn']//div[@class='dd-handle']");
     private static final By ADD_COLUMN = By.cssSelector(".hetero-list-add[suffix='columns']");
     private static final By LAST_EXISTING_COLUMN = By
             .xpath("//div[contains(@class, 'hetero-list-container')]/div[@class='repeated-chunk'][last()]");
@@ -103,15 +99,6 @@ public class EditViewTest extends BaseTest {
             itemsToSelect.get(i).click();
         }
         getDriver().findElement(SUBMIT_BUTTON).click();
-    }
-
-    private void dragByYOffset(By locator, int offset) {
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(getDriver().findElement(locator))
-                .clickAndHold(getDriver().findElement(locator))
-                .moveByOffset(0, offset / 2)
-                .moveByOffset(0, offset / 2)
-                .release().perform();
     }
 
     @Test
@@ -237,7 +224,6 @@ public class EditViewTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-
     @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
     public void testListViewAddRegexFilter() {
         int expectedResult = new HomePage(getDriver())
@@ -261,19 +247,20 @@ public class EditViewTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Test
+    @Test(dependsOnMethods = {"testListViewAddFiveItems","testCreateOneItemFromListOfJobTypes"})
     public void testListViewChangeColumnOrder() {
-        localViewName = TestUtils.getRandomStr();
-        listViewSeriesPreConditions(1, localViewName);
         String[] expectedResult = {"W", "S"};
+        new HomePage(getDriver())
+                .clickMyViewsSideMenuLink()
+                .clickView(localViewName)
+                .clickEditViewButton()
+                .scrollToStatusColumnDragHandlePlaceInCenterWaitTillNotMoving()
+                .dragByYOffset(100)
+                .clickListOrMyViewOkButton();
 
-        scrollWaitTillNotMovingAndClick(waitTime, STATUS_DRAG_HANDLE);
-        dragByYOffset(STATUS_DRAG_HANDLE, 100);
-        getDriver().findElement(SUBMIT_BUTTON).click();
-
-        String[] actualResult = {getDriver().findElement(By
-                .cssSelector("#projectstatus th:nth-child(1) a")).getText(), getDriver().findElement(By
-                .cssSelector("#projectstatus th:nth-child(2) a")).getText()};
+        String[] actualResult = {new MyViewsPage(getDriver())
+                .getJobTableHeaderTextList().get(0), new MyViewsPage(getDriver())
+                .getJobTableHeaderTextList().get(1)};
         Assert.assertEquals(actualResult, expectedResult);
     }
 
@@ -374,7 +361,7 @@ public class EditViewTest extends BaseTest {
     }
 
     @Test
-    public void testIllegalCharacterRenameView() {
+    public void testIllegalCharacterRenameView () {
         localViewName = TestUtils.getRandomStr();
         listViewSeriesPreConditions(1, localViewName);
         final char[] illegalCharacters = "#!@$%^&*:;<>?/[]|\\".toCharArray();
