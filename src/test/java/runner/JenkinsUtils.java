@@ -118,14 +118,14 @@ public class JenkinsUtils {
         }
     }
 
-    public static void deleteJobs() {
+    private static void deleteJobs() {
         String mainPage = getPage("");
         deleteByLink("job/%s/doDelete",
                 getSubstringsFromPage(mainPage, "href=\"job/", "/\""),
                 getCrumbFromPage(mainPage));
     }
 
-    public static void deleteViews() {
+    private static void deleteViews() {
         String mainPage = getPage("");
         deleteByLink("view/%s/doDelete",
                 getSubstringsFromPage(mainPage, "href=\"/view/", "/\""),
@@ -137,7 +137,7 @@ public class JenkinsUtils {
                 getCrumbFromPage(viewPage));
     }
 
-    public static void deleteUsers() {
+    private static void deleteUsers() {
         String userPage = getPage("manage/securityRealm/");
         deleteByLink("manage/securityRealm/user/%s/doDelete",
                 getSubstringsFromPage(userPage, "href=\"user/", "/delete\"").stream()
@@ -146,7 +146,6 @@ public class JenkinsUtils {
     }
 
     public static void clearData(){
-        BaseUtils.log("Clear data");
         JenkinsUtils.deleteViews();
         JenkinsUtils.deleteJobs();
         JenkinsUtils.deleteUsers();

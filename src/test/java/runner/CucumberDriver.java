@@ -9,7 +9,6 @@ public class CucumberDriver {
 
     private static WebDriver driver;
 
-
     @Before
     public static void before(Scenario scenario){
         driver = BaseUtils.createDriver();
@@ -18,6 +17,7 @@ public class CucumberDriver {
         ProjectUtils.login(driver);
         JenkinsUtils.clearData();
     }
+    
     @After
     public static void after(Scenario scenario){
         driver.quit();
