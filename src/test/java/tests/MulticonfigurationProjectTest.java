@@ -147,6 +147,7 @@ public class MulticonfigurationProjectTest extends BaseTest {
         multiConfigProject.deleteMultiConfigProject();
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testMultiConfigurationProjectRenameProjectViaSideMenu")
     public void testMultiConfigurationProjectBuild() {
 
@@ -250,7 +251,7 @@ public class MulticonfigurationProjectTest extends BaseTest {
                 .clearFieldAndInputNewName("&")
                 .clickSaveButton();
 
-        Assert.assertEquals(renameItemErrorPage.getErrorMessage(),"‘&amp;’ is an unsafe character");
+        Assert.assertEquals(renameItemErrorPage.getErrorMessage(), "‘&amp;’ is an unsafe character");
     }
 
     @Ignore
@@ -282,6 +283,7 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertTrue(multiConfigPrStatusPage.iconProjectDisabledIsDisplayed());
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testMultiConfigurationProjectDisableCheckIconProjectName")
     public void testMultiConfigurationProjectEnableCheckIconProjectName() {
         MultiConfigurationProjectStatusPage multiConfigPrStatusPage = new HomePage(getDriver())
