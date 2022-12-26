@@ -3,8 +3,9 @@ package model;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class BuildHistoryPage extends HomePage {
@@ -51,6 +52,12 @@ public class BuildHistoryPage extends HomePage {
 
     @FindBy(xpath = "//a[@href='/legend']")
     private WebElement iconLegend;
+
+    @FindBy(xpath = "//div[contains(@id,'label-tl')]")
+    private List<WebElement> labelsOnTimelineBuildHistory;
+
+    @FindBy(css = "#icon-tl-0-1-e1")
+    private WebElement iconOfLabelsOnTime;
 
     public String getSizeText() {
 
@@ -124,5 +131,13 @@ public class BuildHistoryPage extends HomePage {
     public boolean isIconDisplayed() {
 
         return iconLegend.isDisplayed();
+    }
+
+    public List<String> getNameOfLabelsOnTimeLineBuildHistory(){
+        getWait(5).until(ExpectedConditions.visibilityOf(iconOfLabelsOnTime));
+        return labelsOnTimelineBuildHistory
+                .stream()
+                .map(WebElement :: getText)
+                .collect(Collectors.toList());
     }
 }

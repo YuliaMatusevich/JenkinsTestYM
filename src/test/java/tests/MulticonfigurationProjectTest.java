@@ -6,7 +6,6 @@ import model.RenameItemErrorPage;
 import model.multiconfiguration.ConsoleOutputMultiConfigurationProjectPage;
 import model.multiconfiguration.MultiConfigurationProjectStatusPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -131,7 +130,10 @@ public class MulticonfigurationProjectTest extends BaseTest {
 
     }
 
-    @Test(dependsOnMethods = "testMultiConfigurationProjectEnable")
+    @Test(dependsOnMethods = {"testCreateMultiConfigurationProjectWithValidName",
+            "testMulticonfigurationProjectAddDescription",
+            "testMultiConfigurationProjectRenameProjectViaDropDownMenu",
+            "testMultiConfigurationProjectRenameProjectViaSideMenu"})
     public void testMultiConfigurationProjectBuild() {
 
         int countBuildsBeforeNewBuild = new HomePage(getDriver())
@@ -213,25 +215,16 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertEquals(renameItemErrorPage.getErrorMessage(), "‘&amp;’ is an unsafe character");
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testMultiConfigurationProjectBuild")
+    @Test(dependsOnMethods = {"testCreateMultiConfigurationProjectWithValidName",
+            "testMultiConfigurationProjectBuild"})
     public void testMultiConfigurationProjectsRunJobInBuildHistory() {
+        List<String> listNameOfLabels = new HomePage(getDriver())
+                .clickDashboard()
+                .clickMyViewsSideMenuLink()
+                .clickBuildHistory()
+                .getNameOfLabelsOnTimeLineBuildHistory();
 
-        getDriver().findElement(DASHBOARD).click();
-        getDriver().findElement(By.xpath("//a[@href='/me/my-views']")).click();
-        getDriver().findElement(By.xpath("//a[@href='/user/admin/my-views/view/all/builds']")).click();
-        List<WebElement> buildsInTable = getDriver().findElements(By.xpath
-                ("//div[contains(@id,'label-tl')]"));
-        for (WebElement buildName : buildsInTable) {
-            Assert.assertTrue(buildName.getText().contains(NEW_PROJECT_NAME));
-        }
-
-        Assert.assertEquals(getDriver().findElement(
-                        By.xpath("//a[@href='/job/" + NEW_PROJECT_NAME + "/default/']")).getText(),
-                NEW_PROJECT_NAME + " » default");
-        Assert.assertEquals(getDriver().findElement(
-                        By.xpath("//a[@href='/job/" + NEW_PROJECT_NAME + "/']")).getText(),
-                NEW_PROJECT_NAME);
+        Assert.assertTrue(listNameOfLabels.contains(PROJECT_NAME + " #1"));
     }
 
     @Test(dependsOnMethods = "testCreateMultiConfigurationProjectWithDescription")
