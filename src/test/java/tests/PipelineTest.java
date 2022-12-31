@@ -23,7 +23,7 @@ public class PipelineTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(projectName)
                 .selectPipelineAndClickOk()
-                .clickSaveBtn(PipelineStatusPage.class)
+                .clickSaveButton()
                 .clickDashboard();
         return new HomePage(getDriver());
     }
@@ -98,7 +98,7 @@ public class PipelineTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
-                .clickSaveBtn(PipelineStatusPage.class)
+                .clickSaveButton()
                 .clickDashboard()
                 .clickJobDropDownMenu(PIPELINE_NAME)
                 .clickRenamePipelineDropDownMenu()
@@ -162,7 +162,7 @@ public class PipelineTest extends BaseTest {
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
                 .setDescriptionField(PIPELINE_DESCRIPTION)
-                .clickSaveBtn(PipelineStatusPage.class)
+                .clickSaveButton()
                 .clickDashboard()
                 .clickPipelineJob(PIPELINE_NAME)
                 .clickEditDescriptionLink().editDescription(PIPELINE_NAME + "edit description")
@@ -216,7 +216,7 @@ public class PipelineTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
-                .clickSaveBtn(PipelineStatusPage.class)
+                .clickSaveButton()
                 .getNameText();
 
         Assert.assertEquals(actualPipelineName, "Pipeline " + PIPELINE_NAME);
@@ -238,7 +238,7 @@ public class PipelineTest extends BaseTest {
                 .clickConfigureDropDownMenu()
                 .clickGitHubCheckbox()
                 .setGitHubRepo(gitHubRepo)
-                .clickSaveBtn(PipelineStatusPage.class);
+                .clickSaveButton();
 
         Assert.assertTrue(pipelineProjectPage.isDisplayedGitHubOnSideMenu());
         Assert.assertTrue(pipelineProjectPage.getAttributeGitHubSideMenu("href").contains(gitHubRepo));
@@ -269,7 +269,7 @@ public class PipelineTest extends BaseTest {
                 .selectPipelineScriptFromScm()
                 .selectScriptScm()
                 .setGitHubUrl("https://github.com/patriotby07/simple-maven-project-with-tests")
-                .clickSaveBtn(PipelineStatusPage.class)
+                .clickSaveButton()
                 .clickBuildWithParameters()
                 .selectParametersBuild()
                 .clickBuildButton()
@@ -287,7 +287,7 @@ public class PipelineTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
-                .clickSaveBtn(PipelineStatusPage.class)
+                .clickSaveButton()
                 .editDescription(PIPELINE_DESCRIPTION)
                 .clickSaveButton();
 
@@ -301,7 +301,7 @@ public class PipelineTest extends BaseTest {
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
                 .setDescriptionField(PIPELINE_DESCRIPTION)
-                .clickSaveBtn(PipelineStatusPage.class)
+                .clickSaveButton()
                 .getProjectDescriptionText();
 
         Assert.assertEquals(actualPipelineDescription, PIPELINE_DESCRIPTION);
@@ -327,7 +327,7 @@ public class PipelineTest extends BaseTest {
                 .setItemName(ITEM_NAME)
                 .setCopyFromItemName(PIPELINE_NAME)
                 .clickOk()
-                .clickSaveBtn(PipelineStatusPage.class)
+                .clickSaveButton()
                 .getPipelineName();
 
         String actualDescription = new PipelineStatusPage(getDriver()).getProjectDescriptionText();
@@ -371,7 +371,7 @@ public class PipelineTest extends BaseTest {
                 .scrollToEndPipelineConfigPage()
                 .clickTrySamplePipelineDropDownMenu()
                 .clickHelloWorld()
-                .clickSaveBtn(PipelineStatusPage.class)
+                .clickSaveButton()
                 .clickDashboard()
                 .getLastSuccessText(PIPELINE_NAME);
 
@@ -398,7 +398,7 @@ public class PipelineTest extends BaseTest {
                 .clickPipelineJob(PIPELINE_NAME)
                 .clickConfigure()
                 .setDescriptionField(ITEM_NEW_DESCRIPTION)
-                .clickSaveBtn(PipelineStatusPage.class)
+                .clickSaveButton()
                 .getProjectDescriptionText();
 
         Assert.assertEquals(actualDescription, ITEM_NEW_DESCRIPTION);
