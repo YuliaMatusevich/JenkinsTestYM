@@ -1,6 +1,7 @@
 package tests;
 
 import model.HomePage;
+import model.views.ViewPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -60,6 +61,24 @@ public class ListViewTest extends BaseTest {
     }
 
     @Test(dependsOnMethods = "testEditViewDeleteDescription")
+    public void testRemoveSomeHeadersFromProjectStatusTableInListView() {
+        final List<String> namesRemoveColumns = List.of("Weather", "Last Failure", "Last Duration");
+
+        int numberOfJobTableHeadersListView = new HomePage(getDriver())
+                .clickView(RANDOM_LIST_VIEW_NAME)
+                .clickEditViewLink()
+                .removeSomeColumns(namesRemoveColumns)
+                .clickGlobalViewOkButton()
+                .getJobTableHeadersSize();
+
+        int numberOfJobTableHeadersAll = new ViewPage(getDriver())
+                .goToDashboard()
+                .getJobTableHeadersSize();
+
+        Assert.assertNotEquals(numberOfJobTableHeadersAll, numberOfJobTableHeadersListView);
+    }
+
+    @Test(dependsOnMethods = "testRemoveSomeHeadersFromProjectStatusTableInListView")
     public void testDeleteListView() {
 
         List<String> viewList = new HomePage(getDriver())
