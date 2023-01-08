@@ -15,13 +15,11 @@ import java.util.TreeSet;
 
 import static runner.TestUtils.getRandomStr;
 
-@Ignore
 public class FreestyleProjectTest extends BaseTest {
 
     private static final String FREESTYLE_NAME = getRandomStr(10);
     private static final String NEW_FREESTYLE_NAME = getRandomStr(10);
 
-    @Ignore
     @Test
     public void testCreateNewFreestyleProject() {
         final String freestyleProjectTitle = new HomePage(getDriver())
@@ -192,7 +190,8 @@ public class FreestyleProjectTest extends BaseTest {
         Set<String> actualFreestyleConfigSideMenu = new HomePage(getDriver())
                 .clickFreestyleProjectName()
                 .clickSideMenuConfigure()
-                .collectFreestyleConfigSideMenu();
+                .getSideMenu()
+                .collectConfigSideMenu();
 
         Assert.assertEquals(actualFreestyleConfigSideMenu, expectedFreestyleConfigSideMenu);
     }
@@ -282,6 +281,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickFreestyleProjectName()
                 .clickSideMenuConfigureLink()
                 .switchOFFCheckBoxThisProjectIsParametrized()
+                .getSideMenu()
                 .clickLinkSourceCodeManagement()
                 .selectSourceCodeManagementGIT()
                 .inputGITRepositoryURL(repositoryURL)
