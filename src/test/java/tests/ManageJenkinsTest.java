@@ -1,7 +1,8 @@
 package tests;
 
-import model.*;
-
+import model.HomePage;
+import model.ManageOldDataPage;
+import model.StatusUserPage;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,6 +10,8 @@ import runner.BaseTest;
 import runner.TestUtils;
 
 public class ManageJenkinsTest extends BaseTest {
+
+    private static final String NEW_USERS_FULLNAME = TestUtils.getRandomStr(6);
 
     @Test
     public void testRenameFullUserName() {
@@ -18,13 +21,23 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageUsers()
                 .clickConfigureUser()
                 .clearInputFieldFullUserName()
-                .inputNameInFieldFullUserName(newUsersFullName)
+                .inputNameInFieldFullUserName(NEW_USERS_FULLNAME)
                 .clickSaveButton()
                 .refreshPage();
 
-        Assert.assertEquals(userStatusPage.getPageHeaderUserName(), newUsersFullName);
-        Assert.assertEquals(userStatusPage.getBreadcrumbsUserName(), newUsersFullName);
-        Assert.assertEquals(userStatusPage.getH1Title(), newUsersFullName);
+        Assert.assertEquals(userStatusPage.getPageHeaderUserName(), NEW_USERS_FULLNAME);
+        Assert.assertEquals(userStatusPage.getBreadcrumbsUserName(), NEW_USERS_FULLNAME);
+        Assert.assertEquals(userStatusPage.getH1Title(), NEW_USERS_FULLNAME);
+    }
+
+    @Test(dependsOnMethods = "testRenameFullUserName")
+    public void testNewFullnameAfterReLogging() {
+         new HomePage(getDriver())
+                .getHeader()
+                .clickLogOut();
+         loginWeb();
+
+        Assert.assertEquals(new HomePage(getDriver()).getUserName(), NEW_USERS_FULLNAME);
     }
 
     @Test
