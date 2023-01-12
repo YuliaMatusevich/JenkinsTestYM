@@ -147,6 +147,7 @@ public class PipelineStatusPage extends BlankStatusPage<PipelineStatusPage> {
 
     public BuildStatusPage clickLastBuildLink() {
         lastBuildLink.click();
+        getDriver().navigate().refresh();
 
         return new BuildStatusPage(getDriver());
     }
