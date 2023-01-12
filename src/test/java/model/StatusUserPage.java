@@ -1,18 +1,12 @@
 package model;
 
-import model.base.BasePage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class StatusUserPage extends BasePage {
-
-    @FindBy(css = ".model-link > .hidden-xs.hidden-sm")
-    private WebElement pageHeaderUserName;
-
-    @FindBy(xpath = "//li[@class='item'][last()]")
-    private WebElement breadcrumbsUserName;
+public class StatusUserPage extends MainBasePage {
 
     @FindBy(xpath = "//h1")
     private WebElement h1Title;
@@ -49,14 +43,6 @@ public class StatusUserPage extends BasePage {
         getDriver().navigate().refresh();
 
         return this;
-    }
-
-    public String getPageHeaderUserName() {
-        return pageHeaderUserName.getText();
-    }
-
-    public String getBreadcrumbsUserName() {
-        return breadcrumbsUserName.getText();
     }
 
     public String getH1Title() {

@@ -15,7 +15,6 @@ public class ManageJenkinsTest extends BaseTest {
 
     @Test
     public void testRenameFullUserName() {
-        final String newUsersFullName = TestUtils.getRandomStr(6);
         StatusUserPage userStatusPage = new HomePage(getDriver())
                 .clickMenuManageJenkins()
                 .clickManageUsers()
@@ -25,8 +24,11 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickSaveButton()
                 .refreshPage();
 
-        Assert.assertEquals(userStatusPage.getPageHeaderUserName(), NEW_USERS_FULLNAME);
-        Assert.assertEquals(userStatusPage.getBreadcrumbsUserName(), NEW_USERS_FULLNAME);
+        String breadcrumbsUserName = new StatusUserPage(getDriver())
+                .getBreadcrumbs().getTextBreadcrumbs();
+
+        Assert.assertEquals(userStatusPage.getHeader().getUserNameText(), NEW_USERS_FULLNAME);
+        Assert.assertTrue(breadcrumbsUserName.contains(NEW_USERS_FULLNAME));
         Assert.assertEquals(userStatusPage.getH1Title(), NEW_USERS_FULLNAME);
     }
 

@@ -26,5 +26,4 @@ public class BreadcrumbsComponent extends BaseModel {
 
         return new HomePage(getDriver());
     }
-
 }
