@@ -106,4 +106,18 @@ public class ProjectMethodsUtils {
                 .clickCreateButton()
                 .getHeader().clickJenkinsNameIcon();
     }
+
+    public static void createNewUser(WebDriver driver, String username, String password, String fullName, String email) {
+        new HomePage(driver)
+                .clickManageJenkins()
+                .clickManageUsers()
+                .clickCreateUser()
+                .setUsername(username)
+                .setPassword(password)
+                .confirmPassword(password)
+                .setFullName(fullName)
+                .setEmail(email)
+                .clickCreateUserButton()
+                .getHeader().clickJenkinsNameIcon();
+    }
 }

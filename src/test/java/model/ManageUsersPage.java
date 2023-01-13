@@ -1,6 +1,6 @@
 package model;
 
-import model.base.BasePage;
+import model.base.MainBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManageUsersPage extends BasePage {
+public class ManageUsersPage extends MainBasePage {
 
     @FindBy(css = ".jenkins-table__button")
     private WebElement ConfigureUser;
@@ -18,8 +18,11 @@ public class ManageUsersPage extends BasePage {
     @FindBy(xpath = "//a[@href='addUser']")
     private WebElement createUser;
 
-    @FindBy(xpath = "//table[@id='people']//tbody//tr//td")
-    private List<WebElement> usersList;
+    @FindBy(className = "jenkins-table__link")
+    private List<WebElement> userIdList;
+
+    @FindBy(xpath = "//tr/td[3]")
+    private List<WebElement> userFullNameList;
 
     @FindBy(className = "item")
     private WebElement rootMenuDashboardLink;
@@ -43,13 +46,22 @@ public class ManageUsersPage extends BasePage {
         return new CreateUserPage(getDriver());
     }
 
-    public List<String> getListOfUsers() {
-        List<String> listOfUsers = new ArrayList<>();
-        getWait(5).until(ExpectedConditions.visibilityOfAllElements(usersList));
-        for (int i = 0; i < usersList.size(); i++) {
-            listOfUsers.add(i, usersList.get(i).getText());
+    public List<String> getListOfUserIDs() {
+        List<String> listOfUserIDs = new ArrayList<>();
+        getWait(5).until(ExpectedConditions.visibilityOfAllElements(userIdList));
+        for (int i = 0; i < userIdList.size(); i++) {
+            listOfUserIDs.add(i, userIdList.get(i).getText());
         }
-        return listOfUsers;
+        return listOfUserIDs;
+    }
+
+    public List<String> getListOfFullNamesOfUsers() {
+        List<String> listOfFullNamesOfUsers = new ArrayList<>();
+        getWait(5).until(ExpectedConditions.visibilityOfAllElements(userFullNameList));
+        for (int i = 0; i < userFullNameList.size(); i++) {
+            listOfFullNamesOfUsers.add(i, userFullNameList.get(i).getText());
+        }
+        return listOfFullNamesOfUsers;
     }
 
     public HomePage rootMenuDashboardLinkClick() {

@@ -2,16 +2,24 @@ package tests;
 
 import model.HomePage;
 import model.ManageOldDataPage;
+import model.ManageUsersPage;
 import model.StatusUserPage;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.ProjectMethodsUtils;
 import runner.TestUtils;
+
+import java.util.List;
 
 public class ManageJenkinsTest extends BaseTest {
 
-    private static final String NEW_USERS_FULLNAME = TestUtils.getRandomStr(6);
+    private final String NEW_USERS_FULLNAME = TestUtils.getRandomStr(6);
+    private final String USERNAME = TestUtils.getRandomStr(6);
+    private final String PASSWORD = TestUtils.getRandomStr(6);
+    private final String USERS_FULL_NAME = TestUtils.getRandomStr(6);
+    private final String EMAIL = TestUtils.getRandomStr(10) + "@gmail.com";
 
     @Test
     public void testRenameFullUserName() {
@@ -34,10 +42,10 @@ public class ManageJenkinsTest extends BaseTest {
 
     @Test(dependsOnMethods = "testRenameFullUserName")
     public void testNewFullnameAfterReLogging() {
-         new HomePage(getDriver())
+        new HomePage(getDriver())
                 .getHeader()
                 .clickLogOut();
-         loginWeb();
+        loginWeb();
 
         Assert.assertEquals(new HomePage(getDriver()).getUserName(), NEW_USERS_FULLNAME);
     }
@@ -110,5 +118,36 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickCreateUserAndGetErrorMessage();
 
         Assert.assertEquals(errorMessageWhenIncorrectCharacters, "User name must only contain alphanumeric characters, underscore and dash");
+    }
+
+    @Test
+    public void testCreateUser() {
+        ManageUsersPage manageUsersPage = new HomePage(getDriver())
+                .clickManageJenkins()
+                .clickManageUsers()
+                .clickCreateUser()
+                .setUsername(USERNAME)
+                .setPassword(PASSWORD)
+                .confirmPassword(PASSWORD)
+                .setFullName(USERS_FULL_NAME)
+                .setEmail(EMAIL)
+                .clickCreateUserButton();
+
+        Assert.assertTrue(manageUsersPage.getListOfUserIDs().contains(USERNAME), USERNAME + " username not found");
+        Assert.assertTrue(manageUsersPage.getListOfFullNamesOfUsers().contains(USERS_FULL_NAME), USERS_FULL_NAME + " fullName not found");
+    }
+
+    @Test
+    public void testDeleteUser() {
+        ProjectMethodsUtils.createNewUser(getDriver(), USERNAME, PASSWORD, USERS_FULL_NAME, EMAIL);
+
+        List<String> listOfUsers = new HomePage(getDriver())
+                .clickManageJenkins()
+                .clickManageUsers()
+                .clickDeleteUser(USERNAME)
+                .clickYes()
+                .getListOfUserIDs();
+
+        Assert.assertFalse(listOfUsers.contains(USERNAME));
     }
 }
