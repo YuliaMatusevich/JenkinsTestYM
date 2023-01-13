@@ -252,20 +252,11 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
-
     public FreestyleProjectConfigPage openAddBuildStepDropDown() {
+        scrollToElement_PlaceInCenter(getDriver(), buildStepsButton);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildStepsButton));
-        getAction()
-                .scrollToElement(buildStepsButton)
-                .moveToElement(buildStepsButton)
-                .click()
-                .perform();
-        return this;
-    }
-
-    public FreestyleProjectConfigPage closeAddBuildStepDropDown() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(buildStepsButton));
         buildStepsButton.click();
-        getWait(10).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".yui-button-active.yui-menu-button-active")));
 
         return this;
     }
@@ -286,7 +277,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     public FreestyleProjectConfigPage scrollAndClickBuildPeriodicallyCheckbox() {
         scrollToElement_PlaceInCenter(getDriver(), buildPeriodicallyOption);
-        getWait(10).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildPeriodicallyOption)).click();
+        getWait(20).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildPeriodicallyOption)).click();
         getWait(10).until(ExpectedConditions
                 .elementSelectionStateToBe(By.name("hudson-triggers-TimerTrigger"), true));
 
@@ -298,18 +289,9 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return buildPeriodicallyCheckbox.isSelected();
     }
 
-    public FreestyleProjectConfigPage uncheckBuildPeriodicallyCheckbox() {
-        if (buildPeriodicallyCheckbox.isSelected()) {
-            getWait(10).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildPeriodicallyOption)).click();
-        }
-
-        return this;
-    }
-
     public FreestyleProjectConfigPage inputBranchSpecifier(String branchSpecifier){
         scrollToElement_PlaceInCenter(getDriver(), BranchSpecifierInputField);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(BranchSpecifierInputField)).clear();
-        //BranchSpecifierInputField.clear();
         BranchSpecifierInputField.sendKeys(branchSpecifier);
 
         return this;

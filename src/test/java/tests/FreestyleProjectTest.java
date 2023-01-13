@@ -4,11 +4,9 @@ import model.*;
 import model.freestyle.FreestyleProjectConfigPage;
 import model.freestyle.FreestyleProjectStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,8 +46,9 @@ public class FreestyleProjectTest extends BaseTest {
         }
     }
 
-    @Test(dependsOnMethods = "testCreateFreestyleProjectWithIncorrectCharacters")
+    @Test
     public void testDisableProject() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
         FreestyleProjectStatusPage freestyleProjectStatusPage = new HomePage(getDriver())
                 .clickFreestyleProjectName(FREESTYLE_NAME)
                 .clickDisableProjectBtn();
@@ -73,16 +72,20 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(jobStatusIconTooltip, "Not built");
     }
 
-    @Test(dependsOnMethods = "testEnableProject")
+    @Test
     public void testFreestyleProjectPageIsOpenedFromDashboard() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+
         final FreestyleProjectStatusPage freestyleProjectStatusPage = new HomePage(getDriver())
                 .clickFreestyleProjectName(FREESTYLE_NAME);
 
         Assert.assertEquals(freestyleProjectStatusPage.getNameText(), String.format("Project %s", FREESTYLE_NAME));
     }
 
-    @Test(dependsOnMethods = "testFreestyleProjectPageIsOpenedFromDashboard")
+    @Test
     public void testAddDescription() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+
         final String descriptionText = "This is job #" + FREESTYLE_NAME;
 
         String freestyleProjectDescription = new HomePage(getDriver())
@@ -106,8 +109,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(page.getDescriptionText(), newDescription);
     }
 
-    @Test(dependsOnMethods = "testEditDescription")
+    @Test
     public void testNoBuildFreestyleProjectChanges() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+
         ChangesBuildsPage page = new HomePage(getDriver())
                 .clickFreestyleProjectName()
                 .clickLinkChanges();
@@ -115,8 +120,9 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(page.getPageText(), "Changes\nNo builds.");
     }
 
-    @Test(dependsOnMethods = "testNoBuildFreestyleProjectChanges")
+    @Test
     public void testRenameFreestyleProject() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
 
         List<String> jobsList = new HomePage(getDriver())
                 .clickFreestyleProjectName()
@@ -131,38 +137,45 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(jobsList.contains(NEW_FREESTYLE_NAME));
     }
 
-    @Test(dependsOnMethods = "testRenameFreestyleProject")
+    @Test
     public void testViewFreestyleProjectPage() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+
         String freestyleName = new HomePage(getDriver())
                 .clickFreestyleProjectName()
                 .getNameText();
 
-        Assert.assertEquals(freestyleName, String.format("Project %s", NEW_FREESTYLE_NAME));
+        Assert.assertEquals(freestyleName, String.format("Project %s", FREESTYLE_NAME));
     }
 
-    @Test(dependsOnMethods = "testViewFreestyleProjectPage")
+    @Test
     public void testFreestyleProjectConfigureByDropdown() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+
         FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
-                .clickJobDropDownMenu(NEW_FREESTYLE_NAME)
+                .clickJobDropDownMenu(FREESTYLE_NAME)
                 .clickConfigDropDownMenuFreestyle();
 
         Assert.assertEquals(freestyleProjectConfigPage.getHeadlineText(), "Configuration");
     }
 
-    @Test(dependsOnMethods = "testFreestyleProjectConfigureByDropdown")
+    @Test
     public void testCreateNewFreestyleProjectWithDuplicateName() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
 
         String actualResult = new HomePage(getDriver())
                 .clickNewItem()
-                .setItemName(NEW_FREESTYLE_NAME)
+                .setItemName(FREESTYLE_NAME)
                 .selectFreestyleProject()
                 .getItemNameInvalidMsg();
 
-        Assert.assertEquals(actualResult, String.format("» A job already exists with the name ‘%s’", NEW_FREESTYLE_NAME));
+        Assert.assertEquals(actualResult, String.format("» A job already exists with the name ‘%s’", FREESTYLE_NAME));
     }
 
-    @Test(dependsOnMethods = "testCreateNewFreestyleProjectWithDuplicateName")
+    @Test
     public void testCreateBuildNowOnFreestyleProjectPage() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+
         int countBuildsBeforeCreatingNewBuild = new HomePage(getDriver())
                 .clickFreestyleProjectName()
                 .openBuildHistoryOnSidePanel()
@@ -174,8 +187,9 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(countBuildsAfterCreatingNewBuild, countBuildsBeforeCreatingNewBuild + 1);
     }
 
-    @Test(dependsOnMethods = "testCreateBuildNowOnFreestyleProjectPage")
+    @Test
     public void testDeleteFreestyleProject() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
 
         String pageHeaderText = new HomePage(getDriver())
                 .clickFreestyleProjectName()
@@ -186,8 +200,9 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(pageHeaderText, "Welcome to Jenkins!");
     }
 
-    @Test(dependsOnMethods = "testCreateNewFreestyleProject")
+    @Test
     public void testFreestyleConfigSideMenu() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
 
         final Set<String> expectedFreestyleConfigSideMenu = new TreeSet<>(
                 List.of("General", "Source Code Management", "Build Triggers", "Build Environment", "Build Steps", "Post-build Actions"));
@@ -201,7 +216,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(actualFreestyleConfigSideMenu, expectedFreestyleConfigSideMenu);
     }
 
-    @Test(dependsOnMethods = "testFreestyleConfigSideMenu")
+    @Test
     public void testCreateFreestyleProjectWithEmptyName() {
         NewItemPage newItemPage = new HomePage(getDriver())
                 .clickNewItem()
@@ -212,7 +227,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertFalse(newItemPage.isOkButtonEnabled());
     }
 
-    @Test(dependsOnMethods = "testCreateFreestyleProjectWithEmptyName")
+    @Test
     public void testCreateFreestyleProjectWithSpacesInsteadOfName() {
         FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
                 .clickNewItem()
@@ -249,7 +264,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         BuildWithParametersPage page = new HomePage(getDriver())
                 .clickNewItem()
-                .setItemName(NEW_FREESTYLE_NAME)
+                .setItemName(FREESTYLE_NAME)
                 .selectFreestyleProjectAndClickOk()
                 .switchONCheckBoxThisProjectIsParametrized()
                 .clickButtonAddParameter()
@@ -268,7 +283,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .getSideMenu()
                 .clickButtonBuildWithParameters();
 
-        Assert.assertTrue(page.getNameText().contains(NEW_FREESTYLE_NAME));
+        Assert.assertTrue(page.getNameText().contains(FREESTYLE_NAME));
         Assert.assertEquals(page.getDescriptionText(), descriptionText);
         Assert.assertEquals(page.getNthParameterName(1), stringParameterName);
         Assert.assertEquals(page.getNthParameterValue(1), stringParameterDefaultValue);
@@ -300,44 +315,27 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testAddDaysToKeepBuildsInConfigure() {
+    public void testCheckFieldsDaysAndMaxNumberOfBuildsToKeepInConfigure() {
         final String expectedDaysToKeepBuilds = Integer.toString((int) (Math.random() * 20 + 1));
+        final String expectedMaxNumberOfBuildsToKeep = Integer.toString((int) (Math.random() * 20 + 1));
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),FREESTYLE_NAME );
 
-        new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(FREESTYLE_NAME)
-                .selectFreestyleProjectAndClickOk()
-                .clickSaveButton();
-
-        String actualDaysToKeepBuilds = new HomePage(getDriver())
+        FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
                 .clickFreestyleProjectName(FREESTYLE_NAME)
                 .clickSideMenuConfigureLink()
                 .clickDiscardOldBuildsCheckbox()
                 .typeDaysToKeepBuilds(expectedDaysToKeepBuilds)
-                .clickSaveButton()
-                .clickSideMenuConfigureLink()
-                .getNumberOfDaysToKeepBuilds();
-
-        Assert.assertEquals(actualDaysToKeepBuilds, expectedDaysToKeepBuilds);
-    }
-
-    @Test(dependsOnMethods = "testAddDaysToKeepBuildsInConfigure")
-    public void testAddMaxNumberOfBuildsToKeepInConfigure() {
-        final String expectedMaxNumberOfBuildsToKeep = Integer.toString((int) (Math.random() * 20 + 1));
-
-        String actualMaxNumberOfBuildsToKeep = new HomePage(getDriver())
-                .clickFreestyleProjectName()
-                .clickSideMenuConfigureLink()
                 .typeMaxNumberOfBuildsToKeep(expectedMaxNumberOfBuildsToKeep)
                 .clickSaveButton()
-                .clickSideMenuConfigureLink()
-                .getMaxNumberOfBuildsToKeep();
+                .clickSideMenuConfigureLink();
 
-        Assert.assertEquals(actualMaxNumberOfBuildsToKeep, expectedMaxNumberOfBuildsToKeep);
+        Assert.assertEquals(freestyleProjectConfigPage.getNumberOfDaysToKeepBuilds(), expectedDaysToKeepBuilds);
+        Assert.assertEquals(freestyleProjectConfigPage.getMaxNumberOfBuildsToKeep(), expectedMaxNumberOfBuildsToKeep);
     }
 
-    @Test(dependsOnMethods = "testAddMaxNumberOfBuildsToKeepInConfigure")
+    @Test
     public void testBuildStepsOptions() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),FREESTYLE_NAME );
         final Set<String> expectedOptionsInBuildStepsSection = new HashSet<>(List.of("Execute Windows batch command",
                 "Execute shell", "Invoke Ant", "Invoke Gradle script", "Invoke top-level Maven targets",
                 "Run with timeout", "Set build status to \"pending\" on GitHub commit"));
@@ -349,27 +347,19 @@ public class FreestyleProjectTest extends BaseTest {
                 .openAddBuildStepDropDown()
                 .getOptionsInBuildStepsDropDown();
 
-        new FreestyleProjectConfigPage(getDriver())
-                .closeAddBuildStepDropDown()
-                .clickSaveButton();
-
         Assert.assertEquals(actualOptionsInBuildStepsSection, expectedOptionsInBuildStepsSection);
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testBuildStepsOptions")
+    @Test
     public void testSelectBuildPeriodicallyCheckbox() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),FREESTYLE_NAME );
 
         boolean selectedCheckbox = new HomePage(getDriver())
-                .clickFreestyleProjectName()
+                .clickFreestyleProjectName(FREESTYLE_NAME)
                 .clickSideMenuConfigureLink()
                 .clickBuildTriggersSideMenuOption()
                 .scrollAndClickBuildPeriodicallyCheckbox()
                 .verifyThatBuildPeriodicallyCheckboxIsSelected();
-
-        new FreestyleProjectConfigPage(getDriver())
-                .uncheckBuildPeriodicallyCheckbox()
-                .clickSaveButton();
 
         Assert.assertTrue(selectedCheckbox);
     }
