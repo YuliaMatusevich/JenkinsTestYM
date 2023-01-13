@@ -4,8 +4,10 @@ import model.folder.FolderStatusPage;
 import model.HomePage;
 import model.freestyle.FreestyleProjectStatusPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.ProjectMethodsUtils;
 import runner.TestUtils;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public class FolderTest extends BaseTest {
     final String FOLDER_RANDOM_NAME_2 = TestUtils.getRandomStr();
     final String DISPLAY_RANDOM_NAME = TestUtils.getRandomStr();
     final String FREESTYLE_PROJECT_NAME = TestUtils.getRandomStr();
+    final String DESCRIPTION = TestUtils.getRandomStr(10);
 
     @Test
     public void testCreateFolder() {
@@ -31,8 +34,9 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesOnDashboard.contains(FOLDER_RANDOM_NAME_1));
     }
 
-    @Test(dependsOnMethods = "testCreateFolder")
+    @Test
     public void testCreateMultiConfigurationProjectInFolder() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
         final String multiConfigurationProjectName = TestUtils.getRandomStr();
 
         FolderStatusPage folderStatusPage = new HomePage(getDriver())
@@ -46,8 +50,10 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(folderStatusPage.getJobList().contains(multiConfigurationProjectName));
     }
 
-    @Test(dependsOnMethods = "testCreateMultiConfigurationProjectInFolder")
+    @Test
     public void testConfigureChangeFolderDisplayName() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+
         List<String> projectNamesOnDashboard = new HomePage(getDriver())
                 .clickJobDropDownMenu(FOLDER_RANDOM_NAME_1)
                 .clickConfigureDropDownMenuForFolder()
@@ -70,44 +76,32 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(folderStatusPage, "Folder name: " + FOLDER_RANDOM_NAME_1);
     }
 
-    @Test(dependsOnMethods = "testConfigureFolderDisplayNameSaveFolderName")
-    public void testConfigureFolderAddDescription() {
-        final String addDescription = "Add description";
-
-        String textDescription = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(FOLDER_RANDOM_NAME_2)
-                .selectFolderAndClickOk()
-                .setDescription(addDescription)
-                .clickSaveButton()
-                .getAdditionalDescriptionText();
-
-        Assert.assertEquals(textDescription, addDescription);
-    }
-
-    @Test(dependsOnMethods = "testConfigureFolderAddDescription")
+    @Test
     public void testMoveFolderInFolder() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_2);
+
         List<String> foldersNamesInFolder = new HomePage(getDriver())
                 .getBreadcrumbs()
                 .clickDashboard()
-                .clickFolder(FOLDER_RANDOM_NAME_2)
+                .clickFolder(FOLDER_RANDOM_NAME_1)
                 .clickMoveButton()
-                .selectFolder(DISPLAY_RANDOM_NAME)
+                .selectFolder(FOLDER_RANDOM_NAME_2)
                 .clickMove()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .clickFolder(DISPLAY_RANDOM_NAME)
+                .clickFolder(FOLDER_RANDOM_NAME_2)
                 .getJobList();
 
-        Assert.assertTrue(foldersNamesInFolder.contains(FOLDER_RANDOM_NAME_2));
+        Assert.assertTrue(foldersNamesInFolder.contains(FOLDER_RANDOM_NAME_1));
     }
 
-    @Test(dependsOnMethods = "testMoveFolderInFolder")
+    @Test
     public void testDeleteFolder() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+
         String pageHeaderText = new HomePage(getDriver())
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickFolder(DISPLAY_RANDOM_NAME)
+                .clickFolder(FOLDER_RANDOM_NAME_1)
                 .clickDeleteFolder()
                 .clickYes()
                 .getNameText();
@@ -116,13 +110,24 @@ public class FolderTest extends BaseTest {
     }
 
     @Test
-    public void testNameAfterRenameInFolder() {
-        List<String> newFolderName = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(FOLDER_RANDOM_NAME_1)
-                .selectFolderAndClickOk()
+    public void testRenameFolderFromDropDownMenuConfigure() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+        HomePage homePage = new HomePage(getDriver())
+                .clickJobDropdownMenu(FOLDER_RANDOM_NAME_1)
+                .clickConfigDropDownMenu()
+                .setProjectName(FOLDER_RANDOM_NAME_2)
+                .clickSaveButton()
                 .getBreadcrumbs()
-                .clickDashboard()
+                .clickDashboard();
+
+        Assert.assertTrue(homePage.getJobNamesList().contains(FOLDER_RANDOM_NAME_2));
+    }
+
+    @Test
+    public void testRenameFolderFromSideMenu() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+
+        List<String> newFolderName = new HomePage(getDriver())
                 .clickFolder(FOLDER_RANDOM_NAME_1)
                 .clickRenameSideMenu()
                 .clearFieldAndInputNewName(FOLDER_RANDOM_NAME_2)
@@ -134,59 +139,56 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(newFolderName.contains(FOLDER_RANDOM_NAME_2));
     }
 
-    @Test(dependsOnMethods = "testNameAfterRenameInFolder")
+    @Test
     public void testCreateFreestyleProjectInFolderCreateJob() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
         final String freestyleProjectName = TestUtils.getRandomStr();
 
         List<String> projectNamesInFolder = new HomePage(getDriver())
-                .clickFolder(FOLDER_RANDOM_NAME_2)
+                .clickFolder(FOLDER_RANDOM_NAME_1)
                 .clickCreateJob()
                 .setItemName(freestyleProjectName)
                 .selectFreestyleProjectAndClickOk()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .clickFolder(FOLDER_RANDOM_NAME_2)
+                .clickFolder(FOLDER_RANDOM_NAME_1)
                 .getJobList();
 
         Assert.assertTrue(projectNamesInFolder.contains(freestyleProjectName));
     }
 
-    @Test(dependsOnMethods = "testCreateFreestyleProjectInFolderCreateJob")
+    @Test
     public void testMoveFreestyleProjectInFolderUsingDropDownMenu() {
-        final String freestyleProjectName = TestUtils.getRandomStr();
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),FREESTYLE_PROJECT_NAME);
 
         List<String> projectNamesInFolder = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(freestyleProjectName)
-                .selectFreestyleProjectAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickJobDropDownMenu(freestyleProjectName)
+                .clickJobDropDownMenu(FREESTYLE_PROJECT_NAME)
                 .clickMoveButtonDropdown(new FreestyleProjectStatusPage(getDriver()))
-                .selectFolder(FOLDER_RANDOM_NAME_2)
+                .selectFolder(FOLDER_RANDOM_NAME_1)
                 .clickMove()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .clickFolder(FOLDER_RANDOM_NAME_2)
+                .clickFolder(FOLDER_RANDOM_NAME_1)
                 .getJobList();
 
-        Assert.assertTrue(projectNamesInFolder.contains(freestyleProjectName));
+        Assert.assertTrue(projectNamesInFolder.contains(FREESTYLE_PROJECT_NAME));
     }
 
-    @Test(dependsOnMethods = "testMoveFreestyleProjectInFolderUsingDropDownMenu")
+    @Test
     public void testCreateFreestyleProjectInFolderNewItem() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
 
         List<String> projectNamesInFolder = new HomePage(getDriver())
-                .clickFolder(FOLDER_RANDOM_NAME_2)
+                .clickFolder(FOLDER_RANDOM_NAME_1)
                 .clickFolderNewItem()
                 .setItemName(FREESTYLE_PROJECT_NAME)
                 .selectFreestyleProjectAndClickOk()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .clickFolder(FOLDER_RANDOM_NAME_2)
+                .clickFolder(FOLDER_RANDOM_NAME_1)
                 .getJobList();
 
         Assert.assertTrue(projectNamesInFolder.contains(FREESTYLE_PROJECT_NAME));
@@ -196,7 +198,14 @@ public class FolderTest extends BaseTest {
     public void testDeleteFreestyleProjectInFolder() {
 
         List<String> jobListBeforeDeleting = new HomePage(getDriver())
-                .clickFolder(FOLDER_RANDOM_NAME_2)
+                .clickFolder(FOLDER_RANDOM_NAME_1)
+                .clickFolderNewItem()
+                .setItemName(TestUtils.getRandomStr())
+                .selectFreestyleProjectAndClickOk()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .clickFolder(FOLDER_RANDOM_NAME_1)
                 .getJobList();
 
         List<String> jobList = new FolderStatusPage(getDriver())
@@ -210,12 +219,10 @@ public class FolderTest extends BaseTest {
     }
 
     @Test
-    public void testCreateFolderInFolder() {
+    public void testCreateFolderInFolderFromCreateJob() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
         List<String> folderNamesInFolder = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(FOLDER_RANDOM_NAME_1)
-                .selectFolderAndClickOk()
-                .clickSaveButton()
+                .clickFolder(FOLDER_RANDOM_NAME_1)
                 .clickCreateJob()
                 .setItemName(FOLDER_RANDOM_NAME_2)
                 .selectFolderAndClickOk()
@@ -228,27 +235,80 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(folderNamesInFolder.contains(FOLDER_RANDOM_NAME_2));
     }
 
-    @Test(dependsOnMethods = "testCreateFolderInFolder")
-    public void testAddFolderDescription() {
-        String folderDescription = TestUtils.getRandomStr();
-
-        String textDescription = new HomePage(getDriver())
-                .getBreadcrumbs()
-                .clickDashboard()
+    @Test
+    public void testCreateFolderInFolderFromNewItem() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+        FolderStatusPage folderStatusPage = new HomePage(getDriver())
                 .clickFolder(FOLDER_RANDOM_NAME_1)
-                .clickAddDescription()
-                .setDescription(folderDescription)
-                .clickSubmitButton()
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickFolder(FOLDER_RANDOM_NAME_1)
-                .getDescriptionText();
+                .clickFolderNewItem()
+                .setItemName(FOLDER_RANDOM_NAME_2)
+                .selectFolderAndClickOk()
+                .clickSaveButton();
 
-        Assert.assertEquals(textDescription, folderDescription);
+        Assert.assertTrue(folderStatusPage.getNameText().contains(FOLDER_RANDOM_NAME_2));
+        Assert.assertTrue(folderStatusPage.getTopMenueLinkText().contains(FOLDER_RANDOM_NAME_2));
+        Assert.assertTrue(folderStatusPage.getTopMenueLinkText().contains(FOLDER_RANDOM_NAME_1));
     }
 
-    @Test(dependsOnMethods = "testAddFolderDescription")
+    @Test
+    public void testCreateFolderWithDescription() {
+        String textDescription = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(FOLDER_RANDOM_NAME_1)
+                .selectFolderAndClickOk()
+                .setDescription(DESCRIPTION)
+                .clickSaveButton()
+                .getAdditionalDescriptionText();
+
+        Assert.assertEquals(textDescription, DESCRIPTION);
+    }
+
+    @Test(dependsOnMethods = "testCreateFolderWithDescription")
+    public void testRenameFolderWithDescription() {
+        FolderStatusPage folder = new HomePage(getDriver())
+                .clickJobDropdownMenu(FOLDER_RANDOM_NAME_1)
+                .clickRenameFolderDropDownMenu()
+                .clearFieldAndInputNewName(FOLDER_RANDOM_NAME_1)
+                .clickRenameButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .clickFolder(FOLDER_RANDOM_NAME_1);
+
+        Assert.assertEquals(folder.getFolderNameHeader(), FOLDER_RANDOM_NAME_1);
+        Assert.assertEquals(folder.getAdditionalDescriptionText(), DESCRIPTION);
+    }
+
+    @Test
+    public void testAddFolderDescription() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+
+        String textDescription = new HomePage(getDriver())
+                .clickFolder(FOLDER_RANDOM_NAME_1)
+                .clickAddDescription()
+                .setDescription(DESCRIPTION)
+                .clickSubmitButton()
+                .getDescriptionText();
+
+        Assert.assertEquals(textDescription, DESCRIPTION);
+    }
+
+    @Test
+    public void testAddFolderDescriptionFromDropDownConfigure() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+
+        String folderDescription = new HomePage(getDriver())
+                .clickJobDropdownMenu(FOLDER_RANDOM_NAME_1)
+                .clickConfigDropDownMenu()
+                .setDescription(DESCRIPTION)
+                .clickSaveButton()
+                .getAdditionalDescriptionText();
+
+        Assert.assertTrue(folderDescription.contains(DESCRIPTION));
+    }
+
+    @Test
     public void testCreateFreestyleProjectInFolderByNewItemDropDownInCrambMenu() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
         final String freestyleProjectName = TestUtils.getRandomStr();
 
         List<String> projectNamesInFolder = new HomePage(getDriver())
@@ -263,8 +323,9 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesInFolder.contains(freestyleProjectName));
     }
 
-    @Test(dependsOnMethods = "testCreateFreestyleProjectInFolderByNewItemDropDownInCrambMenu")
+    @Test
     public void testCreateMultibranchPipelineProjectInFolder() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
         final String multibranchPipelineProjectName = TestUtils.getRandomStr();
 
         List<String> projectNamesInFolder = new HomePage(getDriver())
@@ -281,11 +342,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesInFolder.contains(multibranchPipelineProjectName));
     }
 
-    @Test(dependsOnMethods = "testCreateMultibranchPipelineProjectInFolder")
+    @Test
     public void testDeleteFolderUsingDropDown() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+
         String welcomeJenkinsHeader = new HomePage(getDriver())
-                .getBreadcrumbs()
-                .clickDashboard()
                 .clickJobDropDownMenu(FOLDER_RANDOM_NAME_1)
                 .clickDeleteDropDownMenu()
                 .clickYes()

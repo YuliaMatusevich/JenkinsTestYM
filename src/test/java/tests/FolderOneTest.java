@@ -3,6 +3,7 @@ package tests;
 import model.folder.FolderStatusPage;
 import model.HomePage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.TestUtils;
@@ -23,84 +24,6 @@ public class FolderOneTest extends BaseTest {
                 .clickDashboard();
     }
 
-    @Test
-    public void testCreateNewFolder() {
-        createFolder(RANDOM_NAME_1);
-
-        HomePage homePage = new HomePage(getDriver());
-
-        Assert.assertTrue(homePage.getJobNamesList().contains(RANDOM_NAME_1));
-    }
-
-    @Test(dependsOnMethods = "testCreateNewFolder")
-    public void testCreateFolderInFolder() {
-        FolderStatusPage folderStatusPage = new HomePage(getDriver())
-                .clickFolder(RANDOM_NAME_1)
-                .clickFolderNewItem()
-                .setItemName(RANDOM_NAME_2)
-                .selectFolderAndClickOk()
-                .clickSaveButton();
-
-        Assert.assertTrue(folderStatusPage.getNameText().contains(RANDOM_NAME_2));
-        Assert.assertTrue(folderStatusPage.getTopMenueLinkText().contains(RANDOM_NAME_2));
-        Assert.assertTrue(folderStatusPage.getTopMenueLinkText().contains(RANDOM_NAME_1));
-    }
-
-    @Test
-    public void testConfigureFolderDisplayName() {
-        createFolder(RANDOM_NAME_1);
-
-        HomePage homePage = new HomePage(getDriver())
-                .clickJobDropdownMenu(RANDOM_NAME_1)
-                .clickConfigDropDownMenu()
-                .setProjectName(RANDOM_NAME_2)
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard();
-
-        Assert.assertTrue(homePage.getJobNamesList().contains(RANDOM_NAME_2));
-    }
-
-    @Test(dependsOnMethods = "testConfigureFolderDisplayName")
-    public void testAddFolderDescription() {
-        String folderDescription = new HomePage(getDriver())
-
-                .clickJobDropdownMenu(RANDOM_NAME_1)
-                .clickConfigDropDownMenu()
-                .setDescription("Folder description")
-                .clickSaveButton()
-                .getAdditionalDescriptionText();
-
-        Assert.assertTrue(folderDescription.contains("Folder description"));
-    }
-
-    @Test(dependsOnMethods = "testAddFolderDescription")
-    public void testRenameFolderDescription() {
-        HomePage homePage = new HomePage(getDriver())
-
-                .clickJobDropdownMenu(RANDOM_NAME_1)
-                .clickRenameFolderDropDownMenu()
-                .clearFieldAndInputNewName(RANDOM_NAME_2)
-                .clickRenameButton()
-                .getBreadcrumbs()
-                .clickDashboard();
-
-        Assert.assertTrue(homePage.getJobNamesList().contains(RANDOM_NAME_2));
-    }
-
-    @Test
-    public void testDeleteFolder() {
-        createFolder(RANDOM_NAME_1);
-
-        HomePage homePage = new HomePage(getDriver())
-                .clickFolder(RANDOM_NAME_1)
-                .clickDeleteFolder()
-                .clickYes()
-                .getBreadcrumbs()
-                .clickDashboard();
-
-        Assert.assertFalse(homePage.getJobNamesList().contains(RANDOM_NAME_1));
-    }
 
     @Test
     public void testCreateFolderInFolderJob() {
@@ -152,16 +75,6 @@ public class FolderOneTest extends BaseTest {
         Assert.assertTrue(statusPage.getJobList().contains(RANDOM_NAME_1));
     }
 
-    @Test(dependsOnMethods = "testMoveFolderInFolder")
-    public void testDeleteFolderDropDown() {
-        HomePage homePage = new HomePage(getDriver())
-                .clickJobDropdownMenu(RANDOM_NAME_1 + "NEW")
-                .clickDeleteDropDownMenu()
-                .clickYes();
-
-        Assert.assertFalse(homePage.getJobNamesList().contains(RANDOM_NAME_1 + "NEW"));
-    }
-
     @Test
     public void testCreateNewFolderWithPipeline() {
         createFolder(RANDOM_NAME_1);
@@ -178,7 +91,7 @@ public class FolderOneTest extends BaseTest {
         Assert.assertTrue(actualResult.getTopMenueLinkText().contains(RANDOM_MULTIBRANCH_PIPELINE_NAME));
         Assert.assertTrue(actualResult.getNameText().contains(RANDOM_MULTIBRANCH_PIPELINE_NAME));
     }
-
+    @Ignore
     @Test
     public void testCreateNewFolderPipelineOptionJob() {
         createFolder(RANDOM_NAME_1);

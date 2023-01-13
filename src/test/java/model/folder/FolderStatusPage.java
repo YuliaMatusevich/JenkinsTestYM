@@ -54,6 +54,9 @@ public class FolderStatusPage extends BlankStatusPage<FolderStatusPage> {
     @FindBy(linkText = "Rename")
     private WebElement renameButton;
 
+    @FindBy(xpath = "//div[@id='main-panel']/h1")
+    private WebElement folderNameHeader;
+
     public FolderStatusPage(WebDriver driver) {
         super(driver);
     }
@@ -124,6 +127,10 @@ public class FolderStatusPage extends BlankStatusPage<FolderStatusPage> {
         String[] namesBlock = getDriver().findElement(By.id("main-panel")).getText().split("\n");
 
         return namesBlock[1];
+    }
+
+    public String getFolderNameHeader() {
+        return folderNameHeader.getText().trim();
     }
 
     public FolderStatusPage clickAddDescription() {
