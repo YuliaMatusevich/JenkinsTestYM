@@ -4,7 +4,6 @@ import model.folder.FolderStatusPage;
 import model.HomePage;
 import model.freestyle.FreestyleProjectStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -97,6 +96,24 @@ public class FolderTest extends BaseTest {
     }
 
     @Test
+    public void testMoveFolderInFolderFromDropdownMenuMoveButton() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_2);
+
+        HomePage homePage = new HomePage(getDriver())
+                .clickJobDropdownMenu(FOLDER_RANDOM_NAME_1)
+                .clickMoveButtonDropdown(new FolderStatusPage(getDriver()))
+                .selectFolder(FOLDER_RANDOM_NAME_2)
+                .clickMove()
+                .getBreadcrumbs()
+                .clickDashboard();
+
+        Assert.assertFalse(homePage.getJobNamesList().contains(FOLDER_RANDOM_NAME_1));
+        Assert.assertTrue(new HomePage(getDriver())
+                .clickFolder(FOLDER_RANDOM_NAME_2).getJobList().contains(FOLDER_RANDOM_NAME_1));
+    }
+
+    @Test
     public void testDeleteFolder() {
         ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
 
@@ -120,6 +137,21 @@ public class FolderTest extends BaseTest {
                 .getBreadcrumbs()
                 .clickDashboard();
 
+        Assert.assertTrue(homePage.getJobNamesList().contains(FOLDER_RANDOM_NAME_2));
+    }
+
+    @Test
+    public void testRenameFolderFromDropDownMenuRename() {
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+        HomePage homePage = new HomePage(getDriver())
+                .clickJobDropdownMenu(FOLDER_RANDOM_NAME_1)
+                .clickRenameFolderDropDownMenu()
+                .clearFieldAndInputNewName(FOLDER_RANDOM_NAME_2)
+                .clickRenameButton()
+                .getBreadcrumbs()
+                .clickDashboard();
+
+        Assert.assertFalse(homePage.getJobNamesList().contains(FOLDER_RANDOM_NAME_1));
         Assert.assertTrue(homePage.getJobNamesList().contains(FOLDER_RANDOM_NAME_2));
     }
 
@@ -340,6 +372,25 @@ public class FolderTest extends BaseTest {
                 .getJobList();
 
         Assert.assertTrue(projectNamesInFolder.contains(multibranchPipelineProjectName));
+    }
+
+    @Test
+    public void testCreatePipelineInFolderFromCreateJobButton() {
+        final String PipelineProjectName = TestUtils.getRandomStr();
+
+        ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
+        List<String> projectNamesInFolder = new HomePage(getDriver())
+                .clickFolder(FOLDER_RANDOM_NAME_1)
+                .clickCreateJob()
+                .setItemName(PipelineProjectName)
+                .selectPipelineAndClickOk()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .clickFolder(FOLDER_RANDOM_NAME_1)
+                .getJobList();
+
+        Assert.assertTrue(projectNamesInFolder.contains(PipelineProjectName));
     }
 
     @Test
