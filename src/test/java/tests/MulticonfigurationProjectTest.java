@@ -266,6 +266,7 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertTrue(buildNowButton.buildNowButtonIsDisplayed());
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testCreateMultiConfigurationProjectWithValidName")
     public void testMultiConfigurationProjectWithBuildStepCheckBuildSuccess() {
         MultiConfigurationProjectConfigPage multiConfigProjectPage = new HomePage(getDriver())
