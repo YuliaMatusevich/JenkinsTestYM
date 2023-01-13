@@ -1,5 +1,4 @@
 package tests;
-
 import model.*;
 import model.freestyle.FreestyleProjectConfigPage;
 import model.freestyle.FreestyleProjectStatusPage;
@@ -11,40 +10,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 import static runner.TestUtils.getRandomStr;
 
 public class FreestyleProjectTest extends BaseTest {
 
     private static final String FREESTYLE_NAME = getRandomStr(10);
     private static final String NEW_FREESTYLE_NAME = getRandomStr(10);
-
-    @Test
-    public void testCreateNewFreestyleProject() {
-        final String freestyleProjectTitle = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(FREESTYLE_NAME)
-                .selectFreestyleProjectAndClickOk()
-                .clickSaveButton()
-                .getNameText();
-
-        Assert.assertEquals(freestyleProjectTitle, String.format("Project %s", FREESTYLE_NAME));
-    }
-
-    @Test(dependsOnMethods = "testCreateFreestyleProjectWithSpacesInsteadOfName")
-    public void testCreateFreestyleProjectWithIncorrectCharacters() {
-        final List<Character> incorrectNameCharacters =
-                List.of('!', '@', '#', '$', '%', '^', '&', '*', '[', ']', '\\', '|', ';', ':', '/', '?', '<', '>');
-        NewItemPage newItemPage = new HomePage(getDriver()).clickNewItem();
-
-        for (Character character : incorrectNameCharacters) {
-            newItemPage.clearItemName()
-                    .setItemName(String.valueOf(character))
-                    .selectFreestyleProject();
-
-            Assert.assertEquals(newItemPage.getItemNameInvalidMsg(), String.format("» ‘%s’ is an unsafe character", character));
-        }
-    }
 
     @Test
     public void testDisableProject() {
@@ -160,19 +131,6 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testCreateNewFreestyleProjectWithDuplicateName() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
-
-        String actualResult = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(FREESTYLE_NAME)
-                .selectFreestyleProject()
-                .getItemNameInvalidMsg();
-
-        Assert.assertEquals(actualResult, String.format("» A job already exists with the name ‘%s’", FREESTYLE_NAME));
-    }
-
-    @Test
     public void testCreateBuildNowOnFreestyleProjectPage() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
 
@@ -214,43 +172,6 @@ public class FreestyleProjectTest extends BaseTest {
                 .collectConfigSideMenu();
 
         Assert.assertEquals(actualFreestyleConfigSideMenu, expectedFreestyleConfigSideMenu);
-    }
-
-    @Test
-    public void testCreateFreestyleProjectWithEmptyName() {
-        NewItemPage newItemPage = new HomePage(getDriver())
-                .clickNewItem()
-                .selectFreestyleProject();
-
-        Assert.assertEquals(newItemPage.getItemNameRequiredMsg(),
-                "» This field cannot be empty, please enter a valid name");
-        Assert.assertFalse(newItemPage.isOkButtonEnabled());
-    }
-
-    @Test
-    public void testCreateFreestyleProjectWithSpacesInsteadOfName() {
-        FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(" ")
-                .selectFreestyleProjectAndClickOk();
-
-        Assert.assertEquals(freestyleProjectConfigPage.getHeadlineText(), "Error");
-        Assert.assertEquals(freestyleProjectConfigPage.getErrorMsg(), "No name is specified");
-    }
-
-    @Test
-    public void testCreateNewFreestyleProjectWithLongNameFrom256Characters() {
-        final String expectedURL = "view/all/createItem";
-        final String expectedTextOfError = "A problem occurred while processing the request.";
-
-        CreateItemErrorPage errorPage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(getRandomStr(256))
-                .selectFreestyleProjectAndClickOkWithError();
-
-        Assert.assertTrue(errorPage.getPageUrl().endsWith(expectedURL));
-        Assert.assertTrue(errorPage.isErrorPictureDisplayed());
-        Assert.assertEquals(errorPage.getErrorDescription(), expectedTextOfError);
     }
 
     @Test

@@ -1,8 +1,8 @@
 package tests;
-
 import model.CreateItemErrorPage;
 import model.HomePage;
 import model.NewItemPage;
+import model.freestyle.FreestyleProjectConfigPage;
 import model.pipeline.PipelineConfigPage;
 import model.pipeline.PipelineStatusPage;
 import org.testng.Assert;
@@ -11,12 +11,11 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestUtils;
-
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
-
 import static runner.ProjectMethodsUtils.createNewFolder;
+import static runner.TestUtils.getRandomStr;
 
 public class NewItemTest extends BaseTest {
 
@@ -210,5 +209,82 @@ public class NewItemTest extends BaseTest {
                 .getErrorMessage();
 
         Assert.assertEquals(errorMessage, "No such job: " + jobName);
+    }
+
+    @Test
+    public void testCreateNewFreestyleProject() {
+        final String freestyleProjectTitle = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(PROJECT_NAME)
+                .selectFreestyleProjectAndClickOk()
+                .clickSaveButton()
+                .getNameText();
+
+        Assert.assertEquals(freestyleProjectTitle, String.format("Project %s", PROJECT_NAME));
+    }
+
+    @Test
+    public void testCreateFreestyleProjectWithSpacesInsteadOfName() {
+        FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(" ")
+                .selectFreestyleProjectAndClickOk();
+
+        Assert.assertEquals(freestyleProjectConfigPage.getHeadlineText(), "Error");
+        Assert.assertEquals(freestyleProjectConfigPage.getErrorMsg(), "No name is specified");
+    }
+
+    @Test(dependsOnMethods = "testCreateFreestyleProjectWithSpacesInsteadOfName")
+    public void testCreateFreestyleProjectWithIncorrectCharacters() {
+        final List<Character> incorrectNameCharacters =
+                List.of('!', '@', '#', '$', '%', '^', '&', '*', '[', ']', '\\', '|', ';', ':', '/', '?', '<', '>');
+        NewItemPage newItemPage = new HomePage(getDriver()).clickNewItem();
+
+        for (Character character : incorrectNameCharacters) {
+            newItemPage.clearItemName()
+                    .setItemName(String.valueOf(character))
+                    .selectFreestyleProject();
+
+            Assert.assertEquals(newItemPage.getItemNameInvalidMsg(), String.format("» ‘%s’ is an unsafe character", character));
+        }
+    }
+
+    @Test
+    public void testCreateNewFreestyleProjectWithDuplicateName() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), PROJECT_NAME);
+
+        String actualResult = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(PROJECT_NAME)
+                .selectFreestyleProject()
+                .getItemNameInvalidMsg();
+
+        Assert.assertEquals(actualResult, String.format("» A job already exists with the name ‘%s’", PROJECT_NAME));
+    }
+
+    @Test
+    public void testCreateFreestyleProjectWithEmptyName() {
+        NewItemPage newItemPage = new HomePage(getDriver())
+                .clickNewItem()
+                .selectFreestyleProject();
+
+        Assert.assertEquals(newItemPage.getItemNameRequiredMsg(),
+                "» This field cannot be empty, please enter a valid name");
+        Assert.assertFalse(newItemPage.isOkButtonEnabled());
+    }
+
+    @Test
+    public void testCreateNewFreestyleProjectWithLongNameFrom256Characters() {
+        final String expectedURL = "view/all/createItem";
+        final String expectedTextOfError = "A problem occurred while processing the request.";
+
+        CreateItemErrorPage errorPage = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(getRandomStr(256))
+                .selectFreestyleProjectAndClickOkWithError();
+
+        Assert.assertTrue(errorPage.getPageUrl().endsWith(expectedURL));
+        Assert.assertTrue(errorPage.isErrorPictureDisplayed());
+        Assert.assertEquals(errorPage.getErrorDescription(), expectedTextOfError);
     }
 }
