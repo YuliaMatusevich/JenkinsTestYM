@@ -27,7 +27,7 @@ public class GlobalToolConfigurationPage extends BasePage {
     }
 
     public GlobalToolConfigurationPage clickFirstAddMavenButton() {
-        TestUtils.scrollToEnd(getDriver());
+        TestUtils.scrollToElement_PlaceInCenter(getDriver(), addMavenButtons.get(0));
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(addMavenButtons.get(0)));
         getWait(5).until(ExpectedConditions.elementToBeClickable(addMavenButtons.get(0))).click();
 
