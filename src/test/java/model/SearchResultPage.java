@@ -1,5 +1,6 @@
 package model;
 
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResultPage extends HomePage {
+public class SearchResultPage extends MainBasePage {
 
     @FindBy(xpath = "//div[@id='main-panel']/ol/li/a")
     private List<WebElement> searchResults;

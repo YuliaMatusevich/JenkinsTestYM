@@ -1,12 +1,12 @@
 package model;
 
-import model.base.BasePage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class PluginManagerPage extends BasePage {
+public class PluginManagerPage extends MainBasePage {
 
     public PluginManagerPage(WebDriver driver) {
         super(driver);

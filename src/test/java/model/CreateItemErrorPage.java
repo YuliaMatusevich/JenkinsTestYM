@@ -1,11 +1,11 @@
 package model;
 
-import model.base.BasePage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class CreateItemErrorPage extends BasePage {
+public class CreateItemErrorPage extends MainBasePage {
 
     @FindBy(xpath = "//div[@id = 'main-panel']/p")
     private WebElement errorMessage;

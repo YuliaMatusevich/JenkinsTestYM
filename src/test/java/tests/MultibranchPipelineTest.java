@@ -40,7 +40,7 @@ public class MultibranchPipelineTest extends BaseTest {
 
     @Test
     public void testCreateMultibranchPipelineInvalidName() {
-        NewItemPage newItemPage = new NewItemPage(getDriver())
+        NewItemPage newItemPage = new HomePage(getDriver())
                 .clickNewItem()
                 .setItemName("MultibranchPipeline@")
                 .selectMultibranchPipeline();

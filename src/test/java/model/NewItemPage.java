@@ -1,5 +1,6 @@
 package model;
 
+import model.base.MainBasePage;
 import model.folder.FolderConfigPage;
 import model.folder.FolderStatusPage;
 import model.freestyle.FreestyleProjectConfigPage;
@@ -17,10 +18,7 @@ import runner.TestUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NewItemPage extends HomePage {
-
-    @FindBy(className = "item")
-    private WebElement rootMenuDashboardLink;
+public class NewItemPage extends MainBasePage {
 
     @FindBy(id = "name")
     private WebElement itemName;
@@ -126,12 +124,6 @@ public class NewItemPage extends HomePage {
         okButton.submit();
 
         return new MultiConfigurationProjectConfigPage(getDriver());
-    }
-
-    public HomePage rootMenuDashboardLinkClick() {
-        rootMenuDashboardLink.click();
-
-        return new HomePage(getDriver());
     }
 
     public NewItemPage setItem(int index) {

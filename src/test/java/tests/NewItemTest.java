@@ -148,7 +148,8 @@ public class NewItemTest extends BaseTest {
 
         for (int i = 0; i < itemsListSize; i++) {
             String actualErrorMessage = new NewItemPage((getDriver()))
-                    .rootMenuDashboardLinkClick()
+                    .getBreadcrumbs()
+                    .clickDashboard()
                     .clickNewItem()
                     .setItem(i)
                     .getItemNameRequiredMsg();

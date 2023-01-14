@@ -1,11 +1,12 @@
 package model;
 
-import model.base.BasePage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class ManageOldDataPage extends BasePage{
+public class ManageOldDataPage extends MainBasePage {
+
     public ManageOldDataPage(WebDriver driver) {
         super(driver);
     }

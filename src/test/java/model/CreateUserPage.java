@@ -1,12 +1,12 @@
 package model;
 
-import model.base.BasePage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class CreateUserPage extends BasePage {
+public class CreateUserPage extends MainBasePage {
 
     @FindBy(id = "username")
     private WebElement username;

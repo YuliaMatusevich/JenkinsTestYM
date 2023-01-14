@@ -1,13 +1,12 @@
 package model;
 
 import model.base.BasePage;
-import model.folder.FolderStatusPage;
-import model.views.MyViewsPage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class DeletePage<ParentPage extends BasePage> extends BasePage {
+public class DeletePage<ParentPage extends BasePage> extends MainBasePage {
 
     @FindBy(id = "yui-gen1-button")
     private WebElement yesButton;

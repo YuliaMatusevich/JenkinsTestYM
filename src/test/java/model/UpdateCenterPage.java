@@ -1,6 +1,6 @@
 package model;
 
-import model.base.BasePage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +9,7 @@ import runner.TestUtils;
 
 import static runner.TestUtils.scrollToElement;
 
-public class UpdateCenterPage extends BasePage {
+public class UpdateCenterPage extends MainBasePage {
 
     public UpdateCenterPage(WebDriver driver) {
         super(driver);
