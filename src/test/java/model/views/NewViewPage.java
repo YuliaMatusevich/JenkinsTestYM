@@ -1,11 +1,12 @@
 package model.views;
 
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class NewViewPage extends MyViewsPage {
+public class NewViewPage extends MainBasePage {
 
     @FindBy(id = "name")
     private WebElement viewName;
@@ -21,6 +22,9 @@ public class NewViewPage extends MyViewsPage {
 
     @FindBy(id = "ok")
     private WebElement createButton;
+
+    @FindBy(css = ".error")
+    private WebElement errorMessageViewAlreadyExist;
 
 
     public NewViewPage(WebDriver driver) {
@@ -51,36 +55,27 @@ public class NewViewPage extends MyViewsPage {
         return this;
     }
 
-    public EditViewPage setGlobalViewTypeAndCLickCreate() {
-        globalViewType.click();
-        createButton.submit();
+    public ViewPage clickCreateButtonToViewPage() {
+        createButton.click();
 
-        return new EditViewPage(getDriver());
+        return new ViewPage(getDriver());
     }
 
-    public EditListViewPage setListViewTypeAndClickCreate() {
-        listViewType.click();
-        createButton.submit();
+    public EditGlobalViewPage clickCreateButtonToEditGlobalView() {
+        createButton.click();
+
+        return new EditGlobalViewPage(getDriver());
+    }
+
+    public EditListViewPage clickCreateButtonToEditListView() {
+        createButton.click();
 
         return new EditListViewPage(getDriver());
     }
 
-    public EditViewPage setMyViewTypeAndCLickCreate() {
-        myViewType.click();
-        createButton.submit();
+    public String getErrorMessageViewAlreadyExist() {
 
-        return new EditViewPage(getDriver());
-    }
-
-    public EditViewPage clickCreateButton() {
-        createButton.click();
-
-        return new EditViewPage(getDriver());
-    }
-
-    public EditViewPage clickCreateListView() {
-        createButton.click();
-
-        return new EditViewPage(getDriver());
+        return getWait(5).until(ExpectedConditions.visibilityOf(
+                errorMessageViewAlreadyExist)).getText();
     }
 }

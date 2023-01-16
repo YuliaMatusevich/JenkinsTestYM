@@ -65,7 +65,7 @@ public class ProjectMethodsUtils {
                 .clickNewView()
                 .setViewName(name)
                 .setGlobalViewType()
-                .clickCreateButton()
+                .clickCreateButtonToEditGlobalView()
                 .getHeader().clickJenkinsNameIcon();
     }
 
@@ -75,7 +75,7 @@ public class ProjectMethodsUtils {
                 .clickNewView()
                 .setViewName(name)
                 .setListViewType()
-                .clickCreateButton()
+                .clickCreateButtonToEditListView()
                 .getHeader().clickJenkinsNameIcon();
     }
 
@@ -85,7 +85,7 @@ public class ProjectMethodsUtils {
                 .clickNewView()
                 .setViewName(name)
                 .setMyViewType()
-                .clickCreateButton()
+                .clickCreateButtonToViewPage()
                 .getHeader().clickJenkinsNameIcon();
     }
 
@@ -94,7 +94,7 @@ public class ProjectMethodsUtils {
                 .clickAddViewLink()
                 .setViewName(name)
                 .setListViewType()
-                .clickCreateButton()
+                .clickCreateButtonToEditListView()
                 .getHeader().clickJenkinsNameIcon();
     }
 
@@ -103,7 +103,7 @@ public class ProjectMethodsUtils {
                 .clickAddViewLink()
                 .setViewName(name)
                 .setMyViewType()
-                .clickCreateButton()
+                .clickCreateButtonToViewPage()
                 .getHeader().clickJenkinsNameIcon();
     }
 

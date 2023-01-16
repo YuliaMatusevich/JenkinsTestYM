@@ -26,9 +26,10 @@ public class ListViewTest extends BaseTest {
                 .clickDashboard()
                 .clickAddViewLink()
                 .setViewName(RANDOM_LIST_VIEW_NAME)
-                .setListViewTypeAndClickCreate()
+                .setListViewType()
+                .clickCreateButtonToEditListView()
                 .addJobToView(projectOne)
-                .clickGlobalViewOkButton()
+                .clickOkButton()
                 .getJobNamesList().size();
 
         Assert.assertEquals(quantityProjectsInListView, 1);
@@ -41,9 +42,9 @@ public class ListViewTest extends BaseTest {
 
         String actualDescription = new HomePage(getDriver())
                 .clickView(RANDOM_LIST_VIEW_NAME)
-                .clickEditViewLink()
+                .clickEditListView()
                 .addDescription(descriptionRandom)
-                .clickGlobalViewOkButton()
+                .clickOkButton()
                 .getTextDescription();
 
         Assert.assertEquals(actualDescription, descriptionRandom);
@@ -67,14 +68,15 @@ public class ListViewTest extends BaseTest {
 
         int numberOfJobTableHeadersListView = new HomePage(getDriver())
                 .clickView(RANDOM_LIST_VIEW_NAME)
-                .clickEditViewLink()
+                .clickEditListView()
                 .removeSomeColumns(namesRemoveColumns)
                 .clickApplyButton()
-                .clickGlobalViewOkButton()
+                .clickOkButton()
                 .getJobTableHeadersSize();
 
         int numberOfJobTableHeadersAll = new ViewPage(getDriver())
-                .goToDashboard()
+                .getBreadcrumbs()
+                .clickDashboard()
                 .getJobTableHeadersSize();
 
         Assert.assertNotEquals(numberOfJobTableHeadersAll, numberOfJobTableHeadersListView);

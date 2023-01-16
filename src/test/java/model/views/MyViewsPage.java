@@ -1,6 +1,7 @@
 package model.views;
 
-import model.HomePage;
+import model.BuildHistoryPage;
+import model.base.MainBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,22 +11,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MyViewsPage extends HomePage {
+public class MyViewsPage extends MainBasePage {
 
     @FindBy(css = "a[title='New View']")
     private WebElement newView;
 
+    @FindBy(linkText = "Build History")
+    private WebElement buildHistory;
+
     @FindBy(css = ".tabBar .tab a[href*='/my-views/view/']")
     private List<WebElement> listAllViews;
-
-    @FindBy(css = ".pane-header-title")
-    private List<WebElement> listViewActiveFilters;
-
-    @FindBy(xpath = "//a[@href='delete']")
-    private WebElement deleteViewItem;
-
-    @FindBy(id = "yui-gen1-button")
-    private WebElement yesButtonDeleteView;
 
     @FindBy(xpath = "//tbody/tr/td/a")
     private List<WebElement> listProjects;
@@ -45,15 +40,6 @@ public class MyViewsPage extends HomePage {
     @FindBy(id = "description-link")
     private WebElement editDescriptionButton;
 
-    @FindBy(xpath = "//div[@id='main-panel']")
-    private List<WebElement> viewMainPanel;
-
-    @FindBy(xpath= "//table[@id='projectstatus']")
-    private WebElement myViewsTable;
-
-    @FindBy(css = ".error")
-    private WebElement errorMessageViewAlreadyExist;
-
     @FindBy(xpath = "//a[@href='/iconSize?24x24']")
     private WebElement buttonSizeM;
 
@@ -72,14 +58,12 @@ public class MyViewsPage extends HomePage {
     @FindBy(xpath = "//table[@class='jenkins-table  sortable']")
     private WebElement tableSizeL;
 
-    @FindBy(css = ".tab.active")
-    private WebElement activeView;
+    @FindBy(css = "tr td a.model-link")
+    private List<WebElement> jobList;
 
-    @FindBy(xpath = "//span[text()='Edit View']/..")
-    private WebElement editViewLink;
 
-    @FindBy(css = "table#projectstatus th:last-child")
-    private WebElement jobTableLastHeader;
+    @FindBy(css = ".item a[class=''][href$='/my-views/']")
+    private WebElement myViewsTopMenuLink;
 
     public MyViewsPage(WebDriver driver) {
         super(driver);
@@ -100,25 +84,10 @@ public class MyViewsPage extends HomePage {
         return listViewsNames.toString().trim();
     }
 
-    public List<String> getActiveFiltersList() {
-
-        return listViewActiveFilters.stream().map(WebElement::getText).collect(Collectors.toList());
-    }
-
     public ViewPage clickView(String viewName) {
         getDriver().findElement(By.cssSelector(".tabBar .tab a[href*='/my-views/view/" + viewName + "/']")).click();
 
         return new ViewPage(getDriver());
-    }
-
-    public MyViewsPage deleteAllViews() {
-        for (int i = listAllViews.size() - 1; i >= 0; i--) {
-            listAllViews.get(i).click();
-            deleteViewItem.click();
-            yesButtonDeleteView.click();
-        }
-
-        return this;
     }
 
     public String getListProjectsNamesAsString() {
@@ -136,7 +105,7 @@ public class MyViewsPage extends HomePage {
         return this;
     }
 
-    public MyViewsPage sendKeysInDescriptionField(String descriptionText) {
+    public MyViewsPage setDescription(String descriptionText) {
         descriptionField.sendKeys(descriptionText);
 
         return this;
@@ -165,21 +134,6 @@ public class MyViewsPage extends HomePage {
         return this;
     }
 
-    public String getTextContentOnViewMainPanel() {
-        StringBuilder list = new StringBuilder();
-        for (WebElement text : viewMainPanel) {
-            list.append(text.getText());
-        }
-
-        return list.toString();
-    }
-
-    public String getErrorMessageViewAlreadyExist() {
-
-        return getWait(5).until(ExpectedConditions.visibilityOf(
-                errorMessageViewAlreadyExist)).getText();
-    }
-
     public MyViewsPage clickSizeM() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(buttonSizeM)).click();
 
@@ -204,19 +158,21 @@ public class MyViewsPage extends HomePage {
 
     public boolean tableSizeL(){return tableSizeL.isDisplayed();}
 
-    public String getActiveViewName(){
-
-        return activeView.getText();
+    public List<String> getJobNamesList() {
+        return jobList
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
     }
 
-    public EditViewPage clickEditViewLink() {
-        editViewLink.click();
+    public String getMyViewsTopMenuLinkText() {
 
-        return new EditViewPage(getDriver());
+        return myViewsTopMenuLink.getText();
     }
 
-    public String getJobTableLastHeaderText() {
+    public BuildHistoryPage clickBuildHistory() {
+        buildHistory.click();
 
-        return jobTableLastHeader.getText();
+        return new BuildHistoryPage(getDriver());
     }
 }

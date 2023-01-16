@@ -11,7 +11,6 @@ import model.multiconfiguration.MultiConfigurationProjectStatusPage;
 import model.organization_folder.OrgFolderStatusPage;
 import model.pipeline.PipelineConfigPage;
 import model.pipeline.PipelineStatusPage;
-import model.views.EditViewPage;
 import model.views.MyViewsPage;
 import model.views.NewViewPage;
 import model.views.ViewPage;
@@ -152,11 +151,6 @@ public class HomePage extends MainBasePage {
                 .count();
     }
 
-    public int getDisplayedNumberOfJobs() {
-
-        return jobList.size();
-    }
-
     public List<String> getViewList() {
         return viewList
                 .stream()
@@ -285,11 +279,6 @@ public class HomePage extends MainBasePage {
         return new MyViewsPage(getDriver());
     }
 
-    public String getMyViewsTopMenuLinkText() {
-
-        return myViewsTopMenuLink.getText();
-    }
-
     public ManageJenkinsPage clickManageJenkins() {
         manageJenkins.click();
 
@@ -346,14 +335,6 @@ public class HomePage extends MainBasePage {
         }
 
         return itemsNames.toString().trim();
-    }
-
-    public EditViewPage goToEditView(String viewName) {
-        clickMyViewsSideMenuLink();
-        getDriver().findElement(By.linkText(viewName)).click();
-        editView.click();
-
-        return new EditViewPage(getDriver());
     }
 
     public BuildsUserPage clickBuildsItemInUserDropdownMenu() {
@@ -530,11 +511,6 @@ public class HomePage extends MainBasePage {
         getWait(10).until(ExpectedConditions.visibilityOf(iconProjectEnabled));
 
         return iconProjectEnabled.isDisplayed();
-    }
-
-    public List<String> getJobTableHeaderTextList() {
-
-        return listJobTableHeaders.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     public int getJobTableHeadersSize() {

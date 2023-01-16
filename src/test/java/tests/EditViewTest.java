@@ -1,9 +1,10 @@
 package tests;
 
-import model.views.EditViewPage;
+import model.views.EditListViewPage;
+import model.views.EditGlobalViewPage;
 import model.HomePage;
-import model.views.MyViewsPage;
 
+import model.views.ViewPage;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -71,12 +72,12 @@ public class EditViewTest extends BaseTest {
     public void testGlobalViewAddFilterBuildQueue() {
         boolean newPaneIsDisplayed = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickAddViewLink()
+                .clickNewView()
                 .setViewName(TestUtils.getRandomStr())
                 .setGlobalViewType()
-                .clickCreateButton()
+                .clickCreateButtonToEditGlobalView()
                 .selectFilterBuildQueueOptionCheckBox()
-                .clickListOrMyViewOkButton()
+                .clickOkButton()
                 .getActiveFiltersList()
                 .contains("Filtered Build Queue");
 
@@ -85,18 +86,18 @@ public class EditViewTest extends BaseTest {
 
     @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
     public void testGlobalViewAddBothFilters() {
-        EditViewPage editViewPage = new HomePage(getDriver())
+        EditGlobalViewPage editGlobalViewPage = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickAddViewLink()
+                .clickNewView()
                 .setViewName(TestUtils.getRandomStr())
                 .setGlobalViewType()
-                .clickCreateButton()
+                .clickCreateButtonToEditGlobalView()
                 .selectFilterBuildQueueOptionCheckBox()
                 .selectFilterBuildExecutorsOptionCheckBox()
-                .clickGlobalViewOkButton()
-                .clickEditViewLink();
+                .clickOkButton()
+                .clickEditGlobalView();
 
-        Assert.assertTrue(editViewPage.isFilterBuildQueueOptionCheckBoxSelected() && editViewPage.isFilterBuildExecutorsOptionCheckBoxSelected());
+        Assert.assertTrue(editGlobalViewPage.isFilterBuildQueueOptionCheckBoxSelected() && editGlobalViewPage.isFilterBuildExecutorsOptionCheckBoxSelected());
     }
 
     @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
@@ -105,11 +106,12 @@ public class EditViewTest extends BaseTest {
 
         int actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickAddViewLink()
+                .clickNewView()
                 .setViewName(localViewName)
-                .setListViewTypeAndClickCreate()
+                .setListViewType()
+                .clickCreateButtonToEditListView()
                 .addJobsToListView(expectedResult)
-                .clickListOrMyViewOkButton()
+                .clickOkButton()
                 .getJobNamesList()
                 .size();
 
@@ -123,10 +125,10 @@ public class EditViewTest extends BaseTest {
         String actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickView(localViewName)
-                .clickEditViewLink()
+                .clickEditListView()
                 .clickAddColumnDropDownMenu()
                 .clickGitBranchesColumnMenuOption()
-                .clickListOrMyViewOkButton()
+                .clickOkButton()
                 .getJobTableLastHeaderText();
 
         Assert.assertEquals(actualResult, expectedResult);
@@ -139,11 +141,12 @@ public class EditViewTest extends BaseTest {
 
         int actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickAddViewLink()
+                .clickNewView()
                 .setViewName(TestUtils.getRandomStr())
-                .setListViewTypeAndClickCreate()
+                .setListViewType()
+                .clickCreateButtonToEditListView()
                 .addAllJobsToListView()
-                .clickListOrMyViewOkButton()
+                .clickOkButton()
                 .getJobNamesList().size();
 
         Assert.assertEquals(actualResult, expectedResult);
@@ -156,19 +159,20 @@ public class EditViewTest extends BaseTest {
 
         new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickAddViewLink()
+                .clickNewView()
                 .setViewName(TestUtils.getRandomStr())
-                .setListViewTypeAndClickCreate()
+                .setListViewType()
+                .clickCreateButtonToEditListView()
                 .scrollToRegexFilterCheckboxPlaceInCenterWaitTillNotMoving();
-        if (!new EditViewPage(getDriver()).isRegexCheckboxChecked()) {
-            new EditViewPage(getDriver()).clickRegexCheckbox();
+        if (!new EditListViewPage(getDriver()).isRegexCheckboxChecked()) {
+            new EditListViewPage(getDriver()).clickRegexCheckbox();
         }
 
-        int actualResult = new EditViewPage(getDriver())
+        int actualResult = new EditListViewPage(getDriver())
                 .scrollToRegexFilterCheckboxPlaceInCenterWaitTillNotMoving()
                 .clearAndSendKeysRegexTextArea(".*9.*")
-                .clickListOrMyViewOkButton()
-                .getDisplayedNumberOfJobs();
+                .clickOkButton()
+                .getJobNamesList().size();
         Assert.assertEquals(actualResult, expectedResult);
     }
 
@@ -177,16 +181,17 @@ public class EditViewTest extends BaseTest {
         String[] expectedResult = {"W", "S"};
         new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickAddViewLink()
+                .clickNewView()
                 .setViewName(TestUtils.getRandomStr())
-                .setListViewTypeAndClickCreate()
+                .setListViewType()
+                .clickCreateButtonToEditListView()
                 .addAllJobsToListView()
                 .scrollToStatusColumnDragHandlePlaceInCenterWaitTillNotMoving()
                 .dragByYOffset(100)
-                .clickListOrMyViewOkButton();
+                .clickOkButton();
 
-        String[] actualResult = {new MyViewsPage(getDriver())
-                .getJobTableHeaderTextList().get(0), new MyViewsPage(getDriver())
+        String[] actualResult = {new ViewPage(getDriver())
+                .getJobTableHeaderTextList().get(0), new ViewPage(getDriver())
                 .getJobTableHeaderTextList().get(1)};
         Assert.assertEquals(actualResult, expectedResult);
     }
@@ -195,12 +200,12 @@ public class EditViewTest extends BaseTest {
     public void testListViewAddFilterBuildQueue() {
         boolean newPaneIsDisplayed = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickAddViewLink()
+                .clickNewView()
                 .setViewName(TestUtils.getRandomStr())
                 .setListViewType()
-                .clickCreateButton()
+                .clickCreateButtonToEditListView()
                 .selectFilterBuildQueueOptionCheckBox()
-                .clickListOrMyViewOkButton()
+                .clickOkButton()
                 .getActiveFiltersList()
                 .contains("Filtered Build Queue");
 
@@ -211,13 +216,13 @@ public class EditViewTest extends BaseTest {
     public void testMyViewAddFilterBuildQueue() {
         boolean newPaneIsDisplayed = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickAddViewLink()
+                .clickNewView()
                 .setViewName(TestUtils.getRandomStr())
                 .setMyViewType()
-                .clickCreateButton()
-                .clickEditViewLink()
+                .clickCreateButtonToViewPage()
+                .clickEditMyView()
                 .selectFilterBuildQueueOptionCheckBox()
-                .clickListOrMyViewOkButton()
+                .clickOkButton()
                 .getActiveFiltersList()
                 .contains("Filtered Build Queue");
 
@@ -231,27 +236,27 @@ public class EditViewTest extends BaseTest {
         Map<String, String> tableMenuMap = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickView(localViewName)
-                .clickEditViewLink()
+                .clickEditListView()
                 .clickAddColumnDropDownMenu()
                 .getMapMatchingColumnDropDownMenuItemsAndJobTableHeader();
 
-        for (int i = 0; i < new EditViewPage(getDriver()).getNumberOfAllAddColumnDropDownMenuItems(); i++) {
-            String currentAddColumnDropDownMenuItem = new EditViewPage(getDriver())
+        for (int i = 0; i < new EditListViewPage(getDriver()).getNumberOfAllAddColumnDropDownMenuItems(); i++) {
+            String currentAddColumnDropDownMenuItem = new EditGlobalViewPage(getDriver())
                     .getAddColumnDropDownMenuItemTextByOrder(i + 1);
-            String newlyAddedColumn = new EditViewPage(getDriver())
+            String newlyAddedColumn = new EditGlobalViewPage(getDriver())
                     .clickAddColumnDropDownMenuItemByOrder(i + 1)
-                    .clickListOrMyViewOkButton()
+                    .clickOkButton()
                     .getJobTableLastHeaderText()
                     .replace("↓", " ")
                     .trim();
             isMatchingMenuItemToAddedColumn.add(tableMenuMap.get(currentAddColumnDropDownMenuItem).equals(newlyAddedColumn));
-            new EditViewPage(getDriver())
-                    .clickEditViewLink()
+            new ViewPage(getDriver())
+                    .clickEditListView()
                     .clickLastExistingColumnDeleteButton()
                     .clickAddColumnDropDownMenu();
         }
-        new EditViewPage(getDriver())
-                .clickListOrMyViewOkButton();
+        new EditGlobalViewPage(getDriver())
+                .clickOkButton();
 
         Assert.assertTrue(isMatchingMenuItemToAddedColumn.stream().allMatch(element -> element == true));
     }
@@ -261,10 +266,10 @@ public class EditViewTest extends BaseTest {
         boolean isContainingStatusColumn = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickView(localViewName)
-                .clickEditViewLink()
+                .clickEditListView()
                 .scrollToDeleteStatusColumnButtonPlaceInCenterWaitTillNotMoving()
                 .clickDeleteStatusColumnButton()
-                .clickListOrMyViewOkButton()
+                .clickOkButton()
                 .getJobTableHeaderTextList()
                 .contains("S");
 
@@ -281,14 +286,15 @@ public class EditViewTest extends BaseTest {
 
         String actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickAddViewLink()
+                .clickNewView()
                 .setViewName(localViewName)
-                .setListViewTypeAndClickCreate()
+                .setListViewType()
+                .clickCreateButtonToEditListView()
                 .addAllJobsToListView()
-                .clickListOrMyViewOkButton()
-                .clickEditViewLink()
+                .clickOkButton()
+                .clickEditListView()
                 .renameView(newNameMultipleSpaces)
-                .clickListOrMyViewOkButton()
+                .clickOkButton()
                 .getActiveViewName();
 
         Assert.assertNotEquals(actualResult, localViewName);
@@ -305,11 +311,11 @@ public class EditViewTest extends BaseTest {
             new HomePage(getDriver())
                     .clickMyViewsTopMenuLink()
                     .clickView(localViewName)
-                    .clickEditViewLink()
+                    .clickEditGlobalView()
                     .renameView(illegalCharacter + localViewName)
-                    .clickListOrMyViewOkButton();
-            if (new EditViewPage(getDriver()).getErrorPageHeader().equals("Error")) {
-                checksList.add(new EditViewPage(getDriver()).isCorrectErrorPageDetailsText(illegalCharacter));
+                    .clickOkButton();
+            if (new EditGlobalViewPage(getDriver()).getErrorPageHeader().equals("Error")) {
+                checksList.add(new EditGlobalViewPage(getDriver()).isCorrectErrorPageDetailsText(illegalCharacter));
 
                 checksList.add(!new HomePage(getDriver())
                         .getBreadcrumbs()
@@ -337,14 +343,15 @@ public class EditViewTest extends BaseTest {
 
         String actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickAddViewLink()
+                .clickNewView()
                 .setViewName(localViewName)
-                .setListViewTypeAndClickCreate()
+                .setListViewType()
+                .clickCreateButtonToEditListView()
                 .addAllJobsToListView()
-                .clickListOrMyViewOkButton()
-                .clickEditViewLink()
+                .clickOkButton()
+                .clickEditListView()
                 .renameView(newName)
-                .clickListOrMyViewOkButton()
+                .clickOkButton()
                 .getActiveViewName();
 
         Assert.assertFalse(actualResult.equals(localViewName));

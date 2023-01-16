@@ -1,8 +1,7 @@
 package model.views;
 
 import model.DeletePage;
-import model.HomePage;
-import org.openqa.selenium.By;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,17 +11,12 @@ import runner.TestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ViewPage extends MyViewsPage{
+public class ViewPage extends MainBasePage {
 
     @FindBy(css = "tr td a.model-link")
     private List<WebElement> jobList;
-
-    @FindBy(id = "jenkins-name-icon")
-    private WebElement dashboard;
-
-    @FindBy(css = ".tab a[href*='/my-views/']")
-    private WebElement allButton;
 
     @FindBy(xpath = "//a[@href='delete']")
     private WebElement deleteViewItem;
@@ -30,9 +24,7 @@ public class ViewPage extends MyViewsPage{
     @FindBy(xpath = "//div[@class='jenkins-buttons-row jenkins-buttons-row--invert']/preceding-sibling::div")
     private WebElement descriptionText;
 
-    @FindBys({
-            @FindBy(css = ".task")
-    })
+    @FindBy(css = ".task")
     private List<WebElement> sideMenuList;
 
     @FindBy(css = "#description-link")
@@ -44,17 +36,38 @@ public class ViewPage extends MyViewsPage{
     @FindBy(css = "#yui-gen1-button")
     private WebElement saveButton;
 
+    @FindBy(xpath = "//div[@class='tabBar']/div/a")
+    private List<WebElement> viewList;
+
+    @FindBy(css = "#projectstatus th")
+    private List<WebElement> listJobTableHeaders;
+
+    @FindBy(xpath = "//span[text()='Edit View']/..")
+    private WebElement editViewLink;
+
+    @FindBy(css = ".tabBar .tab a[href*='/my-views/view/']")
+    private List<WebElement> listAllViews;
+
+    @FindBy(css = ".pane-header-title")
+    private List<WebElement> listViewActiveFilters;
+
+    @FindBy(css = "table#projectstatus th:last-child")
+    private WebElement jobTableLastHeader;
+
+    @FindBy(css = ".tab.active")
+    private WebElement activeView;
+
+    @FindBy(xpath = "//tbody/tr/td/a")
+    private List<WebElement> listProjects;
+
+    @FindBy(xpath = "//div[@id='main-panel']")
+    private List<WebElement> viewMainPanel;
+
     @FindBy(linkText = "add some existing jobs")
     private WebElement linkTextAddSomeExistingJobs;
 
     public ViewPage(WebDriver driver) {
         super(driver);
-    }
-
-    public HomePage goToDashboard() {
-        dashboard.click();
-
-        return new HomePage(getDriver());
     }
 
     public DeletePage<ViewPage> clickDeleteViewItem() {
@@ -66,12 +79,6 @@ public class ViewPage extends MyViewsPage{
     public String getTextDescription() {
 
         return descriptionText.getText();
-    }
-
-    public String getBreadcrumbsItemName(String name) {
-        return getDriver()
-                .findElement(By.xpath("//ul[@id='breadcrumbs']//a[@href='/user/admin/my-views/view/" + name + "/']"))
-                .getText();
     }
 
     public ArrayList<String> getSideMenuTextList() {
@@ -114,16 +121,101 @@ public class ViewPage extends MyViewsPage{
         return this;
     }
 
-    public EditViewPage clickLinkTextAddExistingJob () {
+    public EditListViewPage clickLinkTextAddExistingJob () {
         linkTextAddSomeExistingJobs.click();
 
-        return new EditViewPage(getDriver());
+        return new EditListViewPage(getDriver());
     }
 
-    @Override
-    public EditListViewPage clickEditViewLink() {
-        super.clickEditViewLink();
+    public EditGlobalViewPage clickEditGlobalView() {
+        editViewLink.click();
+
+        return new EditGlobalViewPage(getDriver());
+    }
+
+    public EditMyViewPage clickEditMyView() {
+        editViewLink.click();
+
+        return new  EditMyViewPage(getDriver());
+    }
+
+    public EditListViewPage clickEditListView() {
+        editViewLink.click();
 
         return new EditListViewPage(getDriver());
+    }
+
+    public String getJobListAsString() {
+        StringBuilder listProjectsNames = new StringBuilder();
+        for (WebElement projects : jobList) {
+            listProjectsNames.append(projects.getText()).append(" ");
+        }
+
+        return listProjectsNames.toString().trim();
+    }
+
+    public List<String> getViewList() {
+        return viewList
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    public int getJobTableHeadersSize() {
+        return listJobTableHeaders.size();
+    }
+
+    public String getListViewsNames() {
+        StringBuilder listViewsNames = new StringBuilder();
+        for (WebElement view : listAllViews) {
+            listViewsNames.append(view.getText()).append(" ");
+        }
+
+        return listViewsNames.toString().trim();
+    }
+
+    public List<String> getJobNamesList() {
+        return jobList
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getActiveFiltersList() {
+
+        return listViewActiveFilters.stream().map(WebElement::getText).collect(Collectors.toList());
+    }
+
+    public String getJobTableLastHeaderText() {
+
+        return jobTableLastHeader.getText();
+    }
+
+    public List<String> getJobTableHeaderTextList() {
+
+        return listJobTableHeaders.stream().map(WebElement::getText).collect(Collectors.toList());
+    }
+
+    public String getActiveViewName(){
+
+        return activeView.getText();
+    }
+
+    public String getListProjectsNamesAsString() {
+        StringBuilder listProjectsNames = new StringBuilder();
+        for (WebElement projects : listProjects) {
+            listProjectsNames.append(projects.getText()).append(" ");
+        }
+
+        return listProjectsNames.toString().trim();
+    }
+
+    public String getTextContentOnViewMainPanel() {
+        StringBuilder list = new StringBuilder();
+        for (WebElement text : viewMainPanel) {
+            list.append(text.getText());
+        }
+
+        return list.toString();
     }
 }
