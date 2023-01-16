@@ -150,4 +150,23 @@ public class ManageJenkinsTest extends BaseTest {
 
         Assert.assertFalse(listOfUsers.contains(USERNAME));
     }
+
+    @Test
+    public void testCreateUserWithExistName() {
+        ProjectMethodsUtils.createNewUser(getDriver(), USERNAME, PASSWORD, USERS_FULL_NAME, EMAIL);
+        String newUserPassword = TestUtils.getRandomStr(10);
+
+        String errorMessageWhenExistName = new HomePage(getDriver())
+                .clickManageJenkins()
+                .clickManageUsers()
+                .clickCreateUser()
+                .setUsername(USERNAME)
+                .setPassword(newUserPassword)
+                .confirmPassword(newUserPassword)
+                .setFullName(TestUtils.getRandomStr(10))
+                .setEmail(TestUtils.getRandomStr(10) + "@gmail.com")
+                .clickCreateUserAndGetErrorMessage();
+
+        Assert.assertEquals(errorMessageWhenExistName, "User name is already taken");
+    }
 }
