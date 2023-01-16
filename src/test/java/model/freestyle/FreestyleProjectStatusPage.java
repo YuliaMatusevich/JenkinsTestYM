@@ -20,8 +20,6 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
     @FindBy(xpath = "//li[@class='item'][last()-1]")
     private WebElement breadcrumbsParentFolderLink;
 
-    @FindBy(linkText = "Rename")
-    private WebElement renameButton;
 
     @FindBy(id = "description-link")
     private WebElement buttonAddDescription;
@@ -93,12 +91,6 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
         disableProjectBtn.click();
 
         return this;
-    }
-
-    public RenameItemPage<FreestyleProjectStatusPage> clickRenameSideMenu() {
-        renameButton.click();
-
-        return new RenameItemPage<>(getDriver(), new FreestyleProjectStatusPage(getDriver()));
     }
 
     public FreestyleProjectStatusPage clickButtonAddDescription() {

@@ -97,7 +97,8 @@ public class FreestyleProjectTest extends BaseTest {
 
         List<String> jobsList = new HomePage(getDriver())
                 .clickFreestyleProjectName()
-                .clickRenameSideMenu()
+                .getSideMenu()
+                .clickRename()
                 .clearFieldAndInputNewName(NEW_FREESTYLE_NAME)
                 .clickRenameButton()
                 .getBreadcrumbs()
@@ -202,7 +203,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .switchONBooleanParameterAsDefault()
                 .clickSaveButton()
                 .getSideMenu()
-                .clickButtonBuildWithParameters();
+                .clickBuildWithParameters();
 
         Assert.assertTrue(page.getNameText().contains(FREESTYLE_NAME));
         Assert.assertEquals(page.getDescriptionText(), descriptionText);
