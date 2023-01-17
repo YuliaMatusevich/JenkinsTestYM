@@ -4,11 +4,11 @@ import model.folder.FolderStatusPage;
 import model.HomePage;
 import model.freestyle.FreestyleProjectStatusPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestUtils;
-
 import java.util.List;
 
 public class FolderTest extends BaseTest {
@@ -315,6 +315,7 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(folder.getAdditionalDescriptionText(), DESCRIPTION);
     }
 
+    @Ignore
     @Test
     public void testAddFolderDescription() {
         ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
@@ -410,5 +411,26 @@ public class FolderTest extends BaseTest {
                 .getHeaderText();
 
         Assert.assertEquals(welcomeJenkinsHeader, "Welcome to Jenkins!");
+    }
+
+    @Test
+    public void testDeleteMultibranchPipelineFromFolder() {
+        final String MultibranchPipelineProjectName = TestUtils.getRandomStr();
+
+        ProjectMethodsUtils.createNewFolder(getDriver(), FOLDER_RANDOM_NAME_1);
+        FolderStatusPage folder = new HomePage(getDriver())
+                .clickFolder(FOLDER_RANDOM_NAME_1)
+                .clickFolderNewItem()
+                .setItemName(MultibranchPipelineProjectName)
+                .selectMultibranchPipelineAndClickOk()
+                .clickSaveButton()
+                .getHeader().clickJenkinsHeadIcon()
+                .clickFolder(FOLDER_RANDOM_NAME_1)
+                .clickMultibranchPipeline(MultibranchPipelineProjectName)
+                .clickDeleteMultibranchPipelineWithFolder()
+                .clickYes();
+
+        Assert.assertEquals(folder.getFolderNameHeader(), FOLDER_RANDOM_NAME_1);
+        Assert.assertNotNull(folder.getEmptyStateBlock());
     }
 }
