@@ -11,10 +11,10 @@ import runner.TestUtils;
 public class GlobalToolConfigurationPage extends BasePage {
 
     @FindBy(xpath = "//button[text()='Add Maven']")
-    private List<WebElement> addMavenButtons;
+    private WebElement addMavenButton;
 
     @FindBy(css = "input[checkurl$='MavenInstallation/checkName']")
-    private List<WebElement> mavenTitleFields;
+    private WebElement mavenTitleField;
 
     @FindBy(xpath = "//button[text()='Apply']")
     private WebElement applyButton;
@@ -22,24 +22,27 @@ public class GlobalToolConfigurationPage extends BasePage {
     @FindBy(xpath = "//input[contains(@checkurl,'MavenInstallation/checkName')]/parent::div/following-sibling::div")
     private WebElement errorArea;
 
+    @FindBy(id = "footer")
+    private WebElement footerElement;
+
     public GlobalToolConfigurationPage(WebDriver driver) {
         super(driver);
     }
 
     public GlobalToolConfigurationPage clickFirstAddMavenButton() {
-        TestUtils.scrollToElement_PlaceInCenter(getDriver(), addMavenButtons.get(0));
-        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(addMavenButtons.get(0)));
-        getWait(5).until(ExpectedConditions.elementToBeClickable(addMavenButtons.get(0))).click();
+        TestUtils.scrollToEnd(getDriver());
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(addMavenButton));
+        getWait(5).until(ExpectedConditions.visibilityOf(footerElement));
+        addMavenButton.click();
 
         return this;
     }
 
     public GlobalToolConfigurationPage setFirstMavenTitleField(String name) {
         TestUtils.scrollToEnd(getDriver());
-        getAction().scrollToElement(mavenTitleFields.get(0)).moveToElement(mavenTitleFields.get(0)).perform();
-        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(mavenTitleFields.get(0)));
-        getWait(5).until(ExpectedConditions.elementToBeClickable(mavenTitleFields.get(0))).click();
-        mavenTitleFields.get(0).sendKeys(name);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(mavenTitleField));
+        mavenTitleField.click();
+        mavenTitleField.sendKeys(name);
 
         return this;
     }
