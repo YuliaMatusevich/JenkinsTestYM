@@ -171,13 +171,13 @@ public class NewViewTest extends BaseTest {
 
     @Test(dependsOnMethods = "testViewSideMenu")
     public void testDeleteView() {
-        ViewPage viewsPage = new HomePage(getDriver())
+        MyViewsPage myViewsPage = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickView(LIST_VIEW_RENAME)
-                .clickDeleteViewItem()
+                .clickDeleteViewToMyViews()
                 .clickYes();
 
-        Assert.assertFalse(viewsPage.getListViewsNames().contains(LIST_VIEW_RENAME));
+        Assert.assertFalse(myViewsPage.getListViewsNames().contains(LIST_VIEW_RENAME));
     }
 
     @Test

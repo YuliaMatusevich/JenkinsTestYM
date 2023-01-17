@@ -1,11 +1,12 @@
 package model.views;
 
 import model.DeletePage;
+import model.HomePage;
+import model.base.BasePage;
 import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
 
@@ -70,10 +71,18 @@ public class ViewPage extends MainBasePage {
         super(driver);
     }
 
-    public DeletePage<ViewPage> clickDeleteViewItem() {
+    private <T extends BasePage> DeletePage<T> clickDeleteView(T page) {
         deleteViewItem.click();
 
-        return new DeletePage<>(getDriver(), this);
+        return new DeletePage<>(getDriver(), page);
+    }
+
+    public DeletePage<MyViewsPage> clickDeleteViewToMyViews() {
+        return clickDeleteView(new MyViewsPage(getDriver()));
+    }
+
+    public DeletePage<HomePage> clickDeleteViewToHomePage() {
+        return clickDeleteView(new HomePage(getDriver()));
     }
 
     public String getTextDescription() {
