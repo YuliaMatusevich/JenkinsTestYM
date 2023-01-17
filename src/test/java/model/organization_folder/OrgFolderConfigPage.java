@@ -1,12 +1,12 @@
 package model.organization_folder;
 
+import model.base.BaseConfigPage;
 import model.base.BlankConfigPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class OrgFolderConfigPage extends BlankConfigPage<OrgFolderStatusPage, OrgFolderConfigPage> {
-
+public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, OrgFolderConfigPage, OrgFolderConfigSideMenuFrame> {
     @FindBy(xpath = "//input  [@name='_.displayNameOrNull']")
     private WebElement displayName;
 
@@ -22,6 +22,11 @@ public class OrgFolderConfigPage extends BlankConfigPage<OrgFolderStatusPage, Or
     @Override
     protected OrgFolderStatusPage createStatusPage() {
         return new OrgFolderStatusPage(getDriver());
+    }
+
+    @Override
+    protected OrgFolderConfigSideMenuFrame createSideMenuFrame() {
+        return new OrgFolderConfigSideMenuFrame(getDriver(), this);
     }
 
     public OrgFolderConfigPage(WebDriver driver) {

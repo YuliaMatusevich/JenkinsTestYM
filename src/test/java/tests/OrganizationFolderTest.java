@@ -35,6 +35,7 @@ public class OrganizationFolderTest extends BaseTest {
                 .setItemName(NAME_ORG_FOLDER)
                 .selectOrgFolderAndClickOk()
                 .clickSaveButton()
+                .getSideMenu()
                 .clickRenameSideMenu()
                 .clearFieldAndInputNewName("New name " + NAME_ORG_FOLDER)
                 .clickRenameButton()
@@ -96,6 +97,7 @@ public class OrganizationFolderTest extends BaseTest {
     public void testDeleteOrganizationFolderDependsMethods() {
         HomePage homePage = new HomePage(getDriver())
                 .clickOrgFolder(DISPLAY_NAME)
+                .getSideMenu()
                 .clickDeleteOrganizationFolder()
                 .clickSaveButton();
 
@@ -108,6 +110,7 @@ public class OrganizationFolderTest extends BaseTest {
 
         OrgFolderStatusPage orgFolderStatusPage = new HomePage(getDriver())
                 .clickOrgFolder(NAME_ORG_FOLDER)
+                .getSideMenu()
                 .clickConfigureSideMenu()
                 .inputDisplayName(DISPLAY_NAME)
                 .inputDescription(description)
