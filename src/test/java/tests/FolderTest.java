@@ -415,18 +415,19 @@ public class FolderTest extends BaseTest {
 
     @Test
     public void testDeleteMultibranchPipelineFromFolder() {
-        final String MultibranchPipelineProjectName = TestUtils.getRandomStr();
+        final String multibranchPipelineProjectName = TestUtils.getRandomStr();
 
         ProjectMethodsUtils.createNewFolder(getDriver(), FOLDER_RANDOM_NAME_1);
         FolderStatusPage folder = new HomePage(getDriver())
                 .clickFolder(FOLDER_RANDOM_NAME_1)
-                .clickFolderNewItem()
-                .setItemName(MultibranchPipelineProjectName)
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(multibranchPipelineProjectName)
                 .selectMultibranchPipelineAndClickOk()
                 .clickSaveButton()
                 .getHeader().clickJenkinsHeadIcon()
                 .clickFolder(FOLDER_RANDOM_NAME_1)
-                .clickMultibranchPipeline(MultibranchPipelineProjectName)
+                .clickMultibranchPipeline(multibranchPipelineProjectName)
                 .clickDeleteMultibranchPipelineWithFolder()
                 .clickYes();
 

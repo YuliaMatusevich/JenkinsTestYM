@@ -3,6 +3,7 @@ package model.folder;
 import model.base.BaseStatusPage;
 import model.freestyle.FreestyleProjectStatusPage;
 import model.NewItemPage;
+import model.multibranch_pipeline.MultibranchPipelineStatusPage;
 import model.organization_folder.OrgFolderStatusPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -41,6 +42,9 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
 
     @FindBy(xpath = "//div[@id='main-panel']/h1")
     private WebElement folderNameHeader;
+
+    @FindBy(id = "empty-state-block")
+    private WebElement emptyStateBlock;
 
     @Override
     protected FolderStatusSideMenuFrame createSideMenuFrame() {
@@ -116,5 +120,16 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
         getDriver().findElement(By.xpath("//span[text()= '" + name + "']")).click();
 
         return new OrgFolderStatusPage(getDriver());
+    }
+
+    public MultibranchPipelineStatusPage clickMultibranchPipeline(String multibranchPipelineName) {
+        getDriver().findElement(By.xpath("//span[text()='" + multibranchPipelineName + "']")).click();
+
+        return new MultibranchPipelineStatusPage(getDriver());
+    }
+
+    public WebElement getEmptyStateBlock() {
+
+        return emptyStateBlock;
     }
 }
