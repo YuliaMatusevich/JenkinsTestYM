@@ -1,5 +1,6 @@
 package model;
 
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BuildHistoryPage extends HomePage {
+public class BuildHistoryPage extends MainBasePage {
 
     public BuildHistoryPage(WebDriver driver) {
         super(driver);
@@ -42,6 +43,9 @@ public class BuildHistoryPage extends HomePage {
 
     @FindBy(xpath = "//a/span[contains(text(), 'Atom feed for just latest builds')]")
     private WebElement iconAtomFeedFoJustLatestBuilds;
+
+    @FindBy(tagName = "h1")
+    private WebElement header;
 
     public boolean smallSizeIconIsDisplayed() {
 
@@ -91,4 +95,8 @@ public class BuildHistoryPage extends HomePage {
         return iconAtomFeedFoJustLatestBuilds.isDisplayed();
     }
 
+    public String getHeaderText() {
+
+        return getWait(10).until(ExpectedConditions.visibilityOf(header)).getText();
+    }
 }

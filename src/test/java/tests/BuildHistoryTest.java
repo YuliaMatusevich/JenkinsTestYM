@@ -14,7 +14,7 @@ public class BuildHistoryTest extends BaseTest {
     @Test
     public void testH1HeaderBuildHistory() {
 
-        HomePage homePage = new HomePage(getDriver())
+        BuildHistoryPage buildHistoryPage = new HomePage(getDriver())
                 .clickNewItem()
                 .setItemName(FREESTYLE_NAME)
                 .selectFreestyleProjectAndClickOk()
@@ -23,7 +23,7 @@ public class BuildHistoryTest extends BaseTest {
                 .clickDashboard()
                 .clickBuildHistory();
 
-        Assert.assertEquals(homePage.getHeaderText(), "Build History of Jenkins");
+        Assert.assertEquals(buildHistoryPage.getHeaderText(), "Build History of Jenkins");
     }
 
     @Test
