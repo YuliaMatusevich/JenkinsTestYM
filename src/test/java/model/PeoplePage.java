@@ -35,6 +35,9 @@ public class PeoplePage extends MainBasePage {
     @FindBy(xpath = "//ol/li")
     private List<WebElement> listIconSizeButtons;
 
+    @FindBy(xpath = "//a[@href='/manage']")
+    private WebElement manageJenkins;
+
     public PeoplePage(WebDriver driver) {
         super(driver);
     }
@@ -92,5 +95,11 @@ public class PeoplePage extends MainBasePage {
         }
 
         return listIconSizeButtonsNames.toString().replaceAll("\n", "").trim();
+    }
+
+    public ManageJenkinsPage clickManageJenkins() {
+        manageJenkins.click();
+
+        return new ManageJenkinsPage(getDriver());
     }
 }

@@ -30,6 +30,9 @@ public class ManageUsersPage extends MainBasePage {
     @FindBy(css = "a[href='user/admin/'] > .jenkins-menu-dropdown-chevron")
     private WebElement userDropdownMenu;
 
+    @FindBy(linkText = "this list")
+    private WebElement thisListLink;
+
     public ManageUsersPage(WebDriver driver) {
         super(driver);
     }
@@ -74,5 +77,11 @@ public class ManageUsersPage extends MainBasePage {
         getWait(3).until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[href='user/" + name.toLowerCase() + "/delete']"))).click();
 
         return new DeletePage<>(getDriver(), this);
+    }
+
+    public PeoplePage clickThisListLink(){
+        thisListLink.click();
+
+        return new PeoplePage(getDriver());
     }
 }

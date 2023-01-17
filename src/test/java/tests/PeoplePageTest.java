@@ -61,7 +61,7 @@ public class PeoplePageTest extends BaseTest {
                 .rootMenuDashboardLinkClick()
                 .clickPeople();
 
-        Assert.assertFalse(peoplePage.getListOfUsers().contains(USER_NAME),USER_NAME + " wasn't deleted");
+        Assert.assertFalse(peoplePage.getListOfUsers().contains(USER_NAME), USER_NAME + " wasn't deleted");
     }
 
     @Test
@@ -89,5 +89,24 @@ public class PeoplePageTest extends BaseTest {
                 .clickPeople();
 
         Assert.assertEquals(peoplePage.getNameOfHeader(), "People");
+    }
+
+    @Test
+    public void testCreateUserGoingFromPeoplePage() {
+        List<String> userList = new HomePage(getDriver())
+                .clickPeople()
+                .clickManageJenkins()
+                .clickManageUsers()
+                .clickCreateUser()
+                .setUsername(USER_NAME)
+                .setPassword(PASSWORD)
+                .confirmPassword(PASSWORD)
+                .setFullName(USER_NAME)
+                .setEmail(EMAIL)
+                .clickCreateUserButton()
+                .clickThisListLink()
+                .getListOfUsers();
+
+        Assert.assertTrue(userList.contains(USER_NAME));
     }
 }
