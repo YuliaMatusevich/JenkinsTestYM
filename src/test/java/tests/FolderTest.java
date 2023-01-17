@@ -119,7 +119,8 @@ public class FolderTest extends BaseTest {
 
         String pageHeaderText = new HomePage(getDriver())
                 .clickFolder(FOLDER_RANDOM_NAME_1)
-                .clickDeleteFolder()
+                .getSideMenu()
+                .clickDelete()
                 .clickYes()
                 .getNameText();
 
@@ -161,7 +162,8 @@ public class FolderTest extends BaseTest {
 
         List<String> newFolderName = new HomePage(getDriver())
                 .clickFolder(FOLDER_RANDOM_NAME_1)
-                .clickRenameSideMenu()
+                .getSideMenu()
+                .clickRename()
                 .clearFieldAndInputNewName(FOLDER_RANDOM_NAME_2)
                 .clickRenameButton()
                 .getBreadcrumbs()
@@ -214,7 +216,8 @@ public class FolderTest extends BaseTest {
 
         List<String> projectNamesInFolder = new HomePage(getDriver())
                 .clickFolder(FOLDER_RANDOM_NAME_1)
-                .clickFolderNewItem()
+                .getSideMenu()
+                .clickNewItem()
                 .setItemName(FREESTYLE_PROJECT_NAME)
                 .selectFreestyleProjectAndClickOk()
                 .clickSaveButton()
@@ -231,7 +234,8 @@ public class FolderTest extends BaseTest {
 
         List<String> jobListBeforeDeleting = new HomePage(getDriver())
                 .clickFolder(FOLDER_RANDOM_NAME_1)
-                .clickFolderNewItem()
+                .getSideMenu()
+                .clickNewItem()
                 .setItemName(TestUtils.getRandomStr())
                 .selectFreestyleProjectAndClickOk()
                 .clickSaveButton()
@@ -272,7 +276,8 @@ public class FolderTest extends BaseTest {
         ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
         FolderStatusPage folderStatusPage = new HomePage(getDriver())
                 .clickFolder(FOLDER_RANDOM_NAME_1)
-                .clickFolderNewItem()
+                .getSideMenu()
+                .clickNewItem()
                 .setItemName(FOLDER_RANDOM_NAME_2)
                 .selectFolderAndClickOk()
                 .clickSaveButton();
@@ -362,7 +367,8 @@ public class FolderTest extends BaseTest {
 
         List<String> projectNamesInFolder = new HomePage(getDriver())
                 .clickFolder(FOLDER_RANDOM_NAME_1)
-                .clickFolderNewItem()
+                .getSideMenu()
+                .clickNewItem()
                 .setItemName(multibranchPipelineProjectName)
                 .selectMultibranchPipelineAndClickOk()
                 .clickSaveButton()

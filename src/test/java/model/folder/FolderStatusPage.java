@@ -1,10 +1,7 @@
 package model.folder;
 
-import model.DeletePage;
-import model.RenameItemPage;
-import model.base.BlankStatusPage;
+import model.base.BaseStatusPage;
 import model.freestyle.FreestyleProjectStatusPage;
-import model.multibranch_pipeline.MultibranchPipelineStatusPage;
 import model.NewItemPage;
 import model.organization_folder.OrgFolderStatusPage;
 import org.openqa.selenium.By;
@@ -16,7 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FolderStatusPage extends BlankStatusPage<FolderStatusPage> {
+public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderStatusSideMenuFrame> {
 
     @FindBy(css = "#breadcrumbs li a")
     private List<WebElement> topMenuList;
@@ -30,17 +27,8 @@ public class FolderStatusPage extends BlankStatusPage<FolderStatusPage> {
     @FindBy(xpath = "//tr/td[3]/a/span[1]")
     private List<WebElement> jobList;
 
-    @FindBy(linkText = "Delete Folder")
-    private WebElement deleteFolder;
-
     @FindBy(linkText = "Create a job")
     private WebElement createJob;
-
-    @FindBy(className = "empty-state-block")
-    private WebElement emptyStateBlock;
-
-    @FindBy(linkText = "New Item")
-    private WebElement folderNewItem;
 
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement submitButton;
@@ -51,11 +39,13 @@ public class FolderStatusPage extends BlankStatusPage<FolderStatusPage> {
     @FindBy(css = ".jenkins-input")
     private WebElement inputFieldDescription;
 
-    @FindBy(linkText = "Rename")
-    private WebElement renameButton;
-
     @FindBy(xpath = "//div[@id='main-panel']/h1")
     private WebElement folderNameHeader;
+
+    @Override
+    protected FolderStatusSideMenuFrame createSideMenuFrame() {
+        return new FolderStatusSideMenuFrame(getDriver(), this);
+    }
 
     public FolderStatusPage(WebDriver driver) {
         super(driver);
@@ -81,39 +71,10 @@ public class FolderStatusPage extends BlankStatusPage<FolderStatusPage> {
         return new NewItemPage(getDriver());
     }
 
-    public MultibranchPipelineStatusPage clickMultibranchPipeline(String multibranchPipelineName) {
-        getDriver().findElement(By.xpath("//a[@href='job/" + multibranchPipelineName + "/']")).click();
-
-        return new MultibranchPipelineStatusPage(getDriver());
-    }
-
-    public WebElement getEmptyStateBlock() {
-
-        return emptyStateBlock;
-    }
-
-    public RenameItemPage<FolderStatusPage> clickRenameSideMenu() {
-        renameButton.click();
-
-        return new RenameItemPage<>(getDriver(), new FolderStatusPage(getDriver()));
-    }
-
     public FolderStatusPage clickSubmitButton() {
         submitButton.click();
 
         return new FolderStatusPage(getDriver());
-    }
-
-    public NewItemPage clickFolderNewItem() {
-        folderNewItem.click();
-
-        return new NewItemPage(getDriver());
-    }
-
-    public DeletePage<FolderStatusPage> clickDeleteFolder() {
-        deleteFolder.click();
-
-        return new DeletePage<>(getDriver(), this);
     }
 
     public List<String> getTopMenueLinkText() {
