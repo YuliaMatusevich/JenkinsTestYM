@@ -3,6 +3,8 @@ import model.CreateItemErrorPage;
 import model.HomePage;
 import model.NewItemPage;
 import model.freestyle.FreestyleProjectConfigPage;
+import model.multiconfiguration.MultiConfigurationProjectStatusPage;
+import model.organization_folder.OrgFolderConfigPage;
 import model.pipeline.PipelineConfigPage;
 import model.pipeline.PipelineStatusPage;
 import org.testng.Assert;
@@ -197,6 +199,19 @@ public class NewItemTest extends BaseTest {
     }
 
     @Test
+    public void testCreatedPipelineDisplayedOnMyViews() {
+        String pipelineNameInMyViewList = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(PROJECT_NAME)
+                .selectPipelineAndClickOk()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .clickMyViewsSideMenuLink().getListProjectsNamesAsString();
+
+        Assert.assertTrue(pipelineNameInMyViewList.contains(PROJECT_NAME), PROJECT_NAME + " Pipeline not found");
+    }
+
+    @Test
     public void testCreateNewItemFromOtherNonExistingName() {
         createNewFolder(getDriver(), PROJECT_NAME);
         final String jobName = TestUtils.getRandomStr(7);
@@ -287,5 +302,169 @@ public class NewItemTest extends BaseTest {
         Assert.assertTrue(errorPage.getPageUrl().endsWith(expectedURL));
         Assert.assertTrue(errorPage.isErrorPictureDisplayed());
         Assert.assertEquals(errorPage.getErrorDescription(), expectedTextOfError);
+    }
+
+    @Test
+    public void testCreateMultiConfigurationProjectWithValidName() {
+        HomePage homePage = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(PROJECT_NAME)
+                .selectMultiConfigurationProjectAndClickOk()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard();
+
+        Assert.assertTrue(homePage.getJobNamesList().contains(PROJECT_NAME));
+    }
+
+    @Test
+    public void testCreateMultiConfigurationProjectWithDescription() {
+        final String nameMCP = "MultiConfigProject000302";
+        final String descriptionMCP = "Description000302";
+
+        MultiConfigurationProjectStatusPage multiConfigProject = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(nameMCP)
+                .selectMultiConfigurationProjectAndClickOk()
+                .inputDescription(descriptionMCP)
+                .showPreview()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .clickMultiConfigurationProject(nameMCP);
+
+        MultiConfigurationProjectStatusPage multiConfigProjectPreview = new MultiConfigurationProjectStatusPage(getDriver());
+
+        Assert.assertEquals(multiConfigProject.getNameMultiConfigProject(nameMCP), nameMCP);
+        Assert.assertEquals(multiConfigProject.getDescriptionText(), descriptionMCP);
+        Assert.assertEquals(multiConfigProjectPreview.getDescriptionText(), descriptionMCP);
+
+    }
+
+    @Test (dependsOnMethods = "testCreateMultiConfigurationProjectWithValidName")
+    public void testCreateNewMCProjectAsCopyFromExistingProject() {
+        String actualProjectName = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(SECOND_PROJECT_NAME)
+                .setCopyFromItemName(PROJECT_NAME)
+                .clickOK()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .getJobName(SECOND_PROJECT_NAME);
+
+        Assert.assertEquals(actualProjectName, SECOND_PROJECT_NAME);
+    }
+
+    @Test
+    public void testCreateMultibranchPipeline() {
+        HomePage homePage = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(PROJECT_NAME)
+                .selectMultibranchPipeline()
+                .clickOkMultibranchPipeline()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard();
+
+        Assert.assertTrue(homePage.getJobNamesList().contains(PROJECT_NAME));
+    }
+
+    @Test
+    public void testCreateMbPipelineEmptyName() {
+        NewItemPage newItemPage = new HomePage(getDriver())
+                .clickNewItem()
+                .selectMultibranchPipeline();
+
+        Assert.assertEquals(newItemPage.getItemNameRequiredMsg(),
+                "» This field cannot be empty, please enter a valid name");
+        Assert.assertFalse(newItemPage.isOkButtonEnabled());
+    }
+
+    @Test
+    public void testCreateMultibranchPipelineWithExistingName() {
+        String actualErrorMessage = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(PROJECT_NAME)
+                .selectMultibranchPipeline()
+                .clickOkMultibranchPipeline()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .clickNewItem()
+                .setItemName(PROJECT_NAME)
+                .selectMultibranchPipeline()
+                .getItemNameInvalidMsg();
+
+        Assert.assertEquals(actualErrorMessage, String.format("» A job already exists with the name ‘%s’", PROJECT_NAME));
+    }
+
+    @DataProvider(name = "specialCharacters")
+    public Object[][] specialCharactersList() {
+        return new Object[][]{{'!'}, {'@'}, {'#'}, {'$'}, {'%'}, {'^'}, {'*'}, {'['}, {']'}, {'\\'}, {'|'}, {';'}, {':'}, {'/'}, {'?'}, {'$'}, {'<'}, {'>'},};
+    }
+
+    @Test(dataProvider = "specialCharacters")
+    public void testCreateMultibranchPipelineUnsafeCharacter(Character unsafeCharacter) {
+        String actualErrorMessage = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(unsafeCharacter.toString())
+                .selectMultibranchPipeline()
+                .getItemNameInvalidMsg();
+
+        Assert.assertEquals(actualErrorMessage, String.format("» ‘%s’ is an unsafe character", unsafeCharacter));
+    }
+
+    @Test
+    public void testCreateMultibranchPipelineInvalidName() {
+        NewItemPage newItemPage = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName("MultibranchPipeline@")
+                .selectMultibranchPipeline();
+
+        Assert.assertEquals(newItemPage.getItemNameInvalidMsg(), "» ‘@’ is an unsafe character");
+
+        CreateItemErrorPage createItemErrorPage = newItemPage.clickOkButton();
+
+        Assert.assertEquals(createItemErrorPage.getCurrentURL(), "http://localhost:8080/view/all/createItem");
+        Assert.assertEquals(createItemErrorPage.getErrorHeader(),
+                "Error");
+        Assert.assertEquals(createItemErrorPage.getErrorMessage(), "‘@’ is an unsafe character");
+    }
+
+    @Test
+    public void testOrgFolderEmptyNameErr() {
+        String errMessageEmptyName = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName("")
+                .selectOrgFolderAndClickOk()
+                .getErrorMessageEmptyField();
+
+        Assert.assertEquals(errMessageEmptyName,
+                "» This field cannot be empty, please enter a valid name");
+    }
+
+    @Test
+    public void testCreateOrgFolderWithEmptyName() {
+        OrgFolderConfigPage orgFolderConfigPage = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName("")
+                .selectOrgFolderAndClickOk();
+
+        Assert.assertFalse(orgFolderConfigPage.isOkButtonEnabled());
+    }
+
+    @Test
+    public void testCreateOrgFolderExistName() {
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), PROJECT_NAME);
+
+        String errMessage = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(PROJECT_NAME)
+                .selectExistFolderAndClickOk()
+                .getErrorMessage();
+
+        Assert.assertEquals(errMessage, "A job already exists with the name ‘"
+                + PROJECT_NAME + "’");
     }
 }

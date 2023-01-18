@@ -2,7 +2,6 @@ package tests;
 
 import model.HomePage;
 import model.folder.FolderStatusPage;
-import model.organization_folder.OrgFolderConfigPage;
 import model.organization_folder.OrgFolderStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -57,40 +56,6 @@ public class OrganizationFolderTest extends BaseTest {
                 .getJobNamesList();
 
         Assert.assertTrue(allFolders.contains(NAME_ORG_FOLDER));
-    }
-
-    @Test
-    public void testOrgFolderEmptyNameErr() {
-        String errMessageEmptyName = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName("")
-                .selectOrgFolderAndClickOk()
-                .getErrorMessageEmptyField();
-
-        Assert.assertEquals(errMessageEmptyName,
-                "» This field cannot be empty, please enter a valid name");
-    }
-
-    @Test
-    public void testCreateOrgFolderWithEmptyName() {
-        OrgFolderConfigPage orgFolderConfigPage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName("")
-                .selectOrgFolderAndClickOk();
-
-        Assert.assertFalse(orgFolderConfigPage.isOkButtonEnabled());
-    }
-
-    @Test(dependsOnMethods = "testCreateOrgFolder")
-    public void testCreateOrgFolderExistName() {
-        String errMessage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(NAME_ORG_FOLDER)
-                .selectExistFolderAndClickOk()
-                .getErrorMessage();
-
-        Assert.assertEquals(errMessage, "A job already exists with the name ‘"
-                + NAME_ORG_FOLDER + "’");
     }
 
     @Test(dependsOnMethods = "testConfigureOrganizationFolder")

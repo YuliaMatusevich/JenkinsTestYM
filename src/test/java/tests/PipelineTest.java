@@ -42,19 +42,6 @@ public class PipelineTest extends BaseTest {
     }
 
     @Test
-    public void testCreatedPipelineDisplayedOnMyViews() {
-        String pipelineNameInMyViewList = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(PIPELINE_NAME)
-                .selectPipelineAndClickOk()
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickMyViewsSideMenuLink().getListProjectsNamesAsString();
-
-        Assert.assertTrue(pipelineNameInMyViewList.contains(PIPELINE_NAME), PIPELINE_NAME + " Pipeline not found");
-    }
-
-    @Test
     public void testRenamePipelineWithValidName() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_NAME);
         new HomePage(getDriver())
