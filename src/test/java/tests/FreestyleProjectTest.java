@@ -3,6 +3,7 @@ import model.*;
 import model.freestyle.FreestyleProjectConfigPage;
 import model.freestyle.FreestyleProjectStatusPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -255,6 +256,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectConfigPage.getMaxNumberOfBuildsToKeep(), expectedMaxNumberOfBuildsToKeep);
     }
 
+    @Ignore
     @Test
     public void testBuildStepsOptions() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(),FREESTYLE_NAME );

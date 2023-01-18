@@ -11,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.ProjectMethodsUtils;
 import runner.TestUtils;
 
 import java.util.List;
@@ -19,9 +20,10 @@ public class MulticonfigurationProjectTest extends BaseTest {
     private static final String PROJECT_NAME = TestUtils.getRandomStr(8);
     private static final String NEW_PROJECT_NAME = TestUtils.getRandomStr(8);
 
-    @Ignore
-    @Test(dependsOnMethods = "testCreateMultiConfigurationProjectWithValidName")
+    @Test
     public void testMulticonfigurationProjectAddDescription() {
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), PROJECT_NAME);
+
         MultiConfigurationProjectStatusPage multConfPage = new HomePage(getDriver())
                 .clickMultiConfigurationProject(PROJECT_NAME)
                 .clickAddDescription()
@@ -31,9 +33,10 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertEquals(multConfPage.getDescriptionText(), "Description");
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testMulticonfigurationProjectAddDescription")
+    @Test
     public void testMultiConfigurationProjectRenameProjectViaDropDownMenu() {
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), PROJECT_NAME);
+
         MultiConfigurationProjectStatusPage multiConfigPrStatusPage = new HomePage(getDriver())
                 .clickJobDropdownMenu(PROJECT_NAME)
                 .clickRenameMultiConfigurationDropDownMenu()
@@ -43,16 +46,17 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertEquals(multiConfigPrStatusPage.getNameMultiConfigProject(NEW_PROJECT_NAME), NEW_PROJECT_NAME);
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testMultiConfigurationProjectRenameProjectViaDropDownMenu")
+    @Test
     public void testMultiConfigurationProjectRenameProjectViaSideMenu() {
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), PROJECT_NAME);
+
         MultiConfigurationProjectStatusPage multiConfigPrStatusPage = new HomePage(getDriver())
-                .clickMultiConfigurationProject(NEW_PROJECT_NAME)
+                .clickMultiConfigurationProject(PROJECT_NAME)
                 .clickRenameSideMenu()
-                .clearFieldAndInputNewName(PROJECT_NAME)
+                .clearFieldAndInputNewName(NEW_PROJECT_NAME)
                 .clickRenameButton();
 
-        Assert.assertEquals(multiConfigPrStatusPage.getNameMultiConfigProject(PROJECT_NAME), PROJECT_NAME);
+        Assert.assertEquals(multiConfigPrStatusPage.getNameMultiConfigProject(NEW_PROJECT_NAME), NEW_PROJECT_NAME);
     }
 
     @Test
@@ -70,9 +74,10 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertFalse(homePage.getJobNamesList().contains(PROJECT_NAME));
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testMultiConfigurationProjectRenameProjectViaSideMenu")
+    @Test
     public void testMultiConfigurationProjectDisable() {
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), PROJECT_NAME);
+
         MultiConfigurationProjectStatusPage multiConfigurationProjectStatusPage = new HomePage(getDriver())
                 .clickMultiConfigurationProject(PROJECT_NAME)
                 .clickConfiguration(PROJECT_NAME)
@@ -82,7 +87,6 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertTrue(multiConfigurationProjectStatusPage.getTextDisabledWarning().contains("This project is currently disabled"));
     }
 
-    @Ignore
     @Test(dependsOnMethods = "testMultiConfigurationProjectDisable")
     public void testMultiConfigurationProjectEnable() {
         MultiConfigurationProjectStatusPage multiConfigurationProjectStatusPage = new HomePage(getDriver())
@@ -94,12 +98,9 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertTrue(multiConfigurationProjectStatusPage.disableButtonIsDisplayed());
     }
 
-    @Ignore
-    @Test(dependsOnMethods = {"testCreateMultiConfigurationProjectWithValidName",
-            "testMulticonfigurationProjectAddDescription",
-            "testMultiConfigurationProjectRenameProjectViaDropDownMenu",
-            "testMultiConfigurationProjectRenameProjectViaSideMenu"})
+    @Test
     public void testMultiConfigurationProjectBuild() {
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), PROJECT_NAME);
 
         int countBuildsBeforeNewBuild = new HomePage(getDriver())
                 .clickMultiConfigurationProject(PROJECT_NAME)
@@ -114,38 +115,41 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertNotEquals(countBuildsAfterNewBuild, countBuildsBeforeNewBuild);
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testCreateNewMCProjectAsCopyFromExistingProject")
+    @Test
     public void testFindMultiConfigurationProject() {
-        MultiConfigurationProjectStatusPage multiConfigurationProjectStatusPage = new HomePage(getDriver())
-                .setSearchAndClickEnter(NEW_PROJECT_NAME);
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), PROJECT_NAME);
 
-        Assert.assertEquals(multiConfigurationProjectStatusPage.getNameMultiConfigProject(NEW_PROJECT_NAME), NEW_PROJECT_NAME);
+        MultiConfigurationProjectStatusPage multiConfigurationProjectStatusPage = new HomePage(getDriver())
+                .setSearchAndClickEnter(PROJECT_NAME);
+
+        Assert.assertEquals(multiConfigurationProjectStatusPage.getNameMultiConfigProject(PROJECT_NAME), PROJECT_NAME);
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testCreateMultiConfigurationProjectWithValidName")
+    @Test
     public void testMultiConfigurationProjectDisableCheckIconDashboardPage() {
-        HomePage homePage = new HomePage(getDriver())
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), PROJECT_NAME);
+
+        String jobStatusIconTooltip = new HomePage(getDriver())
                 .clickMultiConfigurationProject(PROJECT_NAME)
                 .clickDisableButton()
                 .getBreadcrumbs()
-                .clickDashboard();
+                .clickDashboard()
+                .getJobBuildStatus(PROJECT_NAME);
 
-        Assert.assertTrue(homePage.isDisplayedIconProjectDisabled());
+        Assert.assertEquals(jobStatusIconTooltip, "Disabled");
     }
 
     @Ignore
-    @Test(dependsOnMethods = {"testCreateMultiConfigurationProjectWithValidName",
-            "testMultiConfigurationProjectDisableCheckIconDashboardPage"})
+    @Test(dependsOnMethods = {"testMultiConfigurationProjectDisableCheckIconDashboardPage"})
     public void testMultiConfigurationProjectEnableCheckIconDashboardPage() {
-        HomePage homePage = new HomePage(getDriver())
+        String jobStatusIconTooltip = new HomePage(getDriver())
                 .clickMultiConfigurationProject(PROJECT_NAME)
                 .clickEnableButton()
                 .getBreadcrumbs()
-                .clickDashboard();
+                .clickDashboard()
+                .getJobBuildStatus(PROJECT_NAME);
 
-        Assert.assertTrue(homePage.isDisplayedIconProjectEnabled());
+        Assert.assertEquals(jobStatusIconTooltip, "Not built");
     }
 
     @Test
@@ -165,9 +169,7 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertEquals(renameItemErrorPage.getErrorMessage(), "‘&amp;’ is an unsafe character");
     }
 
-    @Ignore
-    @Test(dependsOnMethods = {"testCreateMultiConfigurationProjectWithValidName",
-            "testMultiConfigurationProjectBuild"})
+    @Test(dependsOnMethods = {"testMultiConfigurationProjectBuild"})
     public void testMultiConfigurationProjectsRunJobInBuildHistory() {
         List<String> listNameOfLabels = new HomePage(getDriver())
                 .getBreadcrumbs()
@@ -179,42 +181,26 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertTrue(listNameOfLabels.contains(PROJECT_NAME + " #1"));
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testCreateMultiConfigurationProjectWithDescription")
+    @Test
     public void testMultiConfigurationProjectDisableCheckIconProjectName() {
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), PROJECT_NAME);
+
         MultiConfigurationProjectStatusPage multiConfigPrStatusPage = new HomePage(getDriver())
-                .clickMultiConfigurationProject("MultiConfigProject000302")
+                .clickMultiConfigurationProject(PROJECT_NAME)
                 .clickDisableButton();
         Assert.assertTrue(multiConfigPrStatusPage.iconProjectDisabledIsDisplayed());
     }
 
-    @Ignore
-    @Test(dependsOnMethods = {"testCreateMultiConfigurationProjectWithDescription",
-            "testMultiConfigurationProjectDisableCheckIconProjectName"})
+    @Test(dependsOnMethods = {"testMultiConfigurationProjectDisableCheckIconProjectName"})
     public void testMultiConfigurationProjectEnableCheckIconProjectName() {
         MultiConfigurationProjectStatusPage multiConfigPrStatusPage = new HomePage(getDriver())
-                .clickMultiConfigurationProject("MultiConfigProject000302")
+                .clickMultiConfigurationProject(PROJECT_NAME)
                 .clickEnableButton();
 
         Assert.assertTrue(multiConfigPrStatusPage.iconProjectEnabledIsDisplayed());
     }
 
-    @Test
-    public void testDisableMultiConfigurationProject() {
-        Boolean projectIconText = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(PROJECT_NAME)
-                .selectMultiConfigurationProjectAndClickOk()
-                .clickSaveButton()
-                .clickDisableButton()
-                .getBreadcrumbs()
-                .clickDashboard()
-                .getProjectIconText();
-
-        Assert.assertTrue(projectIconText);
-    }
-
-    @Test(dependsOnMethods = "testDisableMultiConfigurationProject")
+    @Test(dependsOnMethods = "testMultiConfigurationProjectDisableCheckIconDashboardPage")
     public void testEnableMultiConfigurationProject() {
         HomePage buildNowButton = new HomePage(getDriver())
                 .clickMultiConfigurationProject(PROJECT_NAME)
@@ -226,9 +212,10 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertTrue(buildNowButton.buildNowButtonIsDisplayed());
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testCreateMultiConfigurationProjectWithValidName")
+    @Test
     public void testMultiConfigurationProjectWithBuildStepCheckBuildSuccess() {
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), PROJECT_NAME);
+
         MultiConfigurationProjectConfigPage multiConfigProjectPage = new HomePage(getDriver())
                 .clickMultiConfigurationProject(PROJECT_NAME)
                 .clickConfiguration(PROJECT_NAME)
@@ -267,8 +254,10 @@ public class MulticonfigurationProjectTest extends BaseTest {
                 findElement(By.xpath("//*[@id='buildHistory/']/div[2]/table/tbody/tr[2]")).isDisplayed());
     }
 
-    @Test(dependsOnMethods = "testEnableMultiConfigurationProject")
+    @Test
     public void testSetConfigurationMatrix() {
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), PROJECT_NAME);
+
         MultiConfigurationProjectStatusPage configMatrix = new HomePage(getDriver())
                 .clickMultiConfigurationProject(PROJECT_NAME)
                 .clickConfiguration(PROJECT_NAME)

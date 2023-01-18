@@ -108,12 +108,6 @@ public class HomePage extends MainBasePage {
     @FindBy(id = "search-box")
     private WebElement searchField;
 
-    @FindBy(xpath ="//span[@class='build-status-icon__wrapper icon-disabled icon-md']")
-    private WebElement iconProjectDisabled;
-
-    @FindBy(xpath ="//span[@class='build-status-icon__wrapper icon-nobuilt icon-md']")
-    private WebElement iconProjectEnabled;
-
     @FindBy(css = "#projectstatus th")
     private List<WebElement> listJobTableHeaders;
 
@@ -499,18 +493,6 @@ public class HomePage extends MainBasePage {
         getWait(3).until(TestUtils.ExpectedConditions.elementIsNotMoving(searchField)).sendKeys(Keys.ENTER);
 
         return new MultiConfigurationProjectStatusPage(getDriver());
-    }
-
-    public boolean isDisplayedIconProjectDisabled(){
-        getWait(10).until(ExpectedConditions.visibilityOf(iconProjectDisabled));
-
-        return iconProjectDisabled.isDisplayed();
-    }
-
-    public boolean isDisplayedIconProjectEnabled(){
-        getWait(10).until(ExpectedConditions.visibilityOf(iconProjectEnabled));
-
-        return iconProjectEnabled.isDisplayed();
     }
 
     public int getJobTableHeadersSize() {
