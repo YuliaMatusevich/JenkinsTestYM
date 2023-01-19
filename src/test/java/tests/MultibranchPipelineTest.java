@@ -2,53 +2,50 @@ package tests;
 
 import model.*;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.ProjectMethodsUtils;
 import runner.TestUtils;
 
 import java.util.List;
 
 public class MultibranchPipelineTest extends BaseTest {
-    private static final String MULTIBRANCH_PIPELINE_NAME = TestUtils.getRandomStr();
-    private static final String MULTIBRANCH_PIPELINE_NAME_RENAMED = TestUtils.getRandomStr();
+    private static final String PROJECT_NAME = TestUtils.getRandomStr();
+    private static final String NEW_PROJECT_NAME = TestUtils.getRandomStr();
 
     @Test
     public void testRenameMultiBranchPipelineFromDropdown() {
+        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), PROJECT_NAME);
+
+
         String actualMultibranchPipeline = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(MULTIBRANCH_PIPELINE_NAME)
-                .selectMultibranchPipeline()
-                .clickOkMultibranchPipeline()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickJobDropDownMenu(MULTIBRANCH_PIPELINE_NAME)
+                .clickJobDropDownMenu(PROJECT_NAME)
                 .clickRenameMultibranchPipelineDropDownMenu()
-                .clearFieldAndInputNewName(MULTIBRANCH_PIPELINE_NAME_RENAMED)
+                .clearFieldAndInputNewName(NEW_PROJECT_NAME)
                 .clickRenameButton()
                 .getNameText();
 
-        Assert.assertTrue(actualMultibranchPipeline.contains(MULTIBRANCH_PIPELINE_NAME_RENAMED));
+        Assert.assertTrue(actualMultibranchPipeline.contains(NEW_PROJECT_NAME));
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testCreateMultibranchPipeline")
+    @Test
     public void testRenameMultiBranchPipelineFromLeftSideMenu() {
+        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), PROJECT_NAME);
+
         String actualMultibranchPipeline = new HomePage(getDriver())
-                .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMBPipeline(PROJECT_NAME)
                 .clickRenameSideMenu()
-                .clearFieldAndInputNewName(MULTIBRANCH_PIPELINE_NAME_RENAMED)
+                .clearFieldAndInputNewName(NEW_PROJECT_NAME)
                 .clickRenameButton()
                 .getNameText();
 
-        Assert.assertTrue(actualMultibranchPipeline.contains(MULTIBRANCH_PIPELINE_NAME_RENAMED));
+        Assert.assertTrue(actualMultibranchPipeline.contains(NEW_PROJECT_NAME));
 
         List<String> jobsList = new HomePage(getDriver())
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getJobNamesList();
 
-        Assert.assertTrue(jobsList.contains(MULTIBRANCH_PIPELINE_NAME_RENAMED));
+        Assert.assertTrue(jobsList.contains(NEW_PROJECT_NAME));
     }
 }
