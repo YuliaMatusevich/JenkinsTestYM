@@ -3,77 +3,39 @@ package tests;
 import model.views.EditListViewPage;
 import model.views.EditGlobalViewPage;
 import model.HomePage;
-
 import model.views.ViewPage;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.*;
-
 import runner.BaseTest;
 import runner.BaseUtils;
+import runner.ProjectMethodsUtils;
 import runner.TestUtils;
-
 import java.util.*;
 
 public class EditViewTest extends BaseTest {
-    private static String localViewName = TestUtils.getRandomStr();
+    private static final String LOCAL_VIEW_NAME = TestUtils.getRandomStr();
 
     @DataProvider(name = "illegalCharacters")
     public Object[][] illegalCharactersList() {
         return new Object[][]{{'!'}, {'@'}, {'#'}, {'$'}, {'%'}, {'^'}, {'*'}, {'['}, {']'}, {'\\'}, {'|'}, {';'}, {':'}, {'/'}, {'?'}, {'&'}, {'<'}, {'>'},};
     }
 
-    @Test
-    public void testCreateOneItemFromListOfJobTypes() {
-        int actualNumberOfJobs = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(TestUtils.getRandomStr())
-                .selectPipelineAndClickOk()
-
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickNewItem()
-                .setItemName(TestUtils.getRandomStr())
-                .selectPipelineAndClickOk()
-
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickNewItem()
-                .setItemName(TestUtils.getRandomStr())
-                .selectMultiConfigurationProjectAndClickOk()
-
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickNewItem()
-                .setItemName(TestUtils.getRandomStr())
-                .selectFolderAndClickOk()
-
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickNewItem()
-                .setItemName(TestUtils.getRandomStr())
-                .selectMultibranchPipelineAndClickOk()
-
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickNewItem()
-                .setItemName(TestUtils.getRandomStr())
-                .selectOrgFolderAndClickOk()
-
-                .getBreadcrumbs()
-                .clickDashboard()
-                .getJobNamesList()
-                .size();
-
-        Assert.assertEquals(actualNumberOfJobs, 6);
+    public void createFiveItems() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestUtils.getRandomStr());
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestUtils.getRandomStr());
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestUtils.getRandomStr());
+        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), TestUtils.getRandomStr());
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestUtils.getRandomStr());
     }
 
-    @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
+    @Test
     public void testGlobalViewAddFilterBuildQueue() {
+        createFiveItems();
         boolean newPaneIsDisplayed = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestUtils.getRandomStr())
+                .setViewName(LOCAL_VIEW_NAME)
                 .setGlobalViewType()
                 .clickCreateButtonToEditGlobalView()
                 .selectFilterBuildQueueOptionCheckBox()
@@ -84,12 +46,13 @@ public class EditViewTest extends BaseTest {
         Assert.assertTrue(newPaneIsDisplayed);
     }
 
-    @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
+    @Test
     public void testGlobalViewAddBothFilters() {
+        createFiveItems();
         EditGlobalViewPage editGlobalViewPage = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestUtils.getRandomStr())
+                .setViewName(LOCAL_VIEW_NAME)
                 .setGlobalViewType()
                 .clickCreateButtonToEditGlobalView()
                 .selectFilterBuildQueueOptionCheckBox()
@@ -100,31 +63,31 @@ public class EditViewTest extends BaseTest {
         Assert.assertTrue(editGlobalViewPage.isFilterBuildQueueOptionCheckBoxSelected() && editGlobalViewPage.isFilterBuildExecutorsOptionCheckBoxSelected());
     }
 
-    @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
+    @Test
     public void testListViewAddFiveItems() {
-        int expectedResult = 5;
+        createFiveItems();
 
         int actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(localViewName)
+                .setViewName(LOCAL_VIEW_NAME)
                 .setListViewType()
                 .clickCreateButtonToEditListView()
-                .addJobsToListView(expectedResult)
+                .addJobsToListView(5)
                 .clickOkButton()
                 .getJobNamesList()
                 .size();
 
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(actualResult, 5);
     }
 
-    @Test(dependsOnMethods = {"testListViewAddFiveItems", "testCreateOneItemFromListOfJobTypes"})
+    @Test(dependsOnMethods = "testListViewAddFiveItems")
     public void testListViewAddNewColumn() {
         String expectedResult = "Git Branches";
 
         String actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickView(localViewName)
+                .clickView(LOCAL_VIEW_NAME)
                 .clickEditListView()
                 .clickAddColumnDropDownMenu()
                 .clickGitBranchesColumnMenuOption()
@@ -134,15 +97,16 @@ public class EditViewTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
+    @Test
     public void testAddAllItemsToListView() {
+        createFiveItems();
         int expectedResult = new HomePage(getDriver())
                 .getJobNamesList().size();
 
         int actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestUtils.getRandomStr())
+                .setViewName(LOCAL_VIEW_NAME)
                 .setListViewType()
                 .clickCreateButtonToEditListView()
                 .addAllJobsToListView()
@@ -152,15 +116,16 @@ public class EditViewTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
+    @Test
     public void testListViewAddRegexFilterJobNamesContainingNine() {
+        createFiveItems();
         int expectedResult = new HomePage(getDriver())
                 .getNumberOfJobsContainingString("9");
 
         new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestUtils.getRandomStr())
+                .setViewName(LOCAL_VIEW_NAME)
                 .setListViewType()
                 .clickCreateButtonToEditListView()
                 .scrollToRegexFilterCheckboxPlaceInCenterWaitTillNotMoving();
@@ -176,13 +141,14 @@ public class EditViewTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
+    @Test
     public void testListViewChangeColumnOrder() {
+        createFiveItems();
         String[] expectedResult = {"W", "S"};
         new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestUtils.getRandomStr())
+                .setViewName(LOCAL_VIEW_NAME)
                 .setListViewType()
                 .clickCreateButtonToEditListView()
                 .addAllJobsToListView()
@@ -196,12 +162,13 @@ public class EditViewTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
+    @Test
     public void testListViewAddFilterBuildQueue() {
+        createFiveItems();
         boolean newPaneIsDisplayed = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestUtils.getRandomStr())
+                .setViewName(LOCAL_VIEW_NAME)
                 .setListViewType()
                 .clickCreateButtonToEditListView()
                 .selectFilterBuildQueueOptionCheckBox()
@@ -212,12 +179,13 @@ public class EditViewTest extends BaseTest {
         Assert.assertTrue(newPaneIsDisplayed);
     }
 
-    @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
+    @Test
     public void testMyViewAddFilterBuildQueue() {
+        createFiveItems();
         boolean newPaneIsDisplayed = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestUtils.getRandomStr())
+                .setViewName(LOCAL_VIEW_NAME)
                 .setMyViewType()
                 .clickCreateButtonToViewPage()
                 .clickEditMyView()
@@ -229,13 +197,13 @@ public class EditViewTest extends BaseTest {
         Assert.assertTrue(newPaneIsDisplayed);
     }
 
-    @Test(dependsOnMethods = {"testListViewAddFiveItems", "testCreateOneItemFromListOfJobTypes"})
+    @Test(dependsOnMethods = "testListViewAddFiveItems")
     public void testListViewCheckEveryAddColumnItem() {
         List<Boolean> isMatchingMenuItemToAddedColumn = new ArrayList<>();
 
         Map<String, String> tableMenuMap = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickView(localViewName)
+                .clickView(LOCAL_VIEW_NAME)
                 .clickEditListView()
                 .clickAddColumnDropDownMenu()
                 .getMapMatchingColumnDropDownMenuItemsAndJobTableHeader();
@@ -261,11 +229,11 @@ public class EditViewTest extends BaseTest {
         Assert.assertTrue(isMatchingMenuItemToAddedColumn.stream().allMatch(element -> element == true));
     }
 
-    @Test(dependsOnMethods = {"testListViewAddFiveItems", "testCreateOneItemFromListOfJobTypes"})
+    @Test(dependsOnMethods = "testListViewAddFiveItems")
     public void testDeleteStatusColumn() {
         boolean isContainingStatusColumn = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickView(localViewName)
+                .clickView(LOCAL_VIEW_NAME)
                 .clickEditListView()
                 .scrollToDeleteStatusColumnButtonPlaceInCenterWaitTillNotMoving()
                 .clickDeleteStatusColumnButton()
@@ -276,9 +244,9 @@ public class EditViewTest extends BaseTest {
         Assert.assertFalse(isContainingStatusColumn);
     }
 
-    @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
+    @Test
     public void testMultipleSpacesRenameView() {
-        localViewName = TestUtils.getRandomStr();
+        createFiveItems();
         final String nonSpaces = TestUtils.getRandomStr(6);
         final String spaces = nonSpaces.replaceAll("[a-zA-Z0-9]", " ");
         final String newNameMultipleSpaces = nonSpaces + spaces + nonSpaces;
@@ -287,7 +255,7 @@ public class EditViewTest extends BaseTest {
         String actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(localViewName)
+                .setViewName(LOCAL_VIEW_NAME)
                 .setListViewType()
                 .clickCreateButtonToEditListView()
                 .addAllJobsToListView()
@@ -297,12 +265,12 @@ public class EditViewTest extends BaseTest {
                 .clickOkButton()
                 .getActiveViewName();
 
-        Assert.assertNotEquals(actualResult, localViewName);
+        Assert.assertNotEquals(actualResult, LOCAL_VIEW_NAME);
         Assert.assertNotEquals(actualResult, newNameMultipleSpaces);
         Assert.assertEquals(actualResult, newNameSingleSpace);
     }
 
-    @Test(dependsOnMethods = {"testListViewAddFiveItems", "testCreateOneItemFromListOfJobTypes"}, dataProvider = "illegalCharacters")
+    @Test(dependsOnMethods = "testListViewAddFiveItems", dataProvider = "illegalCharacters")
     public void testIllegalCharacterRenameView(Character illegalCharacter) {
         new HomePage(getDriver()).clickMyViewsSideMenuLink();
 
@@ -310,9 +278,9 @@ public class EditViewTest extends BaseTest {
         try {
             new HomePage(getDriver())
                     .clickMyViewsTopMenuLink()
-                    .clickView(localViewName)
+                    .clickView(LOCAL_VIEW_NAME)
                     .clickEditGlobalView()
-                    .renameView(illegalCharacter + localViewName)
+                    .renameView(illegalCharacter + LOCAL_VIEW_NAME)
                     .clickOkButton();
             if (new EditGlobalViewPage(getDriver()).getErrorPageHeader().equals("Error")) {
                 checksList.add(new EditGlobalViewPage(getDriver()).isCorrectErrorPageDetailsText(illegalCharacter));
@@ -321,7 +289,7 @@ public class EditViewTest extends BaseTest {
                         .getBreadcrumbs()
                         .clickDashboard()
                         .clickMyViewsSideMenuLink()
-                        .getListViewsNames().contains(illegalCharacter + localViewName));
+                        .getListViewsNames().contains(illegalCharacter + LOCAL_VIEW_NAME));
             } else {
                 checksList.add(false);
                 BaseUtils.log("Not an Error page");
@@ -336,15 +304,15 @@ public class EditViewTest extends BaseTest {
         Assert.assertTrue(checksList.stream().allMatch(element -> element == true));
     }
 
-    @Test(dependsOnMethods = "testCreateOneItemFromListOfJobTypes")
+    @Test
     public void testRenameView() {
-        localViewName = TestUtils.getRandomStr();
+        createFiveItems();
         final String newName = TestUtils.getRandomStr();
 
         String actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(localViewName)
+                .setViewName(LOCAL_VIEW_NAME)
                 .setListViewType()
                 .clickCreateButtonToEditListView()
                 .addAllJobsToListView()
@@ -354,7 +322,7 @@ public class EditViewTest extends BaseTest {
                 .clickOkButton()
                 .getActiveViewName();
 
-        Assert.assertFalse(actualResult.equals(localViewName));
+        Assert.assertFalse(actualResult.equals(LOCAL_VIEW_NAME));
         Assert.assertEquals(actualResult, newName);
     }
 }

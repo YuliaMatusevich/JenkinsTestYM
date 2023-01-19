@@ -481,4 +481,20 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(errMessage, "A job already exists with the name ‘"
                 + PROJECT_NAME + "’");
     }
+
+    @Test
+    public void testCreateOneItemFromListOfJobTypes() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestUtils.getRandomStr());
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestUtils.getRandomStr());
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestUtils.getRandomStr());
+        ProjectMethodsUtils.createNewFolder(getDriver(), TestUtils.getRandomStr());
+        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), TestUtils.getRandomStr());
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestUtils.getRandomStr());
+
+        int actualNumberOfJobs = new HomePage(getDriver())
+                .getJobNamesList()
+                .size();
+
+        Assert.assertEquals(actualNumberOfJobs, 6);
+    }
 }
