@@ -29,9 +29,6 @@ public class EditGlobalViewPage extends MainBasePage {
     @FindBy(css = ".jenkins-form-description")
     private WebElement uniqueTextOnGlobalViewEditPage;
 
-    @FindBy(css = "div:nth-of-type(5) > .jenkins-section__title")
-    private WebElement uniqueSectionOnListViewEditPage;
-
     @FindBy(css = "#main-panel p")
     private WebElement errorPageDetailsText;
 
@@ -63,11 +60,6 @@ public class EditGlobalViewPage extends MainBasePage {
     public String getUniqueTextOnGlobalViewEditPage() {
 
         return uniqueTextOnGlobalViewEditPage.getText();
-    }
-
-    public String getUniqueSectionOnListViewEditPage() {
-
-        return uniqueSectionOnListViewEditPage.getText();
     }
 
     public EditGlobalViewPage selectFilterBuildQueueOptionCheckBox() {

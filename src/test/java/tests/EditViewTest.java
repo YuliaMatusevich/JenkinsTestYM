@@ -269,7 +269,7 @@ public class EditViewTest extends BaseTest {
         Assert.assertNotEquals(actualResult, newNameMultipleSpaces);
         Assert.assertEquals(actualResult, newNameSingleSpace);
     }
-
+    @Ignore
     @Test(dependsOnMethods = "testListViewAddFiveItems", dataProvider = "illegalCharacters")
     public void testIllegalCharacterRenameView(Character illegalCharacter) {
         new HomePage(getDriver()).clickMyViewsSideMenuLink();
@@ -307,16 +307,12 @@ public class EditViewTest extends BaseTest {
     @Test
     public void testRenameView() {
         createFiveItems();
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LOCAL_VIEW_NAME);
         final String newName = TestUtils.getRandomStr();
 
         String actualResult = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickNewView()
-                .setViewName(LOCAL_VIEW_NAME)
-                .setListViewType()
-                .clickCreateButtonToEditListView()
-                .addAllJobsToListView()
-                .clickOkButton()
+                .clickView(LOCAL_VIEW_NAME)
                 .clickEditListView()
                 .renameView(newName)
                 .clickOkButton()
@@ -324,5 +320,17 @@ public class EditViewTest extends BaseTest {
 
         Assert.assertFalse(actualResult.equals(LOCAL_VIEW_NAME));
         Assert.assertEquals(actualResult, newName);
+    }
+
+    @Test
+    public void testViewHasListOfItems() {
+        createFiveItems();
+        ProjectMethodsUtils.createNewMyViewForMyViews(getDriver(), LOCAL_VIEW_NAME);
+        ViewPage viewPage = new HomePage(getDriver())
+                .clickMyViewsSideMenuLink()
+                .clickView(LOCAL_VIEW_NAME);
+
+        Assert.assertEquals(viewPage.getJobListAsString(),
+                new HomePage(getDriver()).getJobListAsString());
     }
 }

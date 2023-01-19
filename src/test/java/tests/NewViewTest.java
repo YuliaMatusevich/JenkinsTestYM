@@ -5,13 +5,13 @@ import model.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.ProjectMethodsUtils;
 import runner.TestUtils;
 
 public class NewViewTest extends BaseTest {
-
-    private static final String PROJECT_RANDOM_NAME = TestUtils.getRandomStr(6);
     private static final String FREESTYLE_PROJECT_NAME = "Freestyle project";
     private static final String PIPELINE_PROJECT_NAME = "Pipeline";
+    private static final String MULTI_CONFIGURATION_PROJECT = "Multi-configuration project";
     private static final String GLOBAL_VIEW_NAME = "Global_View";
     private static final String LIST_VIEW_NAME = "List_View";
     private static final String MY_VIEW_NAME = "My_View";
@@ -19,52 +19,15 @@ public class NewViewTest extends BaseTest {
 
     @Test
     public void testCreateViews() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), MULTI_CONFIGURATION_PROJECT);
+
+        ProjectMethodsUtils.createNewGlobalViewForMyViews(getDriver(), GLOBAL_VIEW_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
+        ProjectMethodsUtils.createNewMyViewForMyViews(getDriver(), MY_VIEW_NAME);
+
         MyViewsPage myViewsPage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(FREESTYLE_PROJECT_NAME)
-                .selectFreestyleProjectAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
-
-                .clickNewItem()
-                .setItemName(PIPELINE_PROJECT_NAME)
-                .selectPipelineAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
-
-                .clickNewItem()
-                .setItemName("Multi-configuration project")
-                .selectMultiConfigurationProjectAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
-
-                .clickMyViewsSideMenuLink()
-                .clickNewView()
-                .setViewName(GLOBAL_VIEW_NAME)
-                .setGlobalViewType()
-                .clickCreateButtonToViewPage()
-                .getBreadcrumbs()
-                .clickDashboard()
-
-                .clickMyViewsSideMenuLink()
-                .clickNewView()
-                .setViewName(LIST_VIEW_NAME)
-                .setListViewType()
-                .clickCreateButtonToViewPage()
-                .getBreadcrumbs()
-                .clickDashboard()
-
-                .clickMyViewsSideMenuLink()
-                .clickNewView()
-                .setViewName(MY_VIEW_NAME)
-                .setMyViewType()
-                .clickCreateButtonToViewPage()
-                .getBreadcrumbs()
-                .clickDashboard()
-
                 .clickMyViewsSideMenuLink();
 
         Assert.assertTrue(myViewsPage.getListViewsNames().contains(GLOBAL_VIEW_NAME));
@@ -72,8 +35,12 @@ public class NewViewTest extends BaseTest {
         Assert.assertTrue(myViewsPage.getListViewsNames().contains(MY_VIEW_NAME));
     }
 
-    @Test(dependsOnMethods = "testCreateViews")
+    @Test
     public void testSelectJobsToAddInListView() {
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
+
         ViewPage viewPage = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickView(LIST_VIEW_NAME)
@@ -103,8 +70,11 @@ public class NewViewTest extends BaseTest {
                         + "You can either add some existing jobs to this view or create a new job in this view."));
     }
 
-    @Test(dependsOnMethods = "testDeselectJobsFromListView")
+    @Test
     public void testCreateViewWithExistingName() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
+
         NewViewPage newViewPage = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
@@ -115,8 +85,10 @@ public class NewViewTest extends BaseTest {
                 "A view with name " + LIST_VIEW_NAME + " already exists");
     }
 
-    @Test(dependsOnMethods = "testCreateViewWithExistingName")
+    @Test
     public void testRenameView() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
         ViewPage viewPage = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickView(LIST_VIEW_NAME)
@@ -127,8 +99,10 @@ public class NewViewTest extends BaseTest {
         Assert.assertTrue(viewPage.getListViewsNames().contains(LIST_VIEW_RENAME));
     }
 
-    @Test(dependsOnMethods = "testRenameView")
-    public void testViewHasSelectedTypeGlobalView() {
+    @Test
+    public void testEditGlobalViewPageViewNameLabelContainsDescription() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewGlobalViewForMyViews(getDriver(), GLOBAL_VIEW_NAME);
         EditGlobalViewPage editGlobalViewPage = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickView(GLOBAL_VIEW_NAME)
@@ -138,46 +112,42 @@ public class NewViewTest extends BaseTest {
                 "The name of a global view that will be shown.");
     }
 
-    @Test(dependsOnMethods = "testViewHasSelectedTypeGlobalView")
-    public void testViewHasSelectedTypeListView() {
-        EditGlobalViewPage editGlobalViewPage = new HomePage(getDriver())
+    @Test
+    public void testEditListViewPageContainsTitleJobFilters() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
+        EditListViewPage editListViewPage = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickView(LIST_VIEW_RENAME)
-                .clickEditGlobalView();
+                .clickView(LIST_VIEW_NAME)
+                .clickEditListView();
 
-        Assert.assertEquals(editGlobalViewPage.getUniqueSectionOnListViewEditPage(),
+        Assert.assertEquals(editListViewPage.getUniqueSectionOnListViewEditPage(),
                 "Job Filters");
     }
 
-    @Test(dependsOnMethods = "testViewHasSelectedTypeListView")
-    public void testViewHasSelectedTypeMyView() {
+    @Test
+    public void testListViewSideMenu() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
+
         ViewPage viewPage = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickView(MY_VIEW_NAME);
+                .clickView(LIST_VIEW_NAME);
 
-        Assert.assertEquals(viewPage.getJobListAsString(),
-                new HomePage(getDriver()).getJobListAsString());
-    }
-
-    @Test(dependsOnMethods = "testViewHasSelectedTypeMyView")
-    public void testViewSideMenu() {
-        ViewPage viewPage = new HomePage(getDriver())
-                .clickMyViewsSideMenuLink()
-                .clickView(LIST_VIEW_RENAME);
-
-        Assert.assertTrue(viewPage.getBreadcrumbs().getBreadcrumbsItemName(LIST_VIEW_RENAME).contains(LIST_VIEW_RENAME));
         Assert.assertEqualsNoOrder(viewPage.getSideMenuTextList(), viewPage.getActualSideMenu());
     }
 
-    @Test(dependsOnMethods = "testViewSideMenu")
+    @Test
     public void testDeleteView() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
         MyViewsPage myViewsPage = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
-                .clickView(LIST_VIEW_RENAME)
+                .clickView(LIST_VIEW_NAME)
                 .clickDeleteViewToMyViews()
                 .clickYes();
 
-        Assert.assertFalse(myViewsPage.getListViewsNames().contains(LIST_VIEW_RENAME));
+        Assert.assertFalse(myViewsPage.getListViewsNames().contains(LIST_VIEW_NAME));
     }
 
     @Test
@@ -208,19 +178,14 @@ public class NewViewTest extends BaseTest {
 
     @Test
     public void testCreateListViewWithAddSettings() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         int countColumnsBeforeAdd = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(PROJECT_RANDOM_NAME)
-                .selectFreestyleProjectAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(TestUtils.getRandomStr(6))
                 .setListViewType()
                 .clickCreateButtonToEditListView()
-                .addJobToView(PROJECT_RANDOM_NAME)
+                .addJobToView(FREESTYLE_PROJECT_NAME)
                 .getCountColumns();
 
         String textConfirmAfterClickingApply = new EditListViewPage(getDriver())
@@ -236,20 +201,15 @@ public class NewViewTest extends BaseTest {
         int countColumnsAfterAdd = new EditListViewPage(getDriver())
                 .getCountColumns();
 
-        Assert.assertEquals(actualMarkedProjectName, PROJECT_RANDOM_NAME);
+        Assert.assertEquals(actualMarkedProjectName, FREESTYLE_PROJECT_NAME);
         Assert.assertEquals(countColumnsAfterAdd, countColumnsBeforeAdd + 1);
         Assert.assertEquals(textConfirmAfterClickingApply, "Saved");
     }
 
     @Test
     public void testLettersSMLClickableMyViews() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         MyViewsPage myViewsPageSizeM = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(FREESTYLE_PROJECT_NAME)
-                .selectFreestyleProjectAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
                 .clickMyViewsSideMenuLink()
                 .clickSizeM();
 

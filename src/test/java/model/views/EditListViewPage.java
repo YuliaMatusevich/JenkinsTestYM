@@ -75,6 +75,9 @@ public class EditListViewPage extends MainBasePage {
     @FindBy(xpath = "//textarea[@name='description']")
     private WebElement description;
 
+    @FindBy(css = "div:nth-of-type(5) > .jenkins-section__title")
+    private WebElement uniqueSectionOnListViewEditPage;
+
     public EditListViewPage(WebDriver driver) {
         super(driver);
     }
@@ -289,5 +292,10 @@ public class EditListViewPage extends MainBasePage {
         getDriver().findElement(By.cssSelector("label[title='" + jobName + "']")).click();
 
         return this;
+    }
+
+    public String getUniqueSectionOnListViewEditPage() {
+
+        return uniqueSectionOnListViewEditPage.getText();
     }
 }
