@@ -1,80 +1,55 @@
 package tests;
-
 import model.HomePage;
 import model.folder.FolderStatusPage;
 import model.organization_folder.OrgFolderStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.ProjectMethodsUtils;
 import runner.TestUtils;
 
-import java.util.List;
-
 public class OrganizationFolderTest extends BaseTest {
-    private static final String NAME_ORG_FOLDER = TestUtils.getRandomStr();
-    private static final String NAME_FOLDER = TestUtils.getRandomStr();
+    private static final String ORG_FOLDER_NAME = TestUtils.getRandomStr();
+    private static final String NEW_ORG_FOLDER_NAME = TestUtils.getRandomStr();
+    private static final String FOLDER_NAME = TestUtils.getRandomStr();
     private static final String DISPLAY_NAME = TestUtils.getRandomStr();
 
     @Test
-    public void testCreateOrganizationFolder() {
-        String actualOrgFolderDisplayName = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(NAME_ORG_FOLDER)
-                .selectOrgFolderAndClickOk()
-                .clickSaveButton()
-                .getNameText();
-
-        Assert.assertEquals(actualOrgFolderDisplayName, NAME_ORG_FOLDER);
-    }
-
-    @Test
     public void testRenameOrganizationFolder() {
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORG_FOLDER_NAME);
+
         HomePage homePage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(NAME_ORG_FOLDER)
-                .selectOrgFolderAndClickOk()
-                .clickSaveButton()
+                .clickOrgFolder(ORG_FOLDER_NAME)
                 .getSideMenu()
                 .clickRenameSideMenu()
-                .clearFieldAndInputNewName("New name " + NAME_ORG_FOLDER)
+                .clearFieldAndInputNewName(NEW_ORG_FOLDER_NAME)
                 .clickRenameButton()
                 .getBreadcrumbs()
                 .clickDashboard();
 
-        Assert.assertTrue(homePage.getJobNamesList().contains("New name " + NAME_ORG_FOLDER));
+        Assert.assertTrue(homePage.getJobNamesList().contains(NEW_ORG_FOLDER_NAME));
     }
 
     @Test
-    public void testCreateOrgFolder() {
-        List<String> allFolders = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(NAME_ORG_FOLDER)
-                .selectFolderAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
-                .getJobNamesList();
-
-        Assert.assertTrue(allFolders.contains(NAME_ORG_FOLDER));
-    }
-
-    @Test(dependsOnMethods = "testConfigureOrganizationFolder")
     public void testDeleteOrganizationFolderDependsMethods() {
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORG_FOLDER_NAME);
+
         HomePage homePage = new HomePage(getDriver())
-                .clickOrgFolder(DISPLAY_NAME)
+                .clickOrgFolder(ORG_FOLDER_NAME)
                 .getSideMenu()
                 .clickDeleteOrganizationFolder()
                 .clickSaveButton();
 
-        Assert.assertFalse(homePage.getJobNamesList().contains(DISPLAY_NAME));
+        Assert.assertFalse(homePage.getJobNamesList().contains(ORG_FOLDER_NAME));
     }
 
-    @Test(dependsOnMethods = "testCreateOrganizFolder")
+    @Test
     public void testConfigureOrganizationFolder() {
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORG_FOLDER_NAME);
         final String description = TestUtils.getRandomStr();
 
         OrgFolderStatusPage orgFolderStatusPage = new HomePage(getDriver())
-                .clickOrgFolder(NAME_ORG_FOLDER)
+                .clickOrgFolder(ORG_FOLDER_NAME)
                 .getSideMenu()
                 .clickConfigureSideMenu()
                 .inputDisplayName(DISPLAY_NAME)
@@ -91,69 +66,33 @@ public class OrganizationFolderTest extends BaseTest {
     }
 
     @Test
-    public void testCreateOrganizFolder() {
-        HomePage homePage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(NAME_ORG_FOLDER)
-                .selectOrgFolderAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard();
-
-        Assert.assertTrue(homePage.getJobNamesList().contains(NAME_ORG_FOLDER));
-    }
-
-    @Test
-    public void testOrgFolderCreate() {
-        HomePage homePage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(NAME_ORG_FOLDER)
-                .selectOrgFolderAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard();
-
-        Assert.assertTrue(homePage.getJobNamesList().contains(NAME_ORG_FOLDER));
-    }
-
-    @Test
-    public void testFolderCreate() {
-        HomePage homePage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(NAME_FOLDER)
-                .selectFolderAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard();
-
-        Assert.assertTrue(homePage.getJobNamesList().contains(NAME_FOLDER));
-    }
-
-    @Test(dependsOnMethods = {"testFolderCreate", "testOrgFolderCreate"})
     public void testMoveOrgFolderToFolder() {
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORG_FOLDER_NAME);
+        ProjectMethodsUtils.createNewFolder(getDriver(), FOLDER_NAME);
+
         FolderStatusPage folderStatusPage = new HomePage(getDriver())
-                .clickOrgFolder(NAME_ORG_FOLDER)
+                .clickOrgFolder(ORG_FOLDER_NAME)
                 .clickMoveButton()
-                .selectFolder(NAME_FOLDER)
+                .selectFolder(FOLDER_NAME)
                 .clickMove()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .clickFolder(NAME_FOLDER);
+                .clickFolder(FOLDER_NAME);
 
-        Assert.assertTrue(folderStatusPage.getJobList().contains(NAME_ORG_FOLDER));
+        Assert.assertTrue(folderStatusPage.getJobList().contains(ORG_FOLDER_NAME));
     }
 
     @Test(dependsOnMethods = "testMoveOrgFolderToFolder")
     public void testMoveOrgFolderToDashboard() {
         HomePage homePage = new HomePage(getDriver())
-                .clickFolder(NAME_FOLDER)
-                .clickOrgFolder(NAME_ORG_FOLDER)
+                .clickFolder(FOLDER_NAME)
+                .clickOrgFolder(ORG_FOLDER_NAME)
                 .clickMoveButton()
                 .selectOptionToDashBoard()
                 .clickMove()
                 .getBreadcrumbs()
                 .clickDashboard();
 
-        Assert.assertTrue(homePage.getJobNamesList().contains(NAME_ORG_FOLDER));
+        Assert.assertTrue(homePage.getJobNamesList().contains(ORG_FOLDER_NAME));
     }
 }

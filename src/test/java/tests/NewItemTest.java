@@ -433,6 +433,20 @@ public class NewItemTest extends BaseTest {
     }
 
     @Test
+    public void testCreateOrgFolder() {
+        List<String> allFolders = new HomePage(getDriver())
+                .clickNewItem()
+                .setItemName(PROJECT_NAME)
+                .selectFolderAndClickOk()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .getJobNamesList();
+
+        Assert.assertTrue(allFolders.contains(PROJECT_NAME));
+    }
+
+    @Test
     public void testOrgFolderEmptyNameErr() {
         String errMessageEmptyName = new HomePage(getDriver())
                 .clickNewItem()
