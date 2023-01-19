@@ -80,13 +80,9 @@ public class PipelineTest extends BaseTest {
 
     @Test
     public void testRenamePipelineWithoutChangingName() {
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_NAME);
+
         RenameItemErrorPage renameItemErrorPage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(PIPELINE_NAME)
-                .selectPipelineAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
                 .clickJobDropDownMenu(PIPELINE_NAME)
                 .clickRenamePipelineDropDownMenu()
                 .clickSaveButtonAndGetError();
