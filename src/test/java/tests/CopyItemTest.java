@@ -1,12 +1,12 @@
 package tests;
 
 import static runner.TestUtils.getRandomStr;
-
 import model.CreateItemErrorPage;
 import model.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.ProjectMethodsUtils;
 
 public class CopyItemTest extends BaseTest {
 
@@ -17,7 +17,7 @@ public class CopyItemTest extends BaseTest {
         final String nameExistItem = getRandomStr();
         final String expectedErrorMessage = "Error No such job: " + nameNotExistItem;
 
-        createFreestyleProject(nameExistItem);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), nameExistItem);
 
         CreateItemErrorPage createItemErrorPage = new HomePage(getDriver())
                 .clickNewItem()
@@ -45,17 +45,5 @@ public class CopyItemTest extends BaseTest {
                 .isDisplayedFieldCopyFrom();
 
         Assert.assertFalse(isDisplayedFieldFrom, "Field Copy from is displayed");
-    }
-
-    private HomePage createFreestyleProject(String nameFreestyleProject) {
-        return new HomePage(getDriver())
-                .getHeader()
-                .clickJenkinsHeadIcon()
-                .clickNewItem()
-                .setItemName(nameFreestyleProject)
-                .selectFreestyleProjectAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard();
     }
 }
