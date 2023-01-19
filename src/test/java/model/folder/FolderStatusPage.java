@@ -105,6 +105,7 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
     }
 
     public FolderStatusPage setDescription(String description) {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(inputFieldDescription));
         inputFieldDescription.sendKeys(description);
 
         return this;

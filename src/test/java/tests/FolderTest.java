@@ -315,7 +315,6 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(folder.getAdditionalDescriptionText(), DESCRIPTION);
     }
 
-    @Ignore
     @Test
     public void testAddFolderDescription() {
         ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
