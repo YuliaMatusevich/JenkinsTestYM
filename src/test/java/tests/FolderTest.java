@@ -18,6 +18,7 @@ public class FolderTest extends BaseTest {
     final String DISPLAY_RANDOM_NAME = TestUtils.getRandomStr();
     final String FREESTYLE_PROJECT_NAME = TestUtils.getRandomStr();
     final String DESCRIPTION = TestUtils.getRandomStr(10);
+    final String MULTIBRANCH_PIPELINE_NAME = TestUtils.getRandomStr(10);
 
     @Test
     public void testCreateFolder() {
@@ -363,13 +364,12 @@ public class FolderTest extends BaseTest {
     @Test
     public void testCreateMultibranchPipelineProjectInFolder() {
         ProjectMethodsUtils.createNewFolder(getDriver(),FOLDER_RANDOM_NAME_1);
-        final String multibranchPipelineProjectName = TestUtils.getRandomStr();
 
         List<String> projectNamesInFolder = new HomePage(getDriver())
                 .clickFolder(FOLDER_RANDOM_NAME_1)
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(multibranchPipelineProjectName)
+                .setItemName(MULTIBRANCH_PIPELINE_NAME)
                 .selectMultibranchPipelineAndClickOk()
                 .clickSaveButton()
                 .getBreadcrumbs()
@@ -377,7 +377,20 @@ public class FolderTest extends BaseTest {
                 .clickFolder(FOLDER_RANDOM_NAME_1)
                 .getJobList();
 
-        Assert.assertTrue(projectNamesInFolder.contains(multibranchPipelineProjectName));
+        Assert.assertTrue(projectNamesInFolder.contains(MULTIBRANCH_PIPELINE_NAME));
+    }
+
+    @Test (dependsOnMethods = "testCreateMultibranchPipelineProjectInFolder")
+    public void testDeleteMultibranchPipelineFromFolder() {
+
+        FolderStatusPage folder = new HomePage(getDriver())
+                .clickFolder(FOLDER_RANDOM_NAME_1)
+                .clickMultibranchPipeline(MULTIBRANCH_PIPELINE_NAME)
+                .clickDeleteMultibranchPipelineWithFolder()
+                .clickYes();
+
+        Assert.assertEquals(folder.getFolderNameHeader(), FOLDER_RANDOM_NAME_1);
+        Assert.assertNotNull(folder.getEmptyStateBlock());
     }
 
     @Test
@@ -410,27 +423,5 @@ public class FolderTest extends BaseTest {
                 .getHeaderText();
 
         Assert.assertEquals(welcomeJenkinsHeader, "Welcome to Jenkins!");
-    }
-
-    @Test
-    public void testDeleteMultibranchPipelineFromFolder() {
-        final String multibranchPipelineProjectName = TestUtils.getRandomStr();
-
-        ProjectMethodsUtils.createNewFolder(getDriver(), FOLDER_RANDOM_NAME_1);
-        FolderStatusPage folder = new HomePage(getDriver())
-                .clickFolder(FOLDER_RANDOM_NAME_1)
-                .getSideMenu()
-                .clickNewItem()
-                .setItemName(multibranchPipelineProjectName)
-                .selectMultibranchPipelineAndClickOk()
-                .clickSaveButton()
-                .getHeader().clickJenkinsHeadIcon()
-                .clickFolder(FOLDER_RANDOM_NAME_1)
-                .clickMultibranchPipeline(multibranchPipelineProjectName)
-                .clickDeleteMultibranchPipelineWithFolder()
-                .clickYes();
-
-        Assert.assertEquals(folder.getFolderNameHeader(), FOLDER_RANDOM_NAME_1);
-        Assert.assertNotNull(folder.getEmptyStateBlock());
     }
 }
