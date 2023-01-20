@@ -218,6 +218,14 @@ public class ViewPage extends MainBasePage {
 
         return listProjectsNames.toString().trim();
     }
+    
+    public String getListProjectsNamesFromView() {
+        String names = listProjects.get(0).getText();
+        for (int i = 1; i <listProjects.size() ; i++) {
+           names =  names.concat( " ").concat(listProjects.get(i).getText());
+        }
+        return names;
+    }
 
     public String getTextContentOnViewMainPanel() {
         StringBuilder list = new StringBuilder();
