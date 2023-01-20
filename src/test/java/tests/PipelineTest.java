@@ -8,15 +8,16 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
-import runner.TestUtils;
 import java.util.List;
 
+import static runner.TestUtils.getRandomStr;
+
 public class PipelineTest extends BaseTest {
-    private static final String RENAME_SUFFIX = "renamed";
-    private static final String PIPELINE_NAME = TestUtils.getRandomStr();
-    private static final String ITEM_NAME = TestUtils.getRandomStr();
-    private static final String PIPELINE_DESCRIPTION = PIPELINE_NAME + " description";
-    private static final String ITEM_NEW_DESCRIPTION = "New description";
+    private static final String PIPELINE_RENAME = getRandomStr() + "renamed";
+    private static final String PIPELINE_NAME = getRandomStr();
+    private static final String ITEM_NAME = getRandomStr();
+    private static final String DESCRIPTION = getRandomStr() + " description";
+    private static final String NEW_DESCRIPTION = "New description";
 
     @Test
     public void testDisablePipelineProjectMessage() {
@@ -47,10 +48,10 @@ public class PipelineTest extends BaseTest {
         new HomePage(getDriver())
                 .clickJobDropDownMenu(PIPELINE_NAME)
                 .clickRenamePipelineDropDownMenu()
-                .clearFieldAndInputNewName(PIPELINE_NAME + RENAME_SUFFIX)
+                .clearFieldAndInputNewName(PIPELINE_RENAME)
                 .clickRenameButton();
 
-        Assert.assertEquals(new PipelineStatusPage(getDriver()).getNameText(), "Pipeline " + PIPELINE_NAME + RENAME_SUFFIX);
+        Assert.assertEquals(new PipelineStatusPage(getDriver()).getNameText(), "Pipeline " + PIPELINE_RENAME);
     }
 
     @Test
@@ -67,7 +68,7 @@ public class PipelineTest extends BaseTest {
                 .clickDashboard()
                 .clickJobDropDownMenu(PIPELINE_NAME)
                 .clickRenamePipelineDropDownMenu()
-                .clearFieldAndInputNewName(PIPELINE_NAME + RENAME_SUFFIX)
+                .clearFieldAndInputNewName(PIPELINE_RENAME)
                 .clickRenameButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -75,7 +76,7 @@ public class PipelineTest extends BaseTest {
                 .clickView(ITEM_NAME)
                 .getJobListAsString();
 
-        Assert.assertTrue(actualJobListAsString.contains(PIPELINE_NAME + RENAME_SUFFIX), PIPELINE_NAME + RENAME_SUFFIX + " Pipeline not found");
+        Assert.assertTrue(actualJobListAsString.contains(PIPELINE_RENAME), PIPELINE_RENAME + " Pipeline not found");
     }
 
     @Test
@@ -120,10 +121,10 @@ public class PipelineTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
-                .setDescriptionField(PIPELINE_DESCRIPTION)
+                .setDescriptionField(DESCRIPTION)
                 .clickPreviewLink();
 
-        Assert.assertEquals(pipelineConfigPage.getTextareaPreview(), PIPELINE_DESCRIPTION);
+        Assert.assertEquals(pipelineConfigPage.getTextareaPreview(), DESCRIPTION);
     }
 
     @Test
@@ -132,7 +133,7 @@ public class PipelineTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
-                .setDescriptionField(PIPELINE_DESCRIPTION)
+                .setDescriptionField(DESCRIPTION)
                 .clickPreviewLink()
                 .clickHidePreviewLink();
 
@@ -211,10 +212,10 @@ public class PipelineTest extends BaseTest {
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
                 .clickSaveButton()
-                .editDescription(PIPELINE_DESCRIPTION)
+                .editDescription(DESCRIPTION)
                 .clickSaveButton();
 
-        Assert.assertEquals(pipelineProjectPage.getDescriptionText(), PIPELINE_DESCRIPTION);
+        Assert.assertEquals(pipelineProjectPage.getDescriptionText(), DESCRIPTION);
     }
 
     @Test
@@ -223,11 +224,11 @@ public class PipelineTest extends BaseTest {
         String actualDescription = new HomePage(getDriver())
                 .clickPipelineJob(PIPELINE_NAME)
                 .clickConfigure()
-                .setDescriptionField(ITEM_NEW_DESCRIPTION)
+                .setDescriptionField(NEW_DESCRIPTION)
                 .clickSaveButton()
                 .getDescriptionText();
 
-        Assert.assertEquals(actualDescription, ITEM_NEW_DESCRIPTION);
+        Assert.assertEquals(actualDescription, NEW_DESCRIPTION);
     }
 
     @Test(dependsOnMethods = "testPipelineAddDescription")
@@ -235,11 +236,11 @@ public class PipelineTest extends BaseTest {
 
         String actualDescription = new HomePage(getDriver())
                 .clickPipelineProjectName()
-                .editDescription(ITEM_NEW_DESCRIPTION)
+                .editDescription(NEW_DESCRIPTION)
                 .clickSaveButton()
                 .getDescriptionText();
 
-        Assert.assertEquals(actualDescription, ITEM_NEW_DESCRIPTION);
+        Assert.assertEquals(actualDescription, NEW_DESCRIPTION);
     }
 
     @Test

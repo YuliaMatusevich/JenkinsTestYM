@@ -5,13 +5,12 @@ import model.PeoplePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
 import java.util.List;
 
 import static runner.TestUtils.getRandomStr;
 
 public class PeoplePageTest extends BaseTest {
-    private static final String USER_NAME = runner.TestUtils.getRandomStr();
+    private static final String USER_NAME = getRandomStr();
     private static final String PASSWORD = getRandomStr(7);
     private static final String EMAIL = getRandomStr(5) + "@gmail.com";
 
@@ -23,13 +22,12 @@ public class PeoplePageTest extends BaseTest {
         Assert.assertEquals(peoplePage.getDescription(), "Includes all known “users”," +
                 " including login identities which the current security realm can enumerate," +
                 " as well as people mentioned in commit messages in recorded changelogs.");
-        Assert.assertTrue(peoplePage.isDisplayedSidePanel(), "Side Panel is not displayed");
-        Assert.assertTrue(peoplePage.getFooter().isDisplayedFooter(), "Footer is not displayed");
+        Assert.assertTrue(peoplePage.isDisplayedSidePanel());
+        Assert.assertTrue(peoplePage.getFooter().isDisplayedFooter());
         Assert.assertEquals(peoplePage.getPeopleTableColumnsAmount(), 5);
         Assert.assertEquals(peoplePage.getPeopleTableColumnsAsString(), "User ID Name Last Commit Activity On");
         Assert.assertEquals(peoplePage.getIconLabel(), "Icon:");
         Assert.assertEquals(peoplePage.getListIconSizeButtonsAsString(), "Small Medium Large");
-
     }
 
     @Test

@@ -10,22 +10,23 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.BaseUtils;
 import runner.ProjectMethodsUtils;
-import runner.TestUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static runner.TestUtils.getRandomStr;
+
 public class ViewsTest extends BaseTest {
-    private static final String FREESTYLE_PROJECT_NAME = TestUtils.getRandomStr();
-    private static final String PIPELINE_NAME = TestUtils.getRandomStr();
-    private static final String MULTI_CONFIGURATION_PROJECT_NAME = TestUtils.getRandomStr();
-    private static final String FOLDER_NAME = TestUtils.getRandomStr();
-    private static final String MULTIBRANCH_PIPELINE_NAME = TestUtils.getRandomStr();
-    private static final String ORGANIZATION_FOLDER_NAME = TestUtils.getRandomStr();
-    private static final String GLOBAL_VIEW_NAME = TestUtils.getRandomStr();
-    private static final String LIST_VIEW_NAME = TestUtils.getRandomStr();
-    private static final String MY_VIEW_NAME = TestUtils.getRandomStr();
-    private static final String VIEW_RENAME = TestUtils.getRandomStr();
+    private static final String FREESTYLE_PROJECT_NAME = getRandomStr();
+    private static final String PIPELINE_NAME = getRandomStr();
+    private static final String MULTI_CONFIGURATION_PROJECT_NAME = getRandomStr();
+    private static final String FOLDER_NAME = getRandomStr();
+    private static final String MULTIBRANCH_PIPELINE_NAME = getRandomStr();
+    private static final String ORGANIZATION_FOLDER_NAME = getRandomStr();
+    private static final String GLOBAL_VIEW_NAME = getRandomStr();
+    private static final String LIST_VIEW_NAME = getRandomStr();
+    private static final String MY_VIEW_NAME = getRandomStr();
+    private static final String VIEW_RENAME = getRandomStr();
 
     @DataProvider(name = "illegalCharacters")
     public Object[][] illegalCharactersList() {
@@ -100,7 +101,7 @@ public class ViewsTest extends BaseTest {
         int countColumnsBeforeAdd = new HomePage(getDriver())
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestUtils.getRandomStr(6))
+                .setViewName(getRandomStr(6))
                 .setListViewType()
                 .clickCreateButtonToEditListView()
                 .addJobToView(FREESTYLE_PROJECT_NAME)
@@ -477,7 +478,7 @@ public class ViewsTest extends BaseTest {
     @Test
     public void testMultipleSpacesRenameView() {
         createAllSixItems();
-        final String nonSpaces = TestUtils.getRandomStr(6);
+        final String nonSpaces = getRandomStr(6);
         final String spaces = nonSpaces.replaceAll("[a-zA-Z0-9]", " ");
         final String newNameMultipleSpaces = nonSpaces + spaces + nonSpaces;
         final String newNameSingleSpace = nonSpaces + " " + nonSpaces;

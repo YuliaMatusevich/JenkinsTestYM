@@ -5,7 +5,6 @@ import model.views.MyViewsPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
 import java.util.List;
 
 public class HeaderComponentTest extends BaseTest {

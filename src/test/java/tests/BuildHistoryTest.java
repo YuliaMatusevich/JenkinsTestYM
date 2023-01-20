@@ -2,21 +2,22 @@ package tests;
 
 import model.HomePage;
 import model.BuildHistoryPage;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import static runner.TestUtils.getRandomStr;
+
 public class BuildHistoryTest extends BaseTest {
 
-    private static final String FREESTYLE_NAME = RandomStringUtils.randomAlphanumeric(10);
+    private static final String FREESTYLE_PROJECT_NAME = getRandomStr(); ;
 
     @Test
     public void testH1HeaderBuildHistory() {
 
         BuildHistoryPage buildHistoryPage = new HomePage(getDriver())
                 .clickNewItem()
-                .setItemName(FREESTYLE_NAME)
+                .setItemName(FREESTYLE_PROJECT_NAME)
                 .selectFreestyleProjectAndClickOk()
                 .clickSaveButton()
                 .getBreadcrumbs()

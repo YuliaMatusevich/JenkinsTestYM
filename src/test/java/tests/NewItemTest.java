@@ -16,14 +16,15 @@ import runner.TestUtils;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
+
 import static runner.ProjectMethodsUtils.createNewFolder;
 import static runner.TestUtils.getRandomStr;
 
 public class NewItemTest extends BaseTest {
 
-    private static final String PROJECT_NAME = TestUtils.getRandomStr(7);
+    private static final String PROJECT_NAME = getRandomStr();
     private static final String ITEM_NEW_DESCRIPTION = "New description";
-    private static final String SECOND_PROJECT_NAME = TestUtils.getRandomStr(7);
+    private static final String NEW_PROJECT_NAME = getRandomStr();
 
     @Test
     public void testNewItemsPageContainsItemsWithoutCreatedProject() {
@@ -130,7 +131,7 @@ public class NewItemTest extends BaseTest {
     public void testCreateNewPipelineFromExisting() {
         String actualJobName = new HomePage(getDriver())
                 .clickNewItem()
-                .setItemName(SECOND_PROJECT_NAME)
+                .setItemName(NEW_PROJECT_NAME)
                 .setCopyFromItemName(PROJECT_NAME)
                 .clickOk()
                 .clickSaveButton()
@@ -138,7 +139,7 @@ public class NewItemTest extends BaseTest {
 
         String actualDescription = new PipelineStatusPage(getDriver()).getDescriptionText();
 
-        Assert.assertEquals(actualJobName, SECOND_PROJECT_NAME);
+        Assert.assertEquals(actualJobName, NEW_PROJECT_NAME);
         Assert.assertEquals(actualDescription, ITEM_NEW_DESCRIPTION);
     }
 
@@ -345,15 +346,15 @@ public class NewItemTest extends BaseTest {
     public void testCreateNewMCProjectAsCopyFromExistingProject() {
         String actualProjectName = new HomePage(getDriver())
                 .clickNewItem()
-                .setItemName(SECOND_PROJECT_NAME)
+                .setItemName(NEW_PROJECT_NAME)
                 .setCopyFromItemName(PROJECT_NAME)
                 .clickOK()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .getJobName(SECOND_PROJECT_NAME);
+                .getJobName(NEW_PROJECT_NAME);
 
-        Assert.assertEquals(actualProjectName, SECOND_PROJECT_NAME);
+        Assert.assertEquals(actualProjectName, NEW_PROJECT_NAME);
     }
 
     @Test

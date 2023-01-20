@@ -11,54 +11,55 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
 import static runner.TestUtils.getRandomStr;
 
 public class FreestyleProjectTest extends BaseTest {
 
-    private static final String FREESTYLE_NAME = getRandomStr(10);
-    private static final String NEW_FREESTYLE_NAME = getRandomStr(10);
+    private static final String FREESTYLE_PROJECT_NAME = getRandomStr();
+    private static final String FREESTYLE_PROJECT_RENAME = getRandomStr();
 
     @Test
     public void testDisableProject() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         FreestyleProjectStatusPage freestyleProjectStatusPage = new HomePage(getDriver())
-                .clickFreestyleProjectName(FREESTYLE_NAME)
+                .clickFreestyleProjectName(FREESTYLE_PROJECT_NAME)
                 .clickDisableProjectBtn();
 
-        Assert.assertEquals(freestyleProjectStatusPage.getNameText(), String.format("Project %s", FREESTYLE_NAME));
+        Assert.assertEquals(freestyleProjectStatusPage.getNameText(), String.format("Project %s", FREESTYLE_PROJECT_NAME));
         Assert.assertEquals(freestyleProjectStatusPage.getWarningMsg(), "This project is currently disabled");
 
         HomePage homePage = freestyleProjectStatusPage.getBreadcrumbs().clickDashboard();
-        Assert.assertEquals(homePage.getJobBuildStatus(FREESTYLE_NAME), "Disabled");
+        Assert.assertEquals(homePage.getJobBuildStatus(FREESTYLE_PROJECT_NAME), "Disabled");
     }
 
     @Test(dependsOnMethods = "testDisableProject")
     public void testEnableProject() {
         final String jobStatusIconTooltip = new HomePage(getDriver())
-                .clickFreestyleProjectName(FREESTYLE_NAME)
+                .clickFreestyleProjectName(FREESTYLE_PROJECT_NAME)
                 .clickDisableProjectBtn()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .getJobBuildStatus(FREESTYLE_NAME);
+                .getJobBuildStatus(FREESTYLE_PROJECT_NAME);
 
         Assert.assertEquals(jobStatusIconTooltip, "Not built");
     }
 
     @Test
     public void testFreestyleProjectPageIsOpenedFromDashboard() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         final FreestyleProjectStatusPage freestyleProjectStatusPage = new HomePage(getDriver())
-                .clickFreestyleProjectName(FREESTYLE_NAME);
+                .clickFreestyleProjectName(FREESTYLE_PROJECT_NAME);
 
-        Assert.assertEquals(freestyleProjectStatusPage.getNameText(), String.format("Project %s", FREESTYLE_NAME));
+        Assert.assertEquals(freestyleProjectStatusPage.getNameText(), String.format("Project %s", FREESTYLE_PROJECT_NAME));
     }
 
     @Test
     public void testAddDescription() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
-        final String descriptionText = "This is job #" + FREESTYLE_NAME;
+        final String descriptionText = "This is job #" + FREESTYLE_PROJECT_NAME;
 
         String freestyleProjectDescription = new HomePage(getDriver())
                 .clickFreestyleProjectName()
@@ -83,7 +84,7 @@ public class FreestyleProjectTest extends BaseTest {
 
     @Test
     public void testNoBuildFreestyleProjectChanges() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         ChangesBuildsPage page = new HomePage(getDriver())
                 .clickFreestyleProjectName()
@@ -94,39 +95,39 @@ public class FreestyleProjectTest extends BaseTest {
 
     @Test
     public void testRenameFreestyleProject() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         List<String> jobsList = new HomePage(getDriver())
                 .clickFreestyleProjectName()
                 .getSideMenu()
                 .clickRename()
-                .clearFieldAndInputNewName(NEW_FREESTYLE_NAME)
+                .clearFieldAndInputNewName(FREESTYLE_PROJECT_RENAME)
                 .clickRenameButton()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getJobNamesList();
 
-        Assert.assertFalse(jobsList.contains(FREESTYLE_NAME));
-        Assert.assertTrue(jobsList.contains(NEW_FREESTYLE_NAME));
+        Assert.assertFalse(jobsList.contains(FREESTYLE_PROJECT_NAME));
+        Assert.assertTrue(jobsList.contains(FREESTYLE_PROJECT_RENAME));
     }
 
     @Test
     public void testViewFreestyleProjectPage() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         String freestyleName = new HomePage(getDriver())
                 .clickFreestyleProjectName()
                 .getNameText();
 
-        Assert.assertEquals(freestyleName, String.format("Project %s", FREESTYLE_NAME));
+        Assert.assertEquals(freestyleName, String.format("Project %s", FREESTYLE_PROJECT_NAME));
     }
 
     @Test
     public void testFreestyleProjectConfigureByDropdown() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
-                .clickJobDropDownMenu(FREESTYLE_NAME)
+                .clickJobDropDownMenu(FREESTYLE_PROJECT_NAME)
                 .clickConfigDropDownMenuFreestyle();
 
         Assert.assertEquals(freestyleProjectConfigPage.getHeadlineText(), "Configuration");
@@ -134,7 +135,7 @@ public class FreestyleProjectTest extends BaseTest {
 
     @Test
     public void testCreateBuildNowOnFreestyleProjectPage() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         int countBuildsBeforeCreatingNewBuild = new HomePage(getDriver())
                 .clickFreestyleProjectName()
@@ -149,7 +150,7 @@ public class FreestyleProjectTest extends BaseTest {
 
     @Test
     public void testDeleteFreestyleProject() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         String pageHeaderText = new HomePage(getDriver())
                 .clickFreestyleProjectName()
@@ -162,7 +163,7 @@ public class FreestyleProjectTest extends BaseTest {
 
     @Test
     public void testFreestyleConfigSideMenu() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         final Set<String> expectedFreestyleConfigSideMenu = new TreeSet<>(
                 List.of("General", "Source Code Management", "Build Triggers", "Build Environment", "Build Steps", "Post-build Actions"));
@@ -187,7 +188,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         BuildWithParametersPage page = new HomePage(getDriver())
                 .clickNewItem()
-                .setItemName(FREESTYLE_NAME)
+                .setItemName(FREESTYLE_PROJECT_NAME)
                 .selectFreestyleProjectAndClickOk()
                 .switchONCheckBoxThisProjectIsParametrized()
                 .clickButtonAddParameter()
@@ -206,7 +207,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .getSideMenu()
                 .clickBuildWithParameters();
 
-        Assert.assertTrue(page.getNameText().contains(FREESTYLE_NAME));
+        Assert.assertTrue(page.getNameText().contains(FREESTYLE_PROJECT_NAME));
         Assert.assertEquals(page.getDescriptionText(), descriptionText);
         Assert.assertEquals(page.getNthParameterName(1), stringParameterName);
         Assert.assertEquals(page.getNthParameterValue(1), stringParameterDefaultValue);
@@ -241,10 +242,10 @@ public class FreestyleProjectTest extends BaseTest {
     public void testCheckFieldsDaysAndMaxNumberOfBuildsToKeepInConfigure() {
         final String expectedDaysToKeepBuilds = Integer.toString((int) (Math.random() * 20 + 1));
         final String expectedMaxNumberOfBuildsToKeep = Integer.toString((int) (Math.random() * 20 + 1));
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),FREESTYLE_NAME );
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
-                .clickFreestyleProjectName(FREESTYLE_NAME)
+                .clickFreestyleProjectName(FREESTYLE_PROJECT_NAME)
                 .clickSideMenuConfigureLink()
                 .clickDiscardOldBuildsCheckbox()
                 .typeDaysToKeepBuilds(expectedDaysToKeepBuilds)
@@ -259,13 +260,13 @@ public class FreestyleProjectTest extends BaseTest {
     @Ignore
     @Test
     public void testBuildStepsOptions() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),FREESTYLE_NAME );
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         final Set<String> expectedOptionsInBuildStepsSection = new HashSet<>(List.of("Execute Windows batch command",
                 "Execute shell", "Invoke Ant", "Invoke Gradle script", "Invoke top-level Maven targets",
                 "Run with timeout", "Set build status to \"pending\" on GitHub commit"));
 
         Set<String> actualOptionsInBuildStepsSection = new HomePage(getDriver())
-                .clickFreestyleProjectName(FREESTYLE_NAME)
+                .clickFreestyleProjectName(FREESTYLE_PROJECT_NAME)
                 .clickSideMenuConfigureLink()
                 .clickBuildStepsSideMenuOption()
                 .openAddBuildStepDropDown()
@@ -276,10 +277,10 @@ public class FreestyleProjectTest extends BaseTest {
 
     @Test
     public void testSelectBuildPeriodicallyCheckbox() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),FREESTYLE_NAME );
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         boolean selectedCheckbox = new HomePage(getDriver())
-                .clickFreestyleProjectName(FREESTYLE_NAME)
+                .clickFreestyleProjectName(FREESTYLE_PROJECT_NAME)
                 .clickSideMenuConfigureLink()
                 .clickBuildTriggersSideMenuOption()
                 .scrollAndClickBuildPeriodicallyCheckbox()

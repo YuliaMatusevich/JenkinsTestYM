@@ -5,17 +5,17 @@ import model.views.ViewPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-import runner.TestUtils;
-
 import java.util.List;
+
+import static runner.TestUtils.getRandomStr;
 
 public class ListViewTest extends BaseTest {
 
-    private static final String RANDOM_LIST_VIEW_NAME = TestUtils.getRandomStr();
+    private static final String LIST_VIEW_NAME = getRandomStr();
 
     @Test
     public void testCreateNewListViewWithExistingJob() {
-        final String projectOne = TestUtils.getRandomStr();
+        final String projectOne = getRandomStr();
 
         int quantityProjectsInListView = new HomePage(getDriver())
                 .clickNewItem()
@@ -25,7 +25,7 @@ public class ListViewTest extends BaseTest {
                 .getBreadcrumbs()
                 .clickDashboard()
                 .clickAddViewLink()
-                .setViewName(RANDOM_LIST_VIEW_NAME)
+                .setViewName(LIST_VIEW_NAME)
                 .setListViewType()
                 .clickCreateButtonToEditListView()
                 .addJobToView(projectOne)
@@ -33,15 +33,15 @@ public class ListViewTest extends BaseTest {
                 .getJobNamesList().size();
 
         Assert.assertEquals(quantityProjectsInListView, 1);
-        Assert.assertTrue(new HomePage(getDriver()).getViewList().contains(RANDOM_LIST_VIEW_NAME));
+        Assert.assertTrue(new HomePage(getDriver()).getViewList().contains(LIST_VIEW_NAME));
     }
 
     @Test(dependsOnMethods = "testCreateNewListViewWithExistingJob")
     public void testEditViewAddDescription() {
-        final String descriptionRandom = TestUtils.getRandomStr();
+        final String descriptionRandom = getRandomStr();
 
         String actualDescription = new HomePage(getDriver())
-                .clickView(RANDOM_LIST_VIEW_NAME)
+                .clickView(LIST_VIEW_NAME)
                 .clickEditListView()
                 .addDescription(descriptionRandom)
                 .clickOkButton()
@@ -53,7 +53,7 @@ public class ListViewTest extends BaseTest {
     @Test(dependsOnMethods = "testEditViewAddDescription")
     public void testEditViewDeleteDescription() {
         String descriptionText = new HomePage(getDriver())
-                .clickView(RANDOM_LIST_VIEW_NAME)
+                .clickView(LIST_VIEW_NAME)
                 .clickEditDescription()
                 .clearDescription()
                 .clickSaveButton()
@@ -67,7 +67,7 @@ public class ListViewTest extends BaseTest {
         final List<String> namesRemoveColumns = List.of("Weather", "Last Failure", "Last Duration");
 
         int numberOfJobTableHeadersListView = new HomePage(getDriver())
-                .clickView(RANDOM_LIST_VIEW_NAME)
+                .clickView(LIST_VIEW_NAME)
                 .clickEditListView()
                 .removeSomeColumns(namesRemoveColumns)
                 .clickApplyButton()
@@ -86,11 +86,11 @@ public class ListViewTest extends BaseTest {
     public void testDeleteListView() {
 
         List<String> viewList = new HomePage(getDriver())
-                .clickView(RANDOM_LIST_VIEW_NAME)
+                .clickView(LIST_VIEW_NAME)
                 .clickDeleteViewToHomePage()
                 .clickYes()
                 .getViewList();
 
-        Assert.assertFalse(viewList.contains(RANDOM_LIST_VIEW_NAME));
+        Assert.assertFalse(viewList.contains(LIST_VIEW_NAME));
     }
 }

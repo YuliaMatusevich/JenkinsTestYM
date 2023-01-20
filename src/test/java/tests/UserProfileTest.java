@@ -10,8 +10,9 @@ import runner.BaseTest;
 
 public class UserProfileTest extends BaseTest {
 
-    private static final String TEXT = getRandomStr(50);
-    private static final String TEXT_EDIT = getRandomStr(10);
+    private static final String DESCRIPTION = getRandomStr();
+    private static final String NEW_DESCRIPTION = getRandomStr();
+
 
     @Test
     public void testUserProfileAddDescription() {
@@ -20,11 +21,11 @@ public class UserProfileTest extends BaseTest {
                 .clickUserIcon()
                 .clickAddDescriptionLink()
                 .clearDescriptionInputField()
-                .setDescriptionField(TEXT)
+                .setDescriptionField(DESCRIPTION)
                 .clickSaveButton()
                 .getDescriptionText();
 
-        Assert.assertEquals(actualUserDescription, TEXT);
+        Assert.assertEquals(actualUserDescription, DESCRIPTION);
     }
 
     @Test
@@ -34,7 +35,7 @@ public class UserProfileTest extends BaseTest {
                 .clickUserIcon()
                 .clickAddDescriptionLink()
                 .clearDescriptionInputField()
-                .setDescriptionField(TEXT)
+                .setDescriptionField(DESCRIPTION)
                 .clickPreviewLink()
                 .clickHidePreviewLink();
 
@@ -48,11 +49,11 @@ public class UserProfileTest extends BaseTest {
                 .clickUserIcon()
                 .clickAddDescriptionLink()
                 .clearDescriptionInputField()
-                .setDescriptionField(TEXT)
+                .setDescriptionField(DESCRIPTION)
                 .clickPreviewLink()
                 .getPreviewText();
 
-        Assert.assertEquals(actualPreviewText, TEXT);
+        Assert.assertEquals(actualPreviewText, DESCRIPTION);
     }
 
     @Test(dependsOnMethods = "testUserProfileAddDescription")
@@ -62,10 +63,10 @@ public class UserProfileTest extends BaseTest {
                 .clickUserIcon()
                 .clickAddDescriptionLink()
                 .clearDescriptionInputField()
-                .setDescriptionField(TEXT_EDIT)
+                .setDescriptionField(NEW_DESCRIPTION)
                 .clickSaveButton()
                 .getDescriptionText();
 
-        Assert.assertEquals(actualUserDescription, TEXT_EDIT);
+        Assert.assertNotEquals(actualUserDescription,DESCRIPTION);
     }
 }

@@ -9,17 +9,17 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
-import runner.TestUtils;
-
 import java.util.List;
+
+import static runner.TestUtils.getRandomStr;
 
 public class ManageJenkinsTest extends BaseTest {
 
-    private final String NEW_USERS_FULLNAME = TestUtils.getRandomStr(6);
-    private final String USERNAME = TestUtils.getRandomStr(6);
-    private final String PASSWORD = TestUtils.getRandomStr(6);
-    private final String USERS_FULL_NAME = TestUtils.getRandomStr(6);
-    private final String EMAIL = TestUtils.getRandomStr(10) + "@gmail.com";
+    private static final String NEW_USER_FULL_NAME = getRandomStr();
+    private static final String USER_NAME = getRandomStr();
+    private static final String PASSWORD = getRandomStr(7);
+    private static final String USER_FULL_NAME = getRandomStr();
+    private static final String EMAIL = getRandomStr(5) + "@gmail.com";
 
     @Test
     public void testRenameFullUserName() {
@@ -28,26 +28,26 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageUsers()
                 .clickConfigureUser()
                 .clearInputFieldFullUserName()
-                .inputNameInFieldFullUserName(NEW_USERS_FULLNAME)
+                .inputNameInFieldFullUserName(NEW_USER_FULL_NAME)
                 .clickSaveButton()
                 .refreshPage();
 
         String breadcrumbsUserName = new StatusUserPage(getDriver())
                 .getBreadcrumbs().getTextBreadcrumbs();
 
-        Assert.assertEquals(userStatusPage.getHeader().getUserNameText(), NEW_USERS_FULLNAME);
-        Assert.assertTrue(breadcrumbsUserName.contains(NEW_USERS_FULLNAME));
-        Assert.assertEquals(userStatusPage.getH1Title(), NEW_USERS_FULLNAME);
+        Assert.assertEquals(userStatusPage.getHeader().getUserNameText(), NEW_USER_FULL_NAME);
+        Assert.assertTrue(breadcrumbsUserName.contains(NEW_USER_FULL_NAME));
+        Assert.assertEquals(userStatusPage.getH1Title(), NEW_USER_FULL_NAME);
     }
 
     @Test(dependsOnMethods = "testRenameFullUserName")
-    public void testNewFullnameAfterReLogging() {
+    public void testNewFullNameAfterReLogging() {
         new HomePage(getDriver())
                 .getHeader()
                 .clickLogOut();
         loginWeb();
 
-        Assert.assertEquals(new HomePage(getDriver()).getUserName(), NEW_USERS_FULLNAME);
+        Assert.assertEquals(new HomePage(getDriver()).getUserName(), NEW_USER_FULL_NAME);
     }
 
     @Test
@@ -82,16 +82,14 @@ public class ManageJenkinsTest extends BaseTest {
 
     @Test
     public void testCreateUserWithEmptyName() {
-        String password = TestUtils.getRandomStr(10);
-
         String errorMessageWhenEmptyUserName = new HomePage(getDriver())
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setPassword(password)
-                .confirmPassword(password)
-                .setFullName(TestUtils.getRandomStr(10))
-                .setEmail(TestUtils.getRandomStr(10) + "@gmail.com")
+                .setPassword(PASSWORD)
+                .confirmPassword(PASSWORD)
+                .setFullName(USER_FULL_NAME)
+                .setEmail(EMAIL)
                 .clickCreateUserAndGetErrorMessage();
 
         Assert.assertEquals(errorMessageWhenEmptyUserName, "\"\" is prohibited as a username for security reasons.");
@@ -104,17 +102,15 @@ public class ManageJenkinsTest extends BaseTest {
 
     @Test(dataProvider = "specialCharacters")
     public void testCreateUserWithIncorrectCharactersInName(Character specialCharacter) {
-        String password = TestUtils.getRandomStr(10);
-
         String errorMessageWhenIncorrectCharacters = new HomePage(getDriver())
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
                 .setUsername(String.valueOf(specialCharacter))
-                .setPassword(password)
-                .confirmPassword(password)
-                .setFullName(TestUtils.getRandomStr(10))
-                .setEmail(TestUtils.getRandomStr(10) + "@gmail.com")
+                .setPassword(PASSWORD)
+                .confirmPassword(PASSWORD)
+                .setFullName(USER_FULL_NAME)
+                .setEmail(EMAIL)
                 .clickCreateUserAndGetErrorMessage();
 
         Assert.assertEquals(errorMessageWhenIncorrectCharacters, "User name must only contain alphanumeric characters, underscore and dash");
@@ -126,45 +122,44 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setUsername(USERNAME)
+                .setUsername(USER_NAME)
                 .setPassword(PASSWORD)
                 .confirmPassword(PASSWORD)
-                .setFullName(USERS_FULL_NAME)
+                .setFullName(USER_FULL_NAME)
                 .setEmail(EMAIL)
                 .clickCreateUserButton();
 
-        Assert.assertTrue(manageUsersPage.getListOfUserIDs().contains(USERNAME), USERNAME + " username not found");
-        Assert.assertTrue(manageUsersPage.getListOfFullNamesOfUsers().contains(USERS_FULL_NAME), USERS_FULL_NAME + " fullName not found");
+        Assert.assertTrue(manageUsersPage.getListOfUserIDs().contains(USER_NAME), USER_NAME + " username not found");
+        Assert.assertTrue(manageUsersPage.getListOfFullNamesOfUsers().contains(USER_FULL_NAME), USER_FULL_NAME + " fullName not found");
     }
 
     @Test
     public void testDeleteUser() {
-        ProjectMethodsUtils.createNewUser(getDriver(), USERNAME, PASSWORD, USERS_FULL_NAME, EMAIL);
+        ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
 
         List<String> listOfUsers = new HomePage(getDriver())
                 .clickManageJenkins()
                 .clickManageUsers()
-                .clickDeleteUser(USERNAME)
+                .clickDeleteUser(USER_NAME)
                 .clickYes()
                 .getListOfUserIDs();
 
-        Assert.assertFalse(listOfUsers.contains(USERNAME));
+        Assert.assertFalse(listOfUsers.contains(USER_NAME));
     }
 
     @Test
     public void testCreateUserWithExistName() {
-        ProjectMethodsUtils.createNewUser(getDriver(), USERNAME, PASSWORD, USERS_FULL_NAME, EMAIL);
-        String newUserPassword = TestUtils.getRandomStr(10);
+        ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
 
         String errorMessageWhenExistName = new HomePage(getDriver())
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setUsername(USERNAME)
-                .setPassword(newUserPassword)
-                .confirmPassword(newUserPassword)
-                .setFullName(TestUtils.getRandomStr(10))
-                .setEmail(TestUtils.getRandomStr(10) + "@gmail.com")
+                .setUsername(USER_NAME)
+                .setPassword(PASSWORD)
+                .confirmPassword(PASSWORD)
+                .setFullName(USER_FULL_NAME)
+                .setEmail(EMAIL)
                 .clickCreateUserAndGetErrorMessage();
 
         Assert.assertEquals(errorMessageWhenExistName, "User name is already taken");
