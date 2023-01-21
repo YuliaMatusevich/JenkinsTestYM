@@ -1,6 +1,7 @@
 package model.base;
 
 import model.HomePage;
+import model.LoginPage;
 import model.SearchResultPage;
 import model.StatusUserPage;
 import org.openqa.selenium.Keys;

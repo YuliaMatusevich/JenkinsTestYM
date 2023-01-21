@@ -1,4 +1,4 @@
-package model.base;
+package model;
 
 import org.openqa.selenium.WebDriver;
 import runner.BaseModel;
