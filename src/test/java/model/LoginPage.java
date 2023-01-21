@@ -1,9 +1,10 @@
 package model;
 
+import model.base.BasePage;
 import org.openqa.selenium.WebDriver;
-import runner.BaseModel;
 
-public class LoginPage extends BaseModel {
+public class LoginPage extends BasePage {
+
     public LoginPage(WebDriver driver) {
         super(driver);
     }

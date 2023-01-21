@@ -1,14 +1,13 @@
 package model;
 
-import java.util.List;
-import model.base.BasePage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
 
-public class GlobalToolConfigurationPage extends BasePage {
+public class GlobalToolConfigurationPage extends MainBasePage {
 
     @FindBy(xpath = "//button[text()='Add Maven']")
     private WebElement addMavenButton;

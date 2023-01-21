@@ -1,11 +1,11 @@
 package model;
 
-import model.base.BasePage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class CredentialsPage extends BasePage {
+public class CredentialsPage extends MainBasePage {
 
     @FindBy(tagName = "h1")
     private WebElement headerH1;

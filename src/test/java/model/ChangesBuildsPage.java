@@ -1,11 +1,11 @@
 package model;
 
-import model.base.BasePage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class ChangesBuildsPage extends BasePage {
+public class ChangesBuildsPage extends MainBasePage {
 
     public ChangesBuildsPage(WebDriver driver) {
         super(driver);

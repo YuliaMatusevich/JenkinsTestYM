@@ -1,7 +1,7 @@
 package model;
 
-import model.base.BasePage;
 import model.base.BaseStatusPage;
+import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class BuildWithParametersPage<StatusPage extends BaseStatusPage<?, ?>> extends BasePage {
+public class BuildWithParametersPage<StatusPage extends BaseStatusPage<?, ?>> extends MainBasePage {
 
     @FindBy(tagName = "h1")
     private WebElement header;
