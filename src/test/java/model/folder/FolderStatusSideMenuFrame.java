@@ -2,7 +2,6 @@ package model.folder;
 
 import model.DeletePage;
 import model.NewItemPage;
-import model.RenameItemPage;
 import model.base.side_menu.BaseStatusSideMenuFrame;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,9 +11,6 @@ public class FolderStatusSideMenuFrame extends BaseStatusSideMenuFrame<FolderSta
 
     @FindBy(linkText = "New Item")
     private WebElement newItem;
-
-    @FindBy(linkText = "Rename")
-    private WebElement renameButton;
 
     @FindBy(linkText = "Delete Folder")
     private WebElement deleteFolder;
@@ -29,15 +25,9 @@ public class FolderStatusSideMenuFrame extends BaseStatusSideMenuFrame<FolderSta
         return new NewItemPage(getDriver());
     }
 
-    public RenameItemPage<FolderStatusPage> clickRename() {
-        renameButton.click();
-
-        return new RenameItemPage<>(getDriver(), new FolderStatusPage(getDriver()));
-    }
-
-    public DeletePage<FolderStatusPage> clickDelete() {
+    public DeletePage<FolderStatusPage> clickDeleteFolder() {
         deleteFolder.click();
 
-        return new DeletePage<>(getDriver(), new FolderStatusPage(getDriver()));
+        return new DeletePage<>(getDriver(), page);
     }
 }

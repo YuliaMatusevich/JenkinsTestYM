@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Self extends BaseConfigPage<?, ?, ?>, ConfigSideMenuFrame extends BaseConfigSideMenuFrame<Self>> extends BasePageWithSideMenu<ConfigSideMenuFrame> {
+public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Self extends BaseConfigPage<?, ?, ?>, ConfigSideMenuFrame extends BaseConfigSideMenuFrame<Self>> extends MainBasePageWithSideMenu<ConfigSideMenuFrame> {
 
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement saveButton;

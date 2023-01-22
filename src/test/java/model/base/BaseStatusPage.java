@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSideMenuFrame extends BaseStatusSideMenuFrame<Self>> extends BasePageWithSideMenu<StatusSideMenuFrame> {
+public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSideMenuFrame extends BaseStatusSideMenuFrame<Self>> extends MainBasePageWithSideMenu<StatusSideMenuFrame> {
 
     @FindBy(tagName = "h1")
     private WebElement header;

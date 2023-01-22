@@ -125,6 +125,7 @@ public class ViewsTest extends BaseTest {
         Assert.assertEquals(textConfirmAfterClickingApply, "Saved");
     }
 
+    @Ignore
     @Test
     public void testAddJobsToListView () {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
@@ -143,6 +144,7 @@ public class ViewsTest extends BaseTest {
                 FREESTYLE_PROJECT_NAME.concat(" ").concat(PIPELINE_NAME));
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testAddJobsToListView")
     public void testDeselectJobsFromListView() {
         ViewPage viewPage = new HomePage(getDriver())

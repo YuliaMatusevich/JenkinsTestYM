@@ -22,7 +22,7 @@ public class OrganizationFolderTest extends BaseTest {
         HomePage homePage = new HomePage(getDriver())
                 .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
                 .getSideMenu()
-                .clickRenameSideMenu()
+                .clickRename()
                 .clearFieldAndInputNewName(ORGANIZATION_FOLDER_RENAME)
                 .clickRenameButton()
                 .getBreadcrumbs()
@@ -52,7 +52,7 @@ public class OrganizationFolderTest extends BaseTest {
         OrgFolderStatusPage orgFolderStatusPage = new HomePage(getDriver())
                 .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
                 .getSideMenu()
-                .clickConfigureSideMenu()
+                .clickConfigure()
                 .inputDisplayName(DISPLAY_NAME)
                 .inputDescription(description)
                 .clickSaveButton();

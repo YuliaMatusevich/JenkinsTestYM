@@ -121,7 +121,7 @@ public class FolderTest extends BaseTest {
         String pageHeaderText = new HomePage(getDriver())
                 .clickFolder(FOLDER_NAME)
                 .getSideMenu()
-                .clickDelete()
+                .clickDeleteFolder()
                 .clickYes()
                 .getNameText();
 
