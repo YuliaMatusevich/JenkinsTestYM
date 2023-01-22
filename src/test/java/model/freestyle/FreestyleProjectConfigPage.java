@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static runner.TestUtils.scrollToElement_PlaceInCenter;
 
-public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectStatusPage, FreestyleProjectConfigPage, FreestyleProjectConfigSideMenuFrame> {
+public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectStatusPage, FreestyleProjectConfigPage, FreestyleProjectConfigSideMenuComponent> {
 
     @FindBy(tagName = "h1")
     private WebElement headline;
@@ -107,8 +107,8 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     }
 
     @Override
-    protected FreestyleProjectConfigSideMenuFrame createSideMenuFrame() {
-        return new FreestyleProjectConfigSideMenuFrame(getDriver(), this);
+    protected FreestyleProjectConfigSideMenuComponent createSideMenuComponent() {
+        return new FreestyleProjectConfigSideMenuComponent(getDriver(), this);
     }
 
     public FreestyleProjectConfigPage(WebDriver driver) {

@@ -1,17 +1,17 @@
 package model.base;
 
-import model.base.side_menu.BaseSideMenuFrame;
+import model.base.side_menu.BaseSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 
-public abstract class MainBasePageWithSideMenu<SideMenu extends BaseSideMenuFrame> extends MainBasePage {
+public abstract class MainBasePageWithSideMenu<SideMenu extends BaseSideMenuComponent<?>> extends MainBasePage {
 
-    protected abstract SideMenu createSideMenuFrame();
+    protected abstract SideMenu createSideMenuComponent();
 
     public MainBasePageWithSideMenu(WebDriver driver) {
         super(driver);
     }
 
     public SideMenu getSideMenu() {
-        return createSideMenuFrame();
+        return createSideMenuComponent();
     }
 }

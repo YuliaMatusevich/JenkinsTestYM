@@ -3,7 +3,6 @@ package model.freestyle;
 import model.base.BaseStatusPage;
 import model.ChangesBuildsPage;
 import model.HomePage;
-import model.RenameItemPage;
 import model.folder.FolderStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectStatusPage, FreestyleProjectStatusSideMenuFrame> {
+public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectStatusPage, FreestyleProjectStatusSideMenuComponent> {
 
     @FindBy(linkText = "Configure")
     private WebElement sideMenuConfigure;
@@ -67,8 +66,8 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
     private WebElement buttonEditDescription;
 
     @Override
-    protected FreestyleProjectStatusSideMenuFrame createSideMenuFrame() {
-        return new FreestyleProjectStatusSideMenuFrame(getDriver(), this);
+    protected FreestyleProjectStatusSideMenuComponent createSideMenuComponent() {
+        return new FreestyleProjectStatusSideMenuComponent(getDriver(), this);
     }
 
     public FreestyleProjectStatusPage(WebDriver driver) {

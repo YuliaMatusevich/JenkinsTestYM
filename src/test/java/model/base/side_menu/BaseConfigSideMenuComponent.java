@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public abstract class BaseConfigSideMenuFrame<ConfigPage extends BaseConfigPage<?, ?, ?>> extends BaseSideMenuFrame<ConfigPage> {
+public abstract class BaseConfigSideMenuComponent<ConfigPage extends BaseConfigPage<?, ?, ?>> extends BaseSideMenuComponent<ConfigPage> {
 
     @FindBy(xpath = "//button[@data-section-id='general']")
     private WebElement linkGeneral;
@@ -18,7 +18,7 @@ public abstract class BaseConfigSideMenuFrame<ConfigPage extends BaseConfigPage<
     @FindBy(css = "button.task-link")
     private List<WebElement> configSideMenu;
 
-    public BaseConfigSideMenuFrame(WebDriver driver, ConfigPage configPage) {
+    public BaseConfigSideMenuComponent(WebDriver driver, ConfigPage configPage) {
         super(driver, configPage);
     }
 

@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderStatusSideMenuFrame> {
+public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderStatusSideMenuComponent> {
 
     @FindBy(css = "#breadcrumbs li a")
     private List<WebElement> topMenuList;
@@ -47,8 +47,8 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
     private WebElement emptyStateBlock;
 
     @Override
-    protected FolderStatusSideMenuFrame createSideMenuFrame() {
-        return new FolderStatusSideMenuFrame(getDriver(), this);
+    protected FolderStatusSideMenuComponent createSideMenuComponent() {
+        return new FolderStatusSideMenuComponent(getDriver(), this);
     }
 
     public FolderStatusPage(WebDriver driver) {

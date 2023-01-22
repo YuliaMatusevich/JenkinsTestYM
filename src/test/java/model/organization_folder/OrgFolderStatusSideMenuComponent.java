@@ -1,11 +1,11 @@
 package model.organization_folder;
 
-import model.base.side_menu.BaseStatusSideMenuFrame;
+import model.base.side_menu.BaseStatusSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class OrgFolderStatusSideMenuFrame extends BaseStatusSideMenuFrame<OrgFolderStatusPage> {
+public class OrgFolderStatusSideMenuComponent extends BaseStatusSideMenuComponent<OrgFolderStatusPage> {
 
     @FindBy(linkText = "Configure")
     private WebElement configure;
@@ -13,7 +13,7 @@ public class OrgFolderStatusSideMenuFrame extends BaseStatusSideMenuFrame<OrgFol
     @FindBy(xpath = "//div[@id='tasks']//a[contains(@href, 'delete')]")
     private WebElement deleteOrganizationFolder;
 
-    public OrgFolderStatusSideMenuFrame(WebDriver driver, OrgFolderStatusPage statusPage) {
+    public OrgFolderStatusSideMenuComponent(WebDriver driver, OrgFolderStatusPage statusPage) {
         super(driver, statusPage);
     }
 

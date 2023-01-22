@@ -1,16 +1,16 @@
 package model.freestyle;
 
-import model.base.side_menu.BaseConfigSideMenuFrame;
+import model.base.side_menu.BaseConfigSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class FreestyleProjectConfigSideMenuFrame extends BaseConfigSideMenuFrame<FreestyleProjectConfigPage> {
+public class FreestyleProjectConfigSideMenuComponent extends BaseConfigSideMenuComponent<FreestyleProjectConfigPage> {
 
     @FindBy(xpath = "//button[@data-section-id='source-code-management']")
     private WebElement linkSourceCodeManagement;
 
-    public FreestyleProjectConfigSideMenuFrame(WebDriver driver, FreestyleProjectConfigPage configPage) {
+    public FreestyleProjectConfigSideMenuComponent(WebDriver driver, FreestyleProjectConfigPage configPage) {
         super(driver, configPage);
     }
 

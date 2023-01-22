@@ -1,13 +1,13 @@
 package model.base;
 
-import model.BlankConfigSideMenuFrame;
+import model.BlankConfigSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 
-public abstract class BlankConfigPage<StatusPage extends BaseStatusPage<?, ?>, Self extends BlankConfigPage<?, ?>> extends BaseConfigPage<StatusPage, Self, BlankConfigSideMenuFrame<Self>> {
+public abstract class BlankConfigPage<StatusPage extends BaseStatusPage<?, ?>, Self extends BlankConfigPage<?, ?>> extends BaseConfigPage<StatusPage, Self, BlankConfigSideMenuComponent<Self>> {
 
     @Override
-    protected BlankConfigSideMenuFrame<Self> createSideMenuFrame() {
-        return new BlankConfigSideMenuFrame<>(getDriver(), (Self)this);
+    protected BlankConfigSideMenuComponent<Self> createSideMenuComponent() {
+        return new BlankConfigSideMenuComponent<>(getDriver(), (Self)this);
     }
 
     public BlankConfigPage(WebDriver driver) {
