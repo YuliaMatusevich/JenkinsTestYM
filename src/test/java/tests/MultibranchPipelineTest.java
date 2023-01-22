@@ -1,12 +1,13 @@
 package tests;
 
 import model.*;
+import model.multibranch_pipeline.MultibranchPipelineStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-import runner.ProjectMethodsUtils;
 import java.util.List;
 
+import static runner.ProjectMethodsUtils.*;
 import static runner.TestUtils.getRandomStr;
 
 public class MultibranchPipelineTest extends BaseTest {
@@ -15,7 +16,7 @@ public class MultibranchPipelineTest extends BaseTest {
 
     @Test
     public void testRenameMultiBranchPipelineFromDropdown() {
-        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
 
         String actualMultibranchPipeline = new HomePage(getDriver())
                 .clickJobDropDownMenu(MULTIBRANCH_PIPELINE_NAME)
@@ -29,7 +30,7 @@ public class MultibranchPipelineTest extends BaseTest {
 
     @Test
     public void testRenameMultiBranchPipelineFromLeftSideMenu() {
-        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
 
         String actualMultibranchPipeline = new HomePage(getDriver())
                 .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME)
@@ -46,5 +47,18 @@ public class MultibranchPipelineTest extends BaseTest {
                 .getJobNamesList();
 
         Assert.assertTrue(jobsList.contains(MULTIBRANCH_PIPELINE_RENAME));
+    }
+
+    @Test
+    public void testDisableMultiBranchPipeline() {
+        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+
+        String warningMessage = new HomePage(getDriver())
+                .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME)
+                .clickDisableEnableButton()
+                .getWarningMessage();
+
+        Assert.assertEquals(warningMessage, "This Multibranch Pipeline is currently disabled");
+        Assert.assertEquals(new MultibranchPipelineStatusPage(getDriver()).getAttributeProjectIcon(), "icon-folder-disabled icon-xlg");
     }
 }

@@ -17,6 +17,15 @@ public class MultibranchPipelineStatusPage extends BlankStatusPage<MultibranchPi
     @FindBy(linkText = "Rename")
     private WebElement renameButton;
 
+    @FindBy(id = "yui-gen1-button")
+    private WebElement disableEnableButton;
+
+    @FindBy(id = "enable-project")
+    private WebElement warningMessage;
+
+    @FindBy(xpath = "//img[@title='Multibranch Pipeline']")
+    private WebElement projectIcon;
+
     private <T extends BasePage> DeletePage<T> clickDeleteMultibranchPipeline(T page) {
         deleteLeftSideMenu.click();
 
@@ -28,16 +37,30 @@ public class MultibranchPipelineStatusPage extends BlankStatusPage<MultibranchPi
     }
 
     public DeletePage<MultibranchPipelineStatusPage> clickDeleteMultibranchPipelineWithOutFolder() {
-        return  clickDeleteMultibranchPipeline(this);
+        return clickDeleteMultibranchPipeline(this);
     }
 
     public DeletePage<FolderStatusPage> clickDeleteMultibranchPipelineWithFolder() {
-        return  clickDeleteMultibranchPipeline(new FolderStatusPage(getDriver()));
+        return clickDeleteMultibranchPipeline(new FolderStatusPage(getDriver()));
     }
 
     public RenameItemPage<MultibranchPipelineStatusPage> clickRenameSideMenu() {
         renameButton.click();
 
         return new RenameItemPage<>(getDriver(), new MultibranchPipelineStatusPage(getDriver()));
+    }
+
+    public MultibranchPipelineStatusPage clickDisableEnableButton() {
+        disableEnableButton.click();
+
+        return this;
+    }
+
+    public String getWarningMessage() {
+        return warningMessage.getText().split(" \n")[0];
+    }
+
+    public String getAttributeProjectIcon() {
+        return projectIcon.getAttribute("class");
     }
 }
