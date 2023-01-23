@@ -61,4 +61,15 @@ public class MultibranchPipelineTest extends BaseTest {
         Assert.assertEquals(warningMessage, "This Multibranch Pipeline is currently disabled");
         Assert.assertEquals(new MultibranchPipelineStatusPage(getDriver()).getAttributeProjectIcon(), "icon-folder-disabled icon-xlg");
     }
+
+    @Test
+    public void testEnableMultiBranchPipeline() {
+        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+
+        MultibranchPipelineStatusPage multibranchPipelineStatusPage = new HomePage(getDriver())
+                .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME);
+
+        Assert.assertTrue(multibranchPipelineStatusPage.isDisableButtonPresent());
+        Assert.assertFalse(multibranchPipelineStatusPage.getAttributeProjectIcon().contains("disable"));
+    }
 }

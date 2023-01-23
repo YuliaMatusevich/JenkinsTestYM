@@ -63,4 +63,9 @@ public class MultibranchPipelineStatusPage extends BlankStatusPage<MultibranchPi
     public String getAttributeProjectIcon() {
         return projectIcon.getAttribute("class");
     }
+
+    public boolean isDisableButtonPresent() {
+        return disableEnableButton.getText().contains("Disable Multibranch Pipeline");
+    }
+
 }
