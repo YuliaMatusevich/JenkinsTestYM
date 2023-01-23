@@ -5,6 +5,7 @@ import model.BuildHistoryPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.ProjectMethodsUtils;
 
 import static runner.TestUtils.getRandomStr;
 
@@ -14,23 +15,17 @@ public class BuildHistoryTest extends BaseTest {
 
     @Test
     public void testH1HeaderBuildHistory() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         BuildHistoryPage buildHistoryPage = new HomePage(getDriver())
-                .clickNewItem()
-                .setItemName(FREESTYLE_PROJECT_NAME)
-                .selectFreestyleProjectAndClickOk()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
                 .clickBuildHistory();
 
         Assert.assertEquals(buildHistoryPage.getHeaderText(), "Build History of Jenkins");
     }
 
     @Test
-    public void testIfSMLIconsExist() {
-        new HomePage(getDriver()).clickBuildHistory();
-        BuildHistoryPage buildHistoryPage = new BuildHistoryPage(getDriver());
+    public void testSMLIconsExist() {
+        BuildHistoryPage buildHistoryPage = new HomePage(getDriver()).clickBuildHistory();
 
         Assert.assertTrue(buildHistoryPage.smallSizeIconIsDisplayed());
         Assert.assertTrue(buildHistoryPage.middleSizeIconIsDisplayed());
@@ -39,8 +34,7 @@ public class BuildHistoryTest extends BaseTest {
 
     @Test
     public void testRssItemsExist() {
-        new HomePage(getDriver()).clickBuildHistory();
-        BuildHistoryPage buildHistoryPage = new BuildHistoryPage(getDriver());
+        BuildHistoryPage buildHistoryPage = new HomePage(getDriver()).clickBuildHistory();
 
         Assert.assertTrue(buildHistoryPage.iconAtomFeedForAllIsDisplayed());
         Assert.assertTrue(buildHistoryPage.iconAtomFeedForFailuresIsDisplayed());
@@ -48,19 +42,15 @@ public class BuildHistoryTest extends BaseTest {
     }
 
     @Test
-    public void testIfTheIconLegendExist() {
-        new HomePage(getDriver()).clickBuildHistory();
-
-        BuildHistoryPage buildHistoryPage = new BuildHistoryPage(getDriver());
+    public void testIconLegendExist() {
+        BuildHistoryPage buildHistoryPage = new HomePage(getDriver()).clickBuildHistory();
 
         Assert.assertTrue(buildHistoryPage.isIconDisplayed());
     }
 
     @Test
-    public void testNumberOfColumns_ProjectStatusTable() {
-        new HomePage(getDriver()).clickBuildHistory();
-
-        BuildHistoryPage buildHistoryPage = new BuildHistoryPage(getDriver());
+    public void testNumberOfColumnsInProjectStatusTable() {
+        BuildHistoryPage buildHistoryPage = new HomePage(getDriver()).clickBuildHistory();
 
         Assert.assertEquals(buildHistoryPage.getSize(), 5);
     }
