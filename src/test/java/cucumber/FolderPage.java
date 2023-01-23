@@ -28,7 +28,7 @@ public class FolderPage {
     @When("Click on link New Item")
     public void clickOnLink(){
         newItemPage = homePage
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem();
     }
 
@@ -61,7 +61,7 @@ public class FolderPage {
     public void folderWasCreated() {
         HomePage homePage = new HomePage(CucumberDriver.getDriver());
         homePage
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(folderName)
                 .selectFolderAndClickOk()

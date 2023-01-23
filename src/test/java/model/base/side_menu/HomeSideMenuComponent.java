@@ -8,9 +8,8 @@ import model.views.MyViewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import runner.BaseModel;
 
-public class HomeSideMenuComponent extends BaseModel {
+public class HomeSideMenuComponent extends BaseSideMenuComponent {
 
     @FindBy(linkText = "New Item")
     private WebElement newItem;

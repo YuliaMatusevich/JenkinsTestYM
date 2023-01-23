@@ -24,7 +24,7 @@ public class FolderTest extends BaseTest {
     @Test
     public void testCreateFolder() {
         List<String> projectNamesOnDashboard = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(FOLDER_NAME)
                 .selectFolderAndClickOk()
@@ -294,7 +294,7 @@ public class FolderTest extends BaseTest {
     @Test
     public void testCreateFolderWithDescription() {
         String textDescription = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(FOLDER_NAME)
                 .selectFolderAndClickOk()

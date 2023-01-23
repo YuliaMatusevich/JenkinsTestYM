@@ -54,7 +54,7 @@ public class ViewsTest extends BaseTest {
         createViews();
 
         String listViewsNames = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .getListViewsNames();
 
@@ -68,7 +68,7 @@ public class ViewsTest extends BaseTest {
         createAllSixItems();
 
         int actualResult = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
@@ -88,7 +88,7 @@ public class ViewsTest extends BaseTest {
         ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
 
         NewViewPage newViewPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(LIST_VIEW_NAME)
@@ -102,7 +102,7 @@ public class ViewsTest extends BaseTest {
     public void testCreateListViewWithAddSettings() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         int countColumnsBeforeAdd = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(getRandomStr(6))
@@ -137,7 +137,7 @@ public class ViewsTest extends BaseTest {
         createViews();
 
         ViewPage viewPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(LIST_VIEW_NAME)
                 .clickEditListView()
@@ -153,7 +153,7 @@ public class ViewsTest extends BaseTest {
     @Test(dependsOnMethods = "testAddJobsToListView")
     public void testDeselectJobsFromListView() {
         ViewPage viewPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(LIST_VIEW_NAME)
                 .clickEditListView()
@@ -173,7 +173,7 @@ public class ViewsTest extends BaseTest {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
         ViewPage viewPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(LIST_VIEW_NAME)
                 .clickEditListView()
@@ -187,7 +187,7 @@ public class ViewsTest extends BaseTest {
     @Test(dependsOnMethods = "testCreateListViewAndAddSixItems", dataProvider = "illegalCharacters")
     public void testIllegalCharacterRenameView(Character illegalCharacter) {
         new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink();
 
         List<Boolean> checksList = new ArrayList<>();
@@ -204,7 +204,7 @@ public class ViewsTest extends BaseTest {
                 checksList.add(!new HomePage(getDriver())
                         .getBreadcrumbs()
                         .clickDashboard()
-                        .getSideMenuFrame()
+                        .getSideMenu()
                         .clickMyViewsSideMenuLink()
                         .getListViewsNames().contains(illegalCharacter + GLOBAL_VIEW_NAME));
             } else {
@@ -226,7 +226,7 @@ public class ViewsTest extends BaseTest {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         ProjectMethodsUtils.createNewGlobalViewForMyViews(getDriver(), GLOBAL_VIEW_NAME);
         EditGlobalViewPage editGlobalViewPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(GLOBAL_VIEW_NAME)
                 .clickEditGlobalView();
@@ -240,7 +240,7 @@ public class ViewsTest extends BaseTest {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
         EditListViewPage editListViewPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(LIST_VIEW_NAME)
                 .clickEditListView();
@@ -255,7 +255,7 @@ public class ViewsTest extends BaseTest {
         ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
 
         ViewPage viewPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(LIST_VIEW_NAME);
 
@@ -265,7 +265,7 @@ public class ViewsTest extends BaseTest {
     @Test
     public void testAddDescription() {
         String actualResult = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickAddDescription()
                 .clearDescriptionField()
@@ -279,7 +279,7 @@ public class ViewsTest extends BaseTest {
     @Test(dependsOnMethods = "testAddDescription")
     public void testEditDescription() {
         String actualResult = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickEditDescription()
                 .clearDescriptionField()
@@ -294,7 +294,7 @@ public class ViewsTest extends BaseTest {
     public void testLettersSMLClickableMyViews() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         MyViewsPage myViewsPageSizeM = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickSizeM();
 
@@ -315,7 +315,7 @@ public class ViewsTest extends BaseTest {
     public void testGlobalViewAddFilterBuildQueue() {
         createAllSixItems();
         boolean newPaneIsDisplayed = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
@@ -333,7 +333,7 @@ public class ViewsTest extends BaseTest {
     public void testGlobalViewAddBothFilters() {
         createAllSixItems();
         EditGlobalViewPage editGlobalViewPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
@@ -352,7 +352,7 @@ public class ViewsTest extends BaseTest {
         String expectedResult = "Git Branches";
 
         String actualResult = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(GLOBAL_VIEW_NAME)
                 .clickEditListView()
@@ -371,7 +371,7 @@ public class ViewsTest extends BaseTest {
                 .getJobNamesList().size();
 
         int actualResult = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
@@ -391,7 +391,7 @@ public class ViewsTest extends BaseTest {
                 .getNumberOfJobsContainingString("9");
 
         new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
@@ -415,7 +415,7 @@ public class ViewsTest extends BaseTest {
         createAllSixItems();
         String[] expectedResult = {"W", "S"};
         new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
@@ -436,7 +436,7 @@ public class ViewsTest extends BaseTest {
     public void testListViewAddFilterBuildQueue() {
         createAllSixItems();
         boolean newPaneIsDisplayed = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
@@ -454,7 +454,7 @@ public class ViewsTest extends BaseTest {
     public void testMyViewAddFilterBuildQueue() {
         createAllSixItems();
         boolean newPaneIsDisplayed = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
@@ -474,7 +474,7 @@ public class ViewsTest extends BaseTest {
         List<Boolean> isMatchingMenuItemToAddedColumn = new ArrayList<>();
 
         Map<String, String> tableMenuMap = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(GLOBAL_VIEW_NAME)
                 .clickEditListView()
@@ -511,7 +511,7 @@ public class ViewsTest extends BaseTest {
         final String newNameSingleSpace = nonSpaces + " " + nonSpaces;
 
         String actualResult = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
@@ -534,7 +534,7 @@ public class ViewsTest extends BaseTest {
         createAllSixItems();
         ProjectMethodsUtils.createNewMyViewForMyViews(getDriver(), GLOBAL_VIEW_NAME);
         ViewPage viewPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(GLOBAL_VIEW_NAME);
 
@@ -545,7 +545,7 @@ public class ViewsTest extends BaseTest {
     @Test(dependsOnMethods = "testCreateListViewAndAddSixItems")
     public void testDeleteStatusColumn() {
         boolean isContainingStatusColumn = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(GLOBAL_VIEW_NAME)
                 .clickEditListView()
@@ -563,7 +563,7 @@ public class ViewsTest extends BaseTest {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
         MyViewsPage myViewsPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(LIST_VIEW_NAME)
                 .clickDeleteViewToMyViews()

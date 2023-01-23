@@ -190,7 +190,7 @@ public class FreestyleProjectTest extends BaseTest {
         final String descriptionText = "This build requires parameters:";
 
         BuildWithParametersPage page = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(FREESTYLE_PROJECT_NAME)
                 .selectFreestyleProjectAndClickOk()

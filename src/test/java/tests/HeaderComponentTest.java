@@ -69,7 +69,7 @@ public class HeaderComponentTest extends BaseTest {
     @Test
     public void testManageJenkinsClickNameIconToReturnToTheMainPage() {
         ManageJenkinsPage manageJenkinsPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickManageJenkins();
 
         Assert.assertEquals(manageJenkinsPage.getCurrentURL(), "http://localhost:8080/manage/");
@@ -115,7 +115,7 @@ public class HeaderComponentTest extends BaseTest {
     public void testReturnFromNewItemPageToHomePageByClickingOnHeadIcon() {
 
         String actualURL = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .getHeader()
                 .clickJenkinsNameIcon()
@@ -130,7 +130,7 @@ public class HeaderComponentTest extends BaseTest {
         String searchRequest = "organiza";
 
         List<String> searchResults = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(organizationFolderName)
                 .selectOrgFolderAndClickOk()

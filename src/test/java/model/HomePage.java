@@ -101,7 +101,7 @@ public class HomePage extends MainBasePage {
         super(driver);
     }
 
-    public HomeSideMenuComponent getSideMenuFrame() {
+    public HomeSideMenuComponent getSideMenu() {
         return new HomeSideMenuComponent(getDriver());
     }
 

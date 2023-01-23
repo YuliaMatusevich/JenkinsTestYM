@@ -34,7 +34,7 @@ public class MultiBranchPipelinePage {
     @When("Click on New Item")
     public void clickOnNewItem() {
         homePage
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem();
     }
 

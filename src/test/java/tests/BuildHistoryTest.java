@@ -11,14 +11,14 @@ import static runner.TestUtils.getRandomStr;
 
 public class BuildHistoryTest extends BaseTest {
 
-    private static final String FREESTYLE_PROJECT_NAME = getRandomStr(); ;
+    private static final String FREESTYLE_PROJECT_NAME = getRandomStr();
 
     @Test
     public void testH1HeaderBuildHistory() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         BuildHistoryPage buildHistoryPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickBuildHistory();
 
         Assert.assertEquals(buildHistoryPage.getHeaderText(), "Build History of Jenkins");
@@ -27,7 +27,7 @@ public class BuildHistoryTest extends BaseTest {
     @Test
     public void testSMLIconsExist() {
         BuildHistoryPage buildHistoryPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickBuildHistory();
 
         Assert.assertTrue(buildHistoryPage.smallSizeIconIsDisplayed());
@@ -38,7 +38,7 @@ public class BuildHistoryTest extends BaseTest {
     @Test
     public void testRssItemsExist() {
         BuildHistoryPage buildHistoryPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickBuildHistory();
 
         Assert.assertTrue(buildHistoryPage.iconAtomFeedForAllIsDisplayed());
@@ -49,7 +49,7 @@ public class BuildHistoryTest extends BaseTest {
     @Test
     public void testIconLegendExist() {
         BuildHistoryPage buildHistoryPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickBuildHistory();
 
         Assert.assertTrue(buildHistoryPage.isIconDisplayed());
@@ -58,7 +58,7 @@ public class BuildHistoryTest extends BaseTest {
     @Test
     public void testNumberOfColumnsInProjectStatusTable() {
         BuildHistoryPage buildHistoryPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickBuildHistory();
 
         Assert.assertEquals(buildHistoryPage.getSize(), 5);
@@ -67,7 +67,7 @@ public class BuildHistoryTest extends BaseTest {
     @Test
     public void testRedirectToMainPage() {
         HomePage homePage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickBuildHistory()
                 .getBreadcrumbs()
                 .clickDashboard();

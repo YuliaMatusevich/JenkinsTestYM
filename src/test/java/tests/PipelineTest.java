@@ -59,7 +59,7 @@ public class PipelineTest extends BaseTest {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_NAME);
 
         String actualJobListAsString = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(ITEM_NAME)
@@ -73,7 +73,7 @@ public class PipelineTest extends BaseTest {
                 .clickRenameButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickView(ITEM_NAME)
                 .getJobListAsString();
@@ -120,7 +120,7 @@ public class PipelineTest extends BaseTest {
     @Test
     public void testPipelinePreviewDescription() {
         PipelineConfigPage pipelineConfigPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
@@ -133,7 +133,7 @@ public class PipelineTest extends BaseTest {
     @Test
     public void testPipelineHidePreviewDescription() {
         PipelineConfigPage pipelineConfigPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
@@ -177,7 +177,7 @@ public class PipelineTest extends BaseTest {
     public void testWarningMessageIsDisappeared() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_NAME);
         String emptyErrorArea = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickManageJenkins()
                 .clickConfigureTools()
                 .clickFirstAddMavenButton()
@@ -215,7 +215,7 @@ public class PipelineTest extends BaseTest {
     @Test
     public void testPipelineAddDescription() {
         PipelineStatusPage pipelineProjectPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()
@@ -269,7 +269,7 @@ public class PipelineTest extends BaseTest {
         final String expectedLastSuccess = "N/A";
 
         String actualSuccessText = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
                 .selectPipelineAndClickOk()

@@ -34,7 +34,7 @@ public class NewItemTest extends BaseTest {
                 "Folder", "Multibranch Pipeline", "Organization Folder");
 
         NewItemPage newItemPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem();
 
         Assert.assertEquals(newItemPage.newItemsNameList(), expectedResult);
@@ -43,7 +43,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCheckNavigationToNewItemPage() {
         NewItemPage newItemPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem();
 
         Assert.assertEquals(newItemPage.getH3HeaderText(), "Enter an item name");
@@ -53,7 +53,7 @@ public class NewItemTest extends BaseTest {
     public void testCreateFolder() {
 
         HomePage homePage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectFolderAndClickOk()
@@ -80,7 +80,7 @@ public class NewItemTest extends BaseTest {
     public void testCreateAnyItemWithSpacesOnlyNameError(Consumer<NewItemPage> typeProjectMethod) {
         typeProjectMethod.accept(
                 new HomePage(getDriver())
-                        .getSideMenuFrame()
+                        .getSideMenu()
                         .clickNewItem()
                         .setItemName("     "));
 
@@ -92,7 +92,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreatePipelineAssertInsideJob() {
         String actualPipelineName = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectPipelineAndClickOk()
@@ -114,7 +114,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreatePipelineAssertOnBreadcrumbs() {
         String actualTextOnBreadcrumbs = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectPipelineAndClickOk()
@@ -127,7 +127,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateNewPipelineWithDescription() {
         String actualPipelineDescription = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectPipelineAndClickOk()
@@ -141,7 +141,7 @@ public class NewItemTest extends BaseTest {
     @Test(dependsOnMethods = "testCreateNewPipelineWithDescription")
     public void testCreateNewPipelineFromExisting() {
         String actualJobName = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(NEW_PROJECT_NAME)
                 .setCopyFromItemName(PROJECT_NAME)
@@ -158,7 +158,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateItemsWithoutName() {
         int itemsListSize = new HomePage((getDriver()))
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .getItemsListSize();
 
@@ -166,7 +166,7 @@ public class NewItemTest extends BaseTest {
             String actualErrorMessage = new NewItemPage((getDriver()))
                     .getBreadcrumbs()
                     .clickDashboard()
-                    .getSideMenuFrame()
+                    .getSideMenu()
                     .clickNewItem()
                     .setItem(i)
                     .getItemNameRequiredMsg();
@@ -179,7 +179,7 @@ public class NewItemTest extends BaseTest {
     public void testCreateNewItemWithUnsafeCharacterName() {
         final String nameNewItem = "5%^PiPl$^Ne)";
         String errorMessage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(nameNewItem)
                 .getItemNameInvalidMsg();
@@ -191,7 +191,7 @@ public class NewItemTest extends BaseTest {
     public void testCreateNewItemTypePipelineWithEmptyName() {
         final String nameNewItemTypePipeline = "";
         PipelineConfigPage newItemPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(nameNewItemTypePipeline)
                 .selectPipelineAndClickOk();
@@ -202,13 +202,13 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreatePipelineExistingNameError() {
         String newItemPageErrorMessage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectPipelineAndClickOk()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectPipeline()
@@ -220,13 +220,13 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreatedPipelineDisplayedOnMyViews() {
         String pipelineNameInMyViewList = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectPipelineAndClickOk()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink().getListProjectsNamesAsString();
 
         Assert.assertTrue(pipelineNameInMyViewList.contains(PROJECT_NAME), PROJECT_NAME + " Pipeline not found");
@@ -238,7 +238,7 @@ public class NewItemTest extends BaseTest {
         final String jobName = TestUtils.getRandomStr(7);
 
         String errorMessage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(jobName)
                 .selectPipeline()
@@ -252,7 +252,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateNewFreestyleProject() {
         final String freestyleProjectTitle = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectFreestyleProjectAndClickOk()
@@ -265,7 +265,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateFreestyleProjectWithSpacesInsteadOfName() {
         FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(" ")
                 .selectFreestyleProjectAndClickOk();
@@ -279,7 +279,7 @@ public class NewItemTest extends BaseTest {
         final List<Character> incorrectNameCharacters =
                 List.of('!', '@', '#', '$', '%', '^', '&', '*', '[', ']', '\\', '|', ';', ':', '/', '?', '<', '>');
         NewItemPage newItemPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem();
 
         for (Character character : incorrectNameCharacters) {
@@ -296,7 +296,7 @@ public class NewItemTest extends BaseTest {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), PROJECT_NAME);
 
         String actualResult = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectFreestyleProject()
@@ -308,7 +308,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateFreestyleProjectWithEmptyName() {
         NewItemPage newItemPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .selectFreestyleProject();
 
@@ -323,7 +323,7 @@ public class NewItemTest extends BaseTest {
         final String expectedTextOfError = "A problem occurred while processing the request.";
 
         CreateItemErrorPage errorPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(getRandomStr(256))
                 .selectFreestyleProjectAndClickOkWithError();
@@ -336,7 +336,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateMultiConfigurationProjectWithValidName() {
         HomePage homePage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectMultiConfigurationProjectAndClickOk()
@@ -353,7 +353,7 @@ public class NewItemTest extends BaseTest {
         final String descriptionMCP = "Description000302";
 
         MultiConfigurationProjectStatusPage multiConfigProject = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(nameMCP)
                 .selectMultiConfigurationProjectAndClickOk()
@@ -375,7 +375,7 @@ public class NewItemTest extends BaseTest {
     @Test (dependsOnMethods = "testCreateMultiConfigurationProjectWithValidName")
     public void testCreateNewMCProjectAsCopyFromExistingProject() {
         String actualProjectName = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(NEW_PROJECT_NAME)
                 .setCopyFromItemName(PROJECT_NAME)
@@ -391,7 +391,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateMultibranchPipeline() {
         HomePage homePage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectMultibranchPipeline()
@@ -406,7 +406,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateMbPipelineEmptyName() {
         NewItemPage newItemPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .selectMultibranchPipeline();
 
@@ -418,7 +418,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateMultibranchPipelineWithExistingName() {
         String actualErrorMessage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectMultibranchPipeline()
@@ -426,7 +426,7 @@ public class NewItemTest extends BaseTest {
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectMultibranchPipeline()
@@ -443,7 +443,7 @@ public class NewItemTest extends BaseTest {
     @Test(dataProvider = "specialCharacters")
     public void testCreateMultibranchPipelineUnsafeCharacter(Character unsafeCharacter) {
         String actualErrorMessage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(unsafeCharacter.toString())
                 .selectMultibranchPipeline()
@@ -455,7 +455,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateMultibranchPipelineInvalidName() {
         NewItemPage newItemPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName("MultibranchPipeline@")
                 .selectMultibranchPipeline();
@@ -473,7 +473,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateOrgFolder() {
         List<String> allFolders = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectFolderAndClickOk()
@@ -488,7 +488,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testOrgFolderEmptyNameErr() {
         String errMessageEmptyName = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName("")
                 .selectOrgFolderAndClickOk()
@@ -501,7 +501,7 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateOrgFolderWithEmptyName() {
         OrgFolderConfigPage orgFolderConfigPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName("")
                 .selectOrgFolderAndClickOk();
@@ -514,7 +514,7 @@ public class NewItemTest extends BaseTest {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), PROJECT_NAME);
 
         String errMessage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
                 .selectExistFolderAndClickOk()

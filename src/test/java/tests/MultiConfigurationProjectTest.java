@@ -63,7 +63,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     @Test
     public void testMultiConfigurationProjectDelete() {
         HomePage homePage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(MULTI_CONFIGURATION_PROJECT_NAME)
                 .selectMultiConfigurationProjectAndClickOk()
@@ -157,7 +157,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     @Test
     public void testMultiConfigurationProjectRenameToInvalidNameViaSideMenu() {
         RenameItemErrorPage renameItemErrorPage = new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem()
                 .setItemName(MULTI_CONFIGURATION_PROJECT_NAME)
                 .selectMultiConfigurationProjectAndClickOk()
@@ -177,7 +177,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         List<String> listNameOfLabels = new HomePage(getDriver())
                 .getBreadcrumbs()
                 .clickDashboard()
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickBuildHistory()
                 .getNameOfLabelsOnTimeLineBuildHistory();
@@ -246,7 +246,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     @Test
     public void testNewestBuildsButton() {
         new HomePage(getDriver())
-                .getSideMenuFrame()
+                .getSideMenu()
                 .clickNewItem();
         MultiConfigurationProjectStatusPage newMultiConfigItem = new NewItemPage(getDriver())
                 .setItemName(MULTI_CONFIGURATION_PROJECT_NAME)
