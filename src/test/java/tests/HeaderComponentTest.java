@@ -36,10 +36,12 @@ public class HeaderComponentTest extends BaseTest {
     @Test
     public void testCountAndNamesItemsInUserDropdownMenu() {
         int itemsCount = new HomePage(getDriver())
+                .getHeader()
                 .clickUserDropdownMenu()
                 .getItemsCountInUserDropdownMenu();
 
         String itemsNames = new HomePage(getDriver())
+                .getHeader()
                 .clickUserDropdownMenu()
                 .getItemsNamesInUserDropdownMenu();
 
@@ -50,6 +52,7 @@ public class HeaderComponentTest extends BaseTest {
     @Test
     public void testUserDropdownMenuToOpenBuildsUserPage() {
         BuildsUserPage buildsUserPage = new HomePage(getDriver())
+                .getHeader()
                 .clickUserDropdownMenu()
                 .clickBuildsItemInUserDropdownMenu();
 
@@ -84,6 +87,7 @@ public class HeaderComponentTest extends BaseTest {
     @Test
     public void testUserDropdownMenuToOpenConfigureUserPage() {
         ConfigureUserPage configureUserPage = new HomePage(getDriver())
+                .getHeader()
                 .clickUserDropdownMenu()
                 .clickConfigureItemInUserDropdownMenu();
 
@@ -94,6 +98,7 @@ public class HeaderComponentTest extends BaseTest {
     @Test
     public void testUserDropdownMenuToOpenMyViewsUserPage() {
         MyViewsPage myViewsPage = new HomePage(getDriver())
+                .getHeader()
                 .clickUserDropdownMenu()
                 .clickMyViewItemInUserDropdownMenu();
 
@@ -104,6 +109,7 @@ public class HeaderComponentTest extends BaseTest {
     @Test
     public void testUserDropdownMenuToOpenCredentialsUserPage() {
         CredentialsPage credentialsPage = new HomePage(getDriver())
+                .getHeader()
                 .clickUserDropdownMenu()
                 .clickCredentialsItemInUserDropdownMenu();
 
