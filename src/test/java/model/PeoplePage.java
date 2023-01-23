@@ -1,6 +1,7 @@
 package model;
 
 import model.base.MainBasePage;
+import model.base.side_menu.HomeSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,11 +36,12 @@ public class PeoplePage extends MainBasePage {
     @FindBy(xpath = "//ol/li")
     private List<WebElement> listIconSizeButtons;
 
-    @FindBy(xpath = "//a[@href='/manage']")
-    private WebElement manageJenkins;
-
     public PeoplePage(WebDriver driver) {
         super(driver);
+    }
+
+    public HomeSideMenuComponent getSideMenuFrame() {
+        return new HomeSideMenuComponent(getDriver());
     }
 
     public List<String> getListOfUsers() {
@@ -95,11 +97,5 @@ public class PeoplePage extends MainBasePage {
         }
 
         return listIconSizeButtonsNames.toString().replaceAll("\n", "").trim();
-    }
-
-    public ManageJenkinsPage clickManageJenkins() {
-        manageJenkins.click();
-
-        return new ManageJenkinsPage(getDriver());
     }
 }

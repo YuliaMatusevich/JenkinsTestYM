@@ -18,6 +18,7 @@ public class ListViewTest extends BaseTest {
         final String projectOne = getRandomStr();
 
         int quantityProjectsInListView = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(projectOne)
                 .selectFreestyleProjectAndClickOk()

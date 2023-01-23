@@ -46,11 +46,12 @@ public class FooterComponentTest extends BaseTest {
     @Test
     public void testFooterLinkJenkinsIsClickable() {
         String externalJenkinsPageHeader = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .moveToJenkinsVersion()
                 .clickJenkinsVersion()
                 .getHeaderText();
 
-        Assert.assertEquals(externalJenkinsPageHeader,"Jenkins");
+        Assert.assertEquals(externalJenkinsPageHeader, "Jenkins");
     }
 }

@@ -1,4 +1,5 @@
 package tests;
+
 import model.*;
 import model.freestyle.FreestyleProjectConfigPage;
 import model.freestyle.FreestyleProjectStatusPage;
@@ -7,6 +8,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -187,6 +189,7 @@ public class FreestyleProjectTest extends BaseTest {
         final String descriptionText = "This build requires parameters:";
 
         BuildWithParametersPage page = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(FREESTYLE_PROJECT_NAME)
                 .selectFreestyleProjectAndClickOk()

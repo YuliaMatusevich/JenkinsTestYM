@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
+
 import java.util.List;
 
 import static runner.TestUtils.getRandomStr;
@@ -23,6 +24,7 @@ public class FolderTest extends BaseTest {
     @Test
     public void testCreateFolder() {
         List<String> projectNamesOnDashboard = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(FOLDER_NAME)
                 .selectFolderAndClickOk()
@@ -291,6 +293,7 @@ public class FolderTest extends BaseTest {
     @Test
     public void testCreateFolderWithDescription() {
         String textDescription = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(FOLDER_NAME)
                 .selectFolderAndClickOk()

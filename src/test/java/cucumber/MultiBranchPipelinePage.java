@@ -33,7 +33,9 @@ public class MultiBranchPipelinePage {
 
     @When("Click on New Item")
     public void clickOnNewItem() {
-        homePage.clickNewItem();
+        homePage
+                .getSideMenuFrame()
+                .clickNewItem();
     }
 
     @And("Enter valid name")

@@ -20,6 +20,7 @@ public class CopyItemTest extends BaseTest {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), nameExistItem);
 
         CreateItemErrorPage createItemErrorPage = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(nameItem)
                 .selectFreestyleProject()
@@ -41,6 +42,7 @@ public class CopyItemTest extends BaseTest {
     @Test
     public void testFieldCopyFromDoNotDisplayIfDoNotHaveAnyItems() {
         boolean isDisplayedFieldFrom = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickNewItem()
                 .isDisplayedFieldCopyFrom();
 

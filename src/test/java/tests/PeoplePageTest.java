@@ -17,6 +17,7 @@ public class PeoplePageTest extends BaseTest {
     @Test
     public void testPeoplePageContent() {
         PeoplePage peoplePage = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickPeople();
         Assert.assertEquals(peoplePage.getNameOfHeader(), "People");
         Assert.assertEquals(peoplePage.getDescription(), "Includes all known “users”," +
@@ -33,6 +34,7 @@ public class PeoplePageTest extends BaseTest {
     @Test
     public void testFindUserInThePeopleSection() {
         PeoplePage peoplePage = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
@@ -43,6 +45,7 @@ public class PeoplePageTest extends BaseTest {
                 .setEmail(EMAIL)
                 .clickCreateUserButton()
                 .rootMenuDashboardLinkClick()
+                .getSideMenuFrame()
                 .clickPeople();
 
         Assert.assertTrue(peoplePage.getListOfUsers().contains(USER_NAME), USER_NAME + " not found");
@@ -52,11 +55,13 @@ public class PeoplePageTest extends BaseTest {
     public void testPeopleDeleteUser() {
         PeoplePage peoplePage = new PeoplePage(getDriver())
                 .rootMenuDashboardLinkClick()
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickDeleteUser(USER_NAME)
                 .clickYes()
                 .rootMenuDashboardLinkClick()
+                .getSideMenuFrame()
                 .clickPeople();
 
         Assert.assertFalse(peoplePage.getListOfUsers().contains(USER_NAME), USER_NAME + " wasn't deleted");
@@ -65,6 +70,7 @@ public class PeoplePageTest extends BaseTest {
     @Test
     public void testCreateUser() {
         List<String> userList = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
@@ -75,6 +81,7 @@ public class PeoplePageTest extends BaseTest {
                 .setEmail(EMAIL)
                 .clickCreateUserButton()
                 .rootMenuDashboardLinkClick()
+                .getSideMenuFrame()
                 .clickPeople()
                 .getListOfUsers();
 
@@ -84,6 +91,7 @@ public class PeoplePageTest extends BaseTest {
     @Test
     public void testViewPeoplePage() {
         var peoplePage = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickPeople();
 
         Assert.assertEquals(peoplePage.getNameOfHeader(), "People");
@@ -92,7 +100,9 @@ public class PeoplePageTest extends BaseTest {
     @Test
     public void testCreateUserGoingFromPeoplePage() {
         List<String> userList = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickPeople()
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()

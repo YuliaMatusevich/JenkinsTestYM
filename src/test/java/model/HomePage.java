@@ -2,6 +2,7 @@ package model;
 
 import model.base.BaseStatusPage;
 import model.base.MainBasePage;
+import model.base.side_menu.HomeSideMenuComponent;
 import model.folder.FolderConfigPage;
 import model.folder.FolderStatusPage;
 import model.freestyle.FreestyleProjectConfigPage;
@@ -24,12 +25,6 @@ import static runner.TestUtils.scrollToElement;
 
 public class HomePage extends MainBasePage {
 
-    @FindBy(linkText = "Build History")
-    private WebElement buildHistory;
-
-    @FindBy(linkText = "New Item")
-    private WebElement newItem;
-
     @FindBy(css = "tr td a.model-link")
     private List<WebElement> jobList;
 
@@ -45,20 +40,8 @@ public class HomePage extends MainBasePage {
     @FindBy(tagName = "h1")
     private WebElement header;
 
-    @FindBy(linkText = "Manage Jenkins")
-    private WebElement menuManageJenkins;
-
-    @FindBy(css = "a[href='/me/my-views']")
-    private WebElement myViewsSideMenuLink;
-
     @FindBy(css = ".item a[class=''][href$='/my-views/']")
     private WebElement myViewsTopMenuLink;
-
-    @FindBy(xpath = "//a[@href='/manage']")
-    private WebElement manageJenkins;
-
-    @FindBy(xpath = "//span/a[@href='/asynchPeople/']")
-    private WebElement people;
 
     @FindBy(css = ".tabBar>.tab>a.addTab")
     private WebElement addViewLink;
@@ -118,10 +101,8 @@ public class HomePage extends MainBasePage {
         super(driver);
     }
 
-    public NewItemPage clickNewItem() {
-        newItem.click();
-
-        return new NewItemPage(getDriver());
+    public HomeSideMenuComponent getSideMenuFrame() {
+        return new HomeSideMenuComponent(getDriver());
     }
 
     public NewViewPage clickAddViewLink() {
@@ -250,18 +231,6 @@ public class HomePage extends MainBasePage {
         return new FolderConfigPage(getDriver());
     }
 
-    public ManageJenkinsPage clickMenuManageJenkins() {
-        menuManageJenkins.click();
-
-        return new ManageJenkinsPage(getDriver());
-    }
-
-    public MyViewsPage clickMyViewsSideMenuLink() {
-        myViewsSideMenuLink.click();
-
-        return new MyViewsPage(getDriver());
-    }
-
     public String getJobBuildStatus(String name) {
         return getDriver().findElement(By.id(String.format("job_%s", name)))
                 .findElement(By.xpath(".//*[name()='svg']")).getAttribute("tooltip");
@@ -271,18 +240,6 @@ public class HomePage extends MainBasePage {
         myViewsTopMenuLink.click();
 
         return new MyViewsPage(getDriver());
-    }
-
-    public ManageJenkinsPage clickManageJenkins() {
-        manageJenkins.click();
-
-        return new ManageJenkinsPage(getDriver());
-    }
-
-    public PeoplePage clickPeople() {
-        people.click();
-
-        return new PeoplePage(getDriver());
     }
 
     public MultiConfigurationProjectStatusPage clickMultiConfigurationProject(String name) {
@@ -295,12 +252,6 @@ public class HomePage extends MainBasePage {
         scrollToElement(getDriver(), moveButtonDropdown);
         moveButtonDropdown.click();
         return new MovePage<>(getDriver(), baseStatusPage);
-    }
-
-    public BuildHistoryPage clickBuildHistory() {
-        buildHistory.click();
-
-        return new BuildHistoryPage(getDriver());
     }
 
     public HomePage clickUserDropdownMenu() {
@@ -409,28 +360,26 @@ public class HomePage extends MainBasePage {
         return addDescriptionButton.isEnabled();
     }
 
-    public HomePage waitForVisibilityOfAddDescriptionButton(){
+    public HomePage waitForVisibilityOfAddDescriptionButton() {
         getWait(10).until(ExpectedConditions.visibilityOf(addDescriptionButton));
 
         return this;
     }
 
-    public boolean isAddDescriptionButtonPresent(){
-        try{
+    public boolean isAddDescriptionButtonPresent() {
+        try {
             getDriver().findElement(By.id("description-link"));
             return true;
-        }
-        catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return false;
         }
     }
 
-    public boolean isDescriptionTextareaPresent(){
-        try{
+    public boolean isDescriptionTextareaPresent() {
+        try {
             getDriver().findElement(By.xpath("//div[@id='description']//textarea"));
             return true;
-        }
-        catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return false;
         }
     }
@@ -463,7 +412,7 @@ public class HomePage extends MainBasePage {
         return this;
     }
 
-    public boolean buildNowButtonIsDisplayed(){
+    public boolean buildNowButtonIsDisplayed() {
 
         return getWait(5).until(ExpectedConditions.visibilityOf(buildNowButton)).isDisplayed();
     }
@@ -479,6 +428,7 @@ public class HomePage extends MainBasePage {
 
         return new PipelineStatusPage(getDriver());
     }
+
     public String getJobListAsString() {
         StringBuilder listProjectsNames = new StringBuilder();
         for (WebElement projects : jobList) {
@@ -500,6 +450,6 @@ public class HomePage extends MainBasePage {
     }
 
     public String getUserName() {
-     return user.getText();
+        return user.getText();
     }
 }

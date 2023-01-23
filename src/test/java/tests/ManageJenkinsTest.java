@@ -24,7 +24,8 @@ public class ManageJenkinsTest extends BaseTest {
     @Test
     public void testRenameFullUserName() {
         StatusUserPage userStatusPage = new HomePage(getDriver())
-                .clickMenuManageJenkins()
+                .getSideMenuFrame()
+                .clickManageJenkins()
                 .clickManageUsers()
                 .clickConfigureUser()
                 .clearInputFieldFullUserName()
@@ -53,7 +54,8 @@ public class ManageJenkinsTest extends BaseTest {
     @Test
     public void testManageOldData() {
         ManageOldDataPage page = new HomePage(getDriver())
-                .clickMenuManageJenkins()
+                .getSideMenuFrame()
+                .clickManageJenkins()
                 .clickLinkManageOldData();
 
         Assert.assertEquals(page.getMainPanelNoticeText(), "No old data was found.");
@@ -64,6 +66,7 @@ public class ManageJenkinsTest extends BaseTest {
         final String pluginName = "TestNG Results";
 
         String notice = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickLinkManagePlugins()
                 .clickLinkAvailable()
@@ -71,6 +74,7 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickCheckBoxTestNGResults()
                 .clickButtonInstallWithoutRestart()
                 .clickButtonGoBackToTopPage()
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickLinkManagePlugins()
                 .clickLinkInstalled()
@@ -83,6 +87,7 @@ public class ManageJenkinsTest extends BaseTest {
     @Test
     public void testCreateUserWithEmptyName() {
         String errorMessageWhenEmptyUserName = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
@@ -103,6 +108,7 @@ public class ManageJenkinsTest extends BaseTest {
     @Test(dataProvider = "specialCharacters")
     public void testCreateUserWithIncorrectCharactersInName(Character specialCharacter) {
         String errorMessageWhenIncorrectCharacters = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
@@ -119,6 +125,7 @@ public class ManageJenkinsTest extends BaseTest {
     @Test
     public void testCreateUser() {
         ManageUsersPage manageUsersPage = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
@@ -138,6 +145,7 @@ public class ManageJenkinsTest extends BaseTest {
         ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
 
         List<String> listOfUsers = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickDeleteUser(USER_NAME)
@@ -152,6 +160,7 @@ public class ManageJenkinsTest extends BaseTest {
         ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
 
         String errorMessageWhenExistName = new HomePage(getDriver())
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()

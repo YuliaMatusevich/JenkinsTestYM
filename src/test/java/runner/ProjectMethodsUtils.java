@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class ProjectMethodsUtils {
     public static void createNewPipelineProject(WebDriver driver, String name) {
         new HomePage(driver)
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(name)
                 .selectPipelineAndClickOk()
@@ -15,6 +16,7 @@ public class ProjectMethodsUtils {
 
     public static void createNewFreestyleProject(WebDriver driver, String name) {
         new HomePage(driver)
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(name)
                 .selectFreestyleProjectAndClickOk()
@@ -24,6 +26,7 @@ public class ProjectMethodsUtils {
 
     public static void createNewMultiConfigurationProject(WebDriver driver, String name) {
         new HomePage(driver)
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(name)
                 .selectMultiConfigurationProjectAndClickOk()
@@ -33,6 +36,7 @@ public class ProjectMethodsUtils {
 
     public static void createNewFolder(WebDriver driver, String name) {
         new HomePage(driver)
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(name)
                 .selectFolderAndClickOk()
@@ -42,6 +46,7 @@ public class ProjectMethodsUtils {
 
     public static void createNewMultibranchPipeline(WebDriver driver, String name) {
         new HomePage(driver)
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(name)
                 .selectMultibranchPipeline()
@@ -52,6 +57,7 @@ public class ProjectMethodsUtils {
 
     public static void createNewOrganizationFolder(WebDriver driver, String name) {
         new HomePage(driver)
+                .getSideMenuFrame()
                 .clickNewItem()
                 .setItemName(name)
                 .selectOrgFolderAndClickOk()
@@ -61,6 +67,7 @@ public class ProjectMethodsUtils {
 
     public static void createNewGlobalViewForMyViews(WebDriver driver, String name) {
         new HomePage(driver)
+                .getSideMenuFrame()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(name)
@@ -71,6 +78,7 @@ public class ProjectMethodsUtils {
 
     public static void createNewListViewForMyViews(WebDriver driver, String name) {
         new HomePage(driver)
+                .getSideMenuFrame()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(name)
@@ -81,6 +89,7 @@ public class ProjectMethodsUtils {
 
     public static void createNewMyViewForMyViews(WebDriver driver, String name) {
         new HomePage(driver)
+                .getSideMenuFrame()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(name)
@@ -109,6 +118,7 @@ public class ProjectMethodsUtils {
 
     public static void createNewUser(WebDriver driver, String username, String password, String fullName, String email) {
         new HomePage(driver)
+                .getSideMenuFrame()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
