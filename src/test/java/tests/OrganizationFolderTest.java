@@ -38,8 +38,8 @@ public class OrganizationFolderTest extends BaseTest {
         HomePage homePage = new HomePage(getDriver())
                 .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
                 .getSideMenu()
-                .clickDeleteOrganizationFolder()
-                .clickSaveButton();
+                .clickDeleteToHomePage()
+                .clickYes();
 
         Assert.assertFalse(homePage.getJobNamesList().contains(ORGANIZATION_FOLDER_NAME));
     }

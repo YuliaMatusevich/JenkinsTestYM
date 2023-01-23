@@ -156,7 +156,8 @@ public class FreestyleProjectTest extends BaseTest {
 
         String pageHeaderText = new HomePage(getDriver())
                 .clickFreestyleProjectName()
-                .clickButtonDeleteProject()
+                .getSideMenu()
+                .clickDeleteToMyStatusPage()
                 .confirmAlertAndDeleteProject()
                 .getHeaderText();
 

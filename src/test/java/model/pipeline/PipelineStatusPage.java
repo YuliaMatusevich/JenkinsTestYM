@@ -3,7 +3,7 @@ package model.pipeline;
 import model.BuildStatusPage;
 import model.BuildWithParametersPage;
 import model.HomePage;
-import model.base.BlankStatusPage;
+import model.base.BaseStatusPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PipelineStatusPage extends BlankStatusPage<PipelineStatusPage> {
+public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, PipelineStatusSideMenuComponent> {
 
     @FindBy(xpath = "//div[@id='description']//a")
     private WebElement editDescriptionButton;
@@ -23,9 +23,6 @@ public class PipelineStatusPage extends BlankStatusPage<PipelineStatusPage> {
 
     @FindBy(xpath = "//div[@align='right']/span")
     private WebElement saveButton;
-
-    @FindBy(xpath = "//span[text()='Delete Pipeline']")
-    private WebElement deletePipelineButton;
 
     @FindBy(xpath = "(//a[contains(@class,'task-link')])[7]")
     private WebElement gitHubSideMenu;
@@ -57,6 +54,11 @@ public class PipelineStatusPage extends BlankStatusPage<PipelineStatusPage> {
     @FindBy(xpath = "//a[@href='lastBuild/']")
     private WebElement lastBuildLink;
 
+    @Override
+    protected PipelineStatusSideMenuComponent createSideMenuComponent() {
+        return new PipelineStatusSideMenuComponent(getDriver(), this);
+    }
+
     public PipelineStatusPage(WebDriver driver) {
         super(driver);
     }
@@ -75,8 +77,7 @@ public class PipelineStatusPage extends BlankStatusPage<PipelineStatusPage> {
         return this;
     }
 
-    public HomePage clickDeletePipelineButton() {
-        getWait(3).until(ExpectedConditions.elementToBeClickable(deletePipelineButton)).click();
+    public HomePage confirmAlertAndDeletePipeline() {
         getDriver().switchTo().alert().accept();
 
         return new HomePage(getDriver());

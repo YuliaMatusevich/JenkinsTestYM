@@ -1,6 +1,5 @@
 package model.folder;
 
-import model.DeletePage;
 import model.NewItemPage;
 import model.base.side_menu.BaseStatusSideMenuComponent;
 import org.openqa.selenium.WebDriver;
@@ -12,9 +11,6 @@ public class FolderStatusSideMenuComponent extends BaseStatusSideMenuComponent<F
     @FindBy(linkText = "New Item")
     private WebElement newItem;
 
-    @FindBy(linkText = "Delete Folder")
-    private WebElement deleteFolder;
-
     public FolderStatusSideMenuComponent(WebDriver driver, FolderStatusPage statusPage) {
         super(driver, statusPage);
     }
@@ -23,11 +19,5 @@ public class FolderStatusSideMenuComponent extends BaseStatusSideMenuComponent<F
         newItem.click();
 
         return new NewItemPage(getDriver());
-    }
-
-    public DeletePage<FolderStatusPage> clickDeleteFolder() {
-        deleteFolder.click();
-
-        return new DeletePage<>(getDriver(), page);
     }
 }

@@ -123,9 +123,9 @@ public class FolderTest extends BaseTest {
         String pageHeaderText = new HomePage(getDriver())
                 .clickFolder(FOLDER_NAME)
                 .getSideMenu()
-                .clickDeleteFolder()
+                .clickDeleteToHomePage()
                 .clickYes()
-                .getNameText();
+                .getHeaderText();
 
         Assert.assertEquals(pageHeaderText, "Welcome to Jenkins!");
     }
@@ -249,7 +249,8 @@ public class FolderTest extends BaseTest {
 
         List<String> jobList = new FolderStatusPage(getDriver())
                 .clickProject(FREESTYLE_PROJECT_NAME)
-                .clickButtonDeleteProject()
+                .getSideMenu()
+                .clickDeleteToMyStatusPage()
                 .confirmAlertAndDeleteProjectFromFolder()
                 .getJobList();
 
@@ -389,7 +390,8 @@ public class FolderTest extends BaseTest {
         FolderStatusPage folder = new HomePage(getDriver())
                 .clickFolder(FOLDER_NAME)
                 .clickMultibranchPipeline(MULTIBRANCH_PIPELINE_NAME)
-                .clickDeleteMultibranchPipelineWithFolder()
+                .getSideMenu()
+                .clickDeleteToFolder()
                 .clickYes();
 
         Assert.assertEquals(folder.getFolderNameHeader(), FOLDER_NAME);

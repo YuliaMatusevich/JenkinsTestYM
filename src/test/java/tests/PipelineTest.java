@@ -149,7 +149,9 @@ public class PipelineTest extends BaseTest {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_NAME);
         String homePageHeaderText = new HomePage(getDriver())
                 .clickPipelineJob(PIPELINE_NAME)
-                .clickDeletePipelineButton()
+                .getSideMenu()
+                .clickDeleteToMyStatusPage()
+                .confirmAlertAndDeletePipeline()
                 .getHeaderText();
 
         Assert.assertEquals(homePageHeaderText, "Welcome to Jenkins!");

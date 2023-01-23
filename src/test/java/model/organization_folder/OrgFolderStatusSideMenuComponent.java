@@ -10,9 +10,6 @@ public class OrgFolderStatusSideMenuComponent extends BaseStatusSideMenuComponen
     @FindBy(linkText = "Configure")
     private WebElement configure;
 
-    @FindBy(xpath = "//div[@id='tasks']//a[contains(@href, 'delete')]")
-    private WebElement deleteOrganizationFolder;
-
     public OrgFolderStatusSideMenuComponent(WebDriver driver, OrgFolderStatusPage statusPage) {
         super(driver, statusPage);
     }
@@ -21,11 +18,5 @@ public class OrgFolderStatusSideMenuComponent extends BaseStatusSideMenuComponen
         configure.click();
 
         return new OrgFolderConfigPage(getDriver());
-    }
-
-    public OrgFolderStatusPage clickDeleteOrganizationFolder() {
-        deleteOrganizationFolder.click();
-
-        return page;
     }
 }

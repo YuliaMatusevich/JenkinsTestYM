@@ -29,9 +29,6 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
     @FindBy(id = "yui-gen2")
     private WebElement buttonSave;
 
-    @FindBy(xpath = "//span[contains(text(),'Delete Project')]")
-    private WebElement buttonDeleteProject;
-
     @FindBy(css = ".collapse")
     private WebElement buttonOpenBuildHistoryOnSidePanel;
 
@@ -102,12 +99,6 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
         getWait(10).until(ExpectedConditions.elementToBeClickable(fieldDescriptionText)).clear();
         fieldDescriptionText.sendKeys(description);
         getWait(10).until(ExpectedConditions.elementToBeClickable(buttonSave)).click();
-
-        return this;
-    }
-
-    public FreestyleProjectStatusPage clickButtonDeleteProject() {
-        getWait(10).until(ExpectedConditions.elementToBeClickable(buttonDeleteProject)).click();
 
         return this;
     }
