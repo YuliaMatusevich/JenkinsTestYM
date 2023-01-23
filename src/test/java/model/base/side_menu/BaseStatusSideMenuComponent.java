@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusPage<?, ?>> extends BaseSideMenuComponent<StatusPage> {
+public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusPage<?, ?>> extends BaseSideMenuWithGenericComponent<StatusPage> {
 
     @FindBy(linkText = "Rename")
     private WebElement rename;

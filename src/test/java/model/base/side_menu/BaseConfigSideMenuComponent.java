@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public abstract class BaseConfigSideMenuComponent<ConfigPage extends BaseConfigPage<?, ?, ?>> extends BaseSideMenuComponent<ConfigPage> {
+public abstract class BaseConfigSideMenuComponent<ConfigPage extends BaseConfigPage<?, ?, ?>> extends BaseSideMenuWithGenericComponent<ConfigPage> {
 
     @FindBy(xpath = "//button[@data-section-id='general']")
     private WebElement linkGeneral;
