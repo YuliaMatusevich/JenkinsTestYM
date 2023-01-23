@@ -130,4 +130,13 @@ public class ProjectMethodsUtils {
                 .clickCreateUserButton()
                 .getHeader().clickJenkinsNameIcon();
     }
+
+    public static void editDescriptionUserActiveField(WebDriver driver, String name) {
+        new HomePage(driver)
+                .getHeader()
+                .clickUserIcon()
+                .clickAddDescriptionLink()
+                .clearDescriptionInputField()
+                .setDescriptionField(name);
+    }
 }

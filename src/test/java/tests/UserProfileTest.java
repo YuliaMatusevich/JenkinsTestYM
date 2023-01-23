@@ -2,26 +2,22 @@ package tests;
 
 import static runner.TestUtils.getRandomStr;
 
-import model.HomePage;
 import model.StatusUserPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.ProjectMethodsUtils;
 
 public class UserProfileTest extends BaseTest {
 
     private static final String DESCRIPTION = getRandomStr();
     private static final String NEW_DESCRIPTION = getRandomStr();
 
-
     @Test
     public void testUserProfileAddDescription() {
-        String actualUserDescription = new HomePage(getDriver())
-                .getHeader()
-                .clickUserIcon()
-                .clickAddDescriptionLink()
-                .clearDescriptionInputField()
-                .setDescriptionField(DESCRIPTION)
+        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), DESCRIPTION);
+
+        String actualUserDescription = new StatusUserPage(getDriver())
                 .clickSaveButton()
                 .getDescriptionText();
 
@@ -30,12 +26,9 @@ public class UserProfileTest extends BaseTest {
 
     @Test
     public void testUserProfileHidePreviewDescription() {
-        StatusUserPage statusUserPage = new HomePage(getDriver())
-                .getHeader()
-                .clickUserIcon()
-                .clickAddDescriptionLink()
-                .clearDescriptionInputField()
-                .setDescriptionField(DESCRIPTION)
+        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), DESCRIPTION);
+
+        StatusUserPage statusUserPage = new StatusUserPage(getDriver())
                 .clickPreviewLink()
                 .clickHidePreviewLink();
 
@@ -44,29 +37,24 @@ public class UserProfileTest extends BaseTest {
 
     @Test
     public void testUserProfilePreviewDescription() {
-        String actualPreviewText = new HomePage(getDriver())
-                .getHeader()
-                .clickUserIcon()
-                .clickAddDescriptionLink()
-                .clearDescriptionInputField()
-                .setDescriptionField(DESCRIPTION)
+        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), DESCRIPTION);
+
+        String actualPreviewText = new StatusUserPage(getDriver())
                 .clickPreviewLink()
                 .getPreviewText();
 
         Assert.assertEquals(actualPreviewText, DESCRIPTION);
     }
 
-    @Test(dependsOnMethods = "testUserProfileAddDescription")
+    @Test
     public void testUserProfileEditDescription() {
-        String actualUserDescription = new HomePage(getDriver())
-                .getHeader()
-                .clickUserIcon()
-                .clickAddDescriptionLink()
-                .clearDescriptionInputField()
+        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), DESCRIPTION);
+
+        String actualUserDescription = new StatusUserPage(getDriver())
                 .setDescriptionField(NEW_DESCRIPTION)
                 .clickSaveButton()
                 .getDescriptionText();
 
-        Assert.assertNotEquals(actualUserDescription,DESCRIPTION);
+        Assert.assertNotEquals(actualUserDescription, DESCRIPTION);
     }
 }
