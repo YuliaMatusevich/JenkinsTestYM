@@ -48,7 +48,7 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickLogOut();
         loginWeb();
 
-        Assert.assertEquals(new HomePage(getDriver()).getHeader().getUserNameText(), NEW_USER_FULL_NAME);
+        Assert.assertEquals(new HomePage(getDriver()).getUserName(), NEW_USER_FULL_NAME);
     }
 
     @Test

@@ -122,7 +122,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), MULTI_CONFIGURATION_PROJECT_NAME);
 
         MultiConfigurationProjectStatusPage multiConfigurationProjectStatusPage = new HomePage(getDriver())
-                .getHeader().setSearchAndClickEnter(MULTI_CONFIGURATION_PROJECT_NAME);
+                .setSearchAndClickEnter(MULTI_CONFIGURATION_PROJECT_NAME);
 
         Assert.assertEquals(multiConfigurationProjectStatusPage.getNameMultiConfigProject(MULTI_CONFIGURATION_PROJECT_NAME), MULTI_CONFIGURATION_PROJECT_NAME);
     }
@@ -238,7 +238,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .clickBuildNowButton()
                 .clickBuildIcon();
 
-        Assert.assertEquals(multiConfigProjectConsole.getTextConsoleOutputUserName(), new HomePage(getDriver()).getHeader().getUserNameText());
+        Assert.assertEquals(multiConfigProjectConsole.getTextConsoleOutputUserName(), new HomePage(getDriver()).getUserName());
         Assert.assertTrue(multiConfigProjectConsole.getConsoleOutputText().contains("Finished: SUCCESS"));
     }
 

@@ -12,18 +12,15 @@ import model.multiconfiguration.MultiConfigurationProjectStatusPage;
 import model.organization_folder.OrgFolderStatusPage;
 import model.pipeline.PipelineConfigPage;
 import model.pipeline.PipelineStatusPage;
+import model.views.MyViewsPage;
 import model.views.NewViewPage;
 import model.views.ViewPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
+import runner.TestUtils;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static runner.TestUtils.scrollToElement;
 
 public class HomePage extends MainBasePage {
@@ -43,6 +40,9 @@ public class HomePage extends MainBasePage {
     @FindBy(tagName = "h1")
     private WebElement header;
 
+    @FindBy(css = ".item a[class=''][href$='/my-views/']")
+    private WebElement myViewsTopMenuLink;
+
     @FindBy(css = ".tabBar>.tab>a.addTab")
     private WebElement addViewLink;
 
@@ -52,8 +52,17 @@ public class HomePage extends MainBasePage {
     @FindBy(xpath = "//div[@class='tabBar']/div/a")
     private List<WebElement> viewList;
 
+    @FindBy(css = "#page-header .jenkins-menu-dropdown-chevron")
+    private WebElement userDropdownMenu;
+
+    @FindBy(css = ".first-of-type > .yuimenuitem")
+    private List<WebElement> userDropdownMenuItems;
+
     @FindBy(xpath = "//span[text()='Edit View']/..")
     private WebElement editView;
+
+    @FindBy(linkText = "Builds")
+    private WebElement buildsItemInUserDropdownMenu;
 
     @FindBy(xpath = "//span[contains(@class, 'build-status-icon')]/span/child::*")
     private WebElement buildStatusIcon;
@@ -67,11 +76,26 @@ public class HomePage extends MainBasePage {
     @FindBy(xpath = "//div[@id='description']//textarea")
     private WebElement descriptionTextarea;
 
+    @FindBy(linkText = "Configure")
+    private WebElement configureItemInUserDropdownMenu;
+
+    @FindBy(linkText = "My Views")
+    private WebElement myViewItemInUserDropdownMenu;
+
+    @FindBy(linkText = "Credentials")
+    private WebElement credentialsItemInUserDropdownMenu;
+
     @FindBy(xpath = "(//a[@class='yuimenuitemlabel'])[3]/span")
     private WebElement buildNowButton;
 
+    @FindBy(id = "search-box")
+    private WebElement searchField;
+
     @FindBy(css = "#projectstatus th")
     private List<WebElement> listJobTableHeaders;
+
+    @FindBy(css = "[href*='/user/']")
+    private WebElement user;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -212,6 +236,12 @@ public class HomePage extends MainBasePage {
                 .findElement(By.xpath(".//*[name()='svg']")).getAttribute("tooltip");
     }
 
+    public MyViewsPage clickMyViewsTopMenuLink() {
+        myViewsTopMenuLink.click();
+
+        return new MyViewsPage(getDriver());
+    }
+
     public MultiConfigurationProjectStatusPage clickMultiConfigurationProject(String name) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(By.linkText(name))).click();
         return new MultiConfigurationProjectStatusPage(getDriver());
@@ -222,6 +252,41 @@ public class HomePage extends MainBasePage {
         scrollToElement(getDriver(), moveButtonDropdown);
         moveButtonDropdown.click();
         return new MovePage<>(getDriver(), baseStatusPage);
+    }
+
+    public HomePage clickUserDropdownMenu() {
+        userDropdownMenu.click();
+
+        return this;
+    }
+
+    public int getItemsCountInUserDropdownMenu() {
+        int itemsCount = 0;
+        for (WebElement item : getWait(5).until(
+                ExpectedConditions.visibilityOfAllElements(
+                        userDropdownMenuItems))) {
+            itemsCount++;
+        }
+
+        return itemsCount;
+    }
+
+    public String getItemsNamesInUserDropdownMenu() {
+        StringBuilder itemsNames = new StringBuilder();
+        for (WebElement item : getWait(5).until(
+                ExpectedConditions.visibilityOfAllElements(
+                        userDropdownMenuItems))) {
+            itemsNames.append(item.getText()).append(" ");
+        }
+
+        return itemsNames.toString().trim();
+    }
+
+    public BuildsUserPage clickBuildsItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                buildsItemInUserDropdownMenu)).click();
+
+        return new BuildsUserPage(getDriver());
     }
 
     public String getBuildDurationTime() {
@@ -255,6 +320,10 @@ public class HomePage extends MainBasePage {
     public String getJobName(String name) {
 
         return getDriver().findElement(By.xpath(String.format("//span[contains(text(),'%s')]", name))).getText();
+    }
+
+    public Boolean getProjectIconText() {
+        return projectDisabledIcon.isDisplayed();
     }
 
     public String getStatusBuildText() {
@@ -300,10 +369,8 @@ public class HomePage extends MainBasePage {
     public boolean isAddDescriptionButtonPresent() {
         try {
             getDriver().findElement(By.id("description-link"));
-
             return true;
         } catch (NoSuchElementException e) {
-
             return false;
         }
     }
@@ -311,12 +378,31 @@ public class HomePage extends MainBasePage {
     public boolean isDescriptionTextareaPresent() {
         try {
             getDriver().findElement(By.xpath("//div[@id='description']//textarea"));
-
             return true;
         } catch (NoSuchElementException e) {
-
             return false;
         }
+    }
+
+    public ConfigureUserPage clickConfigureItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                configureItemInUserDropdownMenu)).click();
+
+        return new ConfigureUserPage(getDriver());
+    }
+
+    public MyViewsPage clickMyViewItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                myViewItemInUserDropdownMenu)).click();
+
+        return new MyViewsPage(getDriver());
+    }
+
+    public CredentialsPage clickCredentialsItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                credentialsItemInUserDropdownMenu)).click();
+
+        return new CredentialsPage(getDriver());
     }
 
     public HomePage clickProjectDropdownMenu(String projectName) {
@@ -352,7 +438,18 @@ public class HomePage extends MainBasePage {
         return listProjectsNames.toString().trim();
     }
 
+    public MultiConfigurationProjectStatusPage setSearchAndClickEnter(String request) {
+        searchField.sendKeys(request);
+        getWait(3).until(TestUtils.ExpectedConditions.elementIsNotMoving(searchField)).sendKeys(Keys.ENTER);
+
+        return new MultiConfigurationProjectStatusPage(getDriver());
+    }
+
     public int getJobTableHeadersSize() {
         return listJobTableHeaders.size();
+    }
+
+    public String getUserName() {
+        return user.getText();
     }
 }

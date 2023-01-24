@@ -11,8 +11,7 @@ public class ProjectMethodsUtils {
                 .setItemName(name)
                 .selectPipelineAndClickOk()
                 .clickSaveButton()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewFreestyleProject(WebDriver driver, String name) {
@@ -22,8 +21,7 @@ public class ProjectMethodsUtils {
                 .setItemName(name)
                 .selectFreestyleProjectAndClickOk()
                 .clickSaveButton()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewMultiConfigurationProject(WebDriver driver, String name) {
@@ -33,8 +31,7 @@ public class ProjectMethodsUtils {
                 .setItemName(name)
                 .selectMultiConfigurationProjectAndClickOk()
                 .clickSaveButton()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewFolder(WebDriver driver, String name) {
@@ -44,8 +41,7 @@ public class ProjectMethodsUtils {
                 .setItemName(name)
                 .selectFolderAndClickOk()
                 .clickSaveButton()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewMultibranchPipeline(WebDriver driver, String name) {
@@ -56,8 +52,7 @@ public class ProjectMethodsUtils {
                 .selectMultibranchPipeline()
                 .clickOkMultibranchPipeline()
                 .clickSaveButton()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewOrganizationFolder(WebDriver driver, String name) {
@@ -67,8 +62,7 @@ public class ProjectMethodsUtils {
                 .setItemName(name)
                 .selectOrgFolderAndClickOk()
                 .clickSaveButton()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewGlobalViewForMyViews(WebDriver driver, String name) {
@@ -79,8 +73,7 @@ public class ProjectMethodsUtils {
                 .setViewName(name)
                 .setGlobalViewType()
                 .clickCreateButtonToEditGlobalView()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewListViewForMyViews(WebDriver driver, String name) {
@@ -91,8 +84,7 @@ public class ProjectMethodsUtils {
                 .setViewName(name)
                 .setListViewType()
                 .clickCreateButtonToEditListView()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewMyViewForMyViews(WebDriver driver, String name) {
@@ -103,8 +95,7 @@ public class ProjectMethodsUtils {
                 .setViewName(name)
                 .setMyViewType()
                 .clickCreateButtonToViewPage()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewListViewForDashboard(WebDriver driver, String name) {
@@ -113,8 +104,7 @@ public class ProjectMethodsUtils {
                 .setViewName(name)
                 .setListViewType()
                 .clickCreateButtonToEditListView()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewMyViewViewForDashboard(WebDriver driver, String name) {
@@ -123,8 +113,7 @@ public class ProjectMethodsUtils {
                 .setViewName(name)
                 .setMyViewType()
                 .clickCreateButtonToViewPage()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void createNewUser(WebDriver driver, String username, String password, String fullName, String email) {
@@ -139,8 +128,7 @@ public class ProjectMethodsUtils {
                 .setFullName(fullName)
                 .setEmail(email)
                 .clickCreateUserButton()
-                .getHeader()
-                .clickJenkinsNameIcon();
+                .getHeader().clickJenkinsNameIcon();
     }
 
     public static void editDescriptionUserActiveField(WebDriver driver, String name) {
