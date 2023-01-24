@@ -400,13 +400,13 @@ public class FolderTest extends BaseTest {
 
     @Test
     public void testCreatePipelineInFolderFromCreateJobButton() {
-        final String PipelineProjectName = getRandomStr();
+        final String pipelineProjectName = getRandomStr();
 
         ProjectMethodsUtils.createNewFolder(getDriver(), FOLDER_NAME);
         List<String> projectNamesInFolder = new HomePage(getDriver())
                 .clickFolder(FOLDER_NAME)
                 .clickCreateJob()
-                .setItemName(PipelineProjectName)
+                .setItemName(pipelineProjectName)
                 .selectPipelineAndClickOk()
                 .clickSaveButton()
                 .getBreadcrumbs()
@@ -414,7 +414,7 @@ public class FolderTest extends BaseTest {
                 .clickFolder(FOLDER_NAME)
                 .getJobList();
 
-        Assert.assertTrue(projectNamesInFolder.contains(PipelineProjectName));
+        Assert.assertTrue(projectNamesInFolder.contains(pipelineProjectName));
     }
 
     @Test
