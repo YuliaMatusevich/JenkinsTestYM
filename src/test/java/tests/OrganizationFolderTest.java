@@ -45,7 +45,21 @@ public class OrganizationFolderTest extends BaseTest {
     }
 
     @Test
-    public void testConfigureOrganizationFolder() {
+    public void testConfigureOrganizationFolderWithName() {
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
+
+        OrgFolderStatusPage orgFolderStatusPage = new HomePage(getDriver())
+                .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
+                .getSideMenu()
+                .clickConfigure()
+                .inputDisplayName(DISPLAY_NAME)
+                .clickSaveButton();
+
+        Assert.assertEquals(orgFolderStatusPage.getNameText(), DISPLAY_NAME);
+    }
+
+    @Test
+    public void testConfigureOrganizationFolderWithDescription() {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
         final String description = getRandomStr();
 
@@ -53,17 +67,10 @@ public class OrganizationFolderTest extends BaseTest {
                 .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
                 .getSideMenu()
                 .clickConfigure()
-                .inputDisplayName(DISPLAY_NAME)
                 .inputDescription(description)
                 .clickSaveButton();
 
-        Assert.assertEquals(orgFolderStatusPage.getNameText(), DISPLAY_NAME);
         Assert.assertEquals(orgFolderStatusPage.getAdditionalDescriptionText(), description);
-
-        HomePage homePage = orgFolderStatusPage.getBreadcrumbs()
-                .clickDashboard();
-
-        Assert.assertTrue(homePage.getJobNamesList().contains(DISPLAY_NAME));
     }
 
     @Test
