@@ -193,7 +193,8 @@ public class ViewsTest extends BaseTest {
         List<Boolean> checksList = new ArrayList<>();
         try {
             new HomePage(getDriver())
-                    .clickMyViewsTopMenuLink()
+                    .getHeader()
+                    .clickMyViewItemInUserDropdownMenu()
                     .clickView(GLOBAL_VIEW_NAME)
                     .clickEditGlobalView()
                     .renameView(illegalCharacter + GLOBAL_VIEW_NAME)

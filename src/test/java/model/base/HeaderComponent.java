@@ -1,18 +1,18 @@
 package model.base;
 
-import model.HomePage;
-import model.LoginPage;
-import model.SearchResultPage;
-import model.StatusUserPage;
+import model.*;
+import model.multiconfiguration.MultiConfigurationProjectStatusPage;
+import model.views.MyViewsPage;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import runner.BaseModel;
 import runner.TestUtils;
 
-public class HeaderComponent extends BaseModel {
+import java.util.List;
+
+public class HeaderComponent extends BaseComponent {
     @FindBy(id = "jenkins-head-icon")
     private WebElement jenkinsHeadIcon;
 
@@ -27,6 +27,24 @@ public class HeaderComponent extends BaseModel {
 
     @FindBy(xpath = "//a[@href='/logout']")
     private WebElement logOut;
+
+    @FindBy(css = "#page-header .jenkins-menu-dropdown-chevron")
+    private WebElement userDropdownMenu;
+
+    @FindBy(linkText = "Credentials")
+    private WebElement credentialsItemInUserDropdownMenu;
+
+    @FindBy(linkText = "My Views")
+    private WebElement myViewItemInUserDropdownMenu;
+
+    @FindBy(linkText = "Configure")
+    private WebElement configureItemInUserDropdownMenu;
+
+    @FindBy(linkText = "Builds")
+    private WebElement buildsItemInUserDropdownMenu;
+
+    @FindBy(css = ".first-of-type > .yuimenuitem")
+    private List<WebElement> userDropdownMenuItems;
 
     public HeaderComponent(WebDriver driver) {
         super(driver);
@@ -51,6 +69,7 @@ public class HeaderComponent extends BaseModel {
     }
 
     public boolean isJenkinsNameIconDisplayed() {
+
         return  jenkinsNameIcon.isDisplayed();
     }
 
@@ -80,5 +99,68 @@ public class HeaderComponent extends BaseModel {
         getWait(3).until(TestUtils.ExpectedConditions.elementIsNotMoving(searchField)).sendKeys(Keys.ENTER);
 
         return new SearchResultPage(getDriver());
+    }
+
+    public MultiConfigurationProjectStatusPage setSearchAndClickEnter(String request) {
+        searchField.sendKeys(request);
+        getWait(3).until(TestUtils.ExpectedConditions.elementIsNotMoving(searchField)).sendKeys(Keys.ENTER);
+
+        return new MultiConfigurationProjectStatusPage(getDriver());
+    }
+
+    public HeaderComponent clickUserDropdownMenu() {
+        userDropdownMenu.click();
+
+        return this;
+    }
+
+    public CredentialsPage clickCredentialsItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                credentialsItemInUserDropdownMenu)).click();
+
+        return new CredentialsPage(getDriver());
+    }
+
+    public MyViewsPage clickMyViewItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                myViewItemInUserDropdownMenu)).click();
+
+        return new MyViewsPage(getDriver());
+    }
+
+    public ConfigureUserPage clickConfigureItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                configureItemInUserDropdownMenu)).click();
+
+        return new ConfigureUserPage(getDriver());
+    }
+
+    public BuildsUserPage clickBuildsItemInUserDropdownMenu() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                buildsItemInUserDropdownMenu)).click();
+
+        return new BuildsUserPage(getDriver());
+    }
+
+        public int getItemsCountInUserDropdownMenu() {
+        int itemsCount = 0;
+        for (WebElement item : getWait(5).until(
+                ExpectedConditions.visibilityOfAllElements(
+                        userDropdownMenuItems))) {
+            itemsCount++;
+        }
+
+        return itemsCount;
+    }
+
+        public String getItemsNamesInUserDropdownMenu() {
+        StringBuilder itemsNames = new StringBuilder();
+        for (WebElement item : getWait(5).until(
+                ExpectedConditions.visibilityOfAllElements(
+                        userDropdownMenuItems))) {
+            itemsNames.append(item.getText()).append(" ");
+        }
+
+        return itemsNames.toString().trim();
     }
 }
