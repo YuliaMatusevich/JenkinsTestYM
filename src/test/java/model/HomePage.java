@@ -52,20 +52,8 @@ public class HomePage extends MainBasePage {
     @FindBy(xpath = "//div[@class='tabBar']/div/a")
     private List<WebElement> viewList;
 
-    @FindBy(xpath = "//span[text()='Edit View']/..")
-    private WebElement editView;
-
     @FindBy(xpath = "//span[contains(@class, 'build-status-icon')]/span/child::*")
     private WebElement buildStatusIcon;
-
-    @FindBy(xpath = "(//*[local-name()='svg' and @tooltip='Disabled'])[2]")
-    private WebElement projectDisabledIcon;
-
-    @FindBy(id = "description-link")
-    private WebElement addDescriptionButton;
-
-    @FindBy(xpath = "//div[@id='description']//textarea")
-    private WebElement descriptionTextarea;
 
     @FindBy(xpath = "(//a[@class='yuimenuitemlabel'])[3]/span")
     private WebElement buildNowButton;
@@ -272,51 +260,6 @@ public class HomePage extends MainBasePage {
         getWait(6).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
 
         return new FreestyleProjectConfigPage(getDriver());
-    }
-
-    public HomePage clickAddDescriptionButton() {
-        getWait(10).until(ExpectedConditions.elementToBeClickable(addDescriptionButton)).click();
-        getWait(10).until(ExpectedConditions.visibilityOf(descriptionTextarea));
-
-        return this;
-    }
-
-    public boolean isDescriptionTextareaEnabled() {
-
-        return descriptionTextarea.isEnabled();
-    }
-
-    public boolean isAddDescriptionButtonEnabled() {
-
-        return addDescriptionButton.isEnabled();
-    }
-
-    public HomePage waitForVisibilityOfAddDescriptionButton() {
-        getWait(10).until(ExpectedConditions.visibilityOf(addDescriptionButton));
-
-        return this;
-    }
-
-    public boolean isAddDescriptionButtonPresent() {
-        try {
-            getDriver().findElement(By.id("description-link"));
-
-            return true;
-        } catch (NoSuchElementException e) {
-
-            return false;
-        }
-    }
-
-    public boolean isDescriptionTextareaPresent() {
-        try {
-            getDriver().findElement(By.xpath("//div[@id='description']//textarea"));
-
-            return true;
-        } catch (NoSuchElementException e) {
-
-            return false;
-        }
     }
 
     public HomePage clickProjectDropdownMenu(String projectName) {

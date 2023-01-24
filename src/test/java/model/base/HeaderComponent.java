@@ -163,4 +163,16 @@ public class HeaderComponent extends BaseComponent {
 
         return itemsNames.toString().trim();
     }
+
+    public HeaderComponent setTextInSearchField(String str) {
+        searchField.sendKeys(str);
+        getWait(3).until(ExpectedConditions.attributeToBeNotEmpty(searchField, "value"));
+
+        return this;
+    }
+
+    public String getSearchFieldValue(){
+
+        return searchField.getAttribute("value");
+    }
 }

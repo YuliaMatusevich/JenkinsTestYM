@@ -1,6 +1,7 @@
 package tests;
 
 import model.*;
+import model.base.HeaderComponent;
 import model.views.MyViewsPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -156,14 +157,16 @@ public class HeaderComponentTest extends BaseTest {
 
     @Test
     public void testLogoHeadIconReloadMainPage() {
+        String text = "Salut!";
 
-        HomePage homePage = new HomePage(getDriver());
+        HeaderComponent headerComponent = new HomePage(getDriver())
+                .getHeader()
+                .setTextInSearchField(text);
 
-        Assert.assertTrue(homePage.clickAddDescriptionButton().isDescriptionTextareaEnabled());
-        Assert.assertFalse(homePage.isAddDescriptionButtonPresent());
-        Assert.assertFalse(homePage.getHeader().clickJenkinsHeadIcon()
-                .waitForVisibilityOfAddDescriptionButton().isDescriptionTextareaPresent());
-        Assert.assertTrue(homePage.getHeader().clickJenkinsHeadIcon()
-                .waitForVisibilityOfAddDescriptionButton().isAddDescriptionButtonEnabled());
+        Assert.assertEquals(headerComponent.getSearchFieldValue(), text);
+
+        headerComponent.clickJenkinsHeadIcon();
+
+        Assert.assertEquals(headerComponent.getSearchFieldValue(), "");
     }
 }
