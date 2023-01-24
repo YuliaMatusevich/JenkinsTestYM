@@ -34,7 +34,8 @@ public class MultibranchPipelineTest extends BaseTest {
 
         String actualMultibranchPipeline = new HomePage(getDriver())
                 .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME)
-                .clickRenameSideMenu()
+                .getSideMenu()
+                .clickRename()
                 .clearFieldAndInputNewName(MULTIBRANCH_PIPELINE_RENAME)
                 .clickRenameButton()
                 .getNameText();
@@ -71,5 +72,24 @@ public class MultibranchPipelineTest extends BaseTest {
 
         Assert.assertTrue(multibranchPipelineStatusPage.isDisableButtonPresent());
         Assert.assertFalse(multibranchPipelineStatusPage.getAttributeProjectIcon().contains("disable"));
+    }
+
+    @Test
+    public void testAddDisplayName() {
+        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        final String displayName = getRandomStr();
+
+        List<String> jobNamesList = new HomePage(getDriver())
+                .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME)
+                .getSideMenu()
+                .clickConfigure()
+                .setDisplayName(displayName)
+                .clickApplyButton()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .getJobNamesList();
+
+        Assert.assertTrue(jobNamesList.contains(displayName));
     }
 }

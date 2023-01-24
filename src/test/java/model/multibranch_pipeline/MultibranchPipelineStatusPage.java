@@ -1,15 +1,11 @@
 package model.multibranch_pipeline;
 
-import model.RenameItemPage;
 import model.base.BaseStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class MultibranchPipelineStatusPage extends BaseStatusPage<MultibranchPipelineStatusPage, MultibranchPipelineStatusSideMenuComponent> {
-
-    @FindBy(linkText = "Rename")
-    private WebElement renameButton;
 
     @FindBy(id = "yui-gen1-button")
     private WebElement disableEnableButton;
@@ -27,12 +23,6 @@ public class MultibranchPipelineStatusPage extends BaseStatusPage<MultibranchPip
 
     public MultibranchPipelineStatusPage(WebDriver driver) {
         super(driver);
-    }
-
-    public RenameItemPage<MultibranchPipelineStatusPage> clickRenameSideMenu() {
-        renameButton.click();
-
-        return new RenameItemPage<>(getDriver(), new MultibranchPipelineStatusPage(getDriver()));
     }
 
     public MultibranchPipelineStatusPage clickDisableEnableButton() {
