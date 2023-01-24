@@ -1,6 +1,7 @@
 package tests;
 
 import model.HomePage;
+import model.views.EditListViewPage;
 import model.views.ViewPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -28,7 +29,7 @@ public class ListViewTest extends BaseTest {
                 .clickAddViewLink()
                 .setViewName(LIST_VIEW_NAME)
                 .setListViewType()
-                .clickCreateButtonToEditListView()
+                .clickCreateButton(new EditListViewPage(getDriver()))
                 .addJobToView(projectOne)
                 .clickOkButton()
                 .getJobNamesList().size();

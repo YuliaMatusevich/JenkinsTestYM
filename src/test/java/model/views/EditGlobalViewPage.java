@@ -14,11 +14,11 @@ import java.util.Map;
 
 public class EditGlobalViewPage extends MainBasePage {
 
-    @FindBy(css = "input[name=filterQueue]")
-    private WebElement filterBuildQueueOptionCheckBox;
-
-    @FindBy(css = "input[name=filterExecutors]")
+    @FindBy(xpath = "//label[text()='Filter build executors']")
     private WebElement filterBuildExecutorsOptionCheckBox;
+
+    @FindBy(xpath = "//label[text()='Filter build queue']")
+    private WebElement filterBuildQueueOptionCheckBox;
 
     @FindBy(name = "name")
     private WebElement viewName;
@@ -37,9 +37,6 @@ public class EditGlobalViewPage extends MainBasePage {
 
     @FindBy(css = "#main-panel h1")
     private WebElement errorPageHeader;
-
-
-
     public EditGlobalViewPage(WebDriver driver) {
         super(driver);
     }
@@ -62,14 +59,15 @@ public class EditGlobalViewPage extends MainBasePage {
         return uniqueTextOnGlobalViewEditPage.getText();
     }
 
-    public EditGlobalViewPage selectFilterBuildQueueOptionCheckBox() {
-        filterBuildQueueOptionCheckBox.findElement(By.xpath("following-sibling::label")).click();
+    public EditGlobalViewPage selectFilterBuildExecutorsOptionCheckBox() {
+//        filterBuildExecutorsOptionCheckBox.findElement(By.xpath("following-sibling::label")).click();
+        filterBuildExecutorsOptionCheckBox.click();
 
         return this;
     }
 
-    public EditGlobalViewPage selectFilterBuildExecutorsOptionCheckBox() {
-        filterBuildExecutorsOptionCheckBox.findElement(By.xpath("following-sibling::label")).click();
+    public EditGlobalViewPage selectFilterBuildQueueOptionCheckBox() {
+        filterBuildQueueOptionCheckBox.click();
 
         return this;
     }

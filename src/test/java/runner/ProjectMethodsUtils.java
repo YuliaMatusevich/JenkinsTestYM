@@ -1,6 +1,9 @@
 package runner;
 
 import model.HomePage;
+import model.views.EditGlobalViewPage;
+import model.views.EditListViewPage;
+import model.views.EditMyViewPage;
 import org.openqa.selenium.WebDriver;
 
 public class ProjectMethodsUtils {
@@ -78,7 +81,7 @@ public class ProjectMethodsUtils {
                 .clickNewView()
                 .setViewName(name)
                 .setGlobalViewType()
-                .clickCreateButtonToEditGlobalView()
+                .clickCreateButton(new EditGlobalViewPage(driver))
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -90,7 +93,7 @@ public class ProjectMethodsUtils {
                 .clickNewView()
                 .setViewName(name)
                 .setListViewType()
-                .clickCreateButtonToEditListView()
+                .clickCreateButton(new EditListViewPage(driver))
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -102,7 +105,7 @@ public class ProjectMethodsUtils {
                 .clickNewView()
                 .setViewName(name)
                 .setMyViewType()
-                .clickCreateButtonToViewPage()
+                .clickCreateButton(new EditMyViewPage(driver))
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -112,7 +115,7 @@ public class ProjectMethodsUtils {
                 .clickAddViewLink()
                 .setViewName(name)
                 .setListViewType()
-                .clickCreateButtonToEditListView()
+                .clickCreateButton(new EditListViewPage(driver))
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -122,7 +125,7 @@ public class ProjectMethodsUtils {
                 .clickAddViewLink()
                 .setViewName(name)
                 .setMyViewType()
-                .clickCreateButtonToViewPage()
+                .clickCreateButton(new EditMyViewPage(driver))
                 .getHeader()
                 .clickJenkinsNameIcon();
     }

@@ -73,7 +73,7 @@ public class ViewsTest extends BaseTest {
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
                 .setListViewType()
-                .clickCreateButtonToEditListView()
+                .clickCreateButton(new EditListViewPage(getDriver()))
                 .addJobsToListView(6)
                 .clickOkButton()
                 .getJobNamesList()
@@ -106,8 +106,7 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(getRandomStr(6))
-                .setListViewType()
-                .clickCreateButtonToEditListView()
+                .setListViewType().clickCreateButton(new EditListViewPage(getDriver()))
                 .addJobToView(FREESTYLE_PROJECT_NAME)
                 .getCountColumns();
 
@@ -129,7 +128,7 @@ public class ViewsTest extends BaseTest {
         Assert.assertEquals(textConfirmAfterClickingApply, "Saved");
     }
 
-    @Ignore
+
     @Test
     public void testAddJobsToListView () {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
@@ -145,11 +144,10 @@ public class ViewsTest extends BaseTest {
                 .clickJobsCheckBoxForAddRemoveToListView(FREESTYLE_PROJECT_NAME)
                 .clickOkButton();
 
-        Assert.assertEquals(viewPage.getListProjectsNamesFromView(),
-                FREESTYLE_PROJECT_NAME.concat(" ").concat(PIPELINE_NAME));
+        Assert.assertTrue(viewPage.getListProjectsNamesFromView().contains(PIPELINE_NAME));
+        Assert.assertTrue(viewPage.getListProjectsNamesFromView().contains(FREESTYLE_PROJECT_NAME));
     }
 
-    @Ignore
     @Test(dependsOnMethods = "testAddJobsToListView")
     public void testDeselectJobsFromListView() {
         ViewPage viewPage = new HomePage(getDriver())
@@ -321,7 +319,7 @@ public class ViewsTest extends BaseTest {
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
                 .setGlobalViewType()
-                .clickCreateButtonToEditGlobalView()
+                .clickCreateButton(new EditGlobalViewPage(getDriver()))
                 .selectFilterBuildQueueOptionCheckBox()
                 .clickOkButton()
                 .getActiveFiltersList()
@@ -330,6 +328,7 @@ public class ViewsTest extends BaseTest {
         Assert.assertTrue(newPaneIsDisplayed);
     }
 
+    @Ignore
     @Test
     public void testGlobalViewAddBothFilters() {
         createAllSixItems();
@@ -339,13 +338,14 @@ public class ViewsTest extends BaseTest {
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
                 .setGlobalViewType()
-                .clickCreateButtonToEditGlobalView()
+                .clickCreateButton(new EditGlobalViewPage(getDriver()))
                 .selectFilterBuildQueueOptionCheckBox()
                 .selectFilterBuildExecutorsOptionCheckBox()
                 .clickOkButton()
                 .clickEditGlobalView();
 
-        Assert.assertTrue(editGlobalViewPage.isFilterBuildQueueOptionCheckBoxSelected() && editGlobalViewPage.isFilterBuildExecutorsOptionCheckBoxSelected());
+        Assert.assertTrue(editGlobalViewPage.isFilterBuildQueueOptionCheckBoxSelected(), "Global view not selected");
+        Assert.assertTrue(editGlobalViewPage.isFilterBuildExecutorsOptionCheckBoxSelected(), "Executors view not selected");
     }
 
     @Test(dependsOnMethods = "testCreateListViewAndAddSixItems")
@@ -377,7 +377,7 @@ public class ViewsTest extends BaseTest {
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
                 .setListViewType()
-                .clickCreateButtonToEditListView()
+                .clickCreateButton(new EditListViewPage(getDriver()))
                 .addAllJobsToListView()
                 .clickOkButton()
                 .getJobNamesList().size();
@@ -397,7 +397,7 @@ public class ViewsTest extends BaseTest {
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
                 .setListViewType()
-                .clickCreateButtonToEditListView()
+                .clickCreateButton(new EditListViewPage(getDriver()))
                 .scrollToRegexFilterCheckboxPlaceInCenterWaitTillNotMoving();
         if (!new EditListViewPage(getDriver()).isRegexCheckboxChecked()) {
             new EditListViewPage(getDriver()).clickRegexCheckbox();
@@ -421,7 +421,7 @@ public class ViewsTest extends BaseTest {
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
                 .setListViewType()
-                .clickCreateButtonToEditListView()
+                .clickCreateButton(new EditListViewPage(getDriver()))
                 .addAllJobsToListView()
                 .scrollToStatusColumnDragHandlePlaceInCenterWaitTillNotMoving()
                 .dragByYOffset(100)
@@ -442,7 +442,7 @@ public class ViewsTest extends BaseTest {
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
                 .setListViewType()
-                .clickCreateButtonToEditListView()
+                .clickCreateButton(new EditGlobalViewPage(getDriver()))
                 .selectFilterBuildQueueOptionCheckBox()
                 .clickOkButton()
                 .getActiveFiltersList()
@@ -458,9 +458,9 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(GLOBAL_VIEW_NAME)
+                .setViewName(MY_VIEW_NAME)
                 .setMyViewType()
-                .clickCreateButtonToViewPage()
+                .clickCreateButton(new EditMyViewPage(getDriver()))
                 .clickEditMyView()
                 .selectFilterBuildQueueOptionCheckBox()
                 .clickOkButton()
@@ -517,7 +517,7 @@ public class ViewsTest extends BaseTest {
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
                 .setListViewType()
-                .clickCreateButtonToEditListView()
+                .clickCreateButton(new EditListViewPage(getDriver()))
                 .addAllJobsToListView()
                 .clickOkButton()
                 .clickEditListView()

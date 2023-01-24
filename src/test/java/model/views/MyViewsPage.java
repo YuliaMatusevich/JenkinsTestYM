@@ -112,7 +112,7 @@ public class MyViewsPage extends MainBasePage {
     }
 
     public MyViewsPage clickSaveButton() {
-        saveButton.submit();
+        saveButton.click();
 
         return this;
     }

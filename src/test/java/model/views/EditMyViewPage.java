@@ -14,6 +14,9 @@ public class EditMyViewPage extends MainBasePage {
     @FindBy(xpath = "//button[text() = 'OK']")
     private WebElement okButton;
 
+    @FindBy(xpath = "//span[text()='Edit View']/..")
+    private WebElement editViewLink;
+
     public EditMyViewPage(WebDriver driver) {
         super(driver);
     }
@@ -28,6 +31,12 @@ public class EditMyViewPage extends MainBasePage {
         okButton.click();
 
         return new ViewPage(getDriver());
+    }
+
+    public EditMyViewPage clickEditMyView() {
+        editViewLink.click();
+
+        return new  EditMyViewPage(getDriver());
     }
 
 }

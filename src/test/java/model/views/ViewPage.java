@@ -43,8 +43,6 @@ public class ViewPage extends MainBasePage {
     @FindBy(css = "#projectstatus th")
     private List<WebElement> listJobTableHeaders;
 
-    @FindBy(xpath = "//span[text()='Edit View']/..")
-    private WebElement editViewLink;
 
     @FindBy(css = ".tabBar .tab a[href*='/my-views/view/']")
     private List<WebElement> listAllViews;
@@ -66,6 +64,9 @@ public class ViewPage extends MainBasePage {
 
     @FindBy(linkText = "add some existing jobs")
     private WebElement linkTextAddSomeExistingJobs;
+
+    @FindBy(xpath = "//span[text()='Edit View']/..")
+    private WebElement editViewLink;
 
     public ViewPage(WebDriver driver) {
         super(driver);
@@ -140,12 +141,6 @@ public class ViewPage extends MainBasePage {
         editViewLink.click();
 
         return new EditGlobalViewPage(getDriver());
-    }
-
-    public EditMyViewPage clickEditMyView() {
-        editViewLink.click();
-
-        return new  EditMyViewPage(getDriver());
     }
 
     public EditListViewPage clickEditListView() {

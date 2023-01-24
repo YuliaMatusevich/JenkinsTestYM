@@ -31,11 +31,6 @@ public class NewViewPage extends MainBasePage {
         super(driver);
     }
 
-    public NewViewPage setViewName(String name) {
-        getWait(2).until(ExpectedConditions.visibilityOf(viewName)).sendKeys(name);
-
-        return this;
-    }
 
     public NewViewPage setGlobalViewType() {
         globalViewType.click();
@@ -55,22 +50,16 @@ public class NewViewPage extends MainBasePage {
         return this;
     }
 
-    public ViewPage clickCreateButtonToViewPage() {
-        createButton.click();
+    public NewViewPage setViewName(String name) {
+        getWait(2).until(ExpectedConditions.visibilityOf(viewName)).sendKeys(name);
 
-        return new ViewPage(getDriver());
+        return this;
     }
 
-    public EditGlobalViewPage clickCreateButtonToEditGlobalView() {
+    public <T extends MainBasePage> T clickCreateButton(T typeEditViewPage) {
         createButton.click();
 
-        return new EditGlobalViewPage(getDriver());
-    }
-
-    public EditListViewPage clickCreateButtonToEditListView() {
-        createButton.click();
-
-        return new EditListViewPage(getDriver());
+        return typeEditViewPage ;
     }
 
     public String getErrorMessageViewAlreadyExist() {
