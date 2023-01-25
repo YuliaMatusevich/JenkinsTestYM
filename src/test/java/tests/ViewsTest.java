@@ -328,7 +328,6 @@ public class ViewsTest extends BaseTest {
         Assert.assertTrue(newPaneIsDisplayed);
     }
 
-    @Ignore
     @Test
     public void testGlobalViewAddBothFilters() {
         createAllSixItems();
@@ -344,8 +343,8 @@ public class ViewsTest extends BaseTest {
                 .clickOkButton()
                 .clickEditGlobalView();
 
-        Assert.assertTrue(editGlobalViewPage.isFilterBuildQueueOptionCheckBoxSelected(), "Global view not selected");
-        Assert.assertTrue(editGlobalViewPage.isFilterBuildExecutorsOptionCheckBoxSelected(), "Executors view not selected");
+        Assert.assertTrue(editGlobalViewPage.isFilterBuildQueueOptionCheckBoxSelected());
+        Assert.assertTrue(editGlobalViewPage.isFilterBuildExecutorsOptionCheckBoxSelected());
     }
 
     @Test(dependsOnMethods = "testCreateListViewAndAddSixItems")

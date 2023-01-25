@@ -5,12 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import runner.TestUtils;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class EditGlobalViewPage extends MainBasePage {
 
@@ -19,6 +13,12 @@ public class EditGlobalViewPage extends MainBasePage {
 
     @FindBy(xpath = "//label[text()='Filter build queue']")
     private WebElement filterBuildQueueOptionCheckBox;
+
+    @FindBy(xpath = "//input[@name = 'filterQueue']")
+    private WebElement filterBuildExecutorsCheckBoxInput;
+
+    @FindBy(xpath = "//input[@name = 'filterExecutors']")
+    private WebElement filterBuildQueueCheckBoxInput;
 
     @FindBy(name = "name")
     private WebElement viewName;
@@ -74,12 +74,12 @@ public class EditGlobalViewPage extends MainBasePage {
 
     public boolean isFilterBuildQueueOptionCheckBoxSelected() {
 
-        return filterBuildQueueOptionCheckBox.isSelected();
+        return filterBuildQueueCheckBoxInput.getAttribute("checked").equals("true");
     }
 
     public boolean isFilterBuildExecutorsOptionCheckBoxSelected() {
 
-        return filterBuildExecutorsOptionCheckBox.isSelected();
+        return filterBuildExecutorsCheckBoxInput.getAttribute("checked").equals("true");
     }
 
     public String getErrorPageHeader() {
@@ -102,4 +102,5 @@ public class EditGlobalViewPage extends MainBasePage {
 
         return new EditGlobalViewPage(getDriver());
     }
+
 }
