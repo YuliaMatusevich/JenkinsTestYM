@@ -11,6 +11,9 @@ public class OrgFolderStatusPage extends BaseStatusPage<OrgFolderStatusPage, Org
     @FindBy(xpath = "//button[@type= 'submit']")
     private WebElement saveButton;
 
+    @FindBy(xpath = "//span[text()='Configure the project']")
+    private WebElement linkConfigureTheProject;
+
     @Override
     protected OrgFolderStatusSideMenuComponent createSideMenuComponent() {
         return new OrgFolderStatusSideMenuComponent(getDriver(),this);
@@ -24,5 +27,11 @@ public class OrgFolderStatusPage extends BaseStatusPage<OrgFolderStatusPage, Org
         saveButton.click();
 
         return new HomePage(getDriver());
+    }
+
+    public OrgFolderConfigPage clickLinkConfigureTheProject() {
+        linkConfigureTheProject.click();
+
+        return new OrgFolderConfigPage(getDriver());
     }
 }

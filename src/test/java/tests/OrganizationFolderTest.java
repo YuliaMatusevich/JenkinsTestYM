@@ -103,4 +103,18 @@ public class OrganizationFolderTest extends BaseTest {
 
         Assert.assertTrue(homePage.getJobNamesList().contains(ORGANIZATION_FOLDER_NAME));
     }
+
+    @Test
+    public void testCheckChildHealthMetrics() {
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
+
+        boolean actualResult = new HomePage(getDriver())
+                   .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
+                   .clickLinkConfigureTheProject()
+                   .clickHealthMetricsTab()
+                   .clickMetricsButton()
+                   .checkChildMetricsIsDisplayed();
+
+        Assert.assertTrue(actualResult);
+    }
 }
