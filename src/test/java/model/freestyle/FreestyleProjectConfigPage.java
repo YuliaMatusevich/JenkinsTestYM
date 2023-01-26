@@ -77,9 +77,6 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     @FindBy(xpath = "//div[text() = 'Repository URL']/following-sibling::div/input")
     private WebElement fieldInputRepositoryURL;
 
-    @FindBy(xpath = "//button[@data-section-id='build-steps']")
-    private WebElement buildStepsSideMenuOption;
-
     @FindBy(xpath = "//button[text()='Add build step']")
     private WebElement buildStepsButton;
 
@@ -247,11 +244,6 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
-    public FreestyleProjectConfigPage clickBuildStepsSideMenuOption() {
-        buildStepsSideMenuOption.click();
-
-        return this;
-    }
     public FreestyleProjectConfigPage openAddBuildStepDropDown() {
         scrollToElement_PlaceInCenter(getDriver(), buildStepsButton);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildStepsButton));

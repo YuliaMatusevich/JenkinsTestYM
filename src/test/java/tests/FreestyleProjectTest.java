@@ -260,8 +260,6 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectConfigPage.getNumberOfDaysToKeepBuilds(), expectedDaysToKeepBuilds);
         Assert.assertEquals(freestyleProjectConfigPage.getMaxNumberOfBuildsToKeep(), expectedMaxNumberOfBuildsToKeep);
     }
-
-    @Ignore
     @Test
     public void testBuildStepsOptions() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
@@ -272,7 +270,6 @@ public class FreestyleProjectTest extends BaseTest {
         Set<String> actualOptionsInBuildStepsSection = new HomePage(getDriver())
                 .clickFreestyleProjectName(FREESTYLE_PROJECT_NAME)
                 .clickSideMenuConfigureLink()
-                .clickBuildStepsSideMenuOption()
                 .openAddBuildStepDropDown()
                 .getOptionsInBuildStepsDropDown();
 
