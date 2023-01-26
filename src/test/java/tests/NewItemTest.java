@@ -274,7 +274,7 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(freestyleProjectConfigPage.getErrorMsg(), "No name is specified");
     }
 
-    @Test(dependsOnMethods = "testCreateFreestyleProjectWithSpacesInsteadOfName")
+    @Test
     public void testCreateFreestyleProjectWithIncorrectCharacters() {
         final List<Character> incorrectNameCharacters =
                 List.of('!', '@', '#', '$', '%', '^', '&', '*', '[', ']', '\\', '|', ';', ':', '/', '?', '<', '>');
