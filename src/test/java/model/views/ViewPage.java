@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,9 +36,6 @@ public class ViewPage extends MainBasePage {
     @FindBy(css = "#yui-gen1-button")
     private WebElement saveButton;
 
-    @FindBy(xpath = "//div[@class='tabBar']/div/a")
-    private List<WebElement> viewList;
-
     @FindBy(css = "#projectstatus th")
     private List<WebElement> listJobTableHeaders;
 
@@ -61,9 +57,6 @@ public class ViewPage extends MainBasePage {
 
     @FindBy(xpath = "//div[@id='main-panel']")
     private List<WebElement> viewMainPanel;
-
-    @FindBy(linkText = "add some existing jobs")
-    private WebElement linkTextAddSomeExistingJobs;
 
     @FindBy(xpath = "//span[text()='Edit View']/..")
     private WebElement editViewLink;
@@ -131,12 +124,6 @@ public class ViewPage extends MainBasePage {
         return this;
     }
 
-    public EditListViewPage clickLinkTextAddExistingJob () {
-        linkTextAddSomeExistingJobs.click();
-
-        return new EditListViewPage(getDriver());
-    }
-
     public EditGlobalViewPage clickEditGlobalView() {
         editViewLink.click();
 
@@ -156,13 +143,6 @@ public class ViewPage extends MainBasePage {
         }
 
         return listProjectsNames.toString().trim();
-    }
-
-    public List<String> getViewList() {
-        return viewList
-                .stream()
-                .map(WebElement::getText)
-                .collect(Collectors.toList());
     }
 
     public int getJobTableHeadersSize() {
@@ -203,15 +183,6 @@ public class ViewPage extends MainBasePage {
     public String getActiveViewName(){
 
         return activeView.getText();
-    }
-
-    public String getListProjectsNamesAsString() {
-        StringBuilder listProjectsNames = new StringBuilder();
-        for (WebElement projects : listProjects) {
-            listProjectsNames.append(projects.getText()).append(" ");
-        }
-
-        return listProjectsNames.toString().trim();
     }
     
     public String getListProjectsNamesFromView() {

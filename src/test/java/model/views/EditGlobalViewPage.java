@@ -61,7 +61,6 @@ public class EditGlobalViewPage extends BaseViewEditPage {
     }
 
     public EditGlobalViewPage selectFilterBuildExecutorsOptionCheckBox() {
-//        filterBuildExecutorsOptionCheckBox.findElement(By.xpath("following-sibling::label")).click();
         filterBuildExecutorsOptionCheckBox.click();
 
         return this;

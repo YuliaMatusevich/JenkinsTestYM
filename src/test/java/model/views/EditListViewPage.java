@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.BaseUtils;
 import runner.TestUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,9 +53,6 @@ public class EditListViewPage extends BaseViewEditPage {
 
     @FindBy(xpath = "//div[text()='Jobs']")
     private WebElement sectionJobs;
-
-    @FindBy(css = "input[name=filterQueue]")
-    private WebElement filterBuildQueueOptionCheckBox;
 
     @FindBy(css = ".hetero-list-add[suffix='columns']")
     private WebElement addColumnDropDownMenu;
@@ -219,12 +215,6 @@ public class EditListViewPage extends BaseViewEditPage {
                 .moveByOffset(0, offset / 2)
                 .moveByOffset(0, offset / 2)
                 .release().perform();
-
-        return this;
-    }
-
-    public EditListViewPage selectFilterBuildQueueOptionCheckBox() {
-        filterBuildQueueOptionCheckBox.findElement(By.xpath("following-sibling::label")).click();
 
         return this;
     }
