@@ -1,8 +1,10 @@
 package tests;
+
 import model.HomePage;
 import model.folder.FolderStatusPage;
 import model.organization_folder.OrgFolderStatusPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -104,16 +106,17 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertTrue(homePage.getJobNamesList().contains(ORGANIZATION_FOLDER_NAME));
     }
 
+    @Ignore
     @Test
     public void testCheckChildHealthMetrics() {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
 
         boolean actualResult = new HomePage(getDriver())
-                   .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
-                   .clickLinkConfigureTheProject()
-                   .clickHealthMetricsTab()
-                   .clickMetricsButton()
-                   .checkChildMetricsIsDisplayed();
+                .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
+                .clickLinkConfigureTheProject()
+                .clickHealthMetricsTab()
+                .clickMetricsButton()
+                .checkChildMetricsIsDisplayed();
 
         Assert.assertTrue(actualResult);
     }

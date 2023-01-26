@@ -1,5 +1,6 @@
 package model.views;
 
+import model.base.BaseViewEditPage;
 import model.base.MainBasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EditListViewPage extends MainBasePage {
+public class EditListViewPage extends BaseViewEditPage {
 
     @FindBy(css = "#yui-gen3-button")
     private WebElement addColumnButton;
