@@ -173,4 +173,20 @@ public class ManageJenkinsTest extends BaseTest {
 
         Assert.assertEquals(errorMessageWhenExistName, "User name is already taken");
     }
+
+    @Test
+    public void testCreateUserWithEmptyPassword() {
+        String errorMessageWhenEmptyPassword = new HomePage(getDriver())
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickManageUsers()
+                .clickCreateUser()
+                .setUsername(USER_NAME)
+                .confirmPassword(PASSWORD)
+                .setFullName(USER_FULL_NAME)
+                .setEmail(EMAIL)
+                .clickCreateUserAndGetErrorMessage();
+
+        Assert.assertEquals(errorMessageWhenEmptyPassword, "Password is required");
+    }
 }
