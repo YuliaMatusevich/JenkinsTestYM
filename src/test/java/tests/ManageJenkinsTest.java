@@ -189,4 +189,20 @@ public class ManageJenkinsTest extends BaseTest {
 
         Assert.assertEquals(errorMessageWhenEmptyPassword, "Password is required");
     }
+
+    @Test
+    public void testCreateUserWithEmptyConfirmPassword() {
+        String errorMessageWhenEmptyConfirmPassword = new HomePage(getDriver())
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickManageUsers()
+                .clickCreateUser()
+                .setUsername(USER_NAME)
+                .setPassword(PASSWORD)
+                .setFullName(USER_FULL_NAME)
+                .setEmail(EMAIL)
+                .clickCreateUserAndGetErrorMessage();
+
+        Assert.assertEquals(errorMessageWhenEmptyConfirmPassword, "Password didn't match");
+    }
 }
