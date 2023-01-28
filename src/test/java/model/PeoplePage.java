@@ -15,9 +15,6 @@ public class PeoplePage extends MainBasePage {
     @FindBy(className = "jenkins-table__link")
     private List<WebElement> usersIdList;
 
-    @FindBy(id = "jenkins-home-link")
-    private WebElement rootMenuDashboardLink;
-
     @FindBy(xpath = "//h1")
     private WebElement header;
 
@@ -51,11 +48,6 @@ public class PeoplePage extends MainBasePage {
             listOfUsers.add(i, usersIdList.get(i).getText());
         }
         return listOfUsers;
-    }
-
-    public HomePage rootMenuDashboardLinkClick() {
-        rootMenuDashboardLink.click();
-        return new HomePage(getDriver());
     }
 
     public String getNameOfHeader() {

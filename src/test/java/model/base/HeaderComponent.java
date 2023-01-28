@@ -46,6 +46,9 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(css = ".first-of-type > .yuimenuitem")
     private List<WebElement> userDropdownMenuItems;
 
+    @FindBy(id = "jenkins-home-link")
+    private WebElement jenkinsHomeLink;
+
     public HeaderComponent(WebDriver driver) {
         super(driver);
     }
@@ -174,5 +177,10 @@ public class HeaderComponent extends BaseComponent {
     public String getSearchFieldValue(){
 
         return searchField.getAttribute("value");
+    }
+
+    public HomePage clickJenkinsHomeLink() {
+        jenkinsHomeLink.click();
+        return new HomePage(getDriver());
     }
 }

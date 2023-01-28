@@ -44,7 +44,8 @@ public class PeoplePageTest extends BaseTest {
                 .setFullName(USER_NAME)
                 .setEmail(EMAIL)
                 .clickCreateUserButton()
-                .rootMenuDashboardLinkClick()
+                .getBreadcrumbs()
+                .clickDashboard()
                 .getSideMenu()
                 .clickPeople();
 
@@ -54,13 +55,15 @@ public class PeoplePageTest extends BaseTest {
     @Test(dependsOnMethods = "testFindUserInThePeopleSection")
     public void testPeopleDeleteUser() {
         PeoplePage peoplePage = new PeoplePage(getDriver())
-                .rootMenuDashboardLinkClick()
+                .getHeader()
+                .clickJenkinsHomeLink()
                 .getSideMenu()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickDeleteUser(USER_NAME)
                 .clickYes()
-                .rootMenuDashboardLinkClick()
+                .getBreadcrumbs()
+                .clickDashboard()
                 .getSideMenu()
                 .clickPeople();
 
@@ -80,7 +83,8 @@ public class PeoplePageTest extends BaseTest {
                 .setFullName(USER_NAME)
                 .setEmail(EMAIL)
                 .clickCreateUserButton()
-                .rootMenuDashboardLinkClick()
+                .getBreadcrumbs()
+                .clickDashboard()
                 .getSideMenu()
                 .clickPeople()
                 .getListOfUsers();

@@ -13,7 +13,7 @@ import java.util.List;
 public class ManageUsersPage extends MainBasePage {
 
     @FindBy(css = ".jenkins-table__button")
-    private WebElement ConfigureUser;
+    private WebElement configureUser;
 
     @FindBy(xpath = "//a[@href='addUser']")
     private WebElement createUser;
@@ -23,9 +23,6 @@ public class ManageUsersPage extends MainBasePage {
 
     @FindBy(xpath = "//tr/td[3]")
     private List<WebElement> userFullNameList;
-
-    @FindBy(className = "item")
-    private WebElement rootMenuDashboardLink;
 
     @FindBy(css = "a[href='user/admin/'] > .jenkins-menu-dropdown-chevron")
     private WebElement userDropdownMenu;
@@ -38,7 +35,7 @@ public class ManageUsersPage extends MainBasePage {
     }
 
     public ConfigureUserPage clickConfigureUser() {
-        ConfigureUser.click();
+        configureUser.click();
 
         return new ConfigureUserPage(getDriver());
     }
@@ -65,12 +62,6 @@ public class ManageUsersPage extends MainBasePage {
             listOfFullNamesOfUsers.add(i, userFullNameList.get(i).getText());
         }
         return listOfFullNamesOfUsers;
-    }
-
-    public HomePage rootMenuDashboardLinkClick() {
-        rootMenuDashboardLink.click();
-
-        return new HomePage(getDriver());
     }
 
     public DeletePage<ManageUsersPage> clickDeleteUser(String name) {
