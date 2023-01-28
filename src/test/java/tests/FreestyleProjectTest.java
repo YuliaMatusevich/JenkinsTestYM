@@ -4,6 +4,7 @@ import model.*;
 import model.freestyle.FreestyleProjectConfigPage;
 import model.freestyle.FreestyleProjectStatusPage;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -111,6 +112,28 @@ public class FreestyleProjectTest extends BaseTest {
 
         Assert.assertFalse(jobsList.contains(FREESTYLE_PROJECT_NAME));
         Assert.assertTrue(jobsList.contains(FREESTYLE_PROJECT_RENAME));
+    }
+
+    @DataProvider(name = "specialCharacters")
+    public Object[][] specialCharactersList() {
+        return new Object[][]{{'&', "&amp;"}, {'>', "&gt;"}, {'<', "&lt;"}, {'!', "!"}, {'@', "@"}, {'#', "#"},
+                {'$', "$"}, {'%', "%"}, {'^', "^"}, {'*', "*"}, {'[', "["}, {']', "]"}, {'\\', "\\"}, {'|', "|"},
+                {';', ";"}, {':', ":"}, {'/', "/"}, {'?', "?"},};
+    }
+
+    @Test(dataProvider = "specialCharacters")
+    public void testRenameFreestyleProjectToIncorrectViaSideMenu(Character specialCharacter, String expectedUnsafeCharacterInErrorMessage) {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+
+        RenameItemErrorPage renameItemErrorPage = new HomePage(getDriver())
+                .clickFreestyleProjectName()
+                .getSideMenu()
+                .clickRename()
+                .clearFieldAndInputNewName(FREESTYLE_PROJECT_NAME + specialCharacter)
+                .clickSaveButtonAndGetError();
+
+        Assert.assertEquals(renameItemErrorPage.getHeadErrorMessage(),"Error");
+        Assert.assertEquals(renameItemErrorPage.getErrorMessage(), String.format("‘%s’ is an unsafe character", expectedUnsafeCharacterInErrorMessage));
     }
 
     @Test
@@ -260,6 +283,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectConfigPage.getNumberOfDaysToKeepBuilds(), expectedDaysToKeepBuilds);
         Assert.assertEquals(freestyleProjectConfigPage.getMaxNumberOfBuildsToKeep(), expectedMaxNumberOfBuildsToKeep);
     }
+
     @Test
     public void testBuildStepsOptions() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
