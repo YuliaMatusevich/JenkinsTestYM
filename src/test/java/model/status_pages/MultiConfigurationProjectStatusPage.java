@@ -1,11 +1,10 @@
-package model.multiconfiguration;
+package model.status_pages;
 
 import model.ConsoleOutputPage;
-import model.base.BaseStatusPage;
 import model.HomePage;
 import model.RenameItemPage;
 import model.base.BlankStatusPage;
-import model.folder.FolderStatusPage;
+import model.config_pages.MultiConfigurationProjectConfigPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

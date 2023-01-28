@@ -1,7 +1,7 @@
-package model.base;
+package model.base.base_components;
 
 import model.*;
-import model.multiconfiguration.MultiConfigurationProjectStatusPage;
+import model.status_pages.MultiConfigurationProjectStatusPage;
 import model.views.MyViewsPage;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;

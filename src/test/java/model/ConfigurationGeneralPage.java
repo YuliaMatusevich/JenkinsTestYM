@@ -1,7 +1,7 @@
 package model;
 
 import model.base.MainBasePage;
-import model.folder.FolderStatusPage;
+import model.status_pages.FolderStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

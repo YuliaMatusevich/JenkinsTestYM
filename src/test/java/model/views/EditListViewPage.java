@@ -1,7 +1,6 @@
 package model.views;
 
 import model.base.BaseViewEditPage;
-import model.base.MainBasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;

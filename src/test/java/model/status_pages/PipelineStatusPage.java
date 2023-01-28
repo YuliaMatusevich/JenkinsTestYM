@@ -1,9 +1,11 @@
-package model.pipeline;
+package model.status_pages;
 
 import model.BuildStatusPage;
 import model.BuildWithParametersPage;
 import model.HomePage;
 import model.base.BaseStatusPage;
+import model.config_pages.PipelineConfigPage;
+import model.status_side_menu_component.PipelineStatusSideMenuComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

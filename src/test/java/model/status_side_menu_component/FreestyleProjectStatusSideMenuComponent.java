@@ -1,7 +1,8 @@
-package model.freestyle;
+package model.status_side_menu_component;
 
 import model.BuildWithParametersPage;
 import model.base.side_menu.BaseStatusSideMenuComponent;
+import model.status_pages.FreestyleProjectStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

@@ -1,7 +1,6 @@
 package model.views;
 
 import model.base.BaseViewEditPage;
-import model.base.MainBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

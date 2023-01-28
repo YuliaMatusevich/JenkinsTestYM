@@ -1,6 +1,8 @@
-package model.organization_folder;
+package model.status_side_menu_component;
 
 import model.base.side_menu.BaseStatusSideMenuComponent;
+import model.config_pages.OrgFolderConfigPage;
+import model.status_pages.OrgFolderStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

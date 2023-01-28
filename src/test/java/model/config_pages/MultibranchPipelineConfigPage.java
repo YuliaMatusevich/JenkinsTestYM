@@ -1,11 +1,12 @@
-package model.multibranch_pipeline;
+package model.config_pages;
 
-import model.base.BlankConfigPage;
+import model.base.BaseConfigPage;
+import model.status_pages.MultibranchPipelineStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class MultibranchPipelineConfigPage extends BlankConfigPage<MultibranchPipelineStatusPage, MultibranchPipelineConfigPage> {
+public class MultibranchPipelineConfigPage extends BaseConfigPage<MultibranchPipelineStatusPage, MultibranchPipelineConfigPage> {
 
     @FindBy(name = "_.displayNameOrNull")
     private WebElement displayName;

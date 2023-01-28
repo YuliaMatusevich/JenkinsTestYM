@@ -1,7 +1,7 @@
 package tests;
 
 import model.*;
-import model.base.HeaderComponent;
+import model.base.base_components.HeaderComponent;
 import model.views.MyViewsPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;

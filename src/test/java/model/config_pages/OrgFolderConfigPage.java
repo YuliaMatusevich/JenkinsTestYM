@@ -1,13 +1,14 @@
-package model.organization_folder;
+package model.config_pages;
 
 import model.base.BaseConfigPage;
+import model.status_pages.OrgFolderStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
 
-public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, OrgFolderConfigPage, OrgFolderConfigSideMenuComponent> {
+public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, OrgFolderConfigPage> {
     @FindBy(xpath = "//input  [@name='_.displayNameOrNull']")
     private WebElement displayName;
 
@@ -37,10 +38,10 @@ public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, Org
         return new OrgFolderStatusPage(getDriver());
     }
 
-    @Override
-    protected OrgFolderConfigSideMenuComponent createSideMenuComponent() {
-        return new OrgFolderConfigSideMenuComponent(getDriver(), this);
-    }
+//    @Override
+//    protected OrgFolderConfigSideMenuComponent createSideMenuComponent() {
+//        return new OrgFolderConfigSideMenuComponent(getDriver(), this);
+//    }
 
     public OrgFolderConfigPage(WebDriver driver) {
         super(driver);

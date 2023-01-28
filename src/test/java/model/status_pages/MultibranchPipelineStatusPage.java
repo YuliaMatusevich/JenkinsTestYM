@@ -1,6 +1,7 @@
-package model.multibranch_pipeline;
+package model.status_pages;
 
 import model.base.BaseStatusPage;
+import model.status_side_menu_component.MultibranchPipelineStatusSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

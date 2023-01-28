@@ -1,6 +1,7 @@
-package model.multiconfiguration;
+package model.config_pages;
 
-import model.base.BlankConfigPage;
+import model.base.BaseConfigPage;
+import model.status_pages.MultiConfigurationProjectStatusPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
 
-public class MultiConfigurationProjectConfigPage extends BlankConfigPage<MultiConfigurationProjectStatusPage, MultiConfigurationProjectConfigPage> {
+public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiConfigurationProjectStatusPage, MultiConfigurationProjectConfigPage> {
 
     @FindBy(name = "description")
     private WebElement inputDescription;

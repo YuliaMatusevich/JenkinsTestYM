@@ -1,9 +1,10 @@
-package model.freestyle;
+package model.status_pages;
 
 import model.base.BaseStatusPage;
 import model.ChangesBuildsPage;
 import model.HomePage;
-import model.folder.FolderStatusPage;
+import model.config_pages.FreestyleProjectConfigPage;
+import model.status_side_menu_component.FreestyleProjectStatusSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

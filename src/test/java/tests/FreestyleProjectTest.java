@@ -1,8 +1,8 @@
 package tests;
 
 import model.*;
-import model.freestyle.FreestyleProjectConfigPage;
-import model.freestyle.FreestyleProjectStatusPage;
+import model.config_pages.FreestyleProjectConfigPage;
+import model.status_pages.FreestyleProjectStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
@@ -197,7 +197,6 @@ public class FreestyleProjectTest extends BaseTest {
         Set<String> actualFreestyleConfigSideMenu = new HomePage(getDriver())
                 .clickFreestyleProjectName()
                 .clickSideMenuConfigure()
-                .getSideMenu()
                 .collectConfigSideMenu();
 
         Assert.assertEquals(actualFreestyleConfigSideMenu, expectedFreestyleConfigSideMenu);
@@ -212,7 +211,7 @@ public class FreestyleProjectTest extends BaseTest {
         final String booleanParameterName = "Employed";
         final String descriptionText = "This build requires parameters:";
 
-        BuildWithParametersPage page = new HomePage(getDriver())
+        BuildWithParametersPage<FreestyleProjectStatusPage> page = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(FREESTYLE_PROJECT_NAME)
@@ -253,7 +252,6 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickFreestyleProjectName()
                 .clickSideMenuConfigureLink()
                 .switchOFFCheckBoxThisProjectIsParametrized()
-                .getSideMenu()
                 .clickLinkSourceCodeManagement()
                 .selectSourceCodeManagementGIT()
                 .inputGITRepositoryURL(repositoryURL)

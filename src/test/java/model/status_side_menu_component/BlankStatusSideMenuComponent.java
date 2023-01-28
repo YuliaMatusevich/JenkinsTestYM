@@ -1,4 +1,4 @@
-package model;
+package model.status_side_menu_component;
 
 import model.base.BaseStatusPage;
 import model.base.side_menu.BaseStatusSideMenuComponent;

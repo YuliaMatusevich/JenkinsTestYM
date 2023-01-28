@@ -1,5 +1,8 @@
 package model.base;
 
+import model.base.base_components.BreadcrumbsComponent;
+import model.base.base_components.FooterComponent;
+import model.base.base_components.HeaderComponent;
 import org.openqa.selenium.WebDriver;
 
 public abstract class MainBasePage extends BasePage {

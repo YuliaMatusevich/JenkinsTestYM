@@ -1,6 +1,6 @@
 package model;
 
-import model.base.FooterComponent;
+import model.base.base_components.FooterComponent;
 import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

@@ -1,7 +1,7 @@
 package tests;
 
 import model.*;
-import model.multibranch_pipeline.MultibranchPipelineStatusPage;
+import model.status_pages.MultibranchPipelineStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;

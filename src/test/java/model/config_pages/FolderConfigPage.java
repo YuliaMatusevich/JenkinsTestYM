@@ -1,13 +1,14 @@
-package model.folder;
+package model.config_pages;
 
-import model.base.BlankConfigPage;
+import model.base.BaseConfigPage;
 import model.HomePage;
+import model.status_pages.FolderStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class FolderConfigPage extends BlankConfigPage<FolderStatusPage, FolderConfigPage> {
+public class FolderConfigPage extends BaseConfigPage<FolderStatusPage, FolderConfigPage> {
 
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement submitButtonForDeleteFolder;

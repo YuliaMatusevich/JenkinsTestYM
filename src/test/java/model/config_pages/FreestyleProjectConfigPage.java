@@ -1,6 +1,7 @@
-package model.freestyle;
+package model.config_pages;
 
 import model.base.BaseConfigPage;
+import model.status_pages.FreestyleProjectStatusPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 import static runner.TestUtils.scrollToElement_PlaceInCenter;
 
-public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectStatusPage, FreestyleProjectConfigPage, FreestyleProjectConfigSideMenuComponent> {
+public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectStatusPage, FreestyleProjectConfigPage> {
 
     @FindBy(tagName = "h1")
     private WebElement headline;
@@ -98,14 +99,13 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     @FindBy(xpath = "//div[contains(text(), 'Branch Specifier')]/following-sibling::div/input")
     private WebElement BranchSpecifierInputField;
 
+    @FindBy(xpath = "//button[@data-section-id='source-code-management']")
+    private WebElement linkSourceCodeManagement;
+
+
     @Override
     protected FreestyleProjectStatusPage createStatusPage() {
         return new FreestyleProjectStatusPage(getDriver());
-    }
-
-    @Override
-    protected FreestyleProjectConfigSideMenuComponent createSideMenuComponent() {
-        return new FreestyleProjectConfigSideMenuComponent(getDriver(), this);
     }
 
     public FreestyleProjectConfigPage(WebDriver driver) {
@@ -281,10 +281,16 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return buildPeriodicallyCheckbox.isSelected();
     }
 
-    public FreestyleProjectConfigPage inputBranchSpecifier(String branchSpecifier){
+    public FreestyleProjectConfigPage inputBranchSpecifier(String branchSpecifier) {
         scrollToElement_PlaceInCenter(getDriver(), BranchSpecifierInputField);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(BranchSpecifierInputField)).clear();
         BranchSpecifierInputField.sendKeys(branchSpecifier);
+
+        return this;
+    }
+
+    public FreestyleProjectConfigPage clickLinkSourceCodeManagement() {
+        linkSourceCodeManagement.click();
 
         return this;
     }

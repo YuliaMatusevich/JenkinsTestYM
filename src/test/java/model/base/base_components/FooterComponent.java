@@ -1,4 +1,4 @@
-package model.base;
+package model.base.base_components;
 
 import model.ExternalJenkinsPage;
 import model.RestApiPage;

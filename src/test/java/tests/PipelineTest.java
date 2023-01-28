@@ -1,8 +1,8 @@
 package tests;
 
 import model.*;
-import model.pipeline.PipelineConfigPage;
-import model.pipeline.PipelineStatusPage;
+import model.config_pages.PipelineConfigPage;
+import model.status_pages.PipelineStatusPage;
 import model.views.EditMyViewPage;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;

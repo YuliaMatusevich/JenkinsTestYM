@@ -1,7 +1,8 @@
-package model.folder;
+package model.status_side_menu_component;
 
 import model.NewItemPage;
 import model.base.side_menu.BaseStatusSideMenuComponent;
+import model.status_pages.FolderStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

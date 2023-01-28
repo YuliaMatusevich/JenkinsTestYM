@@ -1,10 +1,8 @@
-package model.folder;
+package model.status_pages;
 
 import model.base.BaseStatusPage;
-import model.freestyle.FreestyleProjectStatusPage;
+import model.status_side_menu_component.FolderStatusSideMenuComponent;
 import model.NewItemPage;
-import model.multibranch_pipeline.MultibranchPipelineStatusPage;
-import model.organization_folder.OrgFolderStatusPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

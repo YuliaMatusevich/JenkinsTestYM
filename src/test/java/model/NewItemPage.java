@@ -1,13 +1,13 @@
 package model;
 
 import model.base.MainBasePage;
-import model.folder.FolderConfigPage;
-import model.folder.FolderStatusPage;
-import model.freestyle.FreestyleProjectConfigPage;
-import model.multibranch_pipeline.MultibranchPipelineConfigPage;
-import model.multiconfiguration.MultiConfigurationProjectConfigPage;
-import model.organization_folder.OrgFolderConfigPage;
-import model.pipeline.PipelineConfigPage;
+import model.config_pages.FolderConfigPage;
+import model.status_pages.FolderStatusPage;
+import model.config_pages.FreestyleProjectConfigPage;
+import model.config_pages.MultibranchPipelineConfigPage;
+import model.config_pages.MultiConfigurationProjectConfigPage;
+import model.config_pages.OrgFolderConfigPage;
+import model.config_pages.PipelineConfigPage;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

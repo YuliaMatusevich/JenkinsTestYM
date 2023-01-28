@@ -5,7 +5,7 @@ import model.HomePage;
 import model.RenameItemPage;
 import model.base.BasePage;
 import model.base.BaseStatusPage;
-import model.folder.FolderStatusPage;
+import model.status_pages.FolderStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

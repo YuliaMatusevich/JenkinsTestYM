@@ -1,12 +1,16 @@
 package model.base;
 
-import model.base.side_menu.BaseConfigSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Self extends BaseConfigPage<?, ?, ?>, ConfigSideMenuComponent extends BaseConfigSideMenuComponent<Self>> extends MainBasePageWithSideMenu<ConfigSideMenuComponent> {
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+
+public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Self extends BaseConfigPage<?, ?>> extends MainBasePage{
 
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement saveButton;
@@ -14,11 +18,14 @@ public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Se
     @FindBy(name = "Apply")
     private WebElement applyButton;
 
-    protected abstract StatusPage createStatusPage();
+    @FindBy(css = "button.task-link")
+    private List<WebElement> configSideMenu;
 
     public BaseConfigPage(WebDriver driver) {
         super(driver);
     }
+
+    protected abstract StatusPage createStatusPage();
 
     public StatusPage clickSaveButton() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(saveButton)).click();
@@ -30,5 +37,9 @@ public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Se
         getWait(5).until(ExpectedConditions.elementToBeClickable(applyButton)).click();
 
         return (Self)this;
+    }
+
+    public Set<String> collectConfigSideMenu() {
+        return configSideMenu.stream().map(WebElement::getText).collect(Collectors.toCollection(TreeSet::new));
     }
 }

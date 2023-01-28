@@ -1,8 +1,8 @@
 package tests;
 
-import model.folder.FolderStatusPage;
+import model.status_pages.FolderStatusPage;
 import model.HomePage;
-import model.freestyle.FreestyleProjectStatusPage;
+import model.status_pages.FreestyleProjectStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
