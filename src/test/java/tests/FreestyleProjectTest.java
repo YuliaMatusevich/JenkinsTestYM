@@ -5,7 +5,6 @@ import model.config_pages.FreestyleProjectConfigPage;
 import model.status_pages.FreestyleProjectStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -66,7 +65,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         String freestyleProjectDescription = new HomePage(getDriver())
                 .clickFreestyleProjectName()
-                .clickButtonAddDescription()
+                .clickAddOrEditDescription()
                 .inputAndSaveDescriptionText(descriptionText)
                 .getDescriptionText();
 

@@ -14,9 +14,6 @@ import java.util.List;
 
 public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiConfigurationProjectStatusPage> {
 
-    @FindBy(id = "description-link")
-    private WebElement descriptionLink;
-
     @FindBy(name = "description")
     private WebElement description;
 
@@ -67,12 +64,6 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
 
     public MultiConfigurationProjectStatusPage(WebDriver driver) {
         super(driver);
-    }
-
-    public MultiConfigurationProjectStatusPage clickAddDescription() {
-        descriptionLink.click();
-
-        return this;
     }
 
     public MultiConfigurationProjectStatusPage fillDescription(String desc) {

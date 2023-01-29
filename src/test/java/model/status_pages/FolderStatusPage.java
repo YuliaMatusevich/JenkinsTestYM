@@ -32,9 +32,6 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement submitButton;
 
-    @FindBy(linkText = "Add description")
-    private WebElement addDescription;
-
     @FindBy(css = ".jenkins-input")
     private WebElement inputFieldDescription;
 
@@ -94,12 +91,6 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
 
     public String getFolderNameHeader() {
         return folderNameHeader.getText().trim();
-    }
-
-    public FolderStatusPage clickAddDescription() {
-        addDescription.click();
-
-        return this;
     }
 
     public FolderStatusPage setDescription(String description) {

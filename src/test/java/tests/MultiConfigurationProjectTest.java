@@ -27,7 +27,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         MultiConfigurationProjectStatusPage multiConfPage = new HomePage(getDriver())
                 .clickMultiConfigurationProject(MULTI_CONFIGURATION_PROJECT_NAME)
-                .clickAddDescription()
+                .clickAddOrEditDescription()
                 .fillDescription("Description")
                 .clickSave();
 

@@ -20,10 +20,6 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
     @FindBy(xpath = "//li[@class='item'][last()-1]")
     private WebElement breadcrumbsParentFolderLink;
 
-
-    @FindBy(id = "description-link")
-    private WebElement buttonAddDescription;
-
     @FindBy(xpath = "//textarea[@name = 'description']")
     private WebElement fieldDescriptionText;
 
@@ -86,12 +82,6 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
 
     public FreestyleProjectStatusPage clickDisableProjectBtn() {
         disableProjectBtn.click();
-
-        return this;
-    }
-
-    public FreestyleProjectStatusPage clickButtonAddDescription() {
-        getWait(10).until(ExpectedConditions.elementToBeClickable(buttonAddDescription)).click();
 
         return this;
     }

@@ -17,6 +17,9 @@ public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSi
     @FindBy(id = "view-message")
     private WebElement additionalDescription;
 
+    @FindBy(id = "description-link")
+    private WebElement addOrEditDescriptionLink;
+
     public BaseStatusPage(WebDriver driver) {
         super(driver);
     }
@@ -31,5 +34,11 @@ public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSi
 
     public String getAdditionalDescriptionText() {
         return additionalDescription.getText();
+    }
+
+    public Self clickAddOrEditDescription() {
+        addOrEditDescriptionLink.click();
+
+        return (Self) this;
     }
 }

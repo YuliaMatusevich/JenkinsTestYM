@@ -327,7 +327,7 @@ public class FolderTest extends BaseTest {
 
         String textDescription = new HomePage(getDriver())
                 .clickFolder(FOLDER_NAME)
-                .clickAddDescription()
+                .clickAddOrEditDescription()
                 .setDescription(DESCRIPTION)
                 .clickSubmitButton()
                 .getDescriptionText();
