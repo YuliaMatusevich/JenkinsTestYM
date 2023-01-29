@@ -1,6 +1,5 @@
 package model.base;
 
-import model.MovePage;
 import model.base.side_menu.BaseStatusSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,9 +17,6 @@ public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSi
     @FindBy(id = "view-message")
     private WebElement additionalDescription;
 
-    @FindBy(linkText = "Move")
-    private WebElement moveButton;
-
     public BaseStatusPage(WebDriver driver) {
         super(driver);
     }
@@ -35,11 +31,5 @@ public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSi
 
     public String getAdditionalDescriptionText() {
         return additionalDescription.getText();
-    }
-
-    public MovePage<Self> clickMoveButton() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(moveButton)).click();
-
-        return new MovePage<>(getDriver(), (Self)this);
     }
 }

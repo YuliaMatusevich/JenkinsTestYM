@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
-public class MovePage<StatusPage extends BaseStatusPage> extends MainBasePage {
+public class MovePage<StatusPage extends BaseStatusPage<?, ?>> extends MainBasePage {
 
     @FindBy(css = ".select.setting-input")
     private WebElement dropdown;
@@ -28,15 +28,15 @@ public class MovePage<StatusPage extends BaseStatusPage> extends MainBasePage {
         return this;
     }
 
-    public StatusPage clickMove() {
-        moveButton.click();
-
-        return statusPage;
-    }
-
-    public MovePage<StatusPage> selectOptionToDashBoard(){
+    public MovePage<StatusPage> selectDashboardAsFolder() {
         new Select(dropdown).selectByVisibleText("Jenkins");
 
         return this;
+    }
+
+    public StatusPage clickMoveButton() {
+        moveButton.click();
+
+        return statusPage;
     }
 }

@@ -2,6 +2,7 @@ package model.base.side_menu;
 
 import model.DeletePage;
 import model.HomePage;
+import model.MovePage;
 import model.RenameItemPage;
 import model.base.BasePage;
 import model.base.BaseStatusPage;
@@ -17,6 +18,9 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
 
     @FindBy(xpath = "//div[@id='tasks']//span[contains(., 'Delete')]")
     private WebElement delete;
+
+    @FindBy(linkText = "Move")
+    private WebElement move;
 
     public BaseStatusSideMenuComponent(WebDriver driver, StatusPage statusPage) {
         super(driver, statusPage);
@@ -44,5 +48,11 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
 
     public DeletePage<FolderStatusPage> clickDeleteToFolder() {
         return clickDelete(new DeletePage<>(getDriver(), new FolderStatusPage(getDriver())));
+    }
+
+    public MovePage<StatusPage> clickMove() {
+        move.click();
+
+        return new MovePage<>(getDriver(), page);
     }
 }

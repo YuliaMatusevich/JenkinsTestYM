@@ -82,9 +82,10 @@ public class OrganizationFolderTest extends BaseTest {
 
         FolderStatusPage folderStatusPage = new HomePage(getDriver())
                 .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
-                .clickMoveButton()
-                .selectFolder(FOLDER_NAME)
+                .getSideMenu()
                 .clickMove()
+                .selectFolder(FOLDER_NAME)
+                .clickMoveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .clickFolder(FOLDER_NAME);
@@ -97,9 +98,10 @@ public class OrganizationFolderTest extends BaseTest {
         HomePage homePage = new HomePage(getDriver())
                 .clickFolder(FOLDER_NAME)
                 .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
-                .clickMoveButton()
-                .selectOptionToDashBoard()
+                .getSideMenu()
                 .clickMove()
+                .selectDashboardAsFolder()
+                .clickMoveButton()
                 .getBreadcrumbs()
                 .clickDashboard();
 
