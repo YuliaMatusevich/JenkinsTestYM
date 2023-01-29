@@ -9,6 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
+
 import java.util.List;
 
 import static runner.TestUtils.getRandomStr;
@@ -28,8 +29,8 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickConfigureUser()
-                .clearInputFieldFullUserName()
-                .inputNameInFieldFullUserName(NEW_USER_FULL_NAME)
+                .clearFullNameField()
+                .setFullName(NEW_USER_FULL_NAME)
                 .clickSaveButton()
                 .refreshPage();
 

@@ -20,13 +20,13 @@ public class ConfigureUserPage extends MainBasePage {
         super(driver);
     }
 
-    public ConfigureUserPage clearInputFieldFullUserName() {
+    public ConfigureUserPage clearFullNameField() {
         inputFieldFullUserName.clear();
 
         return this;
     }
 
-    public ConfigureUserPage inputNameInFieldFullUserName(String name) {
+    public ConfigureUserPage setFullName(String name) {
         inputFieldFullUserName.sendKeys(name);
 
         return this;
