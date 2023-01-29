@@ -3,9 +3,8 @@ package model.status_pages;
 import model.BuildStatusPage;
 import model.BuildWithParametersPage;
 import model.HomePage;
-import model.base.BaseStatusPage;
+import model.base.BlankStatusPage;
 import model.config_pages.PipelineConfigPage;
-import model.status_side_menu_component.PipelineStatusSideMenuComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, PipelineStatusSideMenuComponent> {
+public class PipelineStatusPage extends BlankStatusPage<PipelineStatusPage> {
 
     @FindBy(xpath = "//div[@id='description']//a")
     private WebElement editDescriptionButton;
@@ -55,11 +54,6 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
 
     @FindBy(xpath = "//a[@href='lastBuild/']")
     private WebElement lastBuildLink;
-
-    @Override
-    protected PipelineStatusSideMenuComponent createSideMenuComponent() {
-        return new PipelineStatusSideMenuComponent(getDriver(), this);
-    }
 
     public PipelineStatusPage(WebDriver driver) {
         super(driver);

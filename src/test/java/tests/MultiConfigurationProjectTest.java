@@ -53,7 +53,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         MultiConfigurationProjectStatusPage multiConfigPrStatusPage = new HomePage(getDriver())
                 .clickMultiConfigurationProject(MULTI_CONFIGURATION_PROJECT_NAME)
-                .clickRenameSideMenu()
+                .getSideMenu()
+                .clickRename()
                 .clearFieldAndInputNewName(MULTI_CONFIGURATION_PROJECT_RENAME)
                 .clickRenameButton();
 
@@ -165,7 +166,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .getBreadcrumbs()
                 .clickDashboard()
                 .clickMultiConfigurationProject(MULTI_CONFIGURATION_PROJECT_NAME)
-                .clickRenameSideMenu()
+                .getSideMenu()
+                .clickRename()
                 .clearFieldAndInputNewName("&")
                 .clickSaveButtonAndGetError();
 

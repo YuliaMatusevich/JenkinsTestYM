@@ -2,7 +2,6 @@ package model.status_pages;
 
 import model.ConsoleOutputPage;
 import model.HomePage;
-import model.RenameItemPage;
 import model.base.BlankStatusPage;
 import model.config_pages.MultiConfigurationProjectConfigPage;
 import org.openqa.selenium.By;
@@ -63,9 +62,6 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
     @FindBy(id = "enable-project")
     private WebElement disabledWarning;
 
-    @FindBy(linkText = "Rename")
-    private WebElement renameButton;
-
     @FindBy(xpath = "//div[@id='matrix']")
     private WebElement configurationMatrixTable;
 
@@ -120,12 +116,6 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
         enableButton.click();
 
         return new MultiConfigurationProjectStatusPage(getDriver());
-    }
-
-    public RenameItemPage<MultiConfigurationProjectStatusPage> clickRenameSideMenu() {
-        renameButton.click();
-
-        return new RenameItemPage<>(getDriver(), new MultiConfigurationProjectStatusPage(getDriver()));
     }
 
     public MultiConfigurationProjectConfigPage clickConfiguration(String projectName) {
