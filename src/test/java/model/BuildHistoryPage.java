@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,11 +73,11 @@ public class BuildHistoryPage extends MainBasePage {
         return iconLegend.isDisplayed();
     }
 
-    public List<String> getNameOfLabelsOnTimeLineBuildHistory(){
+    public List<String> getNameOfLabelsOnTimeLineBuildHistory() {
         getWait(5).until(ExpectedConditions.visibilityOf(iconOfLabelsOnTime));
         return labelsOnTimelineBuildHistory
                 .stream()
-                .map(WebElement :: getText)
+                .map(WebElement::getText)
                 .collect(Collectors.toList());
     }
 

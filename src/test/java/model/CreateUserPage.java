@@ -74,10 +74,4 @@ public class CreateUserPage extends MainBasePage {
 
         return getWait(2).until(ExpectedConditions.visibilityOf(errorMessage)).getText();
     }
-
-    public CreateUserPage clearUserName() {
-        username.clear();
-
-        return (this);
-    }
 }

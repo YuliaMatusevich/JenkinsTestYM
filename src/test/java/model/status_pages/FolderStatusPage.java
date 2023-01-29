@@ -1,8 +1,8 @@
 package model.status_pages;
 
+import model.NewItemPage;
 import model.base.BaseStatusPage;
 import model.status_side_menu_component.FolderStatusSideMenuComponent;
-import model.NewItemPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

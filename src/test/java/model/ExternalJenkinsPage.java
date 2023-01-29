@@ -20,6 +20,4 @@ public class ExternalJenkinsPage extends BasePage {
 
         return textHeaderJenkins.getText();
     }
-
-
 }

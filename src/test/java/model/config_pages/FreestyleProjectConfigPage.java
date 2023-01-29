@@ -24,9 +24,6 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     @FindBy(css = "#main-panel > p")
     private WebElement errorMsg;
 
-    @FindBy(name = "Submit")
-    private WebElement saveBtn;
-
     @FindBy(xpath = "//span/label[text()='Discard old builds']")
     private WebElement discardOldBuildsCheckbox;
 
@@ -35,9 +32,6 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     @FindBy(xpath = "//input[@name='_.numToKeepStr']")
     private WebElement maxNumberOfBuildsToKeep;
-
-    @FindBy(xpath = "//li[@class='item'][2]")
-    private WebElement projectButton;
 
     @FindBy(xpath = "//label[text() = 'This project is parameterized']")
     private WebElement checkBoxProjectIsParametrized;
@@ -84,9 +78,6 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     @FindBy(xpath = "//button[text()='Add build step']/../../..//a[@href='#']")
     private List<WebElement> listOfElementsInBuildStepsDropDown;
 
-    @FindBy(linkText = "Build Now")
-    private WebElement buildNowButton;
-
     @FindBy(xpath = "//button[@data-section-id='build-triggers']")
     private WebElement buildTriggersSideMenuOption;
 
@@ -101,7 +92,6 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     @FindBy(xpath = "//button[@data-section-id='source-code-management']")
     private WebElement linkSourceCodeManagement;
-
 
     @Override
     protected FreestyleProjectStatusPage createStatusPage() {

@@ -181,6 +181,4 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
     public boolean isDisplayedPreviewTextDescription() {
         return previewTextDescription.isDisplayed();
     }
-
-
 }

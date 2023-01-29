@@ -18,7 +18,7 @@ public class OrgFolderStatusPage extends BaseStatusPage<OrgFolderStatusPage, Org
 
     @Override
     protected OrgFolderStatusSideMenuComponent createSideMenuComponent() {
-        return new OrgFolderStatusSideMenuComponent(getDriver(),this);
+        return new OrgFolderStatusSideMenuComponent(getDriver(), this);
     }
 
     public OrgFolderStatusPage(WebDriver driver) {

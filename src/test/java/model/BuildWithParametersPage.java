@@ -76,5 +76,4 @@ public class BuildWithParametersPage<StatusPage extends BaseStatusPage<?, ?>> ex
 
         return statusPage;
     }
-
 }

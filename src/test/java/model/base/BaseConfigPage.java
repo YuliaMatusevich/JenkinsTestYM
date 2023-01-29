@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Self extends BaseConfigPage<?, ?>> extends MainBasePage{
+public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Self extends BaseConfigPage<?, ?>> extends MainBasePage {
 
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement saveButton;
@@ -36,7 +36,7 @@ public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Se
     public Self clickApplyButton() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(applyButton)).click();
 
-        return (Self)this;
+        return (Self) this;
     }
 
     public Set<String> collectConfigSideMenu() {

@@ -39,7 +39,7 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
     private WebElement dropDownBuildIcon;
 
     @FindBy(xpath = "//li[@id='yui-gen3']/a/*[name()='svg']")
-    private WebElement  consoleOutputDropDownBuildIcon;
+    private WebElement consoleOutputDropDownBuildIcon;
 
     @FindBy(css = "#no-builds")
     private WebElement buildsHistoryOnSidePanel;
@@ -50,10 +50,10 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
     @FindBy(css = ".build-status-icon__outer>[tooltip = 'Success &gt; Console Output']")
     private WebElement buildLoadingIconSuccess;
 
-    @FindBy(xpath ="//span[@class='build-status-icon__wrapper icon-disabled icon-md']")
+    @FindBy(xpath = "//span[@class='build-status-icon__wrapper icon-disabled icon-md']")
     private WebElement iconProjectDisabled;
 
-    @FindBy(xpath ="//span[@class='build-status-icon__wrapper icon-nobuilt icon-md']")
+    @FindBy(xpath = "//span[@class='build-status-icon__wrapper icon-nobuilt icon-md']")
     private WebElement iconProjectEnabled;
 
     @FindBy(id = "enable-project")
@@ -103,7 +103,7 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
         return new MultiConfigurationProjectStatusPage(getDriver());
     }
 
-    public MultiConfigurationProjectStatusPage clickEnableButton(){
+    public MultiConfigurationProjectStatusPage clickEnableButton() {
         enableButton.click();
 
         return new MultiConfigurationProjectStatusPage(getDriver());
@@ -127,11 +127,11 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
         return new ConsoleOutputPage(getDriver());
     }
 
-    public void multiConfigurationProjectBuildNow (WebDriver driver) {
+    public void multiConfigurationProjectBuildNow(WebDriver driver) {
         driver.findElement(By.xpath("//a[@onclick='return build_id386(this)']")).click();
     }
 
-    public void multiConfigurationProjectNewestBuilds (WebDriver driver) {
+    public void multiConfigurationProjectNewestBuilds(WebDriver driver) {
         driver.findElement(By.xpath("//*[@id='buildHistoryPageNav']/div[1]/div")).click();
     }
 
@@ -145,20 +145,20 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
         return countBuilds;
     }
 
-    public MultiConfigurationProjectStatusPage clickBuildNowOnSideMenu(String projectName){
+    public MultiConfigurationProjectStatusPage clickBuildNowOnSideMenu(String projectName) {
         getDriver().findElement(By.xpath(String.format("//a[@href='/job/%s/build?delay=0sec']", projectName))).click();
         getWait(10).until(ExpectedConditions.visibilityOf((buildLoadingIconSuccess)));
 
         return this;
     }
 
-    public boolean iconProjectDisabledIsDisplayed(){
-         getWait(10).until(ExpectedConditions.visibilityOf(iconProjectDisabled));
+    public boolean iconProjectDisabledIsDisplayed() {
+        getWait(10).until(ExpectedConditions.visibilityOf(iconProjectDisabled));
 
         return iconProjectDisabled.isDisplayed();
     }
 
-    public boolean iconProjectEnabledIsDisplayed(){
+    public boolean iconProjectEnabledIsDisplayed() {
         getWait(10).until(ExpectedConditions.visibilityOf(iconProjectEnabled));
 
         return iconProjectEnabled.isDisplayed();
@@ -171,7 +171,7 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
 
     public boolean disableButtonIsDisplayed() {
 
-       return disableButton.isDisplayed();
+        return disableButton.isDisplayed();
     }
 
     public boolean configurationMatrixIsDisplayed() {

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
 
 public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, OrgFolderConfigPage> {
+
     @FindBy(xpath = "//input  [@name='_.displayNameOrNull']")
     private WebElement displayName;
 
@@ -38,11 +39,6 @@ public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, Org
         return new OrgFolderStatusPage(getDriver());
     }
 
-//    @Override
-//    protected OrgFolderConfigSideMenuComponent createSideMenuComponent() {
-//        return new OrgFolderConfigSideMenuComponent(getDriver(), this);
-//    }
-
     public OrgFolderConfigPage(WebDriver driver) {
         super(driver);
     }
@@ -58,6 +54,7 @@ public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, Org
 
         return this;
     }
+
     public String getErrorMessageEmptyField() {
         return errorMessageEmptyField.getText();
     }
@@ -84,5 +81,4 @@ public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, Org
         getWait(5).until(ExpectedConditions.visibilityOf(addMetricButton));
         return childHealthMetric.isDisplayed();
     }
-
 }

@@ -136,12 +136,6 @@ public class PipelineStatusPage extends BlankStatusPage<PipelineStatusPage> {
         return messageDisabledProject.getText().split("\n")[0];
     }
 
-    public PipelineStatusPage clickEditDescriptionLink() {
-        editDescriptionLink.click();
-
-        return new PipelineStatusPage(getDriver());
-    }
-
     public BuildStatusPage clickLastBuildLink() {
         getDriver().navigate().refresh();
         lastBuildLink.click();

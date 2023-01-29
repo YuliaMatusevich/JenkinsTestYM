@@ -30,36 +30,36 @@ public class PluginManagerPage extends MainBasePage {
     @FindBy(xpath = "//a[contains(text(), 'TestNG Results Plugin')]/parent::div/following-sibling::div")
     private WebElement resultField;
 
-    public PluginManagerPage clickLinkAvailable(){
+    public PluginManagerPage clickLinkAvailable() {
         linkAvailable.click();
 
         return this;
     }
 
-    public PluginManagerPage inputValueToSearchRow(String value){
+    public PluginManagerPage inputValueToSearchRow(String value) {
         getWait(5).until(ExpectedConditions.visibilityOf(searchRow)).sendKeys(value);
 
         return this;
     }
 
-    public PluginManagerPage clickCheckBoxTestNGResults(){
+    public PluginManagerPage clickCheckBoxTestNGResults() {
         getWait(5).until(ExpectedConditions.visibilityOf(checkBoxTestNGResults)).click();
 
         return this;
     }
 
-    public UpdateCenterPage clickButtonInstallWithoutRestart(){
+    public UpdateCenterPage clickButtonInstallWithoutRestart() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(buttonInstallWithoutRestart)).click();
 
         return new UpdateCenterPage(getDriver());
     }
 
-    public String getResultFieldText(){
+    public String getResultFieldText() {
 
         return getWait(5).until(ExpectedConditions.visibilityOf(resultField)).getText();
     }
 
-    public PluginManagerPage clickLinkInstalled(){
+    public PluginManagerPage clickLinkInstalled() {
         linkInstalled.click();
 
         return this;

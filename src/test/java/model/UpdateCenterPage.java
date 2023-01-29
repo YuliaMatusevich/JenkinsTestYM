@@ -18,7 +18,7 @@ public class UpdateCenterPage extends MainBasePage {
     @FindBy(xpath = "//a[text() = 'Go back to the top page']")
     private WebElement buttonGoBackToTopPage;
 
-    public HomePage clickButtonGoBackToTopPage(){
+    public HomePage clickButtonGoBackToTopPage() {
         scrollToElement(getDriver(), buttonGoBackToTopPage);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(buttonGoBackToTopPage));
         getWait(5).until(ExpectedConditions.elementToBeClickable(buttonGoBackToTopPage)).click();

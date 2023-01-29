@@ -24,9 +24,6 @@ public class ManageUsersPage extends MainBasePage {
     @FindBy(xpath = "//tr/td[3]")
     private List<WebElement> userFullNameList;
 
-    @FindBy(css = "a[href='user/admin/'] > .jenkins-menu-dropdown-chevron")
-    private WebElement userDropdownMenu;
-
     @FindBy(linkText = "this list")
     private WebElement thisListLink;
 
@@ -70,7 +67,7 @@ public class ManageUsersPage extends MainBasePage {
         return new DeletePage<>(getDriver(), this);
     }
 
-    public PeoplePage clickThisListLink(){
+    public PeoplePage clickThisListLink() {
         thisListLink.click();
 
         return new PeoplePage(getDriver());

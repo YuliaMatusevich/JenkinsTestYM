@@ -16,7 +16,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(id = "jenkins-head-icon")
     private WebElement jenkinsHeadIcon;
 
-    @FindBy(id="jenkins-name-icon")
+    @FindBy(id = "jenkins-name-icon")
     private WebElement jenkinsNameIcon;
 
     @FindBy(xpath = "//div/a[@class='model-link']")
@@ -73,7 +73,7 @@ public class HeaderComponent extends BaseComponent {
 
     public boolean isJenkinsNameIconDisplayed() {
 
-        return  jenkinsNameIcon.isDisplayed();
+        return jenkinsNameIcon.isDisplayed();
     }
 
     public boolean isJenkinsHeadIconDisplayed() {
@@ -145,7 +145,7 @@ public class HeaderComponent extends BaseComponent {
         return new BuildsUserPage(getDriver());
     }
 
-        public int getItemsCountInUserDropdownMenu() {
+    public int getItemsCountInUserDropdownMenu() {
         int itemsCount = 0;
         for (WebElement item : getWait(5).until(
                 ExpectedConditions.visibilityOfAllElements(
@@ -156,7 +156,7 @@ public class HeaderComponent extends BaseComponent {
         return itemsCount;
     }
 
-        public String getItemsNamesInUserDropdownMenu() {
+    public String getItemsNamesInUserDropdownMenu() {
         StringBuilder itemsNames = new StringBuilder();
         for (WebElement item : getWait(5).until(
                 ExpectedConditions.visibilityOfAllElements(
@@ -174,7 +174,7 @@ public class HeaderComponent extends BaseComponent {
         return this;
     }
 
-    public String getSearchFieldValue(){
+    public String getSearchFieldValue() {
 
         return searchField.getAttribute("value");
     }

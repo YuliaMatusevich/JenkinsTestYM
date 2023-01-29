@@ -14,7 +14,7 @@ public class ManageOldDataPage extends MainBasePage {
     @FindBy(id = "main-panel")
     private WebElement mainPanel;
 
-    public String getMainPanelNoticeText(){
+    public String getMainPanelNoticeText() {
         String[] actualText = mainPanel.getText().split("\n");
 
         return actualText[actualText.length - 1];

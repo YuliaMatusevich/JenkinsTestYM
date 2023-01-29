@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class RestApiPage extends MainBasePage {
+
     @FindBy(xpath = "//dt/a[@href='xml']")
     private WebElement xmlApiLink;
 

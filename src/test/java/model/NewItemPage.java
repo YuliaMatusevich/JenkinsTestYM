@@ -1,13 +1,7 @@
 package model;
 
 import model.base.MainBasePage;
-import model.config_pages.FolderConfigPage;
-import model.status_pages.FolderStatusPage;
-import model.config_pages.FreestyleProjectConfigPage;
-import model.config_pages.MultibranchPipelineConfigPage;
-import model.config_pages.MultiConfigurationProjectConfigPage;
-import model.config_pages.OrgFolderConfigPage;
-import model.config_pages.PipelineConfigPage;
+import model.config_pages.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -209,12 +203,6 @@ public class NewItemPage extends MainBasePage {
         return new MultiConfigurationProjectConfigPage(getDriver());
     }
 
-    public FolderStatusPage clickOKButton() {
-        okButton.click();
-
-        return new FolderStatusPage(getDriver());
-    }
-
     public MultibranchPipelineConfigPage clickOkMultibranchPipeline() {
         okButton.click();
 
@@ -245,7 +233,7 @@ public class NewItemPage extends MainBasePage {
     public List<String> newItemsNameList() {
         getWait(5).until(ExpectedConditions.visibilityOf(h3Header));
 
-        return  namesItemsList
+        return namesItemsList
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());

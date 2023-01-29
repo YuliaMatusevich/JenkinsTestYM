@@ -6,6 +6,7 @@ import model.base.base_components.HeaderComponent;
 import org.openqa.selenium.WebDriver;
 
 public abstract class MainBasePage extends BasePage {
+
     public MainBasePage(WebDriver driver) {
         super(driver);
     }

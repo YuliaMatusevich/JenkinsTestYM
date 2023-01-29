@@ -31,15 +31,15 @@ public class CreateItemErrorPage extends MainBasePage {
         return errorHeader.getText();
     }
 
-    public String getErrorDescription(){
+    public String getErrorDescription() {
         return errorDescription.getText();
     }
 
-    public Boolean isErrorPictureDisplayed(){
+    public Boolean isErrorPictureDisplayed() {
         return errorPicture.isDisplayed();
     }
 
-    public String getPageUrl(){
+    public String getPageUrl() {
         return getDriver().getCurrentUrl();
     }
 }

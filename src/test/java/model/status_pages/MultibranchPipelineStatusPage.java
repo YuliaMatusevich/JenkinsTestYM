@@ -43,5 +43,4 @@ public class MultibranchPipelineStatusPage extends BaseStatusPage<MultibranchPip
     public boolean isDisableButtonPresent() {
         return disableEnableButton.getText().contains("Disable Multibranch Pipeline");
     }
-
 }

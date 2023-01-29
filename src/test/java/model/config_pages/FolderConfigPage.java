@@ -1,7 +1,6 @@
 package model.config_pages;
 
 import model.base.BaseConfigPage;
-import model.HomePage;
 import model.status_pages.FolderStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,9 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class FolderConfigPage extends BaseConfigPage<FolderStatusPage, FolderConfigPage> {
-
-    @FindBy(xpath = "//button[@type='submit']")
-    private WebElement submitButtonForDeleteFolder;
 
     @FindBy(xpath = "//input[@name='_.displayNameOrNull']")
     private WebElement displayName;
@@ -26,12 +22,6 @@ public class FolderConfigPage extends BaseConfigPage<FolderStatusPage, FolderCon
 
     public FolderConfigPage(WebDriver driver) {
         super(driver);
-    }
-
-    public HomePage clickSubmitDeleteProject() {
-        submitButtonForDeleteFolder.click();
-
-        return new HomePage(getDriver());
     }
 
     public FolderConfigPage setDisplayName(String secondJobName) {
