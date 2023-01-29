@@ -205,4 +205,21 @@ public class ManageJenkinsTest extends BaseTest {
 
         Assert.assertEquals(errorMessageWhenEmptyConfirmPassword, "Password didn't match");
     }
+
+    @Test
+    public void testDeleteUserGoingFromStatusUserPage() {
+        ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
+
+        List<String> listOfUsers  = new HomePage(getDriver())
+                .getSideMenu()
+                .clickPeople()
+                .clickUserID(USER_NAME)
+                .clickDelete()
+                .clickYes()
+                .getSideMenu()
+                .clickPeople()
+                .getListOfUsers();
+
+        Assert.assertFalse(listOfUsers.contains(USER_NAME));
+    }
 }

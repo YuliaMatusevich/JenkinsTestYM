@@ -2,6 +2,7 @@ package model;
 
 import model.base.MainBasePage;
 import model.base.side_menu.HomeSideMenuComponent;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -89,5 +90,11 @@ public class PeoplePage extends MainBasePage {
         }
 
         return listIconSizeButtonsNames.toString().replaceAll("\n", "").trim();
+    }
+
+    public StatusUserPage clickUserID(String user) {
+        getDriver().findElement(By.linkText(user)).click();
+
+        return new StatusUserPage(getDriver());
     }
 }

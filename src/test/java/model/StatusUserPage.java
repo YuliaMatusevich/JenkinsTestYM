@@ -35,6 +35,9 @@ public class StatusUserPage extends MainBasePage {
     @FindBy(xpath = "//div[@id='main-panel']/div[contains(text(), 'ID')]")
     private WebElement userID;
 
+    @FindBy(xpath = "//div[@id='tasks']//span[contains(., 'Delete')]")
+    private WebElement delete;
+
     public StatusUserPage(WebDriver driver) {
         super(driver);
     }
@@ -104,5 +107,11 @@ public class StatusUserPage extends MainBasePage {
     public String getUserIDText() {
 
         return userID.getText();
+    }
+
+    public DeletePage<HomePage> clickDelete() {
+        delete.click();
+
+        return new DeletePage<>(getDriver(), new HomePage(getDriver()));
     }
 }
