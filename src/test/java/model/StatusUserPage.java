@@ -38,6 +38,9 @@ public class StatusUserPage extends MainBasePage {
     @FindBy(xpath = "//div[@id='tasks']//span[contains(., 'Delete')]")
     private WebElement delete;
 
+    @FindBy(linkText = "Configure")
+    private WebElement configure;
+
     public StatusUserPage(WebDriver driver) {
         super(driver);
     }
@@ -113,5 +116,11 @@ public class StatusUserPage extends MainBasePage {
         delete.click();
 
         return new DeletePage<>(getDriver(), new HomePage(getDriver()));
+    }
+
+    public ConfigureUserPage clickConfigure() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(configure)).click();
+
+        return new ConfigureUserPage(getDriver());
     }
 }

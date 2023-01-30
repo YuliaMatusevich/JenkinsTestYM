@@ -211,10 +211,28 @@ public class ManageJenkinsTest extends BaseTest {
     public void testDeleteUserGoingFromStatusUserPage() {
         ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
 
-        List<String> listOfUsers  = new HomePage(getDriver())
+        List<String> listOfUsers = new HomePage(getDriver())
                 .getSideMenu()
                 .clickPeople()
                 .clickUserID(USER_NAME)
+                .clickDelete()
+                .clickYes()
+                .getSideMenu()
+                .clickPeople()
+                .getListOfUsers();
+
+        Assert.assertFalse(listOfUsers.contains(USER_NAME));
+    }
+
+    @Test
+    public void testDeleteUserGoingFromConfigureUserPage() {
+        ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
+
+        List<String> listOfUsers = new HomePage(getDriver())
+                .getSideMenu()
+                .clickPeople()
+                .clickUserID(USER_NAME)
+                .clickConfigure()
                 .clickDelete()
                 .clickYes()
                 .getSideMenu()
