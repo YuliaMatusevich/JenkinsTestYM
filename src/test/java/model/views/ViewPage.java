@@ -1,5 +1,4 @@
 package model.views;
-
 import model.DeletePage;
 import model.HomePage;
 import model.base.BasePage;

@@ -1,9 +1,6 @@
 package runner;
 
 import model.HomePage;
-import model.views.EditGlobalViewPage;
-import model.views.EditListViewPage;
-import model.views.EditMyViewPage;
 import org.openqa.selenium.WebDriver;
 
 public class ProjectMethodsUtils {
@@ -80,8 +77,8 @@ public class ProjectMethodsUtils {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(name)
-                .setGlobalViewType()
-                .clickCreateButton(new EditGlobalViewPage(driver))
+                .selectGlobalViewType()
+                .clickCreateButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -92,8 +89,8 @@ public class ProjectMethodsUtils {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(name)
-                .setListViewType()
-                .clickCreateButton(new EditListViewPage(driver))
+                .selectListViewType()
+                .clickCreateButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -104,8 +101,8 @@ public class ProjectMethodsUtils {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(name)
-                .setMyViewType()
-                .clickCreateButton(new EditMyViewPage(driver))
+                .selectMyViewType()
+                .clickCreateButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -114,8 +111,8 @@ public class ProjectMethodsUtils {
         new HomePage(driver)
                 .clickAddViewLink()
                 .setViewName(name)
-                .setListViewType()
-                .clickCreateButton(new EditListViewPage(driver))
+                .selectListViewType()
+                .clickCreateButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -124,8 +121,8 @@ public class ProjectMethodsUtils {
         new HomePage(driver)
                 .clickAddViewLink()
                 .setViewName(name)
-                .setMyViewType()
-                .clickCreateButton(new EditMyViewPage(driver))
+                .selectMyViewType()
+                .clickCreateButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
     }

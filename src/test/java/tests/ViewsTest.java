@@ -1,5 +1,4 @@
 package tests;
-
 import model.views.*;
 import model.HomePage;
 import org.openqa.selenium.NoSuchElementException;
@@ -72,8 +71,8 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
-                .setListViewType()
-                .clickCreateButton(new EditListViewPage(getDriver()))
+                .selectListViewType()
+                .clickCreateButton()
                 .addJobsToListView(6)
                 .clickOkButton()
                 .getJobNamesList()
@@ -92,7 +91,7 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(LIST_VIEW_NAME)
-                .setListViewType();
+                .selectListViewType();
 
         Assert.assertEquals(newViewPage.getErrorMessageViewAlreadyExist(),
                 "A view with name " + LIST_VIEW_NAME + " already exists");
@@ -106,7 +105,7 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(getRandomStr(6))
-                .setListViewType().clickCreateButton(new EditListViewPage(getDriver()))
+                .selectListViewType().clickCreateButton()
                 .addJobToView(FREESTYLE_PROJECT_NAME)
                 .getCountColumns();
 
@@ -318,8 +317,8 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
-                .setGlobalViewType()
-                .clickCreateButton(new EditGlobalViewPage(getDriver()))
+                .selectGlobalViewType()
+                .clickCreateButton()
                 .selectFilterBuildQueueOptionCheckBox()
                 .clickOkButton()
                 .getActiveFiltersList()
@@ -336,8 +335,8 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
-                .setGlobalViewType()
-                .clickCreateButton(new EditGlobalViewPage(getDriver()))
+                .selectGlobalViewType()
+                .clickCreateButton()
                 .selectFilterBuildQueueOptionCheckBox()
                 .selectFilterBuildExecutorsOptionCheckBox()
                 .clickOkButton()
@@ -375,8 +374,8 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
-                .setListViewType()
-                .clickCreateButton(new EditListViewPage(getDriver()))
+                .selectListViewType()
+                .clickCreateButton()
                 .addAllJobsToListView()
                 .clickOkButton()
                 .getJobNamesList().size();
@@ -395,8 +394,8 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
-                .setListViewType()
-                .clickCreateButton(new EditListViewPage(getDriver()))
+                .selectListViewType()
+                .clickCreateButton()
                 .scrollToRegexFilterCheckboxPlaceInCenterWaitTillNotMoving();
         if (!new EditListViewPage(getDriver()).isRegexCheckboxChecked()) {
             new EditListViewPage(getDriver()).clickRegexCheckbox();
@@ -419,8 +418,8 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
-                .setListViewType()
-                .clickCreateButton(new EditListViewPage(getDriver()))
+                .selectListViewType()
+                .clickCreateButton()
                 .addAllJobsToListView()
                 .scrollToStatusColumnDragHandlePlaceInCenterWaitTillNotMoving()
                 .dragByYOffset(100)
@@ -440,8 +439,8 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
-                .setListViewType()
-                .clickCreateButton(new EditGlobalViewPage(getDriver()))
+                .selectGlobalViewType()
+                .clickCreateButton()
                 .selectFilterBuildQueueOptionCheckBox()
                 .clickOkButton()
                 .getActiveFiltersList()
@@ -458,8 +457,8 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(MY_VIEW_NAME)
-                .setMyViewType()
-                .clickCreateButton(new EditMyViewPage(getDriver()))
+                .selectMyViewType()
+                .clickCreateButton()
                 .clickEditMyView()
                 .selectFilterBuildQueueOptionCheckBox()
                 .clickOkButton()
@@ -515,8 +514,8 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(GLOBAL_VIEW_NAME)
-                .setListViewType()
-                .clickCreateButton(new EditListViewPage(getDriver()))
+                .selectListViewType()
+                .clickCreateButton()
                 .addAllJobsToListView()
                 .clickOkButton()
                 .clickEditListView()
@@ -586,8 +585,8 @@ public class ViewsTest extends BaseTest {
                 .clickDashboard()
                 .clickAddViewLink()
                 .setViewName(LIST_VIEW_NAME)
-                .setListViewType()
-                .clickCreateButton(new EditListViewPage(getDriver()))
+                .selectListViewType()
+                .clickCreateButton()
                 .addJobToView(projectOne)
                 .clickOkButton()
                 .getJobNamesList().size();

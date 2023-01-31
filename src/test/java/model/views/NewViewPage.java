@@ -1,12 +1,13 @@
 package model.views;
 
+import model.base.BaseEditViewPage;
 import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class NewViewPage extends MainBasePage {
+public class NewViewPage<EditViewPage extends BaseEditViewPage> extends MainBasePage {
 
     @FindBy(id = "name")
     private WebElement viewName;
@@ -26,40 +27,41 @@ public class NewViewPage extends MainBasePage {
     @FindBy(css = ".error")
     private WebElement errorMessageViewAlreadyExist;
 
+    private final EditViewPage editViewPage;
 
-    public NewViewPage(WebDriver driver) {
+    public NewViewPage(WebDriver driver, EditViewPage editViewPage) {
         super(driver);
+        this.editViewPage = editViewPage;
     }
 
-
-    public NewViewPage setGlobalViewType() {
+    public NewViewPage<EditGlobalViewPage> selectGlobalViewType() {
         globalViewType.click();
 
-        return this;
+        return new NewViewPage<>(getDriver(), new EditGlobalViewPage(getDriver()));
     }
 
-    public NewViewPage setListViewType() {
+    public NewViewPage<EditListViewPage> selectListViewType() {
         listViewType.click();
 
-        return this;
+        return new NewViewPage<>(getDriver(), new EditListViewPage(getDriver()));
     }
 
-    public NewViewPage setMyViewType() {
+    public NewViewPage<EditMyViewPage> selectMyViewType() {
         myViewType.click();
 
-        return this;
+        return new NewViewPage<>(getDriver(), new EditMyViewPage(getDriver()));
     }
 
-    public NewViewPage setViewName(String name) {
+    public NewViewPage<?> setViewName(String name) {
         getWait(2).until(ExpectedConditions.visibilityOf(viewName)).sendKeys(name);
 
         return this;
     }
 
-    public <T extends MainBasePage> T clickCreateButton(T typeEditViewPage) {
+    public EditViewPage clickCreateButton() {
         createButton.click();
 
-        return typeEditViewPage ;
+        return editViewPage;
     }
 
     public String getErrorMessageViewAlreadyExist() {

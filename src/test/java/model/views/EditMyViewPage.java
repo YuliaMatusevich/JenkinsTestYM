@@ -1,12 +1,12 @@
 package model.views;
 
-import model.base.BaseViewEditPage;
+import model.base.BaseEditViewPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class EditMyViewPage extends BaseViewEditPage {
+public class EditMyViewPage extends BaseEditViewPage {
 
     @FindBy(css = "input[name=filterQueue]")
     private WebElement filterBuildQueueOptionCheckBox;

@@ -63,10 +63,10 @@ public class HomePage extends MainBasePage {
         return new HomeSideMenuComponent(getDriver());
     }
 
-    public NewViewPage clickAddViewLink() {
+    public NewViewPage<?> clickAddViewLink() {
         addViewLink.click();
 
-        return new NewViewPage(getDriver());
+        return new NewViewPage<>(getDriver(), null);
     }
 
     public List<String> getJobNamesList() {

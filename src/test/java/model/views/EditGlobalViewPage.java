@@ -1,12 +1,12 @@
 package model.views;
 
-import model.base.BaseViewEditPage;
+import model.base.BaseEditViewPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class EditGlobalViewPage extends BaseViewEditPage {
+public class EditGlobalViewPage extends BaseEditViewPage {
 
     @FindBy(xpath = "//label[text()='Filter build executors']")
     private WebElement filterBuildExecutorsOptionCheckBox;
