@@ -19,7 +19,7 @@ public class PluginManagerPage extends MainBasePage {
     private WebElement linkInstalled;
 
     @FindBy(id = "filter-box")
-    private WebElement searchRow;
+    private WebElement searchField;
 
     @FindBy(xpath = "//tr[@data-plugin-id='testng-plugin']//label")
     private WebElement checkBoxTestNGResults;
@@ -36,8 +36,8 @@ public class PluginManagerPage extends MainBasePage {
         return this;
     }
 
-    public PluginManagerPage inputValueToSearchRow(String value) {
-        getWait(5).until(ExpectedConditions.visibilityOf(searchRow)).sendKeys(value);
+    public PluginManagerPage setSearch(String value) {
+        getWait(5).until(ExpectedConditions.visibilityOf(searchField)).sendKeys(value);
 
         return this;
     }

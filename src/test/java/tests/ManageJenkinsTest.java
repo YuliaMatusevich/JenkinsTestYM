@@ -71,7 +71,7 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageJenkins()
                 .clickLinkManagePlugins()
                 .clickLinkAvailable()
-                .inputValueToSearchRow(pluginName)
+                .setSearch(pluginName)
                 .clickCheckBoxTestNGResults()
                 .clickButtonInstallWithoutRestart()
                 .clickButtonGoBackToTopPage()
@@ -79,7 +79,7 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageJenkins()
                 .clickLinkManagePlugins()
                 .clickLinkInstalled()
-                .inputValueToSearchRow(pluginName)
+                .setSearch(pluginName)
                 .getResultFieldText();
 
         Assert.assertTrue(notice.contains("Failed to load: TestNG Results Plugin"));
