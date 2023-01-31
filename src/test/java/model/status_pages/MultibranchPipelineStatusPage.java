@@ -1,6 +1,7 @@
 package model.status_pages;
 
 import model.base.BaseStatusPage;
+import model.config_pages.MultibranchPipelineConfigPage;
 import model.status_side_menu_component.MultibranchPipelineStatusSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,9 @@ public class MultibranchPipelineStatusPage extends BaseStatusPage<MultibranchPip
 
     @FindBy(xpath = "//img[@title='Multibranch Pipeline']")
     private WebElement projectIcon;
+
+    @FindBy(linkText = "Configure the project")
+    private WebElement linkConfigureTheProject;
 
     @Override
     protected MultibranchPipelineStatusSideMenuComponent createSideMenuComponent() {
@@ -42,5 +46,11 @@ public class MultibranchPipelineStatusPage extends BaseStatusPage<MultibranchPip
 
     public boolean isDisableButtonPresent() {
         return disableEnableButton.getText().contains("Disable Multibranch Pipeline");
+    }
+
+    public MultibranchPipelineConfigPage clickLinkConfigureTheProject() {
+        linkConfigureTheProject.click();
+
+        return new MultibranchPipelineConfigPage(getDriver());
     }
 }

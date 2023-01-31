@@ -92,4 +92,19 @@ public class MultibranchPipelineTest extends BaseTest {
 
         Assert.assertTrue(jobNamesList.contains(displayName));
     }
+
+    @Test
+    public void testAddDescription() {
+        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        final String description = getRandomStr();
+
+        String descriptionText = new HomePage(getDriver())
+                .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME)
+                .clickLinkConfigureTheProject()
+                .setDescription(description)
+                .clickSaveButton()
+                .getAdditionalDescriptionText();
+
+        Assert.assertEquals(descriptionText, description);
+    }
 }

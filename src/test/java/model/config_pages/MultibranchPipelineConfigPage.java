@@ -11,6 +11,9 @@ public class MultibranchPipelineConfigPage extends BaseConfigPage<MultibranchPip
     @FindBy(name = "_.displayNameOrNull")
     private WebElement displayName;
 
+    @FindBy(name = "_.description")
+    private WebElement description;
+
     @Override
     protected MultibranchPipelineStatusPage createStatusPage() {
         return new MultibranchPipelineStatusPage(getDriver());
@@ -23,6 +26,13 @@ public class MultibranchPipelineConfigPage extends BaseConfigPage<MultibranchPip
     public MultibranchPipelineConfigPage setDisplayName(String name) {
         displayName.clear();
         displayName.sendKeys(name);
+
+        return this;
+    }
+
+    public MultibranchPipelineConfigPage setDescription(String text) {
+        description.clear();
+        description.sendKeys(text);
 
         return this;
     }
