@@ -93,7 +93,7 @@ public class PeoplePage extends MainBasePage {
     }
 
     public StatusUserPage clickUserID(String user) {
-        getDriver().findElement(By.linkText(user)).click();
+        getWait(5).until(ExpectedConditions.elementToBeClickable(By.linkText(user))).click();
 
         return new StatusUserPage(getDriver());
     }

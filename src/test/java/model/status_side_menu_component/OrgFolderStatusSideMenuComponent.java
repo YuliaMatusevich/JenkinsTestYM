@@ -4,21 +4,15 @@ import model.base.side_menu.BaseStatusSideMenuComponent;
 import model.config_pages.OrgFolderConfigPage;
 import model.status_pages.OrgFolderStatusPage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
-public class OrgFolderStatusSideMenuComponent extends BaseStatusSideMenuComponent<OrgFolderStatusPage> {
+public class OrgFolderStatusSideMenuComponent extends BaseStatusSideMenuComponent<OrgFolderStatusPage, OrgFolderConfigPage> {
 
-    @FindBy(linkText = "Configure")
-    private WebElement configure;
+    @Override
+    protected OrgFolderConfigPage createConfigPage() {
+        return new OrgFolderConfigPage(getDriver());
+    }
 
     public OrgFolderStatusSideMenuComponent(WebDriver driver, OrgFolderStatusPage statusPage) {
         super(driver, statusPage);
-    }
-
-    public OrgFolderConfigPage clickConfigure() {
-        configure.click();
-
-        return new OrgFolderConfigPage(getDriver());
     }
 }

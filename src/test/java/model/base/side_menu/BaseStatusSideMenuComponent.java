@@ -4,6 +4,7 @@ import model.DeletePage;
 import model.HomePage;
 import model.MovePage;
 import model.RenameItemPage;
+import model.base.BaseConfigPage;
 import model.base.BasePage;
 import model.base.BaseStatusPage;
 import model.status_pages.FolderStatusPage;
@@ -11,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusPage<?, ?>> extends BaseSideMenuWithGenericComponent<StatusPage> {
+public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusPage<?, ?>, ConfigPage extends BaseConfigPage<?, ?>> extends BaseSideMenuWithGenericComponent<StatusPage> {
 
     @FindBy(linkText = "Rename")
     private WebElement rename;
@@ -21,6 +22,11 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
 
     @FindBy(linkText = "Move")
     private WebElement move;
+
+    @FindBy(linkText = "Configure")
+    private WebElement configure;
+
+    protected abstract ConfigPage createConfigPage();
 
     public BaseStatusSideMenuComponent(WebDriver driver, StatusPage statusPage) {
         super(driver, statusPage);
@@ -54,5 +60,11 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
         move.click();
 
         return new MovePage<>(getDriver(), page);
+    }
+
+    public ConfigPage clickConfigure() {
+        configure.click();
+
+        return createConfigPage();
     }
 }

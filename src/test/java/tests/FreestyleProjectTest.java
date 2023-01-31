@@ -131,7 +131,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clearFieldAndInputNewName(FREESTYLE_PROJECT_NAME + specialCharacter)
                 .clickSaveButtonAndGetError();
 
-        Assert.assertEquals(renameItemErrorPage.getHeadErrorMessage(),"Error");
+        Assert.assertEquals(renameItemErrorPage.getHeadErrorMessage(), "Error");
         Assert.assertEquals(renameItemErrorPage.getErrorMessage(), String.format("‘%s’ is an unsafe character", expectedUnsafeCharacterInErrorMessage));
     }
 
@@ -195,7 +195,8 @@ public class FreestyleProjectTest extends BaseTest {
 
         Set<String> actualFreestyleConfigSideMenu = new HomePage(getDriver())
                 .clickFreestyleProjectName()
-                .clickSideMenuConfigure()
+                .getSideMenu()
+                .clickConfigure()
                 .collectConfigSideMenu();
 
         Assert.assertEquals(actualFreestyleConfigSideMenu, expectedFreestyleConfigSideMenu);
@@ -249,7 +250,8 @@ public class FreestyleProjectTest extends BaseTest {
 
         HomePage page = new HomePage(getDriver())
                 .clickFreestyleProjectName()
-                .clickSideMenuConfigureLink()
+                .getSideMenu()
+                .clickConfigure()
                 .switchOFFCheckBoxThisProjectIsParametrized()
                 .clickLinkSourceCodeManagement()
                 .selectSourceCodeManagementGIT()
@@ -270,12 +272,14 @@ public class FreestyleProjectTest extends BaseTest {
 
         FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
                 .clickFreestyleProjectName(FREESTYLE_PROJECT_NAME)
-                .clickSideMenuConfigureLink()
+                .getSideMenu()
+                .clickConfigure()
                 .clickDiscardOldBuildsCheckbox()
                 .typeDaysToKeepBuilds(expectedDaysToKeepBuilds)
                 .typeMaxNumberOfBuildsToKeep(expectedMaxNumberOfBuildsToKeep)
                 .clickSaveButton()
-                .clickSideMenuConfigureLink();
+                .getSideMenu()
+                .clickConfigure();
 
         Assert.assertEquals(freestyleProjectConfigPage.getNumberOfDaysToKeepBuilds(), expectedDaysToKeepBuilds);
         Assert.assertEquals(freestyleProjectConfigPage.getMaxNumberOfBuildsToKeep(), expectedMaxNumberOfBuildsToKeep);
@@ -290,7 +294,8 @@ public class FreestyleProjectTest extends BaseTest {
 
         Set<String> actualOptionsInBuildStepsSection = new HomePage(getDriver())
                 .clickFreestyleProjectName(FREESTYLE_PROJECT_NAME)
-                .clickSideMenuConfigureLink()
+                .getSideMenu()
+                .clickConfigure()
                 .openAddBuildStepDropDown()
                 .getOptionsInBuildStepsDropDown();
 
@@ -303,7 +308,8 @@ public class FreestyleProjectTest extends BaseTest {
 
         boolean selectedCheckbox = new HomePage(getDriver())
                 .clickFreestyleProjectName(FREESTYLE_PROJECT_NAME)
-                .clickSideMenuConfigureLink()
+                .getSideMenu()
+                .clickConfigure()
                 .clickBuildTriggersSideMenuOption()
                 .scrollAndClickBuildPeriodicallyCheckbox()
                 .verifyThatBuildPeriodicallyCheckboxIsSelected();

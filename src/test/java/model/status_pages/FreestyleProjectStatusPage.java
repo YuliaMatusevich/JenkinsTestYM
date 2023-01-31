@@ -3,7 +3,6 @@ package model.status_pages;
 import model.ChangesBuildsPage;
 import model.HomePage;
 import model.base.BaseStatusPage;
-import model.config_pages.FreestyleProjectConfigPage;
 import model.status_side_menu_component.FreestyleProjectStatusSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,9 +12,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 
 public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectStatusPage, FreestyleProjectStatusSideMenuComponent> {
-
-    @FindBy(linkText = "Configure")
-    private WebElement sideMenuConfigure;
 
     @FindBy(xpath = "//li[@class='item'][last()-1]")
     private WebElement breadcrumbsParentFolderLink;
@@ -68,12 +64,6 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
         super(driver);
     }
 
-    public FreestyleProjectConfigPage clickSideMenuConfigure() {
-        sideMenuConfigure.click();
-
-        return new FreestyleProjectConfigPage(getDriver());
-    }
-
     public FolderStatusPage clickParentFolderInBreadcrumbs() {
         breadcrumbsParentFolderLink.click();
 
@@ -98,12 +88,6 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
         getDriver().switchTo().alert().accept();
 
         return new HomePage(getDriver());
-    }
-
-    public FreestyleProjectConfigPage clickSideMenuConfigureLink() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(sideMenuConfigure)).click();
-
-        return new FreestyleProjectConfigPage(getDriver());
     }
 
     public FreestyleProjectStatusPage openBuildHistoryOnSidePanel() {
