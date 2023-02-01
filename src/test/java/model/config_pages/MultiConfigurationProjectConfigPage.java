@@ -1,5 +1,6 @@
 package model.config_pages;
 
+import java.util.List;
 import model.base.BaseConfigPage;
 import model.status_pages.MultiConfigurationProjectStatusPage;
 import org.openqa.selenium.By;
@@ -32,9 +33,6 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
     @FindBy(css = ".CodeMirror-scroll>div")
     private WebElement activateShellTextArea;
 
-    @FindBy(xpath = "//div[@id='build-steps']/..//div[@class='advancedLink']//button")
-    private WebElement advancedBuildStepsButton;
-
     @FindBy(css = ".jenkins-input.fixed-width")
     private WebElement executeWindowsTextArea;
 
@@ -52,6 +50,12 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
 
     @FindBy(xpath = "//a[@class='yuimenuitemlabel']")
     private WebElement userDefinedAxis;
+
+    @FindBy(xpath = "//div[@id='build-steps']/..//div[@class='advancedLink']//button[last()]")
+    private WebElement advancedBuildStepsLastButton;
+
+    @FindBy(xpath = "//div[@id='build-steps']/..//div[@class='advancedLink']")
+    private List<WebElement> advancedButtonsInBuildStepsSection;
 
     @Override
     protected MultiConfigurationProjectStatusPage createStatusPage() {
@@ -96,14 +100,14 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
     }
 
     public MultiConfigurationProjectConfigPage enterCommandInExecuteWindowsBuildSteps(String command) {
-        getWait(10).until(ExpectedConditions.elementToBeClickable(advancedBuildStepsButton));
+        getWait(10).until(ExpectedConditions.elementToBeClickable(advancedBuildStepsLastButton));
         executeWindowsTextArea.sendKeys(command);
 
         return this;
     }
 
     public MultiConfigurationProjectConfigPage enterCommandInExecuteShellBuildSteps(String command) {
-        getWait(10).until(ExpectedConditions.elementToBeClickable(advancedBuildStepsButton));
+        getWait(10).until(ExpectedConditions.elementToBeClickable(advancedBuildStepsLastButton));
         getWait(5).until(ExpectedConditions.visibilityOf(activateShellTextArea)).click();
         executeShellTextArea.sendKeys(command);
 
@@ -143,6 +147,18 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
     public MultiConfigurationProjectConfigPage enterValueUserDefinedAxis(String value, int numberOfSection) {
         getDriver().findElement(By.xpath("//div[" + numberOfSection + "]/div/div[4]/div[2]/div/div[1]/input[@name='_.valueString']"))
                 .sendKeys(value);
+
+        return this;
+    }
+
+    public MultiConfigurationProjectConfigPage clickLastAdvancedButtonInBuildStepsSection() {
+        getWait(3).until(ExpectedConditions.elementToBeClickable(advancedButtonsInBuildStepsSection.get(advancedButtonsInBuildStepsSection.size()-1))).click();
+
+        return this;
+    }
+
+    public MultiConfigurationProjectConfigPage clickSpecificAdvancedButtonInBuildStepsSection(int numberOfStep) {
+        getWait(3).until(ExpectedConditions.elementToBeClickable(advancedButtonsInBuildStepsSection.get(numberOfStep - 1))).click();
 
         return this;
     }
