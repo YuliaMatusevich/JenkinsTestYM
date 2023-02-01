@@ -4,10 +4,10 @@ import model.*;
 import model.config_pages.FreestyleProjectConfigPage;
 import model.status_pages.FreestyleProjectStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
+import runner.TestDataUtils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -113,15 +113,8 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(jobsList.contains(FREESTYLE_PROJECT_RENAME));
     }
 
-    @DataProvider(name = "specialCharacters")
-    public Object[][] specialCharactersList() {
-        return new Object[][]{{'&', "&amp;"}, {'>', "&gt;"}, {'<', "&lt;"}, {'!', "!"}, {'@', "@"}, {'#', "#"},
-                {'$', "$"}, {'%', "%"}, {'^', "^"}, {'*', "*"}, {'[', "["}, {']', "]"}, {'\\', "\\"}, {'|', "|"},
-                {';', ";"}, {':', ":"}, {'/', "/"}, {'?', "?"},};
-    }
-
-    @Test(dataProvider = "specialCharacters")
-    public void testRenameFreestyleProjectToIncorrectViaSideMenu(Character specialCharacter, String expectedUnsafeCharacterInErrorMessage) {
+    @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
+    public void testRenameFreestyleProjectToIncorrectViaSideMenu(Character specialCharacter, String expectedErrorMessage) {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
 
         RenameItemErrorPage renameItemErrorPage = new HomePage(getDriver())
@@ -132,7 +125,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickRenameButtonWithInvalidData();
 
         Assert.assertEquals(renameItemErrorPage.getHeadErrorMessage(), "Error");
-        Assert.assertEquals(renameItemErrorPage.getErrorMessage(), String.format("‘%s’ is an unsafe character", expectedUnsafeCharacterInErrorMessage));
+        Assert.assertEquals(renameItemErrorPage.getErrorMessage(), String.format("‘%s’ is an unsafe character", expectedErrorMessage));
     }
 
     @Test

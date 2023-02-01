@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.BaseUtils;
 import runner.ProjectMethodsUtils;
+import runner.TestDataUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +28,6 @@ public class ViewsTest extends BaseTest {
     private static final String MY_VIEW_NAME = getRandomStr();
     private static final String VIEW_RENAME = getRandomStr();
 
-    @DataProvider(name = "illegalCharacters")
-    public Object[][] illegalCharactersList() {
-        return new Object[][]{{'!'}, {'@'}, {'#'}, {'$'}, {'%'}, {'^'}, {'*'}, {'['}, {']'}, {'\\'}, {'|'}, {';'}, {':'}, {'/'}, {'?'}, {'&'}, {'<'}, {'>'},};
-    }
 
     public void createAllSixItems() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
@@ -181,8 +178,8 @@ public class ViewsTest extends BaseTest {
     }
 
     @Ignore
-    @Test(dependsOnMethods = "testCreateListViewAndAddSixItems", dataProvider = "illegalCharacters")
-    public void testIllegalCharacterRenameView(Character illegalCharacter) {
+    @Test(dependsOnMethods = "testCreateListViewAndAddSixItems", dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
+    public void testIllegalCharacterRenameView(Character specialCharacter, String errorMessage) {
         new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink();
@@ -194,17 +191,17 @@ public class ViewsTest extends BaseTest {
                     .clickMyViewItemInUserDropdownMenu()
                     .clickView(GLOBAL_VIEW_NAME)
                     .clickEditGlobalView()
-                    .renameView(illegalCharacter + GLOBAL_VIEW_NAME)
+                    .renameView(specialCharacter + GLOBAL_VIEW_NAME)
                     .clickOkButton();
             if (new EditGlobalViewPage(getDriver()).getErrorPageHeader().equals("Error")) {
-                checksList.add(new EditGlobalViewPage(getDriver()).isCorrectErrorPageDetailsText(illegalCharacter));
+                checksList.add(new EditGlobalViewPage(getDriver()).isCorrectErrorPageDetailsText(specialCharacter));
 
                 checksList.add(!new HomePage(getDriver())
                         .getBreadcrumbs()
                         .clickDashboard()
                         .getSideMenu()
                         .clickMyViewsSideMenuLink()
-                        .getListViewsNames().contains(illegalCharacter + GLOBAL_VIEW_NAME));
+                        .getListViewsNames().contains(specialCharacter + GLOBAL_VIEW_NAME));
             } else {
                 checksList.add(false);
                 BaseUtils.log("Not an Error page");

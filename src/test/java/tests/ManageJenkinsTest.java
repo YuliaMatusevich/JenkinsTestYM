@@ -5,10 +5,10 @@ import model.ManageOldDataPage;
 import model.ManageUsersPage;
 import model.StatusUserPage;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
+import runner.TestDataUtils;
 
 import java.util.List;
 
@@ -101,13 +101,8 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertEquals(errorMessageWhenEmptyUserName, "\"\" is prohibited as a username for security reasons.");
     }
 
-    @DataProvider(name = "specialCharacters")
-    public Object[][] specialCharactersList() {
-        return new Object[][]{{'!'}, {'@'}, {'#'}, {'$'}, {'%'}, {'^'}, {'&'}, {'*'}, {'['}, {']'}, {'\\'}, {'|'}, {';'}, {':'}, {'/'}, {'?'}, {'<'}, {'>'}, {'.'}, {','}};
-    }
-
-    @Test(dataProvider = "specialCharacters")
-    public void testCreateUserWithIncorrectCharactersInName(Character specialCharacter) {
+    @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
+    public void testCreateUserWithIncorrectCharactersInName(Character specialCharacter, String errorMessage) {
         String errorMessageWhenIncorrectCharacters = new HomePage(getDriver())
                 .getSideMenu()
                 .clickManageJenkins()

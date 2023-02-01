@@ -6,12 +6,12 @@ import model.NewItemPage;
 import model.status_pages.MultiConfigurationProjectStatusPage;
 import model.status_pages.PipelineStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestUtils;
+import runner.TestDataUtils;
 
 import java.util.List;
 
@@ -397,21 +397,16 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(actualErrorMessage, String.format("» A job already exists with the name ‘%s’", PROJECT_NAME));
     }
 
-    @DataProvider(name = "specialCharacters")
-    public Object[][] specialCharactersList() {
-        return new Object[][]{{'!'}, {'@'}, {'#'}, {'$'}, {'%'}, {'^'}, {'*'}, {'['}, {']'}, {'\\'}, {'|'}, {';'}, {':'}, {'/'}, {'?'}, {'$'}, {'<'}, {'>'},};
-    }
-
-    @Test(dataProvider = "specialCharacters")
-    public void testCreateMultibranchPipelineUnsafeCharacter(Character unsafeCharacter) {
+    @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
+    public void testCreateMultibranchPipelineUnsafeCharacter(Character specialCharacter, String errorMessage) {
         String actualErrorMessage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(unsafeCharacter.toString())
+                .setItemName(specialCharacter.toString())
                 .selectMultibranchPipelineType()
                 .getItemNameInvalidMsg();
 
-        Assert.assertEquals(actualErrorMessage, String.format("» ‘%s’ is an unsafe character", unsafeCharacter));
+        Assert.assertEquals(actualErrorMessage, String.format("» ‘%s’ is an unsafe character", specialCharacter));
     }
 
     @Test
