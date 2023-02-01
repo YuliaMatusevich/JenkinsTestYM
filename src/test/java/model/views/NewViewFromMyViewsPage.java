@@ -1,13 +1,13 @@
 package model.views;
 
 import model.base.BaseEditViewPage;
-import model.base.MainBasePage;
+import model.base.BaseNewViewPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class NewViewPage<EditViewPage extends BaseEditViewPage> extends MainBasePage {
+public class NewViewFromMyViewsPage<EditViewPage extends BaseEditViewPage> extends BaseNewViewPage {
 
     @FindBy(id = "name")
     private WebElement viewName;
@@ -24,35 +24,32 @@ public class NewViewPage<EditViewPage extends BaseEditViewPage> extends MainBase
     @FindBy(id = "ok")
     private WebElement createButton;
 
-    @FindBy(css = ".error")
-    private WebElement errorMessageViewAlreadyExist;
-
     private final EditViewPage editViewPage;
 
-    public NewViewPage(WebDriver driver, EditViewPage editViewPage) {
+    public NewViewFromMyViewsPage(WebDriver driver, EditViewPage editViewPage) {
         super(driver);
         this.editViewPage = editViewPage;
     }
 
-    public NewViewPage<EditGlobalViewPage> selectGlobalViewType() {
+    public NewViewFromMyViewsPage<EditGlobalViewPage> selectGlobalViewType() {
         globalViewType.click();
 
-        return new NewViewPage<>(getDriver(), new EditGlobalViewPage(getDriver()));
+        return new NewViewFromMyViewsPage<>(getDriver(), new EditGlobalViewPage(getDriver()));
     }
 
-    public NewViewPage<EditListViewPage> selectListViewType() {
+    public NewViewFromMyViewsPage<EditListViewPage> selectListViewType() {
         listViewType.click();
 
-        return new NewViewPage<>(getDriver(), new EditListViewPage(getDriver()));
+        return new NewViewFromMyViewsPage<>(getDriver(), new EditListViewPage(getDriver()));
     }
 
-    public NewViewPage<EditMyViewPage> selectMyViewType() {
+    public NewViewFromMyViewsPage<EditMyViewPage> selectMyViewType() {
         myViewType.click();
 
-        return new NewViewPage<>(getDriver(), new EditMyViewPage(getDriver()));
+        return new NewViewFromMyViewsPage<>(getDriver(), new EditMyViewPage(getDriver()));
     }
 
-    public NewViewPage<?> setViewName(String name) {
+    public NewViewFromMyViewsPage<EditViewPage> setViewName(String name) {
         getWait(2).until(ExpectedConditions.visibilityOf(viewName)).sendKeys(name);
 
         return this;
@@ -62,11 +59,5 @@ public class NewViewPage<EditViewPage extends BaseEditViewPage> extends MainBase
         createButton.click();
 
         return editViewPage;
-    }
-
-    public String getErrorMessageViewAlreadyExist() {
-
-        return getWait(5).until(ExpectedConditions.visibilityOf(
-                errorMessageViewAlreadyExist)).getText();
     }
 }

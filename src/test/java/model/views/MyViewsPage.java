@@ -69,10 +69,10 @@ public class MyViewsPage extends MainBasePage {
         super(driver);
     }
 
-    public NewViewPage<?> clickNewView() {
+    public NewViewFromMyViewsPage<?> clickNewView() {
         newView.click();
 
-        return new NewViewPage<>(getDriver(), null);
+        return new NewViewFromMyViewsPage<>(getDriver(), null);
     }
 
     public String getListViewsNames() {

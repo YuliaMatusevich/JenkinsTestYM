@@ -86,7 +86,7 @@ public class ViewsTest extends BaseTest {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
         ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
 
-        NewViewPage newViewPage = new HomePage(getDriver())
+        NewViewFromMyViewsPage newViewPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
