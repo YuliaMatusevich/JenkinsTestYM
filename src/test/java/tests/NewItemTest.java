@@ -232,21 +232,16 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(createItemErrorPage.getErrorMessage(), "No name is specified");
     }
 
-    @Test
-    public void testCreateFreestyleProjectWithIncorrectCharacters() {
-        final List<Character> incorrectNameCharacters =
-                List.of('!', '@', '#', '$', '%', '^', '&', '*', '[', ']', '\\', '|', ';', ':', '/', '?', '<', '>');
-        NewItemPage newItemPage = new HomePage(getDriver())
+    @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
+    public void testCreateFreestyleProjectWithIncorrectCharacters(Character specialCharacter, String expectedErrorMessage) {
+            NewItemPage newItemPage = new HomePage(getDriver())
                 .getSideMenu()
-                .clickNewItem();
+                .clickNewItem()
+                .clearItemName()
+                .setItemName(String.valueOf(specialCharacter))
+                .selectFreestyleProjectType();
 
-        for (Character character : incorrectNameCharacters) {
-            newItemPage.clearItemName()
-                    .setItemName(String.valueOf(character))
-                    .selectFreestyleProjectType();
-
-            Assert.assertEquals(newItemPage.getItemNameInvalidMsg(), String.format("» ‘%s’ is an unsafe character", character));
-        }
+            Assert.assertEquals(newItemPage.getItemNameInvalidMsg(), String.format("» ‘%s’ is an unsafe character", specialCharacter));
     }
 
     @Test
