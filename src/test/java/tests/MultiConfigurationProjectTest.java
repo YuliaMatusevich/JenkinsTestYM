@@ -1,8 +1,11 @@
 package tests;
 
+import static runner.TestUtils.getRandomStr;
+
+import java.util.Arrays;
+import java.util.List;
 import model.ConsoleOutputPage;
 import model.HomePage;
-import model.NewItemPage;
 import model.RenameItemErrorPage;
 import model.config_pages.MultiConfigurationProjectConfigPage;
 import model.status_pages.MultiConfigurationProjectStatusPage;
@@ -13,9 +16,6 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestUtils;
-import java.util.List;
-
-import static runner.TestUtils.getRandomStr;
 
 public class MultiConfigurationProjectTest extends BaseTest {
     private static final String MULTI_CONFIGURATION_PROJECT_NAME = getRandomStr();
@@ -283,5 +283,40 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .clickSaveButton();
 
         Assert.assertTrue(configMatrix.configurationMatrixIsDisplayed());
+    }
+
+    @Test
+    public void testSetContentInThreeBuildStepsBuildStatusOnGitHubCommitSaved() {
+        final int COUNT_BUILD_STEPS = 3;
+        final String contentText = "Content text ";
+        String[] expectedContents = new String[COUNT_BUILD_STEPS];
+        String[] actualContents = new String[COUNT_BUILD_STEPS];
+
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), MULTI_CONFIGURATION_PROJECT_NAME);
+
+        MultiConfigurationProjectConfigPage configPage = new HomePage(getDriver())
+                .clickMultiConfigurationProject(MULTI_CONFIGURATION_PROJECT_NAME)
+                .clickConfiguration(MULTI_CONFIGURATION_PROJECT_NAME);
+
+        for (int i = 1; i <= COUNT_BUILD_STEPS; i++) {
+            configPage
+                    .scrollAndClickBuildSteps()
+                    .selectionAndClickSetBuildStatusOnGitHubCommitFromBuildSteps()
+                    .scrollAndClickLastAdvancedButtonInBuildStepsSection()
+                    .setLastContentFieldsInBuildStepsBuildStatusOnGitHubCommit(contentText + i);
+            expectedContents[i - 1] = contentText + i;
+        }
+
+        configPage
+                .clickSaveButton()
+                .getSideMenu()
+                .clickConfigure();
+
+        for (int i = 1; i <= COUNT_BUILD_STEPS; i++) {
+            actualContents[i - 1] = configPage
+                    .scrollAndClickSpecificAdvancedButtonInBuildStepsSection(i)
+                    .getContentFieldsInBuildStepsBuildStatusOnGitHubCommit(i);
+        }
+        Assert.assertEquals(Arrays.toString(actualContents), Arrays.toString(expectedContents));
     }
 }
