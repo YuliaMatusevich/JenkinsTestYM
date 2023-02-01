@@ -30,10 +30,10 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
         super(driver);
     }
 
-    public NewItemPage clickNewItem() {
+    public NewItemPage<?> clickNewItem() {
         newItem.click();
 
-        return new NewItemPage(getDriver());
+        return new NewItemPage<>(getDriver(), null);
     }
 
     public PeoplePage clickPeople() {

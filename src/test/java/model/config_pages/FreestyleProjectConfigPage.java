@@ -102,14 +102,6 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         super(driver);
     }
 
-    public String getHeadlineText() {
-        return headline.getText();
-    }
-
-    public String getErrorMsg() {
-        return errorMsg.getText();
-    }
-
     public FreestyleProjectConfigPage clickDiscardOldBuildsCheckbox() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(discardOldBuildsCheckbox)).click();
 
@@ -283,5 +275,9 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         linkSourceCodeManagement.click();
 
         return this;
+    }
+
+    public String getHeadlineText() {
+        return headline.getText();
     }
 }

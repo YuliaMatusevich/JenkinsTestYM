@@ -67,7 +67,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(MULTI_CONFIGURATION_PROJECT_NAME)
-                .selectMultiConfigurationProjectAndClickOk()
+                .selectMultiConfigurationProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -161,7 +162,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(MULTI_CONFIGURATION_PROJECT_NAME)
-                .selectMultiConfigurationProjectAndClickOk()
+                .selectMultiConfigurationProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -247,14 +249,14 @@ public class MultiConfigurationProjectTest extends BaseTest {
     @Ignore
     @Test
     public void testNewestBuildsButton() {
-        new HomePage(getDriver())
+        MultiConfigurationProjectStatusPage mcpStatusPage = new HomePage(getDriver())
                 .getSideMenu()
-                .clickNewItem();
-        MultiConfigurationProjectStatusPage newMultiConfigItem = new NewItemPage(getDriver())
+                .clickNewItem()
                 .setItemName(MULTI_CONFIGURATION_PROJECT_NAME)
-                .selectMultiConfigurationProjectAndClickOk()
+                .selectMultiConfigurationProjectType()
+                .clickOkButton()
                 .clickSaveButton();
-        MultiConfigurationProjectStatusPage mcpStatusPage = new MultiConfigurationProjectStatusPage(getDriver());
+
         mcpStatusPage.multiConfigurationProjectBuildNow(getDriver());
         mcpStatusPage.multiConfigurationProjectNewestBuilds(getDriver());
 

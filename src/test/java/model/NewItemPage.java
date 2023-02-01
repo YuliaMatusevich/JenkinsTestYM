@@ -1,5 +1,6 @@
 package model;
 
+import model.base.BaseConfigPage;
 import model.base.MainBasePage;
 import model.config_pages.*;
 import org.openqa.selenium.NoSuchElementException;
@@ -12,7 +13,7 @@ import runner.TestUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NewItemPage extends MainBasePage {
+public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBasePage {
 
     @FindBy(id = "name")
     private WebElement itemName;
@@ -56,94 +57,77 @@ public class NewItemPage extends MainBasePage {
     @FindBy(className = "h3")
     private WebElement h3Header;
 
-    public NewItemPage(WebDriver driver) {
+    private final ConfigPage configPage;
+
+    public NewItemPage(WebDriver driver, ConfigPage configPage) {
         super(driver);
+        this.configPage = configPage;
     }
 
-    public NewItemPage clearItemName() {
+    public NewItemPage<ConfigPage> clearItemName() {
         itemName.clear();
 
         return this;
     }
 
-    public NewItemPage setItemName(String name) {
+    public NewItemPage<ConfigPage> setItemName(String name) {
         getWait(2).until(ExpectedConditions.visibilityOf(itemName)).sendKeys(name);
 
         return this;
     }
 
-    public NewItemPage selectFreestyleProject() {
+    public NewItemPage<FreestyleProjectConfigPage> selectFreestyleProjectType() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(freestyleProject)).click();
 
-        return this;
+        return new NewItemPage<>(getDriver(), new FreestyleProjectConfigPage(getDriver()));
     }
 
-    public FreestyleProjectConfigPage selectFreestyleProjectAndClickOk() {
-        selectFreestyleProject();
-        okButton.submit();
+    public NewItemPage<PipelineConfigPage> selectPipelineType() {
+        pipeline.click();
 
-        return new FreestyleProjectConfigPage(getDriver());
+        return new NewItemPage<>(getDriver(), new PipelineConfigPage(getDriver()));
     }
 
-    public CreateItemErrorPage selectFreestyleProjectAndClickOkWithError() {
-        selectFreestyleProject();
-        okButton.submit();
-
-        return new CreateItemErrorPage(getDriver());
-    }
-
-    public FolderConfigPage selectFolderAndClickOk() {
-        folderType.click();
-        okButton.submit();
-
-        return new FolderConfigPage(getDriver());
-    }
-
-    public CreateItemErrorPage selectExistFolderAndClickOk() {
-        folderType.click();
-        okButton.submit();
-
-        return new CreateItemErrorPage(getDriver());
-    }
-
-    public OrgFolderConfigPage selectOrgFolderAndClickOk() {
-        orgFolder.click();
-        okButton.submit();
-
-        return new OrgFolderConfigPage(getDriver());
-    }
-
-    public MultiConfigurationProjectConfigPage selectMultiConfigurationProjectAndClickOk() {
+    public NewItemPage<MultiConfigurationProjectConfigPage> selectMultiConfigurationProjectType() {
         multiConfigurationProject.click();
-        okButton.submit();
 
-        return new MultiConfigurationProjectConfigPage(getDriver());
+        return new NewItemPage<>(getDriver(), new MultiConfigurationProjectConfigPage(getDriver()));
     }
 
-    public NewItemPage setItem(int index) {
-        getAction().scrollByAmount(0, 300).perform();
-        itemsList.get(index).click();
+    public NewItemPage<FolderConfigPage> selectFolderType() {
+        folderType.click();
 
-        return this;
+        return new NewItemPage<>(getDriver(), new FolderConfigPage(getDriver()));
+    }
+
+    public NewItemPage<MultibranchPipelineConfigPage> selectMultibranchPipelineType() {
+        getWait(1).until(ExpectedConditions.visibilityOf(multibranchPipeline));
+        multibranchPipeline.click();
+
+        return new NewItemPage<>(getDriver(), new MultibranchPipelineConfigPage(getDriver()));
+    }
+
+    public NewItemPage<OrgFolderConfigPage> selectOrgFolderType() {
+        orgFolder.click();
+
+        return new NewItemPage<>(getDriver(), new OrgFolderConfigPage(getDriver()));
+    }
+
+    public ConfigPage clickOkButton() {
+        okButton.click();
+
+        return configPage;
+    }
+
+    public CreateItemErrorPage clickOkToCreateItemErrorPage() {
+        okButton.click();
+
+        return new CreateItemErrorPage(getDriver());
     }
 
     public int getItemsListSize() {
         getWait(5).until(ExpectedConditions.visibilityOfAllElements(itemsList));
         return itemsList.size();
-    }
-
-    public NewItemPage selectMultibranchPipeline() {
-        getWait(1).until(ExpectedConditions.visibilityOf(multibranchPipeline));
-        multibranchPipeline.click();
-
-        return this;
-    }
-
-    public MultibranchPipelineConfigPage selectMultibranchPipelineAndClickOk() {
-        multibranchPipeline.click();
-        okButton.submit();
-
-        return new MultibranchPipelineConfigPage(getDriver());
     }
 
     public String getItemNameRequiredMsg() {
@@ -159,60 +143,17 @@ public class NewItemPage extends MainBasePage {
         return okButton.isEnabled();
     }
 
-    public PipelineConfigPage selectPipelineAndClickOk() {
-        pipeline.click();
-        okButton.submit();
-
-        return new PipelineConfigPage(getDriver());
-    }
-
-    public NewItemPage selectPipeline() {
-        pipeline.click();
-
-        return this;
-    }
-
-    public NewItemPage setCopyFrom(String name) {
+    public NewItemPage<?> setCopyFrom(String name) {
         getAction().moveToElement(copyFrom).click().sendKeys(name).perform();
 
         return this;
     }
 
-    public CreateItemErrorPage clickOkButton() {
-        okButton.click();
-
-        return new CreateItemErrorPage(getDriver());
-    }
-
-    public PipelineConfigPage clickOk() {
-        okButton.click();
-
-        return new PipelineConfigPage(getDriver());
-    }
-
-    public NewItemPage setCopyFromItemName(String name) {
+    public NewItemPage<?> setCopyFromItemName(String name) {
         TestUtils.scrollToEnd(getDriver());
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(copyFrom)).sendKeys(name);
 
         return this;
-    }
-
-    public MultiConfigurationProjectConfigPage clickOK() {
-        okButton.click();
-
-        return new MultiConfigurationProjectConfigPage(getDriver());
-    }
-
-    public MultibranchPipelineConfigPage clickOkMultibranchPipeline() {
-        okButton.click();
-
-        return new MultibranchPipelineConfigPage(getDriver());
-    }
-
-    public CreateItemErrorPage clickOKCreateItemErrorPage() {
-        okButton.click();
-
-        return new CreateItemErrorPage(getDriver());
     }
 
     public boolean isDisplayedFieldCopyFrom() {

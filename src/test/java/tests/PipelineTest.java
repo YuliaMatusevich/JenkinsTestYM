@@ -125,7 +125,8 @@ public class PipelineTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .setDescriptionField(DESCRIPTION)
                 .clickPreviewLink();
 
@@ -138,7 +139,8 @@ public class PipelineTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .setDescriptionField(DESCRIPTION)
                 .clickPreviewLink()
                 .clickHidePreviewLink();
@@ -222,7 +224,8 @@ public class PipelineTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .clickSaveButton()
                 .editDescription(DESCRIPTION)
                 .clickSaveButton();
@@ -276,7 +279,8 @@ public class PipelineTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PIPELINE_NAME)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .scrollToEndPipelineConfigPage()
                 .clickTrySamplePipelineDropDownMenu()
                 .clickHelloWorld()

@@ -23,9 +23,9 @@ public class CopyItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(nameItem)
-                .selectFreestyleProject()
+                .selectFreestyleProjectType()
                 .setCopyFrom(nameNotExistItem)
-                .clickOKCreateItemErrorPage();
+                .clickOkToCreateItemErrorPage();
 
         String actualErrorMessage = createItemErrorPage.getErrorHeader() +
                 " " + createItemErrorPage.getErrorMessage();

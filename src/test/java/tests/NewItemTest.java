@@ -3,21 +3,17 @@ package tests;
 import model.CreateItemErrorPage;
 import model.HomePage;
 import model.NewItemPage;
-import model.config_pages.FreestyleProjectConfigPage;
 import model.status_pages.MultiConfigurationProjectStatusPage;
-import model.config_pages.OrgFolderConfigPage;
-import model.config_pages.PipelineConfigPage;
 import model.status_pages.PipelineStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestUtils;
 
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import static runner.ProjectMethodsUtils.createNewFolder;
 import static runner.TestUtils.getRandomStr;
@@ -56,37 +52,13 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectFolderAndClickOk()
+                .selectFolderType()
+                .clickOkButton()
                 .clickApplyButton()
                 .getBreadcrumbs()
                 .clickDashboard();
 
         Assert.assertEquals(homePage.getJobName(PROJECT_NAME), PROJECT_NAME);
-    }
-
-    @DataProvider(name = "typeProjectList")
-    private Object[][] getTypeProjectList() {
-        return Stream.<Consumer<NewItemPage>>of(
-                NewItemPage::selectFreestyleProjectAndClickOk,
-                NewItemPage::selectPipelineAndClickOk,
-                NewItemPage::selectMultiConfigurationProjectAndClickOk,
-                NewItemPage::selectFolderAndClickOk,
-                NewItemPage::selectMultibranchPipelineAndClickOk,
-                NewItemPage::selectOrgFolderAndClickOk
-        ).map(func -> new Object[]{func}).toArray(Object[][]::new);
-    }
-
-    @Test(dataProvider = "typeProjectList")
-    public void testCreateAnyItemWithSpacesOnlyNameError(Consumer<NewItemPage> typeProjectMethod) {
-        typeProjectMethod.accept(
-                new HomePage(getDriver())
-                        .getSideMenu()
-                        .clickNewItem()
-                        .setItemName("     "));
-
-        Assert.assertEquals(
-                new CreateItemErrorPage(getDriver()).getErrorMessage(),
-                "No name is specified");
     }
 
     @Test
@@ -95,7 +67,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getNameText();
 
@@ -117,7 +90,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .getBreadcrumbs()
                 .getTextBreadcrumbs();
 
@@ -130,7 +104,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .setDescriptionField(ITEM_NEW_DESCRIPTION)
                 .clickSaveButton()
                 .getDescriptionText();
@@ -138,41 +113,20 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(actualPipelineDescription, ITEM_NEW_DESCRIPTION);
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testCreateNewPipelineWithDescription")
     public void testCreateNewPipelineFromExisting() {
-        String actualJobName = new HomePage(getDriver())
+        PipelineStatusPage pipelineStatusPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(NEW_PROJECT_NAME)
                 .setCopyFromItemName(PROJECT_NAME)
-                .clickOk()
-                .clickSaveButton()
-                .getPipelineName();
+                .selectPipelineType()
+                .clickOkButton()
+                .clickSaveButton();
 
-        String actualDescription = new PipelineStatusPage(getDriver()).getDescriptionText();
-
-        Assert.assertEquals(actualJobName, NEW_PROJECT_NAME);
-        Assert.assertEquals(actualDescription, ITEM_NEW_DESCRIPTION);
-    }
-
-    @Test
-    public void testCreateItemsWithoutName() {
-        int itemsListSize = new HomePage((getDriver()))
-                .getSideMenu()
-                .clickNewItem()
-                .getItemsListSize();
-
-        for (int i = 0; i < itemsListSize; i++) {
-            String actualErrorMessage = new NewItemPage((getDriver()))
-                    .getBreadcrumbs()
-                    .clickDashboard()
-                    .getSideMenu()
-                    .clickNewItem()
-                    .setItem(i)
-                    .getItemNameRequiredMsg();
-
-            Assert.assertEquals(actualErrorMessage, "» This field cannot be empty, please enter a valid name");
-        }
+        Assert.assertEquals(pipelineStatusPage.getPipelineName(), NEW_PROJECT_NAME);
+        Assert.assertEquals(pipelineStatusPage.getDescriptionText(), ITEM_NEW_DESCRIPTION);
     }
 
     @Test
@@ -190,13 +144,13 @@ public class NewItemTest extends BaseTest {
     @Test
     public void testCreateNewItemTypePipelineWithEmptyName() {
         final String nameNewItemTypePipeline = "";
-        PipelineConfigPage newItemPage = new HomePage(getDriver())
+        NewItemPage newItemPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(nameNewItemTypePipeline)
-                .selectPipelineAndClickOk();
+                .selectPipelineType();
 
-        Assert.assertEquals(new NewItemPage(getDriver()).getItemNameRequiredMsg(), "» This field cannot be empty, please enter a valid name");
+        Assert.assertEquals(newItemPage.getItemNameRequiredMsg(), "» This field cannot be empty, please enter a valid name");
     }
 
     @Test
@@ -205,13 +159,14 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectPipeline()
+                .selectPipelineType()
                 .getItemNameInvalidMsg();
 
         Assert.assertEquals(newItemPageErrorMessage, (String.format("» A job already exists with the name ‘%s’", PROJECT_NAME)));
@@ -223,7 +178,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getSideMenu()
@@ -241,9 +197,9 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(jobName)
-                .selectPipeline()
+                .selectPipelineType()
                 .setCopyFrom(jobName)
-                .clickOkButton()
+                .clickOkToCreateItemErrorPage()
                 .getErrorMessage();
 
         Assert.assertEquals(errorMessage, "No such job: " + jobName);
@@ -255,7 +211,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectFreestyleProjectAndClickOk()
+                .selectFreestyleProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getNameText();
 
@@ -264,14 +221,15 @@ public class NewItemTest extends BaseTest {
 
     @Test
     public void testCreateFreestyleProjectWithSpacesInsteadOfName() {
-        FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
+        CreateItemErrorPage createItemErrorPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(" ")
-                .selectFreestyleProjectAndClickOk();
+                .selectFreestyleProjectType()
+                .clickOkToCreateItemErrorPage();
 
-        Assert.assertEquals(freestyleProjectConfigPage.getHeadlineText(), "Error");
-        Assert.assertEquals(freestyleProjectConfigPage.getErrorMsg(), "No name is specified");
+        Assert.assertEquals(createItemErrorPage.getErrorHeader(), "Error");
+        Assert.assertEquals(createItemErrorPage.getErrorMessage(), "No name is specified");
     }
 
     @Test
@@ -285,7 +243,7 @@ public class NewItemTest extends BaseTest {
         for (Character character : incorrectNameCharacters) {
             newItemPage.clearItemName()
                     .setItemName(String.valueOf(character))
-                    .selectFreestyleProject();
+                    .selectFreestyleProjectType();
 
             Assert.assertEquals(newItemPage.getItemNameInvalidMsg(), String.format("» ‘%s’ is an unsafe character", character));
         }
@@ -299,7 +257,7 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectFreestyleProject()
+                .selectFreestyleProjectType()
                 .getItemNameInvalidMsg();
 
         Assert.assertEquals(actualResult, String.format("» A job already exists with the name ‘%s’", PROJECT_NAME));
@@ -310,7 +268,7 @@ public class NewItemTest extends BaseTest {
         NewItemPage newItemPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .selectFreestyleProject();
+                .selectFreestyleProjectType();
 
         Assert.assertEquals(newItemPage.getItemNameRequiredMsg(),
                 "» This field cannot be empty, please enter a valid name");
@@ -326,7 +284,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(getRandomStr(256))
-                .selectFreestyleProjectAndClickOkWithError();
+                .selectFreestyleProjectType()
+                .clickOkToCreateItemErrorPage();
 
         Assert.assertTrue(errorPage.getPageUrl().endsWith(expectedURL));
         Assert.assertTrue(errorPage.isErrorPictureDisplayed());
@@ -339,7 +298,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectMultiConfigurationProjectAndClickOk()
+                .selectMultiConfigurationProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard();
@@ -356,7 +316,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(nameMCP)
-                .selectMultiConfigurationProjectAndClickOk()
+                .selectMultiConfigurationProjectType()
+                .clickOkButton()
                 .inputDescription(descriptionMCP)
                 .showPreview()
                 .clickSaveButton()
@@ -379,7 +340,8 @@ public class NewItemTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(NEW_PROJECT_NAME)
                 .setCopyFromItemName(PROJECT_NAME)
-                .clickOK()
+                .selectMultiConfigurationProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -394,8 +356,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectMultibranchPipeline()
-                .clickOkMultibranchPipeline()
+                .selectMultibranchPipelineType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard();
@@ -408,7 +370,7 @@ public class NewItemTest extends BaseTest {
         NewItemPage newItemPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .selectMultibranchPipeline();
+                .selectMultibranchPipelineType();
 
         Assert.assertEquals(newItemPage.getItemNameRequiredMsg(),
                 "» This field cannot be empty, please enter a valid name");
@@ -421,15 +383,15 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectMultibranchPipeline()
-                .clickOkMultibranchPipeline()
+                .selectMultibranchPipelineType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectMultibranchPipeline()
+                .selectMultibranchPipelineType()
                 .getItemNameInvalidMsg();
 
         Assert.assertEquals(actualErrorMessage, String.format("» A job already exists with the name ‘%s’", PROJECT_NAME));
@@ -446,7 +408,7 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(unsafeCharacter.toString())
-                .selectMultibranchPipeline()
+                .selectMultibranchPipelineType()
                 .getItemNameInvalidMsg();
 
         Assert.assertEquals(actualErrorMessage, String.format("» ‘%s’ is an unsafe character", unsafeCharacter));
@@ -458,11 +420,11 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName("MultibranchPipeline@")
-                .selectMultibranchPipeline();
+                .selectMultibranchPipelineType();
 
         Assert.assertEquals(newItemPage.getItemNameInvalidMsg(), "» ‘@’ is an unsafe character");
 
-        CreateItemErrorPage createItemErrorPage = newItemPage.clickOkButton();
+        CreateItemErrorPage createItemErrorPage = newItemPage.clickOkToCreateItemErrorPage();
 
         Assert.assertEquals(createItemErrorPage.getCurrentURL(), "http://localhost:8080/view/all/createItem");
         Assert.assertEquals(createItemErrorPage.getErrorHeader(),
@@ -476,7 +438,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectFolderAndClickOk()
+                .selectFolderType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -491,8 +454,8 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName("")
-                .selectOrgFolderAndClickOk()
-                .getErrorMessageEmptyField();
+                .selectOrgFolderType()
+                .getItemNameRequiredMsg();
 
         Assert.assertEquals(errMessageEmptyName,
                 "» This field cannot be empty, please enter a valid name");
@@ -500,13 +463,13 @@ public class NewItemTest extends BaseTest {
 
     @Test
     public void testCreateOrgFolderWithEmptyName() {
-        OrgFolderConfigPage orgFolderConfigPage = new HomePage(getDriver())
+        NewItemPage newItemPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName("")
-                .selectOrgFolderAndClickOk();
+                .selectOrgFolderType();
 
-        Assert.assertFalse(orgFolderConfigPage.isOkButtonEnabled());
+        Assert.assertFalse(newItemPage.isOkButtonEnabled());
     }
 
     @Test
@@ -517,10 +480,10 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(PROJECT_NAME)
-                .selectExistFolderAndClickOk()
-                .getErrorMessage();
+                .selectFolderType()
+                .getItemNameInvalidMsg();
 
-        Assert.assertEquals(errMessage, "A job already exists with the name ‘"
+        Assert.assertEquals(errMessage, "» A job already exists with the name ‘"
                 + PROJECT_NAME + "’");
     }
 

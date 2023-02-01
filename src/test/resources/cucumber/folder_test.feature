@@ -4,7 +4,8 @@ Feature: Folder Test
     Given Go to home page
     When Click on link New Item
     And Enter an item name
-    And Select Folder from list and click Ok
+    And Select Folder from list
+    And Click Ok
     And click Save
     Then Result: folder was created
 

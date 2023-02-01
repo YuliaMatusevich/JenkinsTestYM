@@ -9,7 +9,8 @@ public class ProjectMethodsUtils {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(name)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
@@ -20,7 +21,8 @@ public class ProjectMethodsUtils {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(name)
-                .selectFreestyleProjectAndClickOk()
+                .selectFreestyleProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
@@ -31,7 +33,8 @@ public class ProjectMethodsUtils {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(name)
-                .selectMultiConfigurationProjectAndClickOk()
+                .selectMultiConfigurationProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
@@ -42,7 +45,8 @@ public class ProjectMethodsUtils {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(name)
-                .selectFolderAndClickOk()
+                .selectFolderType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
@@ -53,8 +57,8 @@ public class ProjectMethodsUtils {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(name)
-                .selectMultibranchPipeline()
-                .clickOkMultibranchPipeline()
+                .selectMultibranchPipelineType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
@@ -65,7 +69,8 @@ public class ProjectMethodsUtils {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(name)
-                .selectOrgFolderAndClickOk()
+                .selectOrgFolderType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getHeader()
                 .clickJenkinsNameIcon();

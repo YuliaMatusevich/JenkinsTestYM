@@ -22,9 +22,9 @@ public class FolderStatusSideMenuComponent extends BaseStatusSideMenuComponent<F
         super(driver, statusPage);
     }
 
-    public NewItemPage clickNewItem() {
+    public NewItemPage<?> clickNewItem() {
         newItem.click();
 
-        return new NewItemPage(getDriver());
+        return new NewItemPage<>(getDriver(), null);
     }
 }

@@ -50,11 +50,11 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
         super(driver);
     }
 
-    public NewItemPage clickNewItemDropdownThisFolderInBreadcrumbs() {
+    public NewItemPage<?> clickNewItemDropdownThisFolderInBreadcrumbs() {
         getWait(5).until(ExpectedConditions.visibilityOf(breadcrumbsThisFolderToggleDropdown)).click();
         getWait(5).until(ExpectedConditions.visibilityOf(newItemInDropDown)).click();
 
-        return new NewItemPage(getDriver());
+        return new NewItemPage<>(getDriver(), null);
     }
 
     public List<String> getJobList() {
@@ -64,10 +64,10 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
                 .collect(Collectors.toList());
     }
 
-    public NewItemPage clickCreateJob() {
+    public NewItemPage<?> clickCreateJob() {
         createJob.click();
 
-        return new NewItemPage(getDriver());
+        return new NewItemPage<>(getDriver(), null);
     }
 
     public FolderStatusPage clickSubmitButton() {
@@ -76,7 +76,7 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
         return new FolderStatusPage(getDriver());
     }
 
-    public List<String> getTopMenueLinkText() {
+    public List<String> getTopMenuLinkText() {
         return topMenuList
                 .stream()
                 .map(WebElement::getText)

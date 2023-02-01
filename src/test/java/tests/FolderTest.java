@@ -27,7 +27,8 @@ public class FolderTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(FOLDER_NAME)
-                .selectFolderAndClickOk()
+                .selectFolderType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -45,7 +46,8 @@ public class FolderTest extends BaseTest {
                 .clickFolder(FOLDER_NAME)
                 .clickCreateJob()
                 .setItemName(multiConfigurationProjectName)
-                .selectMultiConfigurationProjectAndClickOk()
+                .selectMultiConfigurationProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .clickParentFolderInBreadcrumbs();
 
@@ -186,7 +188,8 @@ public class FolderTest extends BaseTest {
                 .clickFolder(FOLDER_NAME)
                 .clickCreateJob()
                 .setItemName(freestyleProjectName)
-                .selectFreestyleProjectAndClickOk()
+                .selectFreestyleProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -223,7 +226,8 @@ public class FolderTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(FREESTYLE_PROJECT_NAME)
-                .selectFreestyleProjectAndClickOk()
+                .selectFreestyleProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -241,7 +245,8 @@ public class FolderTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(getRandomStr())
-                .selectFreestyleProjectAndClickOk()
+                .selectFreestyleProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -266,7 +271,8 @@ public class FolderTest extends BaseTest {
                 .clickFolder(FOLDER_NAME)
                 .clickCreateJob()
                 .setItemName(FOLDER_NAME_2)
-                .selectFolderAndClickOk()
+                .selectFolderType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -284,12 +290,13 @@ public class FolderTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(FOLDER_NAME_2)
-                .selectFolderAndClickOk()
+                .selectFolderType()
+                .clickOkButton()
                 .clickSaveButton();
 
         Assert.assertTrue(folderStatusPage.getNameText().contains(FOLDER_NAME_2));
-        Assert.assertTrue(folderStatusPage.getTopMenueLinkText().contains(FOLDER_NAME_2));
-        Assert.assertTrue(folderStatusPage.getTopMenueLinkText().contains(FOLDER_NAME));
+        Assert.assertTrue(folderStatusPage.getTopMenuLinkText().contains(FOLDER_NAME_2));
+        Assert.assertTrue(folderStatusPage.getTopMenuLinkText().contains(FOLDER_NAME));
     }
 
     @Test
@@ -298,7 +305,8 @@ public class FolderTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(FOLDER_NAME)
-                .selectFolderAndClickOk()
+                .selectFolderType()
+                .clickOkButton()
                 .setDescription(DESCRIPTION)
                 .clickSaveButton()
                 .getAdditionalDescriptionText();
@@ -358,7 +366,8 @@ public class FolderTest extends BaseTest {
                 .clickFolder(FOLDER_NAME)
                 .clickNewItemDropdownThisFolderInBreadcrumbs()
                 .setItemName(freestyleProjectName)
-                .selectFreestyleProjectAndClickOk()
+                .selectFreestyleProjectType()
+                .clickOkButton()
                 .clickSaveButton()
                 .clickParentFolderInBreadcrumbs()
                 .getJobList();
@@ -375,7 +384,8 @@ public class FolderTest extends BaseTest {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(MULTIBRANCH_PIPELINE_NAME)
-                .selectMultibranchPipelineAndClickOk()
+                .selectMultibranchPipelineType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -408,7 +418,8 @@ public class FolderTest extends BaseTest {
                 .clickFolder(FOLDER_NAME)
                 .clickCreateJob()
                 .setItemName(pipelineProjectName)
-                .selectPipelineAndClickOk()
+                .selectPipelineType()
+                .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()

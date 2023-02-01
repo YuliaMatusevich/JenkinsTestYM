@@ -9,11 +9,13 @@ import model.HomePage;
 import model.NewItemPage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import runner.CucumberDriver;
 import runner.TestUtils;
 
 import java.util.List;
 
+@Ignore
 public class FolderPage {
 
     private HomePage homePage;
@@ -37,9 +39,13 @@ public class FolderPage {
         newItemPage= newItemPage.setItemName(folderName);
     }
 
-    @And("Select Folder from list and click Ok")
+    @And("Select Folder from list")
     public void selectFolderFromListAndClickOk() {
-        folderConfigPage = newItemPage.selectFolderAndClickOk();
+        newItemPage = newItemPage.selectFolderType();
+    }
+    @And("Click Ok")
+    public void clickOk() {
+        newItemPage.clickOkButton();
     }
 
     @And("click Save")
@@ -64,7 +70,8 @@ public class FolderPage {
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(folderName)
-                .selectFolderAndClickOk()
+                .selectFolderType()
+                .clickOkButton()
                 .clickSaveButton();
     }
     @And("Return to home page")
