@@ -129,7 +129,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .getSideMenu()
                 .clickRename()
                 .clearFieldAndInputNewName(FREESTYLE_PROJECT_NAME + specialCharacter)
-                .clickSaveButtonAndGetError();
+                .clickRenameButtonWithInvalidData();
 
         Assert.assertEquals(renameItemErrorPage.getHeadErrorMessage(), "Error");
         Assert.assertEquals(renameItemErrorPage.getErrorMessage(), String.format("‘%s’ is an unsafe character", expectedUnsafeCharacterInErrorMessage));

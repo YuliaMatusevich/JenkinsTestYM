@@ -8,6 +8,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class RenameItemPage<StatusPage extends BaseStatusPage<?, ?>> extends MainBasePage {
+    @FindBy(id = "yui-gen1-button")
+    private WebElement renameButton;
+
+    @FindBy(css = "input[name='newName']")
+    private WebElement fieldInputtingNewName;
 
     private final StatusPage statusPage;
 
@@ -16,12 +21,6 @@ public class RenameItemPage<StatusPage extends BaseStatusPage<?, ?>> extends Mai
         this.statusPage = statusPage;
     }
 
-    @FindBy(css = "input[name='newName']")
-    private WebElement fieldInputtingNewName;
-
-    @FindBy(xpath = "//button[@type = 'submit']")
-    private WebElement buttonSubmit;
-
     public RenameItemPage<StatusPage> clearFieldAndInputNewName(String newName) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(fieldInputtingNewName)).clear();
         fieldInputtingNewName.sendKeys(newName);
@@ -29,14 +28,14 @@ public class RenameItemPage<StatusPage extends BaseStatusPage<?, ?>> extends Mai
         return this;
     }
 
-    public RenameItemErrorPage clickSaveButtonAndGetError() {
-        buttonSubmit.click();
+    public RenameItemErrorPage clickRenameButtonWithInvalidData() {
+        renameButton.click();
 
         return new RenameItemErrorPage(getDriver());
     }
 
     public StatusPage clickRenameButton() {
-        buttonSubmit.click();
+        renameButton.click();
 
         return statusPage;
     }

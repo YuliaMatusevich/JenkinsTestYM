@@ -171,7 +171,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .getSideMenu()
                 .clickRename()
                 .clearFieldAndInputNewName("&")
-                .clickSaveButtonAndGetError();
+                .clickRenameButtonWithInvalidData();
 
         Assert.assertEquals(renameItemErrorPage.getErrorMessage(), "‘&amp;’ is an unsafe character");
     }

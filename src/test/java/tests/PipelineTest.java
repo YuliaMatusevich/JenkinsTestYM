@@ -90,7 +90,7 @@ public class PipelineTest extends BaseTest {
         RenameItemErrorPage renameItemErrorPage = new HomePage(getDriver())
                 .clickJobDropDownMenu(PIPELINE_NAME)
                 .clickRenamePipelineDropDownMenu()
-                .clickSaveButtonAndGetError();
+                .clickRenameButtonWithInvalidData();
 
         Assert.assertEquals(renameItemErrorPage.getHeadErrorMessage(), "Error");
         Assert.assertEquals(renameItemErrorPage.getErrorMessage(), "The new name is the same as the current name.");
@@ -113,7 +113,7 @@ public class PipelineTest extends BaseTest {
                 .clickJobDropDownMenu(PIPELINE_NAME)
                 .clickRenamePipelineDropDownMenu()
                 .clearFieldAndInputNewName(PIPELINE_NAME + unsafeCharacter)
-                .clickSaveButtonAndGetError()
+                .clickRenameButtonWithInvalidData()
                 .getErrorMessage();
 
         Assert.assertEquals(actualRenameErrorMessage, String.format("‘%s’ is an unsafe character", expectedUnsafeCharacterInErrorMessage));
