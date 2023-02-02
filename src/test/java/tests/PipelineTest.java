@@ -166,8 +166,8 @@ public class PipelineTest extends BaseTest {
                 .setGitHubRepo(gitHubRepo)
                 .clickSaveButton();
 
-        Assert.assertTrue(pipelineProjectPage.isDisplayedGitHubOnSideMenu());
-        Assert.assertTrue(pipelineProjectPage.getAttributeGitHubSideMenu("href").contains(gitHubRepo));
+        Assert.assertTrue(pipelineProjectPage.getSideMenu().isDisplayedGitHubOnSideMenu());
+        Assert.assertTrue(pipelineProjectPage.getSideMenu().getAttributeGitHubSideMenu("href").contains(gitHubRepo));
     }
 
     @Ignore
@@ -200,6 +200,7 @@ public class PipelineTest extends BaseTest {
                 .selectScriptScm()
                 .setGitHubUrl("https://github.com/patriotby07/simple-maven-project-with-tests")
                 .clickSaveButton()
+                .getSideMenu()
                 .clickBuildWithParameters()
                 .selectParameterByText("Guest")
                 .clickBuildButton()
@@ -231,6 +232,7 @@ public class PipelineTest extends BaseTest {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_NAME);
         String actualDescription = new HomePage(getDriver())
                 .clickPipelineJob(PIPELINE_NAME)
+                .getSideMenu()
                 .clickConfigure()
                 .setDescriptionField(NEW_DESCRIPTION)
                 .clickSaveButton()
@@ -259,6 +261,7 @@ public class PipelineTest extends BaseTest {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_NAME);
         List<String> pipelineSideMenuOptionsLinks = new HomePage(getDriver())
                 .clickPipelineProjectName()
+                .getSideMenu()
                 .getPipelineSideMenuLinks();
 
         Assert.assertEquals(pipelineSideMenuOptionsLinks, expectedResult);
