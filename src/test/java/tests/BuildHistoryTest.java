@@ -6,16 +6,15 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
+import runner.TestDataUtils;
 
 import static runner.TestUtils.getRandomStr;
 
 public class BuildHistoryTest extends BaseTest {
 
-    private static final String FREESTYLE_PROJECT_NAME = getRandomStr();
-
     @Test
     public void testH1HeaderBuildHistory() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
 
         BuildHistoryPage buildHistoryPage = new HomePage(getDriver())
                 .getSideMenu()

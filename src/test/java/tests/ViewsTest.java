@@ -17,36 +17,25 @@ import java.util.Map;
 import static runner.TestUtils.getRandomStr;
 
 public class ViewsTest extends BaseTest {
-    private static final String FREESTYLE_PROJECT_NAME = getRandomStr();
-    private static final String PIPELINE_NAME = getRandomStr();
-    private static final String MULTI_CONFIGURATION_PROJECT_NAME = getRandomStr();
-    private static final String FOLDER_NAME = getRandomStr();
-    private static final String MULTIBRANCH_PIPELINE_NAME = getRandomStr();
-    private static final String ORGANIZATION_FOLDER_NAME = getRandomStr();
-    private static final String GLOBAL_VIEW_NAME = getRandomStr();
-    private static final String LIST_VIEW_NAME = getRandomStr();
-    private static final String MY_VIEW_NAME = getRandomStr();
-    private static final String VIEW_RENAME = getRandomStr();
-
 
     public void createAllSixItems() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
-        ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_NAME);
-        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), MULTI_CONFIGURATION_PROJECT_NAME);
-        ProjectMethodsUtils.createNewFolder(getDriver(), FOLDER_NAME);
-        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
-        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
+        ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
+        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
     }
 
     public void createViews() {
-        ProjectMethodsUtils.createNewGlobalViewForMyViews(getDriver(), GLOBAL_VIEW_NAME);
-        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
-        ProjectMethodsUtils.createNewMyViewForMyViews(getDriver(), MY_VIEW_NAME);
+        ProjectMethodsUtils.createNewGlobalViewForMyViews(getDriver(), TestDataUtils.GLOBAL_VIEW_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), TestDataUtils.LIST_VIEW_NAME);
+        ProjectMethodsUtils.createNewMyViewForMyViews(getDriver(), TestDataUtils.MY_VIEW_NAME);
     }
 
     @Test
     public void testCreateViews() {
-        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
         createViews();
 
         String listViewsNames = new HomePage(getDriver())
@@ -54,9 +43,9 @@ public class ViewsTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .getListViewsNames();
 
-        Assert.assertTrue(listViewsNames.contains(GLOBAL_VIEW_NAME));
-        Assert.assertTrue(listViewsNames.contains(LIST_VIEW_NAME));
-        Assert.assertTrue(listViewsNames.contains(MY_VIEW_NAME));
+        Assert.assertTrue(listViewsNames.contains(TestDataUtils.GLOBAL_VIEW_NAME));
+        Assert.assertTrue(listViewsNames.contains(TestDataUtils.LIST_VIEW_NAME));
+        Assert.assertTrue(listViewsNames.contains(TestDataUtils.MY_VIEW_NAME));
     }
 
     @Test
@@ -67,7 +56,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .addJobsToListView(6)
@@ -80,30 +69,30 @@ public class ViewsTest extends BaseTest {
 
     @Test
     public void testCreateViewWithExistingName() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
-        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), TestDataUtils.LIST_VIEW_NAME);
 
         NewViewFromMyViewsPage newViewPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(LIST_VIEW_NAME)
+                .setViewName(TestDataUtils.LIST_VIEW_NAME)
                 .selectListViewType();
 
         Assert.assertEquals(newViewPage.getErrorMessageViewAlreadyExist(),
-                "A view with name " + LIST_VIEW_NAME + " already exists");
+                "A view with name " + TestDataUtils.LIST_VIEW_NAME + " already exists");
     }
 
     @Test
     public void testCreateListViewWithAddSettings() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
         int countColumnsBeforeAdd = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(getRandomStr(6))
                 .selectListViewType().clickCreateButton()
-                .addJobToView(FREESTYLE_PROJECT_NAME)
+                .addJobToView(TestDataUtils.FREESTYLE_PROJECT_NAME)
                 .getCountColumns();
 
         String textConfirmAfterClickingApply = new EditListViewPage(getDriver())
@@ -119,7 +108,7 @@ public class ViewsTest extends BaseTest {
         int countColumnsAfterAdd = new EditListViewPage(getDriver())
                 .getCountColumns();
 
-        Assert.assertEquals(actualMarkedProjectName, FREESTYLE_PROJECT_NAME);
+        Assert.assertEquals(actualMarkedProjectName, TestDataUtils.FREESTYLE_PROJECT_NAME);
         Assert.assertEquals(countColumnsAfterAdd, countColumnsBeforeAdd + 1);
         Assert.assertEquals(textConfirmAfterClickingApply, "Saved");
     }
@@ -127,21 +116,21 @@ public class ViewsTest extends BaseTest {
 
     @Test
     public void testAddJobsToListView () {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
-        ProjectMethodsUtils.createNewPipelineProject(getDriver(), PIPELINE_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
         createViews();
 
         ViewPage viewPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(LIST_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickEditListView()
-                .clickJobsCheckBoxForAddRemoveToListView(PIPELINE_NAME)
-                .clickJobsCheckBoxForAddRemoveToListView(FREESTYLE_PROJECT_NAME)
+                .clickJobsCheckBoxForAddRemoveToListView(TestDataUtils.PIPELINE_NAME)
+                .clickJobsCheckBoxForAddRemoveToListView(TestDataUtils.FREESTYLE_PROJECT_NAME)
                 .clickOkButton();
 
-        Assert.assertTrue(viewPage.getListProjectsNamesFromView().contains(PIPELINE_NAME));
-        Assert.assertTrue(viewPage.getListProjectsNamesFromView().contains(FREESTYLE_PROJECT_NAME));
+        Assert.assertTrue(viewPage.getListProjectsNamesFromView().contains(TestDataUtils.PIPELINE_NAME));
+        Assert.assertTrue(viewPage.getListProjectsNamesFromView().contains(TestDataUtils.FREESTYLE_PROJECT_NAME));
     }
 
     @Test(dependsOnMethods = "testAddJobsToListView")
@@ -149,14 +138,14 @@ public class ViewsTest extends BaseTest {
         ViewPage viewPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(LIST_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickEditListView()
-                .clickJobsCheckBoxForAddRemoveToListView(FREESTYLE_PROJECT_NAME)
-                .clickJobsCheckBoxForAddRemoveToListView(PIPELINE_NAME)
+                .clickJobsCheckBoxForAddRemoveToListView(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .clickJobsCheckBoxForAddRemoveToListView(TestDataUtils.PIPELINE_NAME)
                 .clickOkButton();
 
         Assert.assertEquals(viewPage.getCurrentURL(),
-                "http://localhost:8080/user/admin/my-views/view/" + LIST_VIEW_NAME + "/");
+                "http://localhost:8080/user/admin/my-views/view/" + TestDataUtils.LIST_VIEW_NAME + "/");
         Assert.assertTrue(viewPage.getTextContentOnViewMainPanel().contains(
                 "This view has no jobs associated with it. "
                         + "You can either add some existing jobs to this view or create a new job in this view."));
@@ -164,17 +153,17 @@ public class ViewsTest extends BaseTest {
 
     @Test
     public void testRenameView() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
-        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), TestDataUtils.LIST_VIEW_NAME);
         ViewPage viewPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(LIST_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickEditListView()
-                .renameView(VIEW_RENAME)
+                .renameView(TestDataUtils.VIEW_RENAME)
                 .clickOkButton();
 
-        Assert.assertTrue(viewPage.getListViewsNames().contains(VIEW_RENAME));
+        Assert.assertTrue(viewPage.getListViewsNames().contains(TestDataUtils.VIEW_RENAME));
     }
 
     @Ignore
@@ -189,9 +178,9 @@ public class ViewsTest extends BaseTest {
             new HomePage(getDriver())
                     .getHeader()
                     .clickMyViewItemInUserDropdownMenu()
-                    .clickView(GLOBAL_VIEW_NAME)
+                    .clickView(TestDataUtils.GLOBAL_VIEW_NAME)
                     .clickEditGlobalView()
-                    .renameView(specialCharacter + GLOBAL_VIEW_NAME)
+                    .renameView(specialCharacter + TestDataUtils.GLOBAL_VIEW_NAME)
                     .clickOkButton();
             if (new EditGlobalViewPage(getDriver()).getErrorPageHeader().equals("Error")) {
                 checksList.add(new EditGlobalViewPage(getDriver()).isCorrectErrorPageDetailsText(specialCharacter));
@@ -201,7 +190,7 @@ public class ViewsTest extends BaseTest {
                         .clickDashboard()
                         .getSideMenu()
                         .clickMyViewsSideMenuLink()
-                        .getListViewsNames().contains(specialCharacter + GLOBAL_VIEW_NAME));
+                        .getListViewsNames().contains(specialCharacter + TestDataUtils.GLOBAL_VIEW_NAME));
             } else {
                 checksList.add(false);
                 BaseUtils.log("Not an Error page");
@@ -218,12 +207,12 @@ public class ViewsTest extends BaseTest {
 
     @Test
     public void testEditGlobalViewPageViewNameLabelContainsDescription() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
-        ProjectMethodsUtils.createNewGlobalViewForMyViews(getDriver(), GLOBAL_VIEW_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewGlobalViewForMyViews(getDriver(), TestDataUtils.GLOBAL_VIEW_NAME);
         EditGlobalViewPage editGlobalViewPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(GLOBAL_VIEW_NAME)
+                .clickView(TestDataUtils.GLOBAL_VIEW_NAME)
                 .clickEditGlobalView();
 
         Assert.assertEquals(editGlobalViewPage.getUniqueTextOnGlobalViewEditPage(),
@@ -232,12 +221,12 @@ public class ViewsTest extends BaseTest {
 
     @Test
     public void testEditListViewPageContainsTitleJobFilters() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
-        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), TestDataUtils.LIST_VIEW_NAME);
         EditListViewPage editListViewPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(LIST_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickEditListView();
 
         Assert.assertEquals(editListViewPage.getUniqueSectionOnListViewEditPage(),
@@ -246,13 +235,13 @@ public class ViewsTest extends BaseTest {
 
     @Test
     public void testListViewSideMenu() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
-        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), TestDataUtils.LIST_VIEW_NAME);
 
         ViewPage viewPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(LIST_VIEW_NAME);
+                .clickView(TestDataUtils.LIST_VIEW_NAME);
 
         Assert.assertEqualsNoOrder(viewPage.getSideMenuTextList(), viewPage.getActualSideMenu());
     }
@@ -287,7 +276,7 @@ public class ViewsTest extends BaseTest {
 
     @Test
     public void testLettersSMLClickableMyViews() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
         MyViewsPage myViewsPageSizeM = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
@@ -313,7 +302,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
                 .selectGlobalViewType()
                 .clickCreateButton()
                 .selectFilterBuildQueueOptionCheckBox()
@@ -331,7 +320,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
                 .selectGlobalViewType()
                 .clickCreateButton()
                 .selectFilterBuildQueueOptionCheckBox()
@@ -350,7 +339,7 @@ public class ViewsTest extends BaseTest {
         String actualResult = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(GLOBAL_VIEW_NAME)
+                .clickView(TestDataUtils.GLOBAL_VIEW_NAME)
                 .clickEditListView()
                 .clickAddColumnDropDownMenu()
                 .clickGitBranchesColumnMenuOption()
@@ -370,7 +359,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .addAllJobsToListView()
@@ -390,7 +379,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .scrollToRegexFilterCheckboxPlaceInCenterWaitTillNotMoving();
@@ -414,7 +403,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .addAllJobsToListView()
@@ -435,7 +424,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
                 .selectGlobalViewType()
                 .clickCreateButton()
                 .selectFilterBuildQueueOptionCheckBox()
@@ -453,7 +442,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(MY_VIEW_NAME)
+                .setViewName(TestDataUtils.MY_VIEW_NAME)
                 .selectMyViewType()
                 .clickCreateButton()
                 .clickEditMyView()
@@ -472,7 +461,7 @@ public class ViewsTest extends BaseTest {
         Map<String, String> tableMenuMap = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(GLOBAL_VIEW_NAME)
+                .clickView(TestDataUtils.GLOBAL_VIEW_NAME)
                 .clickEditListView()
                 .clickAddColumnDropDownMenu()
                 .getMapMatchingColumnDropDownMenuItemsAndJobTableHeader();
@@ -510,7 +499,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .addAllJobsToListView()
@@ -520,7 +509,7 @@ public class ViewsTest extends BaseTest {
                 .clickOkButton()
                 .getActiveViewName();
 
-        Assert.assertNotEquals(actualResult, GLOBAL_VIEW_NAME);
+        Assert.assertNotEquals(actualResult, TestDataUtils.GLOBAL_VIEW_NAME);
         Assert.assertNotEquals(actualResult, newNameMultipleSpaces);
         Assert.assertEquals(actualResult, newNameSingleSpace);
     }
@@ -528,11 +517,11 @@ public class ViewsTest extends BaseTest {
     @Test
     public void testViewHasListOfItems() {
         createAllSixItems();
-        ProjectMethodsUtils.createNewMyViewForMyViews(getDriver(), GLOBAL_VIEW_NAME);
+        ProjectMethodsUtils.createNewMyViewForMyViews(getDriver(), TestDataUtils.GLOBAL_VIEW_NAME);
         ViewPage viewPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(GLOBAL_VIEW_NAME);
+                .clickView(TestDataUtils.GLOBAL_VIEW_NAME);
 
         Assert.assertEquals(viewPage.getJobListAsString(),
                 new HomePage(getDriver()).getJobListAsString());
@@ -543,7 +532,7 @@ public class ViewsTest extends BaseTest {
         boolean isContainingStatusColumn = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(GLOBAL_VIEW_NAME)
+                .clickView(TestDataUtils.GLOBAL_VIEW_NAME)
                 .clickEditListView()
                 .scrollToDeleteStatusColumnButtonPlaceInCenterWaitTillNotMoving()
                 .clickDeleteStatusColumnButton()
@@ -556,16 +545,16 @@ public class ViewsTest extends BaseTest {
 
     @Test
     public void testDeleteView() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), FREESTYLE_PROJECT_NAME);
-        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), LIST_VIEW_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), TestDataUtils.LIST_VIEW_NAME);
         MyViewsPage myViewsPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(LIST_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickDeleteViewToMyViews()
                 .clickYes();
 
-        Assert.assertFalse(myViewsPage.getListViewsNames().contains(LIST_VIEW_NAME));
+        Assert.assertFalse(myViewsPage.getListViewsNames().contains(TestDataUtils.LIST_VIEW_NAME));
     }
 
     @Test
@@ -582,7 +571,7 @@ public class ViewsTest extends BaseTest {
                 .getBreadcrumbs()
                 .clickDashboard()
                 .clickAddViewLink()
-                .setViewName(LIST_VIEW_NAME)
+                .setViewName(TestDataUtils.LIST_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .addJobToView(projectOne)
@@ -590,7 +579,7 @@ public class ViewsTest extends BaseTest {
                 .getJobNamesList().size();
 
         Assert.assertEquals(quantityProjectsInListView, 1);
-        Assert.assertTrue(new HomePage(getDriver()).getViewList().contains(LIST_VIEW_NAME));
+        Assert.assertTrue(new HomePage(getDriver()).getViewList().contains(TestDataUtils.LIST_VIEW_NAME));
     }
 
     @Test(dependsOnMethods = "testCreateNewListViewWithExistingJob")
@@ -598,7 +587,7 @@ public class ViewsTest extends BaseTest {
         final String descriptionRandom = getRandomStr();
 
         String actualDescription = new HomePage(getDriver())
-                .clickView(LIST_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickEditListView()
                 .addDescription(descriptionRandom)
                 .clickOkButton()
@@ -610,7 +599,7 @@ public class ViewsTest extends BaseTest {
     @Test(dependsOnMethods = "testEditViewAddDescription")
     public void testEditViewDeleteDescription() {
         String descriptionText = new HomePage(getDriver())
-                .clickView(LIST_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickEditDescription()
                 .clearDescription()
                 .clickSaveButton()
@@ -624,7 +613,7 @@ public class ViewsTest extends BaseTest {
         final List<String> namesRemoveColumns = List.of("Weather", "Last Failure", "Last Duration");
 
         int numberOfJobTableHeadersListView = new HomePage(getDriver())
-                .clickView(LIST_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickEditListView()
                 .removeSomeColumns(namesRemoveColumns)
                 .clickApplyButton()
@@ -642,11 +631,11 @@ public class ViewsTest extends BaseTest {
     @Test(dependsOnMethods = "testRemoveSomeHeadersFromProjectStatusTableInListView")
     public void testDeleteListView() {
         List<String> viewList = new HomePage(getDriver())
-                .clickView(LIST_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickDeleteViewToHomePage()
                 .clickYes()
                 .getViewList();
 
-        Assert.assertFalse(viewList.contains(LIST_VIEW_NAME));
+        Assert.assertFalse(viewList.contains(TestDataUtils.LIST_VIEW_NAME));
     }
 }

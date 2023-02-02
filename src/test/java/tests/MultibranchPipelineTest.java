@@ -5,57 +5,57 @@ import model.status_pages.MultibranchPipelineStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.TestDataUtils;
+
 import java.util.List;
 
 import static runner.ProjectMethodsUtils.*;
 import static runner.TestUtils.getRandomStr;
 
 public class MultibranchPipelineTest extends BaseTest {
-    private static final String MULTIBRANCH_PIPELINE_NAME = getRandomStr();
-    private static final String MULTIBRANCH_PIPELINE_RENAME = getRandomStr();
 
     @Test
     public void testRenameMultiBranchPipelineFromDropdown() {
-        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         String actualMultibranchPipeline = new HomePage(getDriver())
-                .clickJobDropDownMenu(MULTIBRANCH_PIPELINE_NAME)
+                .clickJobDropDownMenu(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .clickRenameMultibranchPipelineDropDownMenu()
-                .clearFieldAndInputNewName(MULTIBRANCH_PIPELINE_RENAME)
+                .clearFieldAndInputNewName(TestDataUtils.MULTIBRANCH_PIPELINE_RENAME)
                 .clickRenameButton()
                 .getNameText();
 
-        Assert.assertTrue(actualMultibranchPipeline.contains(MULTIBRANCH_PIPELINE_RENAME));
+        Assert.assertTrue(actualMultibranchPipeline.contains(TestDataUtils.MULTIBRANCH_PIPELINE_RENAME));
     }
 
     @Test
     public void testRenameMultiBranchPipelineFromLeftSideMenu() {
-        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         String actualMultibranchPipeline = new HomePage(getDriver())
-                .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .getSideMenu()
                 .clickRename()
-                .clearFieldAndInputNewName(MULTIBRANCH_PIPELINE_RENAME)
+                .clearFieldAndInputNewName(TestDataUtils.MULTIBRANCH_PIPELINE_RENAME)
                 .clickRenameButton()
                 .getNameText();
 
-        Assert.assertTrue(actualMultibranchPipeline.contains(MULTIBRANCH_PIPELINE_RENAME));
+        Assert.assertTrue(actualMultibranchPipeline.contains(TestDataUtils.MULTIBRANCH_PIPELINE_RENAME));
 
         List<String> jobsList = new HomePage(getDriver())
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getJobNamesList();
 
-        Assert.assertTrue(jobsList.contains(MULTIBRANCH_PIPELINE_RENAME));
+        Assert.assertTrue(jobsList.contains(TestDataUtils.MULTIBRANCH_PIPELINE_RENAME));
     }
 
     @Test
     public void testDisableMultiBranchPipeline() {
-        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         String warningMessage = new HomePage(getDriver())
-                .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .clickDisableEnableButton()
                 .getWarningMessage();
 
@@ -65,10 +65,10 @@ public class MultibranchPipelineTest extends BaseTest {
 
     @Test
     public void testEnableMultiBranchPipeline() {
-        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         MultibranchPipelineStatusPage multibranchPipelineStatusPage = new HomePage(getDriver())
-                .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME);
+                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         Assert.assertTrue(multibranchPipelineStatusPage.isDisableButtonPresent());
         Assert.assertFalse(multibranchPipelineStatusPage.getAttributeProjectIcon().contains("disable"));
@@ -76,11 +76,11 @@ public class MultibranchPipelineTest extends BaseTest {
 
     @Test
     public void testAddDisplayName() {
-        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
         final String displayName = getRandomStr();
 
         List<String> jobNamesList = new HomePage(getDriver())
-                .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .getSideMenu()
                 .clickConfigure()
                 .setDisplayName(displayName)
@@ -95,11 +95,11 @@ public class MultibranchPipelineTest extends BaseTest {
 
     @Test
     public void testAddDescription() {
-        createNewMultibranchPipeline(getDriver(), MULTIBRANCH_PIPELINE_NAME);
+        createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
         final String description = getRandomStr();
 
         String descriptionText = new HomePage(getDriver())
-                .clickJobMBPipeline(MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .clickLinkConfigureTheProject()
                 .setDescription(description)
                 .clickSaveButton()

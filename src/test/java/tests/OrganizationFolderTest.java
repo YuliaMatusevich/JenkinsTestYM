@@ -8,65 +8,62 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
+import runner.TestDataUtils;
 
 import static runner.TestUtils.getRandomStr;
 
 public class OrganizationFolderTest extends BaseTest {
-    private static final String ORGANIZATION_FOLDER_NAME = getRandomStr();
-    private static final String ORGANIZATION_FOLDER_RENAME = getRandomStr();
-    private static final String FOLDER_NAME = getRandomStr();
-    private static final String DISPLAY_NAME = getRandomStr();
 
     @Test
     public void testRenameOrganizationFolder() {
-        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
 
         HomePage homePage = new HomePage(getDriver())
-                .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
+                .clickOrgFolder(TestDataUtils.ORGANIZATION_FOLDER_NAME)
                 .getSideMenu()
                 .clickRename()
-                .clearFieldAndInputNewName(ORGANIZATION_FOLDER_RENAME)
+                .clearFieldAndInputNewName(TestDataUtils.ORGANIZATION_FOLDER_RENAME)
                 .clickRenameButton()
                 .getBreadcrumbs()
                 .clickDashboard();
 
-        Assert.assertTrue(homePage.getJobNamesList().contains(ORGANIZATION_FOLDER_RENAME));
+        Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.ORGANIZATION_FOLDER_RENAME));
     }
 
     @Test
     public void testDeleteOrganizationFolderDependsMethods() {
-        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
 
         HomePage homePage = new HomePage(getDriver())
-                .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
+                .clickOrgFolder(TestDataUtils.ORGANIZATION_FOLDER_NAME)
                 .getSideMenu()
                 .clickDeleteToHomePage()
                 .clickYes();
 
-        Assert.assertFalse(homePage.getJobNamesList().contains(ORGANIZATION_FOLDER_NAME));
+        Assert.assertFalse(homePage.getJobNamesList().contains(TestDataUtils.ORGANIZATION_FOLDER_NAME));
     }
 
     @Test
     public void testConfigureOrganizationFolderWithName() {
-        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
 
         OrgFolderStatusPage orgFolderStatusPage = new HomePage(getDriver())
-                .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
+                .clickOrgFolder(TestDataUtils.ORGANIZATION_FOLDER_NAME)
                 .getSideMenu()
                 .clickConfigure()
-                .inputDisplayName(DISPLAY_NAME)
+                .inputDisplayName(TestDataUtils.DISPLAY_NAME)
                 .clickSaveButton();
 
-        Assert.assertEquals(orgFolderStatusPage.getNameText(), DISPLAY_NAME);
+        Assert.assertEquals(orgFolderStatusPage.getNameText(), TestDataUtils.DISPLAY_NAME);
     }
 
     @Test
     public void testConfigureOrganizationFolderWithDescription() {
-        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
         final String description = getRandomStr();
 
         OrgFolderStatusPage orgFolderStatusPage = new HomePage(getDriver())
-                .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
+                .clickOrgFolder(TestDataUtils.ORGANIZATION_FOLDER_NAME)
                 .getSideMenu()
                 .clickConfigure()
                 .inputDescription(description)
@@ -77,27 +74,27 @@ public class OrganizationFolderTest extends BaseTest {
 
     @Test
     public void testMoveOrgFolderToFolder() {
-        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
-        ProjectMethodsUtils.createNewFolder(getDriver(), FOLDER_NAME);
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
+        ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
 
         FolderStatusPage folderStatusPage = new HomePage(getDriver())
-                .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
+                .clickOrgFolder(TestDataUtils.ORGANIZATION_FOLDER_NAME)
                 .getSideMenu()
                 .clickMove()
-                .selectFolder(FOLDER_NAME)
+                .selectFolder(TestDataUtils.FOLDER_NAME)
                 .clickMoveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .clickFolder(FOLDER_NAME);
+                .clickFolder(TestDataUtils.FOLDER_NAME);
 
-        Assert.assertTrue(folderStatusPage.getJobList().contains(ORGANIZATION_FOLDER_NAME));
+        Assert.assertTrue(folderStatusPage.getJobList().contains(TestDataUtils.ORGANIZATION_FOLDER_NAME));
     }
 
     @Test(dependsOnMethods = "testMoveOrgFolderToFolder")
     public void testMoveOrgFolderToDashboard() {
         HomePage homePage = new HomePage(getDriver())
-                .clickFolder(FOLDER_NAME)
-                .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
+                .clickFolder(TestDataUtils.FOLDER_NAME)
+                .clickOrgFolder(TestDataUtils.ORGANIZATION_FOLDER_NAME)
                 .getSideMenu()
                 .clickMove()
                 .selectDashboardAsFolder()
@@ -105,16 +102,16 @@ public class OrganizationFolderTest extends BaseTest {
                 .getBreadcrumbs()
                 .clickDashboard();
 
-        Assert.assertTrue(homePage.getJobNamesList().contains(ORGANIZATION_FOLDER_NAME));
+        Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.ORGANIZATION_FOLDER_NAME));
     }
 
     @Ignore
     @Test
     public void testCheckChildHealthMetrics() {
-        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), ORGANIZATION_FOLDER_NAME);
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
 
         boolean actualResult = new HomePage(getDriver())
-                .clickOrgFolder(ORGANIZATION_FOLDER_NAME)
+                .clickOrgFolder(TestDataUtils.ORGANIZATION_FOLDER_NAME)
                 .clickLinkConfigureTheProject()
                 .clickHealthMetricsTab()
                 .clickMetricsButton()

@@ -16,12 +16,6 @@ import static runner.TestUtils.getRandomStr;
 
 public class ManageJenkinsTest extends BaseTest {
 
-    private static final String NEW_USER_FULL_NAME = getRandomStr();
-    private static final String USER_NAME = getRandomStr();
-    private static final String PASSWORD = getRandomStr(7);
-    private static final String USER_FULL_NAME = getRandomStr();
-    private static final String EMAIL = getRandomStr(5) + "@gmail.com";
-
     @Test
     public void testRenameFullUserName() {
         StatusUserPage userStatusPage = new HomePage(getDriver())
@@ -30,16 +24,16 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageUsers()
                 .clickConfigureUser()
                 .clearFullNameField()
-                .setFullName(NEW_USER_FULL_NAME)
+                .setFullName(TestDataUtils.NEW_USER_FULL_NAME)
                 .clickSaveButton()
                 .refreshPage();
 
         String breadcrumbsUserName = new StatusUserPage(getDriver())
                 .getBreadcrumbs().getTextBreadcrumbs();
 
-        Assert.assertEquals(userStatusPage.getHeader().getUserNameText(), NEW_USER_FULL_NAME);
-        Assert.assertTrue(breadcrumbsUserName.contains(NEW_USER_FULL_NAME));
-        Assert.assertEquals(userStatusPage.getH1Title(), NEW_USER_FULL_NAME);
+        Assert.assertEquals(userStatusPage.getHeader().getUserNameText(), TestDataUtils.NEW_USER_FULL_NAME);
+        Assert.assertTrue(breadcrumbsUserName.contains(TestDataUtils.NEW_USER_FULL_NAME));
+        Assert.assertEquals(userStatusPage.getH1Title(), TestDataUtils.NEW_USER_FULL_NAME);
     }
 
     @Test(dependsOnMethods = "testRenameFullUserName")
@@ -49,7 +43,7 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickLogOut();
         loginWeb();
 
-        Assert.assertEquals(new HomePage(getDriver()).getHeader().getUserNameText(), NEW_USER_FULL_NAME);
+        Assert.assertEquals(new HomePage(getDriver()).getHeader().getUserNameText(), TestDataUtils.NEW_USER_FULL_NAME);
     }
 
     @Test
@@ -92,10 +86,10 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setPassword(PASSWORD)
-                .confirmPassword(PASSWORD)
-                .setFullName(USER_FULL_NAME)
-                .setEmail(EMAIL)
+                .setPassword(TestDataUtils.PASSWORD)
+                .confirmPassword(TestDataUtils.PASSWORD)
+                .setFullName(TestDataUtils.USER_FULL_NAME)
+                .setEmail(TestDataUtils.EMAIL)
                 .clickCreateUserAndGetErrorMessage();
 
         Assert.assertEquals(errorMessageWhenEmptyUserName, "\"\" is prohibited as a username for security reasons.");
@@ -109,10 +103,10 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageUsers()
                 .clickCreateUser()
                 .setUsername(String.valueOf(specialCharacter))
-                .setPassword(PASSWORD)
-                .confirmPassword(PASSWORD)
-                .setFullName(USER_FULL_NAME)
-                .setEmail(EMAIL)
+                .setPassword(TestDataUtils.PASSWORD)
+                .confirmPassword(TestDataUtils.PASSWORD)
+                .setFullName(TestDataUtils.USER_FULL_NAME)
+                .setEmail(TestDataUtils.EMAIL)
                 .clickCreateUserAndGetErrorMessage();
 
         Assert.assertEquals(errorMessageWhenIncorrectCharacters, "User name must only contain alphanumeric characters, underscore and dash");
@@ -125,46 +119,46 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setUsername(USER_NAME)
-                .setPassword(PASSWORD)
-                .confirmPassword(PASSWORD)
-                .setFullName(USER_FULL_NAME)
-                .setEmail(EMAIL)
+                .setUsername(TestDataUtils.USER_NAME)
+                .setPassword(TestDataUtils.PASSWORD)
+                .confirmPassword(TestDataUtils.PASSWORD)
+                .setFullName(TestDataUtils.USER_FULL_NAME)
+                .setEmail(TestDataUtils.EMAIL)
                 .clickCreateUserButton();
 
-        Assert.assertTrue(manageUsersPage.getListOfUserIDs().contains(USER_NAME), USER_NAME + " username not found");
-        Assert.assertTrue(manageUsersPage.getListOfFullNamesOfUsers().contains(USER_FULL_NAME), USER_FULL_NAME + " fullName not found");
+        Assert.assertTrue(manageUsersPage.getListOfUserIDs().contains(TestDataUtils.USER_NAME), TestDataUtils.USER_NAME + " username not found");
+        Assert.assertTrue(manageUsersPage.getListOfFullNamesOfUsers().contains(TestDataUtils.USER_FULL_NAME), TestDataUtils.USER_FULL_NAME + " fullName not found");
     }
 
     @Test
     public void testDeleteUser() {
-        ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
+        ProjectMethodsUtils.createNewUser(getDriver(), TestDataUtils.USER_NAME, TestDataUtils.PASSWORD, TestDataUtils.USER_FULL_NAME, TestDataUtils.EMAIL);
 
         List<String> listOfUsers = new HomePage(getDriver())
                 .getSideMenu()
                 .clickManageJenkins()
                 .clickManageUsers()
-                .clickDeleteUser(USER_NAME)
+                .clickDeleteUser(TestDataUtils.USER_NAME)
                 .clickYes()
                 .getListOfUserIDs();
 
-        Assert.assertFalse(listOfUsers.contains(USER_NAME));
+        Assert.assertFalse(listOfUsers.contains(TestDataUtils.USER_NAME));
     }
 
     @Test
     public void testCreateUserWithExistName() {
-        ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
+        ProjectMethodsUtils.createNewUser(getDriver(), TestDataUtils.USER_NAME, TestDataUtils.PASSWORD, TestDataUtils.USER_FULL_NAME, TestDataUtils.EMAIL);
 
         String errorMessageWhenExistName = new HomePage(getDriver())
                 .getSideMenu()
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setUsername(USER_NAME)
-                .setPassword(PASSWORD)
-                .confirmPassword(PASSWORD)
-                .setFullName(USER_FULL_NAME)
-                .setEmail(EMAIL)
+                .setUsername(TestDataUtils.USER_NAME)
+                .setPassword(TestDataUtils.PASSWORD)
+                .confirmPassword(TestDataUtils.PASSWORD)
+                .setFullName(TestDataUtils.USER_FULL_NAME)
+                .setEmail(TestDataUtils.EMAIL)
                 .clickCreateUserAndGetErrorMessage();
 
         Assert.assertEquals(errorMessageWhenExistName, "User name is already taken");
@@ -177,10 +171,10 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setUsername(USER_NAME)
-                .confirmPassword(PASSWORD)
-                .setFullName(USER_FULL_NAME)
-                .setEmail(EMAIL)
+                .setUsername(TestDataUtils.USER_NAME)
+                .confirmPassword(TestDataUtils.PASSWORD)
+                .setFullName(TestDataUtils.USER_FULL_NAME)
+                .setEmail(TestDataUtils.EMAIL)
                 .clickCreateUserAndGetErrorMessage();
 
         Assert.assertEquals(errorMessageWhenEmptyPassword, "Password is required");
@@ -193,10 +187,10 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setUsername(USER_NAME)
-                .setPassword(PASSWORD)
-                .setFullName(USER_FULL_NAME)
-                .setEmail(EMAIL)
+                .setUsername(TestDataUtils.USER_NAME)
+                .setPassword(TestDataUtils.PASSWORD)
+                .setFullName(TestDataUtils.USER_FULL_NAME)
+                .setEmail(TestDataUtils.EMAIL)
                 .clickCreateUserAndGetErrorMessage();
 
         Assert.assertEquals(errorMessageWhenEmptyConfirmPassword, "Password didn't match");
@@ -204,29 +198,29 @@ public class ManageJenkinsTest extends BaseTest {
 
     @Test
     public void testDeleteUserGoingFromStatusUserPage() {
-        ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
+        ProjectMethodsUtils.createNewUser(getDriver(), TestDataUtils.USER_NAME, TestDataUtils.PASSWORD, TestDataUtils.USER_FULL_NAME, TestDataUtils.EMAIL);
 
         List<String> listOfUsers = new HomePage(getDriver())
                 .getSideMenu()
                 .clickPeople()
-                .clickUserID(USER_NAME)
+                .clickUserID(TestDataUtils.USER_NAME)
                 .clickDelete()
                 .clickYes()
                 .getSideMenu()
                 .clickPeople()
                 .getListOfUsers();
 
-        Assert.assertFalse(listOfUsers.contains(USER_NAME));
+        Assert.assertFalse(listOfUsers.contains(TestDataUtils.USER_NAME));
     }
 
     @Test
     public void testDeleteUserGoingFromConfigureUserPage() {
-        ProjectMethodsUtils.createNewUser(getDriver(), USER_NAME, PASSWORD, USER_FULL_NAME, EMAIL);
+        ProjectMethodsUtils.createNewUser(getDriver(), TestDataUtils.USER_NAME, TestDataUtils.PASSWORD, TestDataUtils.USER_FULL_NAME, TestDataUtils.EMAIL);
 
         List<String> listOfUsers = new HomePage(getDriver())
                 .getSideMenu()
                 .clickPeople()
-                .clickUserID(USER_NAME)
+                .clickUserID(TestDataUtils.USER_NAME)
                 .clickConfigure()
                 .clickDelete()
                 .clickYes()
@@ -234,6 +228,6 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickPeople()
                 .getListOfUsers();
 
-        Assert.assertFalse(listOfUsers.contains(USER_NAME));
+        Assert.assertFalse(listOfUsers.contains(TestDataUtils.USER_NAME));
     }
 }

@@ -5,14 +5,13 @@ import model.PeoplePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.TestDataUtils;
+
 import java.util.List;
 
 import static runner.TestUtils.getRandomStr;
 
 public class PeoplePageTest extends BaseTest {
-    private static final String USER_NAME = getRandomStr();
-    private static final String PASSWORD = getRandomStr(7);
-    private static final String EMAIL = getRandomStr(5) + "@gmail.com";
 
     @Test
     public void testPeoplePageContent() {
@@ -38,18 +37,18 @@ public class PeoplePageTest extends BaseTest {
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setUsername(USER_NAME)
-                .setPassword(PASSWORD)
-                .confirmPassword(PASSWORD)
-                .setFullName(USER_NAME)
-                .setEmail(EMAIL)
+                .setUsername(TestDataUtils.USER_NAME)
+                .setPassword(TestDataUtils.PASSWORD)
+                .confirmPassword(TestDataUtils.PASSWORD)
+                .setFullName(TestDataUtils.USER_NAME)
+                .setEmail(TestDataUtils.EMAIL)
                 .clickCreateUserButton()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getSideMenu()
                 .clickPeople();
 
-        Assert.assertTrue(peoplePage.getListOfUsers().contains(USER_NAME), USER_NAME + " not found");
+        Assert.assertTrue(peoplePage.getListOfUsers().contains(TestDataUtils.USER_NAME), TestDataUtils.USER_NAME + " not found");
     }
 
     @Test(dependsOnMethods = "testFindUserInThePeopleSection")
@@ -60,14 +59,14 @@ public class PeoplePageTest extends BaseTest {
                 .getSideMenu()
                 .clickManageJenkins()
                 .clickManageUsers()
-                .clickDeleteUser(USER_NAME)
+                .clickDeleteUser(TestDataUtils.USER_NAME)
                 .clickYes()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getSideMenu()
                 .clickPeople();
 
-        Assert.assertFalse(peoplePage.getListOfUsers().contains(USER_NAME), USER_NAME + " wasn't deleted");
+        Assert.assertFalse(peoplePage.getListOfUsers().contains(TestDataUtils.USER_NAME), TestDataUtils.USER_NAME + " wasn't deleted");
     }
 
     @Test
@@ -77,11 +76,11 @@ public class PeoplePageTest extends BaseTest {
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setUsername(USER_NAME)
-                .setPassword(PASSWORD)
-                .confirmPassword(PASSWORD)
-                .setFullName(USER_NAME)
-                .setEmail(EMAIL)
+                .setUsername(TestDataUtils.USER_NAME)
+                .setPassword(TestDataUtils.PASSWORD)
+                .confirmPassword(TestDataUtils.PASSWORD)
+                .setFullName(TestDataUtils.USER_NAME)
+                .setEmail(TestDataUtils.EMAIL)
                 .clickCreateUserButton()
                 .getBreadcrumbs()
                 .clickDashboard()
@@ -89,7 +88,7 @@ public class PeoplePageTest extends BaseTest {
                 .clickPeople()
                 .getListOfUsers();
 
-        Assert.assertTrue(userList.contains(USER_NAME), USER_NAME + " not found");
+        Assert.assertTrue(userList.contains(TestDataUtils.USER_NAME), TestDataUtils.USER_NAME + " not found");
     }
 
     @Test
@@ -110,15 +109,15 @@ public class PeoplePageTest extends BaseTest {
                 .clickManageJenkins()
                 .clickManageUsers()
                 .clickCreateUser()
-                .setUsername(USER_NAME)
-                .setPassword(PASSWORD)
-                .confirmPassword(PASSWORD)
-                .setFullName(USER_NAME)
-                .setEmail(EMAIL)
+                .setUsername(TestDataUtils.USER_NAME)
+                .setPassword(TestDataUtils.PASSWORD)
+                .confirmPassword(TestDataUtils.PASSWORD)
+                .setFullName(TestDataUtils.USER_NAME)
+                .setEmail(TestDataUtils.EMAIL)
                 .clickCreateUserButton()
                 .clickThisListLink()
                 .getListOfUsers();
 
-        Assert.assertTrue(userList.contains(USER_NAME));
+        Assert.assertTrue(userList.contains(TestDataUtils.USER_NAME));
     }
 }

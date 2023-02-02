@@ -7,26 +7,24 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
+import runner.TestDataUtils;
 
 public class UserProfileTest extends BaseTest {
 
-    private static final String DESCRIPTION = getRandomStr();
-    private static final String NEW_DESCRIPTION = getRandomStr();
-
     @Test
     public void testUserProfileAddDescription() {
-        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), DESCRIPTION);
+        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), TestDataUtils.DESCRIPTION);
 
         String actualUserDescription = new StatusUserPage(getDriver())
                 .clickSaveButton()
                 .getDescriptionText();
 
-        Assert.assertEquals(actualUserDescription, DESCRIPTION);
+        Assert.assertEquals(actualUserDescription, TestDataUtils.DESCRIPTION);
     }
 
     @Test
     public void testUserProfileHidePreviewDescription() {
-        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), DESCRIPTION);
+        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), TestDataUtils.DESCRIPTION);
 
         StatusUserPage statusUserPage = new StatusUserPage(getDriver())
                 .clickPreviewLink()
@@ -37,24 +35,24 @@ public class UserProfileTest extends BaseTest {
 
     @Test
     public void testUserProfilePreviewDescription() {
-        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), DESCRIPTION);
+        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), TestDataUtils.DESCRIPTION);
 
         String actualPreviewText = new StatusUserPage(getDriver())
                 .clickPreviewLink()
                 .getPreviewText();
 
-        Assert.assertEquals(actualPreviewText, DESCRIPTION);
+        Assert.assertEquals(actualPreviewText, TestDataUtils.DESCRIPTION);
     }
 
     @Test
     public void testUserProfileEditDescription() {
-        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), DESCRIPTION);
+        ProjectMethodsUtils.editDescriptionUserActiveField(getDriver(), TestDataUtils.DESCRIPTION);
 
         String actualUserDescription = new StatusUserPage(getDriver())
-                .setDescriptionField(NEW_DESCRIPTION)
+                .setDescriptionField(TestDataUtils.NEW_DESCRIPTION)
                 .clickSaveButton()
                 .getDescriptionText();
 
-        Assert.assertNotEquals(actualUserDescription, DESCRIPTION);
+        Assert.assertNotEquals(actualUserDescription, TestDataUtils.DESCRIPTION);
     }
 }

@@ -20,10 +20,6 @@ import static runner.TestUtils.getRandomStr;
 
 public class NewItemTest extends BaseTest {
 
-    private static final String PROJECT_NAME = getRandomStr();
-    private static final String ITEM_NEW_DESCRIPTION = "New description";
-    private static final String NEW_PROJECT_NAME = getRandomStr();
-
     @Test
     public void testNewItemsPageContainsItemsWithoutCreatedProject() {
         final List<String> expectedResult = List.of("Freestyle project", "Pipeline", "Multi-configuration project",
@@ -51,14 +47,14 @@ public class NewItemTest extends BaseTest {
         HomePage homePage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectFolderType()
                 .clickOkButton()
                 .clickApplyButton()
                 .getBreadcrumbs()
                 .clickDashboard();
 
-        Assert.assertEquals(homePage.getJobName(PROJECT_NAME), PROJECT_NAME);
+        Assert.assertEquals(homePage.getJobName(TestDataUtils.PROJECT_NAME), TestDataUtils.PROJECT_NAME);
     }
 
     @Test
@@ -66,22 +62,22 @@ public class NewItemTest extends BaseTest {
         String actualPipelineName = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectPipelineType()
                 .clickOkButton()
                 .clickSaveButton()
                 .getNameText();
 
-        Assert.assertEquals(actualPipelineName, "Pipeline " + PROJECT_NAME);
+        Assert.assertEquals(actualPipelineName, "Pipeline " + TestDataUtils.PROJECT_NAME);
     }
 
     @Test
     public void testCreatePipelineAssertOnDashboard() {
-        ProjectMethodsUtils.createNewPipelineProject(getDriver(), PROJECT_NAME);
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PROJECT_NAME);
         String actualPipelineName = new HomePage(getDriver())
-                .getJobName(PROJECT_NAME);
+                .getJobName(TestDataUtils.PROJECT_NAME);
 
-        Assert.assertEquals(actualPipelineName, PROJECT_NAME);
+        Assert.assertEquals(actualPipelineName, TestDataUtils.PROJECT_NAME);
     }
 
     @Test
@@ -89,13 +85,13 @@ public class NewItemTest extends BaseTest {
         String actualTextOnBreadcrumbs = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectPipelineType()
                 .clickOkButton()
                 .getBreadcrumbs()
                 .getTextBreadcrumbs();
 
-        Assert.assertTrue(actualTextOnBreadcrumbs.contains(PROJECT_NAME), PROJECT_NAME + " Pipeline Not Found On Breadcrumbs");
+        Assert.assertTrue(actualTextOnBreadcrumbs.contains(TestDataUtils.PROJECT_NAME), TestDataUtils.PROJECT_NAME + " Pipeline Not Found On Breadcrumbs");
     }
 
     @Test
@@ -103,14 +99,14 @@ public class NewItemTest extends BaseTest {
         String actualPipelineDescription = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectPipelineType()
                 .clickOkButton()
-                .setDescriptionField(ITEM_NEW_DESCRIPTION)
+                .setDescriptionField(TestDataUtils.ITEM_NEW_DESCRIPTION)
                 .clickSaveButton()
                 .getDescriptionText();
 
-        Assert.assertEquals(actualPipelineDescription, ITEM_NEW_DESCRIPTION);
+        Assert.assertEquals(actualPipelineDescription, TestDataUtils.ITEM_NEW_DESCRIPTION);
     }
 
     @Ignore
@@ -119,14 +115,14 @@ public class NewItemTest extends BaseTest {
         PipelineStatusPage pipelineStatusPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(NEW_PROJECT_NAME)
-                .setCopyFromItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.NEW_PROJECT_NAME)
+                .setCopyFromItemName(TestDataUtils.PROJECT_NAME)
                 .selectPipelineType()
                 .clickOkButton()
                 .clickSaveButton();
 
-        Assert.assertEquals(pipelineStatusPage.getPipelineName(), NEW_PROJECT_NAME);
-        Assert.assertEquals(pipelineStatusPage.getDescriptionText(), ITEM_NEW_DESCRIPTION);
+        Assert.assertEquals(pipelineStatusPage.getPipelineName(), TestDataUtils.NEW_PROJECT_NAME);
+        Assert.assertEquals(pipelineStatusPage.getDescriptionText(), TestDataUtils.ITEM_NEW_DESCRIPTION);
     }
 
     @Test
@@ -158,18 +154,18 @@ public class NewItemTest extends BaseTest {
         String newItemPageErrorMessage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectPipelineType()
                 .clickOkButton()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectPipelineType()
                 .getItemNameInvalidMsg();
 
-        Assert.assertEquals(newItemPageErrorMessage, (String.format("» A job already exists with the name ‘%s’", PROJECT_NAME)));
+        Assert.assertEquals(newItemPageErrorMessage, (String.format("» A job already exists with the name ‘%s’", TestDataUtils.PROJECT_NAME)));
     }
 
     @Test
@@ -177,7 +173,7 @@ public class NewItemTest extends BaseTest {
         String pipelineNameInMyViewList = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectPipelineType()
                 .clickOkButton()
                 .getBreadcrumbs()
@@ -185,12 +181,12 @@ public class NewItemTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink().getListProjectsNamesAsString();
 
-        Assert.assertTrue(pipelineNameInMyViewList.contains(PROJECT_NAME), PROJECT_NAME + " Pipeline not found");
+        Assert.assertTrue(pipelineNameInMyViewList.contains(TestDataUtils.PROJECT_NAME), TestDataUtils.PROJECT_NAME + " Pipeline not found");
     }
 
     @Test
     public void testCreateNewItemFromOtherNonExistingName() {
-        createNewFolder(getDriver(), PROJECT_NAME);
+        createNewFolder(getDriver(), TestDataUtils.PROJECT_NAME);
         final String jobName = TestUtils.getRandomStr(7);
 
         String errorMessage = new HomePage(getDriver())
@@ -210,13 +206,13 @@ public class NewItemTest extends BaseTest {
         final String freestyleProjectTitle = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectFreestyleProjectType()
                 .clickOkButton()
                 .clickSaveButton()
                 .getNameText();
 
-        Assert.assertEquals(freestyleProjectTitle, String.format("Project %s", PROJECT_NAME));
+        Assert.assertEquals(freestyleProjectTitle, String.format("Project %s", TestDataUtils.PROJECT_NAME));
     }
 
     @Test
@@ -246,16 +242,16 @@ public class NewItemTest extends BaseTest {
 
     @Test
     public void testCreateNewFreestyleProjectWithDuplicateName() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), PROJECT_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.PROJECT_NAME);
 
         String actualResult = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectFreestyleProjectType()
                 .getItemNameInvalidMsg();
 
-        Assert.assertEquals(actualResult, String.format("» A job already exists with the name ‘%s’", PROJECT_NAME));
+        Assert.assertEquals(actualResult, String.format("» A job already exists with the name ‘%s’", TestDataUtils.PROJECT_NAME));
     }
 
     @Test
@@ -292,14 +288,14 @@ public class NewItemTest extends BaseTest {
         HomePage homePage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectMultiConfigurationProjectType()
                 .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard();
 
-        Assert.assertTrue(homePage.getJobNamesList().contains(PROJECT_NAME));
+        Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.PROJECT_NAME));
     }
 
     @Test
@@ -333,16 +329,16 @@ public class NewItemTest extends BaseTest {
         String actualProjectName = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(NEW_PROJECT_NAME)
-                .setCopyFromItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.NEW_PROJECT_NAME)
+                .setCopyFromItemName(TestDataUtils.PROJECT_NAME)
                 .selectMultiConfigurationProjectType()
                 .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .getJobName(NEW_PROJECT_NAME);
+                .getJobName(TestDataUtils.NEW_PROJECT_NAME);
 
-        Assert.assertEquals(actualProjectName, NEW_PROJECT_NAME);
+        Assert.assertEquals(actualProjectName, TestDataUtils.NEW_PROJECT_NAME);
     }
 
     @Test
@@ -350,14 +346,14 @@ public class NewItemTest extends BaseTest {
         HomePage homePage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectMultibranchPipelineType()
                 .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard();
 
-        Assert.assertTrue(homePage.getJobNamesList().contains(PROJECT_NAME));
+        Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.PROJECT_NAME));
     }
 
     @Test
@@ -377,7 +373,7 @@ public class NewItemTest extends BaseTest {
         String actualErrorMessage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectMultibranchPipelineType()
                 .clickOkButton()
                 .clickSaveButton()
@@ -385,11 +381,11 @@ public class NewItemTest extends BaseTest {
                 .clickDashboard()
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectMultibranchPipelineType()
                 .getItemNameInvalidMsg();
 
-        Assert.assertEquals(actualErrorMessage, String.format("» A job already exists with the name ‘%s’", PROJECT_NAME));
+        Assert.assertEquals(actualErrorMessage, String.format("» A job already exists with the name ‘%s’", TestDataUtils.PROJECT_NAME));
     }
 
     @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
@@ -427,7 +423,7 @@ public class NewItemTest extends BaseTest {
         List<String> allFolders = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectFolderType()
                 .clickOkButton()
                 .clickSaveButton()
@@ -435,7 +431,7 @@ public class NewItemTest extends BaseTest {
                 .clickDashboard()
                 .getJobNamesList();
 
-        Assert.assertTrue(allFolders.contains(PROJECT_NAME));
+        Assert.assertTrue(allFolders.contains(TestDataUtils.PROJECT_NAME));
     }
 
     @Test
@@ -464,17 +460,17 @@ public class NewItemTest extends BaseTest {
 
     @Test
     public void testCreateOrgFolderExistName() {
-        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), PROJECT_NAME);
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.PROJECT_NAME);
 
         String errMessage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(PROJECT_NAME)
+                .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectFolderType()
                 .getItemNameInvalidMsg();
 
         Assert.assertEquals(errMessage, "» A job already exists with the name ‘"
-                + PROJECT_NAME + "’");
+                + TestDataUtils.PROJECT_NAME + "’");
     }
 
     @Test
