@@ -11,9 +11,6 @@ public class EditMyViewPage extends BaseEditViewPage {
     @FindBy(css = "input[name=filterQueue]")
     private WebElement filterBuildQueueOptionCheckBox;
 
-    @FindBy(xpath = "//button[text() = 'OK']")
-    private WebElement okButton;
-
     @FindBy(xpath = "//span[text()='Edit View']/..")
     private WebElement editViewLink;
 
@@ -27,16 +24,9 @@ public class EditMyViewPage extends BaseEditViewPage {
         return this;
     }
 
-    public ViewPage clickOkButton() {
-        okButton.click();
-
-        return new ViewPage(getDriver());
-    }
-
     public EditMyViewPage clickEditMyView() {
         editViewLink.click();
 
         return new  EditMyViewPage(getDriver());
     }
-
 }

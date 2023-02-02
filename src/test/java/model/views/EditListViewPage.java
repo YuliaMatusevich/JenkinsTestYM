@@ -29,9 +29,6 @@ public class EditListViewPage extends BaseEditViewPage {
     @FindBy(css = ".bottom-sticker-inner--stuck")
     private WebElement bottomStickerDynamic;
 
-    @FindBy(xpath = "//button[text() = 'OK']")
-    private WebElement okButton;
-
     @FindBy(xpath = "//button[text() = 'Apply']")
     private WebElement applyButton;
 
@@ -120,12 +117,6 @@ public class EditListViewPage extends BaseEditViewPage {
         viewName.sendKeys(name);
 
         return this;
-    }
-
-    public ViewPage clickOkButton() {
-        okButton.click();
-
-        return new ViewPage(getDriver());
     }
 
     public EditListViewPage addJobToView(String name) {

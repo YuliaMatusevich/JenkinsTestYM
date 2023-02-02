@@ -23,9 +23,6 @@ public class EditGlobalViewPage extends BaseEditViewPage {
     @FindBy(name = "name")
     private WebElement viewName;
 
-    @FindBy(xpath = "//button[text() = 'OK']")
-    private WebElement okButton;
-
     @FindBy(css = ".jenkins-form-description")
     private WebElement uniqueTextOnGlobalViewEditPage;
 
@@ -37,14 +34,9 @@ public class EditGlobalViewPage extends BaseEditViewPage {
 
     @FindBy(css = "#main-panel h1")
     private WebElement errorPageHeader;
+
     public EditGlobalViewPage(WebDriver driver) {
         super(driver);
-    }
-
-    public ViewPage clickOkButton() {
-        okButton.click();
-
-        return new ViewPage(getDriver());
     }
 
     public EditGlobalViewPage renameView(String name) {
@@ -101,5 +93,4 @@ public class EditGlobalViewPage extends BaseEditViewPage {
 
         return new EditGlobalViewPage(getDriver());
     }
-
 }
