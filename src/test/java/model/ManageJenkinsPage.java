@@ -8,8 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
 
-import static runner.TestUtils.scrollToElement;
-import static runner.TestUtils.scrollToEnd;
+import static runner.TestUtils.*;
 
 public class ManageJenkinsPage extends MainBasePage {
 
@@ -33,7 +32,8 @@ public class ManageJenkinsPage extends MainBasePage {
     }
 
     public GlobalToolConfigurationPage clickConfigureTools() {
-        configureTools.click();
+        TestUtils.scrollToElement_PlaceInCenter(getDriver(), configureTools);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(configureTools)).click();
 
         return new GlobalToolConfigurationPage(getDriver());
     }
