@@ -1,27 +1,22 @@
 package model.status_pages;
 
-import model.ConsoleOutputPage;
 import model.HomePage;
-import model.base.BlankStatusPage;
-import model.config_pages.MultiConfigurationProjectConfigPage;
+import model.base.BaseStatusPage;
+import model.status_side_menu_component.MultiConfigurationProjectSideMenuComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.List;
 
-public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiConfigurationProjectStatusPage> {
+public class MultiConfigurationProjectStatusPage extends BaseStatusPage<MultiConfigurationProjectStatusPage, MultiConfigurationProjectSideMenuComponent> {
 
     @FindBy(name = "description")
     private WebElement description;
 
     @FindBy(xpath = "//button[contains(text(),'Save')]")
     private WebElement saveDescriptionButton;
-
-    @FindBy(xpath = "//span[text()='Delete Multi-configuration project']")
-    private WebElement deleteOption;
 
     @FindBy(xpath = "//li[@class='item'][last()-1]")
     private WebElement breadcrumbsParentFolderLink;
@@ -31,24 +26,6 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
 
     @FindBy(xpath = "//button[@id='yui-gen1-button']")
     private WebElement enableButton;
-
-    @FindBy(linkText = "Build Now")
-    private WebElement buildNowButton;
-
-    @FindBy(css = ".model-link.inside.build-link.display-name")
-    private WebElement dropDownBuildIcon;
-
-    @FindBy(xpath = "//li[@id='yui-gen3']/a/*[name()='svg']")
-    private WebElement consoleOutputDropDownBuildIcon;
-
-    @FindBy(css = "#no-builds")
-    private WebElement buildsHistoryOnSidePanel;
-
-    @FindBy(css = ".build-row-cell")
-    private List<WebElement> buildRowsOnBuildHistory;
-
-    @FindBy(css = ".build-status-icon__outer>[tooltip = 'Success &gt; Console Output']")
-    private WebElement buildLoadingIconSuccess;
 
     @FindBy(xpath = "//span[@class='build-status-icon__wrapper icon-disabled icon-md']")
     private WebElement iconProjectDisabled;
@@ -64,6 +41,11 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
 
     @FindBy(xpath = "//*[@id='buildHistoryPageNav']/div[1]/div")
     private WebElement buildHistoryPageNavigation;
+
+    @Override
+    protected MultiConfigurationProjectSideMenuComponent createSideMenuComponent() {
+        return new MultiConfigurationProjectSideMenuComponent(getDriver(), this);
+    }
 
     public MultiConfigurationProjectStatusPage(WebDriver driver) {
         super(driver);
@@ -87,8 +69,7 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
         return getDriver().findElement(By.xpath("//li[@class='item']//a[@href='/job/" + name + "/']")).getText();
     }
 
-    public HomePage deleteMultiConfigProject() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(deleteOption)).click();
+    public HomePage confirmAlertAndDeleteProject() {
         getDriver().switchTo().alert().accept();
 
         return new HomePage(getDriver());
@@ -112,43 +93,8 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
         return new MultiConfigurationProjectStatusPage(getDriver());
     }
 
-    public MultiConfigurationProjectConfigPage clickConfiguration(String projectName) {
-        getDriver().findElement(By.xpath(String.format("//a[@href='/job/%s/configure']", projectName))).click();
-
-        return new MultiConfigurationProjectConfigPage(getDriver());
-    }
-
-    public MultiConfigurationProjectStatusPage clickBuildNowButton() {
-        buildNowButton.click();
-
-        return this;
-    }
-
-    public ConsoleOutputPage clickBuildIcon() {
-        getWait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='build-icon']"))).click();
-
-        return new ConsoleOutputPage(getDriver());
-    }
-
-    public MultiConfigurationProjectStatusPage clickBuildHistoryPageNavigationNewestBuild () {
+    public MultiConfigurationProjectStatusPage clickBuildHistoryPageNavigationNewestBuild() {
         buildHistoryPageNavigation.click();
-
-        return this;
-    }
-
-    public int countBuildsOnSidePanel() {
-        getWait(10).until(ExpectedConditions.attributeContains(buildsHistoryOnSidePanel, "style", "display"));
-        int countBuilds = 0;
-        if (buildsHistoryOnSidePanel.getAttribute("style").equals("display: none;")) {
-            countBuilds = buildRowsOnBuildHistory.size();
-        }
-
-        return countBuilds;
-    }
-
-    public MultiConfigurationProjectStatusPage clickBuildNowOnSideMenu(String projectName) {
-        getDriver().findElement(By.xpath(String.format("//a[@href='/job/%s/build?delay=0sec']", projectName))).click();
-        getWait(10).until(ExpectedConditions.visibilityOf((buildLoadingIconSuccess)));
 
         return this;
     }

@@ -4,6 +4,7 @@ import static runner.TestUtils.getRandomStr;
 
 import java.util.Arrays;
 import java.util.List;
+
 import model.ConsoleOutputPage;
 import model.HomePage;
 import model.RenameItemErrorPage;
@@ -72,7 +73,9 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .getBreadcrumbs()
                 .clickDashboard()
                 .clickMultiConfigurationProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
-                .deleteMultiConfigProject();
+                .getSideMenu()
+                .clickDeleteToMyStatusPage()
+                .confirmAlertAndDeleteProject();
 
         Assert.assertFalse(homePage.getJobNamesList().contains(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME));
     }
@@ -83,7 +86,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         MultiConfigurationProjectStatusPage multiConfigurationProjectStatusPage = new HomePage(getDriver())
                 .clickMultiConfigurationProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
-                .clickConfiguration(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
+                .getSideMenu()
+                .clickConfigure()
                 .clickEnableOrDisableButton()
                 .clickSaveButton();
 
@@ -94,7 +98,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
     public void testMultiConfigurationProjectEnable() {
         MultiConfigurationProjectStatusPage multiConfigurationProjectStatusPage = new HomePage(getDriver())
                 .clickMultiConfigurationProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
-                .clickConfiguration(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
+                .getSideMenu()
+                .clickConfigure()
                 .clickEnableOrDisableButton()
                 .clickSaveButton();
 
@@ -107,13 +112,17 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         int countBuildsBeforeNewBuild = new HomePage(getDriver())
                 .clickMultiConfigurationProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
-                .countBuildsOnSidePanel();
+                .getSideMenu()
+                .countBuildsInBuildHistory();
 
-        new MultiConfigurationProjectStatusPage(getDriver()).clickBuildNowOnSideMenu(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
+        new MultiConfigurationProjectStatusPage(getDriver())
+                .getSideMenu()
+                .clickBuildNow();
         getDriver().navigate().refresh();
 
         int countBuildsAfterNewBuild = new MultiConfigurationProjectStatusPage(getDriver())
-                .countBuildsOnSidePanel();
+                .getSideMenu()
+                .countBuildsInBuildHistory();
 
         Assert.assertNotEquals(countBuildsAfterNewBuild, countBuildsBeforeNewBuild);
     }
@@ -225,7 +234,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         MultiConfigurationProjectConfigPage multiConfigProjectPage = new HomePage(getDriver())
                 .clickMultiConfigurationProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
-                .clickConfiguration(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
+                .getSideMenu()
+                .clickConfigure()
                 .scrollAndClickBuildSteps();
         if (TestUtils.isCurrentOSWindows()) {
             multiConfigProjectPage
@@ -238,7 +248,9 @@ public class MultiConfigurationProjectTest extends BaseTest {
         }
         ConsoleOutputPage multiConfigProjectConsole = multiConfigProjectPage
                 .clickSaveButton()
-                .clickBuildNowButton()
+                .getSideMenu()
+                .clickBuildNow()
+                .getSideMenu()
                 .clickBuildIcon();
 
         Assert.assertEquals(multiConfigProjectConsole.getTextConsoleOutputUserName(), new HomePage(getDriver()).getHeader().getUserNameText());
@@ -254,7 +266,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .selectMultiConfigurationProjectType()
                 .clickOkButton()
                 .clickSaveButton()
-                .clickBuildNowButton()
+                .getSideMenu()
+                .clickBuildNow()
                 .clickBuildHistoryPageNavigationNewestBuild();
 
         Assert.assertTrue(mcpStatusPage.NewestBuildIsDisplayed());
@@ -266,7 +279,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         MultiConfigurationProjectStatusPage configMatrix = new HomePage(getDriver())
                 .clickMultiConfigurationProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
-                .clickConfiguration(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
+                .getSideMenu()
+                .clickConfigure()
                 .scrollAndClickButtonAddAxis()
                 .selectUserDefinedAxis()
                 .enterNameUserDefinedAxis(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME, "stage", 1)
@@ -292,7 +306,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         MultiConfigurationProjectConfigPage configPage = new HomePage(getDriver())
                 .clickMultiConfigurationProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
-                .clickConfiguration(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
+                .getSideMenu()
+                .clickConfigure();
 
         for (int i = 1; i <= COUNT_BUILD_STEPS; i++) {
             configPage
