@@ -3,7 +3,6 @@ import model.views.*;
 import model.HomePage;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -56,7 +55,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.LIST_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .addJobsToListView(6)
@@ -90,8 +89,9 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(getRandomStr(6))
-                .selectListViewType().clickCreateButton()
+                .setViewName(TestDataUtils.LIST_VIEW_NAME)
+                .selectListViewType()
+                .clickCreateButton()
                 .addJobToView(TestDataUtils.FREESTYLE_PROJECT_NAME)
                 .getCountColumns();
 
@@ -339,7 +339,7 @@ public class ViewsTest extends BaseTest {
         String actualResult = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(TestDataUtils.GLOBAL_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickEditListView()
                 .clickAddColumnDropDownMenu()
                 .clickGitBranchesColumnMenuOption()
@@ -359,7 +359,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.LIST_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .addAllJobsToListView()
@@ -379,7 +379,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.LIST_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .scrollToRegexFilterCheckboxPlaceInCenterWaitTillNotMoving();
@@ -403,7 +403,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.LIST_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .addAllJobsToListView()
@@ -461,7 +461,7 @@ public class ViewsTest extends BaseTest {
         Map<String, String> tableMenuMap = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(TestDataUtils.GLOBAL_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickEditListView()
                 .clickAddColumnDropDownMenu()
                 .getMapMatchingColumnDropDownMenuItemsAndJobTableHeader();
@@ -499,7 +499,7 @@ public class ViewsTest extends BaseTest {
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
-                .setViewName(TestDataUtils.GLOBAL_VIEW_NAME)
+                .setViewName(TestDataUtils.LIST_VIEW_NAME)
                 .selectListViewType()
                 .clickCreateButton()
                 .addAllJobsToListView()
@@ -509,7 +509,7 @@ public class ViewsTest extends BaseTest {
                 .clickOkButton()
                 .getActiveViewName();
 
-        Assert.assertNotEquals(actualResult, TestDataUtils.GLOBAL_VIEW_NAME);
+        Assert.assertNotEquals(actualResult, TestDataUtils.LIST_VIEW_NAME);
         Assert.assertNotEquals(actualResult, newNameMultipleSpaces);
         Assert.assertEquals(actualResult, newNameSingleSpace);
     }
@@ -517,11 +517,11 @@ public class ViewsTest extends BaseTest {
     @Test
     public void testViewHasListOfItems() {
         createAllSixItems();
-        ProjectMethodsUtils.createNewMyViewForMyViews(getDriver(), TestDataUtils.GLOBAL_VIEW_NAME);
+        ProjectMethodsUtils.createNewMyViewForMyViews(getDriver(), TestDataUtils.MY_VIEW_NAME);
         ViewPage viewPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(TestDataUtils.GLOBAL_VIEW_NAME);
+                .clickView(TestDataUtils.MY_VIEW_NAME);
 
         Assert.assertEquals(viewPage.getJobListAsString(),
                 new HomePage(getDriver()).getJobListAsString());
@@ -532,7 +532,7 @@ public class ViewsTest extends BaseTest {
         boolean isContainingStatusColumn = new HomePage(getDriver())
                 .getSideMenu()
                 .clickMyViewsSideMenuLink()
-                .clickView(TestDataUtils.GLOBAL_VIEW_NAME)
+                .clickView(TestDataUtils.LIST_VIEW_NAME)
                 .clickEditListView()
                 .scrollToDeleteStatusColumnButtonPlaceInCenterWaitTillNotMoving()
                 .clickDeleteStatusColumnButton()
