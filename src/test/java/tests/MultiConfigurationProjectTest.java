@@ -245,7 +245,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(multiConfigProjectConsole.getConsoleOutputText().contains("Finished: SUCCESS"));
     }
 
-    @Ignore
     @Test
     public void testNewestBuildsButton() {
         MultiConfigurationProjectStatusPage mcpStatusPage = new HomePage(getDriver())
@@ -254,13 +253,11 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .setItemName(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
                 .selectMultiConfigurationProjectType()
                 .clickOkButton()
-                .clickSaveButton();
+                .clickSaveButton()
+                .clickBuildNowButton()
+                .clickBuildHistoryPageNavigationNewestBuild();
 
-        mcpStatusPage.multiConfigurationProjectBuildNow(getDriver());
-        mcpStatusPage.multiConfigurationProjectNewestBuilds(getDriver());
-
-        Assert.assertTrue(getDriver().
-                findElement(By.xpath("//*[@id='buildHistory/']/div[2]/table/tbody/tr[2]")).isDisplayed());
+        Assert.assertTrue(mcpStatusPage.NewestBuildIsDisplayed());
     }
 
     @Test

@@ -62,6 +62,9 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
     @FindBy(xpath = "//div[@id='matrix']")
     private WebElement configurationMatrixTable;
 
+    @FindBy(xpath = "//*[@id='buildHistoryPageNav']/div[1]/div")
+    private WebElement buildHistoryPageNavigation;
+
     public MultiConfigurationProjectStatusPage(WebDriver driver) {
         super(driver);
     }
@@ -127,12 +130,10 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
         return new ConsoleOutputPage(getDriver());
     }
 
-    public void multiConfigurationProjectBuildNow(WebDriver driver) {
-        driver.findElement(By.xpath("//a[@onclick='return build_id386(this)']")).click();
-    }
+    public MultiConfigurationProjectStatusPage clickBuildHistoryPageNavigationNewestBuild () {
+        buildHistoryPageNavigation.click();
 
-    public void multiConfigurationProjectNewestBuilds(WebDriver driver) {
-        driver.findElement(By.xpath("//*[@id='buildHistoryPageNav']/div[1]/div")).click();
+        return this;
     }
 
     public int countBuildsOnSidePanel() {
@@ -177,5 +178,10 @@ public class MultiConfigurationProjectStatusPage extends BlankStatusPage<MultiCo
     public boolean configurationMatrixIsDisplayed() {
 
         return configurationMatrixTable.isDisplayed();
+    }
+
+    public boolean NewestBuildIsDisplayed() {
+
+        return buildHistoryPageNavigation.isDisplayed();
     }
 }

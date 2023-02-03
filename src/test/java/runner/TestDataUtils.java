@@ -41,9 +41,4 @@ public class TestDataUtils {
     public static final String LIST_VIEW_NAME = getRandomStr();
     public static final String MY_VIEW_NAME = getRandomStr();
     public static final String VIEW_RENAME = getRandomStr();
-
-
-
-
-
 }
