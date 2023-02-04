@@ -15,7 +15,7 @@ public class MultibranchPipelineStatusPage extends BaseStatusPage<MultibranchPip
     @FindBy(id = "enable-project")
     private WebElement warningMessage;
 
-    @FindBy(xpath = "//img[@title='Multibranch Pipeline']")
+    @FindBy(xpath = "//h1/*[1]")
     private WebElement projectIcon;
 
     @FindBy(linkText = "Configure the project")

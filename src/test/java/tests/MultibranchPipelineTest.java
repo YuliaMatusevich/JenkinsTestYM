@@ -107,4 +107,22 @@ public class MultibranchPipelineTest extends BaseTest {
 
         Assert.assertEquals(descriptionText, description);
     }
+
+    @Test
+    public void testChangeProjectIcon() {
+        createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
+
+        String multibranchPipelineIcon = new HomePage(getDriver())
+                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .getAttributeProjectIcon();
+
+        String defaultProjectIcon = new MultibranchPipelineStatusPage(getDriver())
+                .getSideMenu()
+                .clickConfigure()
+                .selectIcon()
+                .clickSaveButton()
+                .getAttributeProjectIcon();
+
+        Assert.assertNotEquals(defaultProjectIcon, multibranchPipelineIcon);
+    }
 }
