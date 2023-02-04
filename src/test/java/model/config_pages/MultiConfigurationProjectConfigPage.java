@@ -10,6 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
 
+import static runner.TestUtils.scrollToElement_PlaceInCenter;
+
 public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiConfigurationProjectStatusPage, MultiConfigurationProjectConfigPage> {
 
     @FindBy(name = "description")
@@ -114,7 +116,10 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
 
     public MultiConfigurationProjectConfigPage enterCommandInExecuteShellBuildSteps(String command) {
         getWait(10).until(ExpectedConditions.elementToBeClickable(advancedBuildStepsLastButton));
-        getWait(5).until(ExpectedConditions.visibilityOf(activateShellTextArea)).click();
+        getWait(5).until(ExpectedConditions.visibilityOf(activateShellTextArea));
+        scrollToElement_PlaceInCenter(getDriver(), activateShellTextArea);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(activateShellTextArea));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(activateShellTextArea)).click();
         executeShellTextArea.sendKeys(command);
 
         return this;

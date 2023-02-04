@@ -41,6 +41,9 @@ public class StatusUserPage extends MainBasePage {
     @FindBy(linkText = "Configure")
     private WebElement configure;
 
+    @FindBy(linkText = "Builds")
+    private WebElement builds;
+
     public StatusUserPage(WebDriver driver) {
         super(driver);
     }
@@ -122,5 +125,11 @@ public class StatusUserPage extends MainBasePage {
         getWait(5).until(ExpectedConditions.elementToBeClickable(configure)).click();
 
         return new ConfigureUserPage(getDriver());
+    }
+
+    public BuildsUserPage clickBuilds() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(builds)).click();
+
+        return new BuildsUserPage(getDriver());
     }
 }

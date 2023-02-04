@@ -12,7 +12,6 @@ import runner.TestDataUtils;
 
 import java.util.List;
 
-import static runner.TestUtils.getRandomStr;
 
 public class ManageJenkinsTest extends BaseTest {
 
@@ -222,6 +221,24 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickPeople()
                 .clickUserID(TestDataUtils.USER_NAME)
                 .clickConfigure()
+                .clickDelete()
+                .clickYes()
+                .getSideMenu()
+                .clickPeople()
+                .getListOfUsers();
+
+        Assert.assertFalse(listOfUsers.contains(TestDataUtils.USER_NAME));
+    }
+
+    @Test
+    public void testDeleteUserGoingFromBuildsUserPage() {
+        ProjectMethodsUtils.createNewUser(getDriver(), TestDataUtils.USER_NAME, TestDataUtils.PASSWORD, TestDataUtils.USER_FULL_NAME, TestDataUtils.EMAIL);
+
+        List<String> listOfUsers = new HomePage(getDriver())
+                .getSideMenu()
+                .clickPeople()
+                .clickUserID(TestDataUtils.USER_NAME)
+                .clickBuilds()
                 .clickDelete()
                 .clickYes()
                 .getSideMenu()

@@ -10,6 +10,9 @@ public class BuildsUserPage extends MainBasePage {
     @FindBy(css = "div#main-panel > h1")
     private WebElement headerH1;
 
+    @FindBy(xpath = "//div[@id='tasks']//span[contains(., 'Delete')]")
+    private WebElement delete;
+
     public BuildsUserPage(WebDriver driver) {
 
         super(driver);
@@ -18,5 +21,11 @@ public class BuildsUserPage extends MainBasePage {
     public String getHeaderH1Text() {
 
         return headerH1.getText();
+    }
+
+    public DeletePage<HomePage> clickDelete() {
+        delete.click();
+
+        return new DeletePage<>(getDriver(), new HomePage(getDriver()));
     }
 }
