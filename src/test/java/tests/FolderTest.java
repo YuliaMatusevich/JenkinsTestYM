@@ -43,7 +43,8 @@ public class FolderTest extends BaseTest {
                 .selectMultiConfigurationProjectType()
                 .clickOkButton()
                 .clickSaveButton()
-                .clickParentFolderInBreadcrumbs();
+                .getBreadcrumbs()
+                .clickParentFolder();
 
         Assert.assertTrue(folderStatusPage.getJobList().contains(multiConfigurationProjectName));
     }
@@ -363,7 +364,8 @@ public class FolderTest extends BaseTest {
                 .selectFreestyleProjectType()
                 .clickOkButton()
                 .clickSaveButton()
-                .clickParentFolderInBreadcrumbs()
+                .getBreadcrumbs()
+                .clickParentFolder()
                 .getJobList();
 
         Assert.assertTrue(projectNamesInFolder.contains(freestyleProjectName));

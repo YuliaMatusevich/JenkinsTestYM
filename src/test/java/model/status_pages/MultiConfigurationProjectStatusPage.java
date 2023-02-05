@@ -18,9 +18,6 @@ public class MultiConfigurationProjectStatusPage extends BaseStatusPage<MultiCon
     @FindBy(xpath = "//button[contains(text(),'Save')]")
     private WebElement saveDescriptionButton;
 
-    @FindBy(xpath = "//li[@class='item'][last()-1]")
-    private WebElement breadcrumbsParentFolderLink;
-
     @FindBy(xpath = "//button[@id='yui-gen1-button']")
     private WebElement disableButton;
 
@@ -73,12 +70,6 @@ public class MultiConfigurationProjectStatusPage extends BaseStatusPage<MultiCon
         getDriver().switchTo().alert().accept();
 
         return new HomePage(getDriver());
-    }
-
-    public FolderStatusPage clickParentFolderInBreadcrumbs() {
-        breadcrumbsParentFolderLink.click();
-
-        return new FolderStatusPage(getDriver());
     }
 
     public MultiConfigurationProjectStatusPage clickDisableButton() {

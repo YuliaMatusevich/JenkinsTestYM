@@ -13,9 +13,6 @@ import java.util.List;
 
 public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectStatusPage, FreestyleProjectStatusSideMenuComponent> {
 
-    @FindBy(xpath = "//li[@class='item'][last()-1]")
-    private WebElement breadcrumbsParentFolderLink;
-
     @FindBy(xpath = "//textarea[@name = 'description']")
     private WebElement fieldDescriptionText;
 
@@ -65,12 +62,6 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
 
     public FreestyleProjectStatusPage(WebDriver driver) {
         super(driver);
-    }
-
-    public FolderStatusPage clickParentFolderInBreadcrumbs() {
-        breadcrumbsParentFolderLink.click();
-
-        return new FolderStatusPage(getDriver());
     }
 
     public FreestyleProjectStatusPage clickDisableProjectBtn() {
