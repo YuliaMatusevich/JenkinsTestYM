@@ -3,12 +3,12 @@ package model.status_pages;
 import model.ChangesBuildsPage;
 import model.HomePage;
 import model.base.BaseStatusPage;
+import model.config_pages.FreestyleProjectConfigPage;
 import model.status_side_menu_component.FreestyleProjectStatusSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import java.util.List;
 
 public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectStatusPage, FreestyleProjectStatusSideMenuComponent> {
@@ -54,6 +54,9 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
 
     @FindBy(linkText = "Edit description")
     private WebElement buttonEditDescription;
+
+    @FindBy(css = ".pane.build-details a")
+    private WebElement buildDateTimeField;
 
     @Override
     protected FreestyleProjectStatusSideMenuComponent createSideMenuComponent() {
@@ -145,5 +148,11 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
         getDriver().switchTo().alert().accept();
 
         return new FolderStatusPage(getDriver());
+    }
+
+    public String getBuildDateTime(){
+        getWait(20).until(ExpectedConditions.visibilityOf((buildDateTimeField)));
+
+        return buildDateTimeField.getText();
     }
 }

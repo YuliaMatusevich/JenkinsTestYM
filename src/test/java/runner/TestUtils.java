@@ -3,6 +3,8 @@ package runner;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TestUtils {
 
@@ -76,5 +78,35 @@ public class TestUtils {
 
     public static boolean isCurrentOSWindows() {
         return  System.getProperty("os.name").toLowerCase().contains("windows");
+    }
+
+    public static String currentDate() {
+        Date date = new Date();
+        int day = Integer.parseInt(new SimpleDateFormat("dd").format(date));
+
+        if(day < 10) {
+
+            return new SimpleDateFormat("MMM d, yyyy").format(date);
+        }
+
+        return new SimpleDateFormat("MMM dd, yyyy").format(date);
+    }
+
+    public static String currentTime() {
+        Date date = new Date();
+        int hour = Integer.parseInt(new SimpleDateFormat("hh").format(date));
+
+        if(hour < 10) {
+
+            return new SimpleDateFormat("h:mm").format(date);
+        }
+
+        return new SimpleDateFormat("hh:mm").format(date);
+    }
+
+    public static String currentDayPeriod() {
+        Date date = new Date();
+
+        return new SimpleDateFormat("a").format(date);
     }
 }

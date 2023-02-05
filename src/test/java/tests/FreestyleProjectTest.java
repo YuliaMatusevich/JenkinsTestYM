@@ -8,17 +8,14 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static runner.TestUtils.getRandomStr;
+import static runner.TestUtils.*;
 
 public class FreestyleProjectTest extends BaseTest {
-
-
 
     @Test
     public void testDisableProject() {
@@ -308,5 +305,19 @@ public class FreestyleProjectTest extends BaseTest {
                 .verifyThatBuildPeriodicallyCheckboxIsSelected();
 
         Assert.assertTrue(selectedCheckbox);
+    }
+
+    @Test
+    public void testFreestyleProjectBuildDateAndTime() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),TestDataUtils.FREESTYLE_PROJECT_NAME);
+
+        String actualBuildDateTime = new HomePage(getDriver())
+                .clickFreestyleProjectName()
+                .clickBuildNowOnSidePanel()
+                .getBuildDateTime();
+
+        Assert.assertTrue(actualBuildDateTime.contains(currentDate()));
+        Assert.assertTrue(actualBuildDateTime.contains(currentTime()));
+        Assert.assertTrue(actualBuildDateTime.contains(currentDayPeriod()));
     }
 }
