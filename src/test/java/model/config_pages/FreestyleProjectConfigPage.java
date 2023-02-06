@@ -88,7 +88,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     private WebElement buildPeriodicallyCheckbox;
 
     @FindBy(xpath = "//div[contains(text(), 'Branch Specifier')]/following-sibling::div/input")
-    private WebElement BranchSpecifierInputField;
+    private WebElement branchSpecifierInputField;
 
     @FindBy(xpath = "//button[@data-section-id='source-code-management']")
     private WebElement linkSourceCodeManagement;
@@ -264,9 +264,9 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     }
 
     public FreestyleProjectConfigPage inputBranchSpecifier(String branchSpecifier) {
-        scrollToElement_PlaceInCenter(getDriver(), BranchSpecifierInputField);
-        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(BranchSpecifierInputField)).clear();
-        BranchSpecifierInputField.sendKeys(branchSpecifier);
+        scrollToElement_PlaceInCenter(getDriver(), branchSpecifierInputField);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(branchSpecifierInputField)).clear();
+        branchSpecifierInputField.sendKeys(branchSpecifier);
 
         return this;
     }
