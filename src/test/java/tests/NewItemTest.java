@@ -125,16 +125,15 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(pipelineStatusPage.getDescriptionText(), TestDataUtils.ITEM_NEW_DESCRIPTION);
     }
 
-    @Test
-    public void testCreateNewItemWithUnsafeCharacterName() {
-        final String nameNewItem = "5%^PiPl$^Ne)";
+    @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
+    public void testCreateNewItemWithUnsafeCharacterName(Character specialCharacter, String expectedErrorMessage) {
         String errorMessage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(nameNewItem)
-                .getItemNameInvalidMsg();
+                .setItemName(String.valueOf(specialCharacter))
+                .getItemNameInvalidMessage();
 
-        Assert.assertEquals(errorMessage, "» ‘%’ is an unsafe character");
+        Assert.assertEquals(errorMessage,  String.format("» ‘%s’ is an unsafe character", specialCharacter));
     }
 
     @Test
@@ -163,7 +162,7 @@ public class NewItemTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectPipelineType()
-                .getItemNameInvalidMsg();
+                .getItemNameInvalidMessage();
 
         Assert.assertEquals(newItemPageErrorMessage, (String.format("» A job already exists with the name ‘%s’", TestDataUtils.PROJECT_NAME)));
     }
@@ -237,7 +236,7 @@ public class NewItemTest extends BaseTest {
                 .setItemName(String.valueOf(specialCharacter))
                 .selectFreestyleProjectType();
 
-            Assert.assertEquals(newItemPage.getItemNameInvalidMsg(), String.format("» ‘%s’ is an unsafe character", specialCharacter));
+            Assert.assertEquals(newItemPage.getItemNameInvalidMessage(), String.format("» ‘%s’ is an unsafe character", specialCharacter));
     }
 
     @Test
@@ -249,7 +248,7 @@ public class NewItemTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectFreestyleProjectType()
-                .getItemNameInvalidMsg();
+                .getItemNameInvalidMessage();
 
         Assert.assertEquals(actualResult, String.format("» A job already exists with the name ‘%s’", TestDataUtils.PROJECT_NAME));
     }
@@ -383,7 +382,7 @@ public class NewItemTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectMultibranchPipelineType()
-                .getItemNameInvalidMsg();
+                .getItemNameInvalidMessage();
 
         Assert.assertEquals(actualErrorMessage, String.format("» A job already exists with the name ‘%s’", TestDataUtils.PROJECT_NAME));
     }
@@ -395,7 +394,7 @@ public class NewItemTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(specialCharacter.toString())
                 .selectMultibranchPipelineType()
-                .getItemNameInvalidMsg();
+                .getItemNameInvalidMessage();
 
         Assert.assertEquals(actualErrorMessage, String.format("» ‘%s’ is an unsafe character", specialCharacter));
     }
@@ -408,7 +407,7 @@ public class NewItemTest extends BaseTest {
                 .setItemName("MultibranchPipeline@")
                 .selectMultibranchPipelineType();
 
-        Assert.assertEquals(newItemPage.getItemNameInvalidMsg(), "» ‘@’ is an unsafe character");
+        Assert.assertEquals(newItemPage.getItemNameInvalidMessage(), "» ‘@’ is an unsafe character");
 
         CreateItemErrorPage createItemErrorPage = newItemPage.clickOkToCreateItemErrorPage();
 
@@ -467,7 +466,7 @@ public class NewItemTest extends BaseTest {
                 .clickNewItem()
                 .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectFolderType()
-                .getItemNameInvalidMsg();
+                .getItemNameInvalidMessage();
 
         Assert.assertEquals(errMessage, "» A job already exists with the name ‘"
                 + TestDataUtils.PROJECT_NAME + "’");

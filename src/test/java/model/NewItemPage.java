@@ -134,7 +134,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return itemNameRequiredMsg.getText();
     }
 
-    public String getItemNameInvalidMsg() {
+    public String getItemNameInvalidMessage() {
 
         return getWait(2).until(ExpectedConditions.visibilityOf(itemNameInvalidMsg)).getText();
     }
