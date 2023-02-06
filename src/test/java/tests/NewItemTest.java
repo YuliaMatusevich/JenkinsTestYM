@@ -102,11 +102,11 @@ public class NewItemTest extends BaseTest {
                 .setItemName(TestDataUtils.PROJECT_NAME)
                 .selectPipelineType()
                 .clickOkButton()
-                .setDescriptionField(TestDataUtils.ITEM_NEW_DESCRIPTION)
+                .setDescriptionField(TestDataUtils.NEW_DESCRIPTION)
                 .clickSaveButton()
                 .getDescriptionText();
 
-        Assert.assertEquals(actualPipelineDescription, TestDataUtils.ITEM_NEW_DESCRIPTION);
+        Assert.assertEquals(actualPipelineDescription, TestDataUtils.NEW_DESCRIPTION);
     }
 
     @Ignore
@@ -122,7 +122,7 @@ public class NewItemTest extends BaseTest {
                 .clickSaveButton();
 
         Assert.assertEquals(pipelineStatusPage.getPipelineName(), TestDataUtils.NEW_PROJECT_NAME);
-        Assert.assertEquals(pipelineStatusPage.getDescriptionText(), TestDataUtils.ITEM_NEW_DESCRIPTION);
+        Assert.assertEquals(pipelineStatusPage.getDescriptionText(), TestDataUtils.NEW_DESCRIPTION);
     }
 
     @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
@@ -356,7 +356,7 @@ public class NewItemTest extends BaseTest {
     }
 
     @Test
-    public void testCreateMbPipelineEmptyName() {
+    public void testCreateMultibranchPipelineEmptyName() {
         NewItemPage newItemPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
