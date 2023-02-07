@@ -8,7 +8,6 @@ import model.config_pages.FreestyleProjectConfigPage;
 import model.config_pages.PipelineConfigPage;
 import model.status_pages.*;
 import model.views.NewViewFromDashboardPage;
-import model.views.NewViewFromMyViewsPage;
 import model.views.ViewPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -154,7 +153,7 @@ public class HomePage extends MainBasePage {
         return this;
     }
 
-    public MultibranchPipelineStatusPage clickJobMBPipeline(String name) {
+    public MultibranchPipelineStatusPage clickJobMultibranchPipeline(String name) {
         getDriver().findElement(By.xpath("//span[text()='" + name + "']")).click();
 
         return new MultibranchPipelineStatusPage(getDriver());

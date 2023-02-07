@@ -33,7 +33,7 @@ public class MultibranchPipelineTest extends BaseTest {
         createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         String actualMultibranchPipeline = new HomePage(getDriver())
-                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMultibranchPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .getSideMenu()
                 .clickRename()
                 .clearFieldAndInputNewName(TestDataUtils.MULTIBRANCH_PIPELINE_RENAME)
@@ -55,7 +55,7 @@ public class MultibranchPipelineTest extends BaseTest {
         createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         String warningMessage = new HomePage(getDriver())
-                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMultibranchPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .clickDisableEnableButton()
                 .getWarningMessage();
 
@@ -68,7 +68,7 @@ public class MultibranchPipelineTest extends BaseTest {
         createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         MultibranchPipelineStatusPage multibranchPipelineStatusPage = new HomePage(getDriver())
-                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
+                .clickJobMultibranchPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         Assert.assertTrue(multibranchPipelineStatusPage.isDisableButtonPresent());
         Assert.assertFalse(multibranchPipelineStatusPage.getAttributeProjectIcon().contains("disable"));
@@ -80,7 +80,7 @@ public class MultibranchPipelineTest extends BaseTest {
         final String displayName = getRandomStr();
 
         List<String> jobNamesList = new HomePage(getDriver())
-                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMultibranchPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .getSideMenu()
                 .clickConfigure()
                 .setDisplayName(displayName)
@@ -99,7 +99,7 @@ public class MultibranchPipelineTest extends BaseTest {
         final String description = getRandomStr();
 
         String descriptionText = new HomePage(getDriver())
-                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMultibranchPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .clickLinkConfigureTheProject()
                 .setDescription(description)
                 .clickSaveButton()
@@ -113,7 +113,7 @@ public class MultibranchPipelineTest extends BaseTest {
         createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         String multibranchPipelineIcon = new HomePage(getDriver())
-                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMultibranchPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .getAttributeProjectIcon();
 
         String defaultProjectIcon = new MultibranchPipelineStatusPage(getDriver())
@@ -124,6 +124,18 @@ public class MultibranchPipelineTest extends BaseTest {
                 .getAttributeProjectIcon();
 
         Assert.assertNotEquals(defaultProjectIcon, multibranchPipelineIcon);
+    }
+
+    @Test
+    public void testMoveMenuOptionIsNotAvailable() {
+        createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
+
+        List<String> menuOptions = new HomePage(getDriver())
+                .clickJobMultibranchPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .getSideMenu()
+                .getMenuOptions();
+
+        Assert.assertFalse(menuOptions.stream().anyMatch(option -> option.contains("Move")), "Move is present");
     }
 
     @Test
@@ -139,7 +151,7 @@ public class MultibranchPipelineTest extends BaseTest {
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .clickJobMultibranchPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .getSideMenu()
                 .clickMove()
                 .selectFolder(TestDataUtils.FOLDER_NAME)
