@@ -125,4 +125,35 @@ public class MultibranchPipelineTest extends BaseTest {
 
         Assert.assertNotEquals(defaultProjectIcon, multibranchPipelineIcon);
     }
+
+    @Test
+    public void testMoveMultiBranchPipeline() {
+        createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
+
+        List<String> actualResult = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(TestDataUtils.FOLDER_NAME)
+                .selectFolderType()
+                .clickOkButton()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .clickJobMBPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .getSideMenu()
+                .clickMove()
+                .selectFolder(TestDataUtils.FOLDER_NAME)
+                .clickMoveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .getJobNamesList();
+
+        Assert.assertFalse(actualResult.stream().anyMatch(option -> option.contains(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)), "Multibranch Pipeline is present on Dashboard");
+
+        List<String> folderContent = new HomePage(getDriver())
+                .clickFolder(TestDataUtils.FOLDER_NAME)
+                .getJobList();
+
+        Assert.assertTrue(folderContent.stream().anyMatch(option -> option.contains(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)), "Multibranch Pipeline is NOT present in folder");
+    }
 }
