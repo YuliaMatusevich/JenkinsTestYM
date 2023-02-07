@@ -1,15 +1,16 @@
 package tests;
 
-import model.*;
+import model.HomePage;
 import model.status_pages.MultibranchPipelineStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
 
 import java.util.List;
 
-import static runner.ProjectMethodsUtils.*;
+import static runner.ProjectMethodsUtils.createNewMultibranchPipeline;
 import static runner.TestUtils.getRandomStr;
 
 public class MultibranchPipelineTest extends BaseTest {
@@ -136,6 +137,20 @@ public class MultibranchPipelineTest extends BaseTest {
                 .getMenuOptions();
 
         Assert.assertFalse(menuOptions.stream().anyMatch(option -> option.contains("Move")), "Move is present");
+    }
+
+    @Test
+    public void testMoveMenuOptionIsAvailableWhenFolderIsCreated() {
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
+        ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
+
+        List<String> menuOptions = new HomePage(getDriver())
+                .clickJobMultibranchPipeline(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .getSideMenu()
+                .getMenuOptions();
+
+
+        Assert.assertTrue(menuOptions.stream().anyMatch(option -> option.contains("Move")), "Move is not present");
     }
 
     @Test
