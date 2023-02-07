@@ -3,12 +3,9 @@ import model.views.*;
 import model.HomePage;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import runner.BaseTest;
-import runner.BaseUtils;
-import runner.ProjectMethodsUtils;
-import runner.TestDataUtils;
+import runner.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -166,21 +163,19 @@ public class ViewsTest extends BaseTest {
         Assert.assertTrue(viewPage.getListViewsNames().contains(TestDataUtils.VIEW_RENAME));
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testCreateListViewAndAddSixItems", dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
+    @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
     public void testIllegalCharacterRenameView(Character specialCharacter, String errorMessage) {
-        new HomePage(getDriver())
-                .getSideMenu()
-                .clickMyViewsSideMenuLink();
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), TestDataUtils.LIST_VIEW_NAME);
 
         List<Boolean> checksList = new ArrayList<>();
         try {
             new HomePage(getDriver())
                     .getHeader()
                     .clickMyViewItemInUserDropdownMenu()
-                    .clickView(TestDataUtils.GLOBAL_VIEW_NAME)
-                    .clickEditGlobalView()
-                    .renameView(specialCharacter + TestDataUtils.GLOBAL_VIEW_NAME)
+                    .clickView(TestDataUtils.LIST_VIEW_NAME)
+                    .clickEditListView()
+                    .renameView(specialCharacter + TestDataUtils.LIST_VIEW_NAME)
                     .clickOkButton();
             if (new EditGlobalViewPage(getDriver()).getErrorPageHeader().equals("Error")) {
                 checksList.add(new EditGlobalViewPage(getDriver()).isCorrectErrorPageDetailsText(specialCharacter));
@@ -190,7 +185,7 @@ public class ViewsTest extends BaseTest {
                         .clickDashboard()
                         .getSideMenu()
                         .clickMyViewsSideMenuLink()
-                        .getListViewsNames().contains(specialCharacter + TestDataUtils.GLOBAL_VIEW_NAME));
+                        .getListViewsNames().contains(specialCharacter + TestDataUtils.LIST_VIEW_NAME));
             } else {
                 checksList.add(false);
                 BaseUtils.log("Not an Error page");
