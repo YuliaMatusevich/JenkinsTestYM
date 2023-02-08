@@ -10,6 +10,8 @@ import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
 
+import java.util.HashMap;
+
 import static runner.TestUtils.getRandomStr;
 
 public class OrganizationFolderTest extends BaseTest {
@@ -118,5 +120,18 @@ public class OrganizationFolderTest extends BaseTest {
                 .checkChildMetricsIsDisplayed();
 
         Assert.assertTrue(actualResult);
+    }
+
+    @Test
+    public void testChangeStatusToDisableOrgFolder() {
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
+
+        HashMap<String, String> warningMessage = new HomePage(getDriver())
+                .clickOrgFolder(TestDataUtils.ORGANIZATION_FOLDER_NAME)
+                .clickDisableButton()
+                .getWarningTextAboutDisabledOrgFolder();
+
+        Assert.assertEquals(warningMessage.get("Warning Message"), "This Organization Folder is currently disabled");
+        Assert.assertEquals(warningMessage.get("Message Color"), "rgba(254, 130, 10, 1)");
     }
 }

@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.HashMap;
+
 public class OrgFolderStatusPage extends BaseStatusPage<OrgFolderStatusPage, OrgFolderStatusSideMenuComponent> {
 
     @FindBy(xpath = "//button[@type= 'submit']")
@@ -15,6 +17,12 @@ public class OrgFolderStatusPage extends BaseStatusPage<OrgFolderStatusPage, Org
 
     @FindBy(xpath = "//span[text()='Configure the project']")
     private WebElement linkConfigureTheProject;
+
+    @FindBy(id = "yui-gen1-button")
+    private WebElement disableOrgFolderButton;
+
+    @FindBy(id = "enable-project")
+    private WebElement warningTextAboutDisableOrgFolder;
 
     @Override
     protected OrgFolderStatusSideMenuComponent createSideMenuComponent() {
@@ -35,5 +43,19 @@ public class OrgFolderStatusPage extends BaseStatusPage<OrgFolderStatusPage, Org
         linkConfigureTheProject.click();
 
         return new OrgFolderConfigPage(getDriver());
+    }
+
+    public OrgFolderStatusPage clickDisableButton() {
+        disableOrgFolderButton.click();
+
+        return this;
+    }
+
+    public HashMap<String, String> getWarningTextAboutDisabledOrgFolder() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("Warning Message", warningTextAboutDisableOrgFolder.getText().substring(0, warningTextAboutDisableOrgFolder.getText().indexOf(" \n")));
+        hashMap.put("Message Color", warningTextAboutDisableOrgFolder.getCssValue("color"));
+
+        return hashMap;
     }
 }
