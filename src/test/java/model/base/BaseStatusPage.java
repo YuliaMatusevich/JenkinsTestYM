@@ -36,6 +36,7 @@ public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSi
         return additionalDescription.getText();
     }
 
+    @SuppressWarnings("unchecked")
     public Self clickAddOrEditDescription() {
         addOrEditDescriptionLink.click();
 

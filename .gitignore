@@ -8,3 +8,6 @@ debug.log
 .vscode
 .settings
 *.puml
+# Allure Report
+allure-results/
+.allure/
