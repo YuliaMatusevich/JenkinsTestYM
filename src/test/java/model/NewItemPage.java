@@ -149,7 +149,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return this;
     }
 
-    public NewItemPage<?> setCopyFromItemName(String name) {
+    public NewItemPage<ConfigPage> setCopyFromItemName(String name) {
         TestUtils.scrollToEnd(getDriver());
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(copyFrom)).sendKeys(name);
 

@@ -109,15 +109,14 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(actualPipelineDescription, TestDataUtils.NEW_DESCRIPTION);
     }
 
-    @Ignore
     @Test(dependsOnMethods = "testCreateNewPipelineWithDescription")
     public void testCreateNewPipelineFromExisting() {
-        PipelineStatusPage pipelineStatusPage = new HomePage(getDriver())
+    PipelineStatusPage pipelineStatusPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(TestDataUtils.NEW_PROJECT_NAME)
-                .setCopyFromItemName(TestDataUtils.PROJECT_NAME)
                 .selectPipelineType()
+                .setCopyFromItemName(TestDataUtils.PROJECT_NAME)
                 .clickOkButton()
                 .clickSaveButton();
 
