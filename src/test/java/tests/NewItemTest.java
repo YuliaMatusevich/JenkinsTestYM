@@ -314,21 +314,25 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(multiConfigProject.getDescriptionText(), TestDataUtils.DESCRIPTION);
     }
 
-    @Test (dependsOnMethods = "testCreateMultiConfigurationProjectWithValidName")
+    @Test (dependsOnMethods = "testCreateMultiConfigurationProjectWithDescription")
     public void testCreateNewMCProjectAsCopyFromExistingProject() {
-        String actualProjectName = new HomePage(getDriver())
+        String actualDescription = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(TestDataUtils.NEW_PROJECT_NAME)
-                .setCopyFromItemName(TestDataUtils.PROJECT_NAME)
                 .selectMultiConfigurationProjectType()
+                .setCopyFromItemName(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
                 .clickOkButton()
                 .clickSaveButton()
+                .getDescriptionText();
+
+        String actualJobName = new MultiConfigurationProjectStatusPage(getDriver())
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getJobName(TestDataUtils.NEW_PROJECT_NAME);
 
-        Assert.assertEquals(actualProjectName, TestDataUtils.NEW_PROJECT_NAME);
+        Assert.assertEquals(actualDescription, TestDataUtils.DESCRIPTION);
+        Assert.assertEquals(actualJobName, TestDataUtils.NEW_PROJECT_NAME);
     }
 
     @Test
