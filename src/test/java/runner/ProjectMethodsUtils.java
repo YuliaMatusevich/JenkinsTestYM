@@ -156,4 +156,13 @@ public class ProjectMethodsUtils {
                 .clearDescriptionInputField()
                 .setDescriptionField(name);
     }
+
+    public static void changeDefaultView(WebDriver driver, String name) {
+        new HomePage(driver)
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickConfigureSystem()
+                .selectDefaultView(name)
+                .clickSaveButton();
+    }
 }

@@ -247,4 +247,33 @@ public class ManageJenkinsTest extends BaseTest {
 
         Assert.assertFalse(listOfUsers.contains(TestDataUtils.USER_NAME));
     }
+
+    @Test
+    public void testChangeDefaultView() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewListViewForDashboard(getDriver(), TestDataUtils.LIST_VIEW_NAME);
+
+        HomePage homePage = new HomePage(getDriver());
+
+        String attributeDefaultView = homePage.getAttributeViewAll();
+        boolean isViewCanBeRemoved = homePage.getSideMenuList().contains("Delete View");
+
+        String attributeViewAfterChange = homePage
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickConfigureSystem()
+                .selectDefaultView(TestDataUtils.LIST_VIEW_NAME)
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .getAttributeViewAll();
+
+        boolean isViewCanBeRemovedAfterChange = homePage.clickViewAll().getSideMenuList().contains("Delete View");
+
+        Assert.assertFalse(isViewCanBeRemoved);
+        Assert.assertNotEquals(attributeViewAfterChange, attributeDefaultView);
+        Assert.assertTrue(isViewCanBeRemovedAfterChange);
+
+        ProjectMethodsUtils.changeDefaultView(getDriver(), "All".toLowerCase());
+    }
 }

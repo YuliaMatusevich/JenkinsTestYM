@@ -27,6 +27,9 @@ public class ManageJenkinsPage extends MainBasePage {
     @FindBy(xpath = "//a[@href='pluginManager']")
     private WebElement linkPluginManager;
 
+    @FindBy(xpath = "//a[@href='configure']")
+    private WebElement configureSystem;
+
     public ManageJenkinsPage(WebDriver driver) {
         super(driver);
     }
@@ -72,5 +75,12 @@ public class ManageJenkinsPage extends MainBasePage {
                 .perform();
 
         return new FooterComponent(getDriver());
+    }
+
+    public JenkinsConfigureSystemPage clickConfigureSystem() {
+        TestUtils.scrollToElement_PlaceInCenter(getDriver(), configureSystem);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(configureSystem)).click();
+
+        return new JenkinsConfigureSystemPage(getDriver());
     }
 }

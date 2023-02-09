@@ -55,6 +55,12 @@ public class HomePage extends MainBasePage {
     @FindBy(css = "#projectstatus th")
     private List<WebElement> listJobTableHeaders;
 
+    @FindBy(xpath = "//div[@class='tabBar']//a[text()='All']/..")
+    private WebElement viewAllTab;
+
+    @FindBy(css = "#tasks a")
+    private List<WebElement> sideMenuList;
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -291,5 +297,22 @@ public class HomePage extends MainBasePage {
 
     public int getJobTableHeadersSize() {
         return listJobTableHeaders.size();
+    }
+
+    public String getAttributeViewAll() {
+        return viewAllTab.getAttribute("class");
+    }
+
+    public List<String> getSideMenuList() {
+        return sideMenuList
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    public HomePage clickViewAll() {
+        viewAllTab.click();
+
+        return this;
     }
 }
