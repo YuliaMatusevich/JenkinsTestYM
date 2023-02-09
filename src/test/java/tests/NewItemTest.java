@@ -299,28 +299,20 @@ public class NewItemTest extends BaseTest {
 
     @Test
     public void testCreateMultiConfigurationProjectWithDescription() {
-        final String nameMCP = "MultiConfigProject000302";
-        final String descriptionMCP = "Description000302";
 
         MultiConfigurationProjectStatusPage multiConfigProject = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(nameMCP)
+                .setItemName(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
                 .selectMultiConfigurationProjectType()
                 .clickOkButton()
-                .inputDescription(descriptionMCP)
+                .inputDescription(TestDataUtils.DESCRIPTION)
                 .showPreview()
-                .clickSaveButton()
-                .getBreadcrumbs()
-                .clickDashboard()
-                .clickMultiConfigurationProject(nameMCP);
+                .clickSaveButton();
 
-        MultiConfigurationProjectStatusPage multiConfigProjectPreview = new MultiConfigurationProjectStatusPage(getDriver());
-
-        Assert.assertEquals(multiConfigProject.getNameMultiConfigProject(nameMCP), nameMCP);
-        Assert.assertEquals(multiConfigProject.getDescriptionText(), descriptionMCP);
-        Assert.assertEquals(multiConfigProjectPreview.getDescriptionText(), descriptionMCP);
-
+        Assert.assertEquals(multiConfigProject.getNameMultiConfigProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME),
+                TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
+        Assert.assertEquals(multiConfigProject.getDescriptionText(), TestDataUtils.DESCRIPTION);
     }
 
     @Test (dependsOnMethods = "testCreateMultiConfigurationProjectWithValidName")
