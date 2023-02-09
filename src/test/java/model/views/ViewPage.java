@@ -38,7 +38,6 @@ public class ViewPage extends MainBasePage {
     @FindBy(css = "#projectstatus th")
     private List<WebElement> listJobTableHeaders;
 
-
     @FindBy(css = ".tabBar .tab a[href*='/my-views/view/']")
     private List<WebElement> listAllViews;
 

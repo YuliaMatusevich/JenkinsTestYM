@@ -279,4 +279,14 @@ public class EditListViewPage extends BaseEditViewPage {
 
         return uniqueSectionOnListViewEditPage.getText();
     }
+
+    public boolean isAlertPresent(){
+        try {
+            getDriver().switchTo().alert();
+            return true;
+        } catch(NoAlertPresentException e){
+            e.fillInStackTrace();
+            return false;
+        }
+    }
 }

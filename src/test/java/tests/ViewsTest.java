@@ -633,4 +633,23 @@ public class ViewsTest extends BaseTest {
 
         Assert.assertFalse(viewList.contains(TestDataUtils.LIST_VIEW_NAME));
     }
+
+    @Test
+    public void testUnsavedChangesJavascriptAlert() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        new HomePage(getDriver())
+                .getSideMenu()
+                .clickMyViewsSideMenuLink()
+                .clickNewView()
+                .setViewName(TestDataUtils.LIST_VIEW_NAME)
+                .selectListViewType()
+                .clickCreateButton();
+        new EditGlobalViewPage(getDriver())
+                .selectFilterBuildQueueOptionCheckBox()
+                .getHeader()
+                .clickJenkinsNameIcon();
+        boolean alertIsPresent = new EditListViewPage(getDriver()).isAlertPresent();
+
+        Assert.assertTrue(alertIsPresent);
+    }
 }
