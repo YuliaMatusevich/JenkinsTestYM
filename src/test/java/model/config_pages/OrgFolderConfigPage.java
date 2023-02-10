@@ -64,14 +64,18 @@ public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, Org
     }
 
     public OrgFolderConfigPage clickHealthMetricsTab() {
-        healthMetricsTab.click();
+        getWait(5).until(ExpectedConditions.elementToBeClickable(healthMetricsTab)).click();
+        getWait(5)
+                .until(TestUtils.ExpectedConditions.elementIsNotMoving(childHealthMetricsButton));
 
         return this;
     }
 
     public OrgFolderConfigPage clickMetricsButton() {
+        TestUtils.scrollToElement_PlaceInCenter(getDriver(),childHealthMetricsButton);
         getWait(5)
-                .until(TestUtils.ExpectedConditions.elementIsNotMoving(childHealthMetricsButton))
+                .until(TestUtils.ExpectedConditions.elementIsNotMoving(childHealthMetricsButton));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(childHealthMetricsButton))
                 .click();
 
         return this;

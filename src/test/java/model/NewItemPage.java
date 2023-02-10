@@ -107,7 +107,9 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
     }
 
     public NewItemPage<OrgFolderConfigPage> selectOrgFolderType() {
-        orgFolder.click();
+        TestUtils.scrollToElement(getDriver(), orgFolder);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(orgFolder));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(orgFolder)).click();
 
         return new NewItemPage<>(getDriver(), new OrgFolderConfigPage(getDriver()));
     }

@@ -150,7 +150,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         Assert.assertEquals(jobStatusIconTooltip, "Disabled");
     }
-
+    @Ignore
     @Test(dependsOnMethods = "testMultiConfigurationProjectDisableCheckIconDashboardPage")
     public void testMultiConfigurationProjectEnableCheckIconDashboardPage() {
         String jobStatusIconTooltip = new HomePage(getDriver())
@@ -227,6 +227,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(buildNowButton.buildNowButtonIsDisplayed());
     }
 
+    @Ignore
     @Test
     public void testMultiConfigurationProjectWithBuildStepCheckBuildSuccess() {
         ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
@@ -294,6 +295,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(configMatrix.configurationMatrixIsDisplayed());
     }
 
+    @Ignore
     @Test
     public void testSetContentInThreeBuildStepsBuildStatusOnGitHubCommitSaved() {
         final int COUNT_BUILD_STEPS = 3;

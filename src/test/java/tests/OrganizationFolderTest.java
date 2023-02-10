@@ -4,14 +4,11 @@ import model.HomePage;
 import model.status_pages.FolderStatusPage;
 import model.status_pages.OrgFolderStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
-
 import java.util.HashMap;
-
 import static runner.TestUtils.getRandomStr;
 
 public class OrganizationFolderTest extends BaseTest {
@@ -107,7 +104,6 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.ORGANIZATION_FOLDER_NAME));
     }
 
-    @Ignore
     @Test
     public void testCheckChildHealthMetrics() {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
