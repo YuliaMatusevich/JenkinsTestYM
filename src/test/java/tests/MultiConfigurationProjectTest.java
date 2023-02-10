@@ -151,8 +151,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(jobStatusIconTooltip, "Disabled");
     }
 
-    @Ignore
-    @Test(dependsOnMethods = {"testMultiConfigurationProjectDisableCheckIconDashboardPage"})
+    @Test(dependsOnMethods = "testMultiConfigurationProjectDisableCheckIconDashboardPage")
     public void testMultiConfigurationProjectEnableCheckIconDashboardPage() {
         String jobStatusIconTooltip = new HomePage(getDriver())
                 .clickMultiConfigurationProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
