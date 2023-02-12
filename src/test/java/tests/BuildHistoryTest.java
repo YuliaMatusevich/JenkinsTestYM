@@ -8,8 +8,6 @@ import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
 
-import static runner.TestUtils.getRandomStr;
-
 public class BuildHistoryTest extends BaseTest {
 
     @Test

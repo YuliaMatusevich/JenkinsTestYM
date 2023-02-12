@@ -1,7 +1,5 @@
 package tests;
 
-import static runner.TestUtils.getRandomStr;
-
 import model.StatusUserPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;

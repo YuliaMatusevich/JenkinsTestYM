@@ -4,15 +4,12 @@ import model.*;
 import model.config_pages.PipelineConfigPage;
 import model.status_pages.PipelineStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
 
 import java.util.List;
-
-import static runner.TestUtils.getRandomStr;
 
 public class PipelineTest extends BaseTest {
 

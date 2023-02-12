@@ -1,7 +1,5 @@
 package tests;
 
-import static runner.TestUtils.getRandomStr;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +8,6 @@ import model.HomePage;
 import model.RenameItemErrorPage;
 import model.config_pages.MultiConfigurationProjectConfigPage;
 import model.status_pages.MultiConfigurationProjectStatusPage;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
