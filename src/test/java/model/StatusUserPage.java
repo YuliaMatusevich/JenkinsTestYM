@@ -1,6 +1,7 @@
 package model;
 
 import model.base.MainBasePage;
+import model.base.side_menu.UserSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,17 +36,12 @@ public class StatusUserPage extends MainBasePage {
     @FindBy(xpath = "//div[@id='main-panel']/div[contains(text(), 'ID')]")
     private WebElement userID;
 
-    @FindBy(xpath = "//div[@id='tasks']//span[contains(., 'Delete')]")
-    private WebElement delete;
-
-    @FindBy(linkText = "Configure")
-    private WebElement configure;
-
-    @FindBy(linkText = "Builds")
-    private WebElement builds;
-
     public StatusUserPage(WebDriver driver) {
         super(driver);
+    }
+
+    public UserSideMenuComponent getSideMenu() {
+        return new UserSideMenuComponent(getDriver());
     }
 
     public StatusUserPage refreshPage() {
@@ -113,23 +109,5 @@ public class StatusUserPage extends MainBasePage {
     public String getUserIDText() {
 
         return userID.getText();
-    }
-
-    public DeletePage<HomePage> clickDelete() {
-        delete.click();
-
-        return new DeletePage<>(getDriver(), new HomePage(getDriver()));
-    }
-
-    public ConfigureUserPage clickConfigure() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(configure)).click();
-
-        return new ConfigureUserPage(getDriver());
-    }
-
-    public BuildsUserPage clickBuilds() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(builds)).click();
-
-        return new BuildsUserPage(getDriver());
     }
 }
