@@ -3,6 +3,7 @@ package tests;
 import model.*;
 import model.config_pages.PipelineConfigPage;
 import model.status_pages.PipelineStatusPage;
+import model.views.EditMyViewPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -57,8 +58,8 @@ public class PipelineTest extends BaseTest {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(TestDataUtils.ITEM_NAME)
-                .selectMyViewType()
-                .clickCreateButton()
+                .selectMyView()
+                .clickCreateButton(new EditMyViewPage(getDriver()))
                 .getBreadcrumbs()
                 .clickDashboard()
                 .clickJobDropDownMenu(TestDataUtils.PIPELINE_NAME)

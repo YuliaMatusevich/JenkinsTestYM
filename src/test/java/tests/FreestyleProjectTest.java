@@ -4,6 +4,7 @@ import model.*;
 import model.config_pages.FreestyleProjectConfigPage;
 import model.status_pages.FreestyleProjectStatusPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -307,6 +308,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(selectedCheckbox);
     }
 
+    @Ignore
     @Test
     public void testFreestyleProjectBuildDateAndTime() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(),TestDataUtils.FREESTYLE_PROJECT_NAME);

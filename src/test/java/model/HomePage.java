@@ -7,7 +7,7 @@ import model.config_pages.FolderConfigPage;
 import model.config_pages.FreestyleProjectConfigPage;
 import model.config_pages.PipelineConfigPage;
 import model.status_pages.*;
-import model.views.NewViewFromDashboardPage;
+import model.views.NewViewPage;
 import model.views.ViewPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -69,10 +69,10 @@ public class HomePage extends MainBasePage {
         return new HomeSideMenuComponent(getDriver());
     }
 
-    public NewViewFromDashboardPage<?> clickAddViewLink() {
+    public NewViewPage<NewViewPage<?>> clickAddViewLink() {
         addViewLink.click();
 
-        return new NewViewFromDashboardPage<>(getDriver(), null);
+        return new NewViewPage<>(getDriver());
     }
 
     public List<String> getJobNamesList() {
