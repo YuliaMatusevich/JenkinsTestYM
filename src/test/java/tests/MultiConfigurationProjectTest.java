@@ -224,7 +224,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(buildNowButton.buildNowButtonIsDisplayed());
     }
 
-    @Ignore
     @Test
     public void testMultiConfigurationProjectWithBuildStepCheckBuildSuccess() {
         ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
