@@ -86,7 +86,8 @@ public class FreestyleProjectTest extends BaseTest {
 
         ChangesBuildsPage page = new HomePage(getDriver())
                 .clickFreestyleProjectName()
-                .clickLinkChanges();
+                .getSideMenu()
+                .clickChanges();
 
         Assert.assertEquals(page.getPageText(), "Changes\nNo builds.");
     }
@@ -152,11 +153,15 @@ public class FreestyleProjectTest extends BaseTest {
 
         int countBuildsBeforeCreatingNewBuild = new HomePage(getDriver())
                 .clickFreestyleProjectName()
-                .openBuildHistoryOnSidePanel()
-                .countBuildsOnSidePanel();
+                .getSideMenu()
+                .openBuildHistory()
+                .getSideMenu()
+                .countBuilds();
         int countBuildsAfterCreatingNewBuild = new FreestyleProjectStatusPage(getDriver())
-                .clickBuildNowOnSidePanel()
-                .countBuildsOnSidePanel();
+                .getSideMenu()
+                .clickBuildNow()
+                .getSideMenu()
+                .countBuilds();
 
         Assert.assertEquals(countBuildsAfterCreatingNewBuild, countBuildsBeforeCreatingNewBuild + 1);
     }
@@ -248,7 +253,8 @@ public class FreestyleProjectTest extends BaseTest {
                 .inputGITRepositoryURL(repositoryURL)
                 .inputBranchSpecifier(branchSpecifier)
                 .clickSaveButton()
-                .clickButtonBuildNowAndRedirectToDashboardAfterBuildCompleted();
+                .getSideMenu()
+                .clickBuildNowAndRedirectToDashboardAfterBuildCompleted();
 
         Assert.assertEquals(page.getJobBuildStatus(), "Success");
         Assert.assertNotEquals(page.getBuildDurationTime(), "N/A");
@@ -313,7 +319,9 @@ public class FreestyleProjectTest extends BaseTest {
 
         String actualBuildDateTime = new HomePage(getDriver())
                 .clickFreestyleProjectName()
-                .clickBuildNowOnSidePanel()
+                .getSideMenu()
+                .clickBuildNow()
+                .getSideMenu()
                 .getBuildDateTime();
 
         Assert.assertTrue(actualBuildDateTime.contains(currentDate()));
