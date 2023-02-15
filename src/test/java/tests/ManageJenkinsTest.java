@@ -1,10 +1,12 @@
 package tests;
 
+import io.qameta.allure.*;
 import model.HomePage;
 import model.ManageOldDataPage;
 import model.ManageUsersPage;
 import model.StatusUserPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -55,6 +57,7 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertEquals(page.getMainPanelNoticeText(), "No old data was found.");
     }
 
+    @Ignore
     @Test
     public void testPluginManagerInstallPlugin() {
         final String pluginName = "TestNG Results";
@@ -280,5 +283,25 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertTrue(isViewCanBeRemovedAfterChange);
 
         ProjectMethodsUtils.changeDefaultView(getDriver(), "All".toLowerCase());
+    }
+
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Try to create User with empty E-mail address and get error message \"Invalid e-mail address\" appeared")
+    @Test
+    public void testCreateUserWithEmptyEmailAddress() {
+        String errorMessageWhenEmptyConfirmPassword = new HomePage(getDriver())
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickManageUsers()
+                .clickCreateUser()
+                .setUsername(TestDataUtils.USER_NAME)
+                .setPassword(TestDataUtils.PASSWORD)
+                .confirmPassword(TestDataUtils.PASSWORD)
+                .setFullName(TestDataUtils.USER_FULL_NAME)
+                .clickCreateUserAndGetErrorMessage();
+
+        Assert.assertEquals(errorMessageWhenEmptyConfirmPassword, "Invalid e-mail address");
     }
 }

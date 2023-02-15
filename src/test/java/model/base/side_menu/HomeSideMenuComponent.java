@@ -1,5 +1,6 @@
 package model.base.side_menu;
 
+import io.qameta.allure.Step;
 import model.BuildHistoryPage;
 import model.ManageJenkinsPage;
 import model.NewItemPage;
@@ -48,6 +49,7 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
         return new BuildHistoryPage(getDriver());
     }
 
+    @Step("Click 'Manage Jenkins' link on side menu")
     public ManageJenkinsPage clickManageJenkins() {
         manageJenkins.click();
 

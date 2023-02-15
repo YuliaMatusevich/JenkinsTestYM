@@ -1,5 +1,6 @@
 package model;
 
+import io.qameta.allure.Step;
 import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,24 +34,28 @@ public class CreateUserPage extends MainBasePage {
         super(driver);
     }
 
+    @Step("Set '{name}' in 'Username' field")
     public CreateUserPage setUsername(String name) {
         username.sendKeys(name);
 
         return this;
     }
 
+    @Step("Set '{name}' in 'Password' field")
     public CreateUserPage setPassword(String name) {
         password.sendKeys(name);
 
         return this;
     }
 
+    @Step("Set '{name}' in 'Confirm password' field")
     public CreateUserPage confirmPassword(String name) {
         confirmPassword.sendKeys(name);
 
         return this;
     }
 
+    @Step("Set '{name}' in 'Full name' field")
     public CreateUserPage setFullName(String name) {
         fullName.sendKeys(name);
 
@@ -69,6 +74,7 @@ public class CreateUserPage extends MainBasePage {
         return new ManageUsersPage(getDriver());
     }
 
+    @Step("Click 'Create User' button and get error message '{errorMessage}'")
     public String clickCreateUserAndGetErrorMessage() {
         createUserButton.click();
 

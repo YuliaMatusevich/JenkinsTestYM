@@ -1,5 +1,6 @@
 package model;
 
+import io.qameta.allure.Step;
 import model.base.MainBasePage;
 import model.base.base_components.FooterComponent;
 import org.openqa.selenium.WebDriver;
@@ -41,6 +42,7 @@ public class ManageJenkinsPage extends MainBasePage {
         return new GlobalToolConfigurationPage(getDriver());
     }
 
+    @Step("Click 'Manage Users' link on 'Security' section")
     public ManageUsersPage clickManageUsers() {
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), manageUsers);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(manageUsers)).click();

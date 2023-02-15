@@ -1,5 +1,6 @@
 package model;
 
+import io.qameta.allure.Step;
 import model.base.MainBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -37,6 +38,7 @@ public class ManageUsersPage extends MainBasePage {
         return new ConfigureUserPage(getDriver());
     }
 
+    @Step("Click 'Create User' link on side menu")
     public CreateUserPage clickCreateUser() {
         createUser.click();
 

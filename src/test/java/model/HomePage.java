@@ -1,5 +1,6 @@
 package model;
 
+import io.qameta.allure.Step;
 import model.base.BaseStatusPage;
 import model.base.MainBasePage;
 import model.base.side_menu.HomeSideMenuComponent;
@@ -65,6 +66,7 @@ public class HomePage extends MainBasePage {
         super(driver);
     }
 
+    @Step("Move to side menu")
     public HomeSideMenuComponent getSideMenu() {
         return new HomeSideMenuComponent(getDriver());
     }
