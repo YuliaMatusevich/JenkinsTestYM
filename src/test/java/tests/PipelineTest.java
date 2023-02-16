@@ -1,5 +1,9 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import model.*;
 import model.config_pages.PipelineConfigPage;
 import model.status_pages.PipelineStatusPage;
@@ -14,6 +18,9 @@ import java.util.List;
 
 public class PipelineTest extends BaseTest {
 
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Check if pipeline project can be disabled")
     @Test
     public void testDisablePipelineProjectMessage() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);

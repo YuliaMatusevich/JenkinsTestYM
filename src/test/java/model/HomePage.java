@@ -282,6 +282,7 @@ public class HomePage extends MainBasePage {
         return new OrgFolderStatusPage(getDriver());
     }
 
+    @Step("Click pipeline '{name}' on dashboard")
     public PipelineStatusPage clickPipelineJob(String name) {
         getDriver().findElement(By.xpath("//span[text()='" + name + "']")).click();
 

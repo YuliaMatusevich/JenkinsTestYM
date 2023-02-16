@@ -1,5 +1,6 @@
 package runner;
 
+import io.qameta.allure.Step;
 import model.HomePage;
 import model.views.EditGlobalViewPage;
 import model.views.EditListViewPage;
@@ -7,6 +8,8 @@ import model.views.EditMyViewPage;
 import org.openqa.selenium.WebDriver;
 
 public class ProjectMethodsUtils {
+
+    @Step("Create new pipeline project and return to dashboard")
     public static void createNewPipelineProject(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()

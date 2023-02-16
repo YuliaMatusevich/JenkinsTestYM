@@ -1,5 +1,6 @@
 package model.status_pages;
 
+import io.qameta.allure.Step;
 import model.BuildStatusPage;
 import model.HomePage;
 import model.base.BaseStatusPage;
@@ -74,6 +75,7 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
         return getNameText().substring(getNameText().indexOf(" ") + 1);
     }
 
+    @Step("Click 'disable project' button")
     public PipelineStatusPage clickDisableProject() {
         disableProjectButton.click();
 
@@ -93,6 +95,7 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
         return this;
     }
 
+    @Step("Get message that project is disabled")
     public String getMessageDisabledProject() {
         return messageDisabledProject.getText().split("\n")[0];
     }
