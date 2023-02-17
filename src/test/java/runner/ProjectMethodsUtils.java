@@ -88,8 +88,8 @@ public class ProjectMethodsUtils {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(name)
-                .selectIncludeGlobalView()
-                .clickCreateButton(new EditGlobalViewPage(driver))
+                .selectGlobalViewType()
+                .clickCreateButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -100,8 +100,8 @@ public class ProjectMethodsUtils {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(name)
-                .selectListView()
-                .clickCreateButton(new EditListViewPage(driver))
+                .selectListViewType()
+                .clickCreateButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -112,8 +112,8 @@ public class ProjectMethodsUtils {
                 .clickMyViewsSideMenuLink()
                 .clickNewView()
                 .setViewName(name)
-                .selectMyView()
-                .clickCreateButton(new EditMyViewPage(driver))
+                .selectMyViewType()
+                .clickCreateButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -122,8 +122,8 @@ public class ProjectMethodsUtils {
         new HomePage(driver)
                 .clickAddViewLink()
                 .setViewName(name)
-                .selectListView()
-                .clickCreateButton(new EditListViewPage(driver))
+                .selectListViewType()
+                .clickCreateButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
@@ -132,8 +132,8 @@ public class ProjectMethodsUtils {
         new HomePage(driver)
                 .clickAddViewLink()
                 .setViewName(name)
-                .selectMyView()
-                .clickCreateButton(new EditMyViewPage(driver))
+                .selectMyViewType()
+                .clickCreateButton()
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
