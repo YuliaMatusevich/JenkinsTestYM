@@ -1,12 +1,15 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import model.CreateItemErrorPage;
 import model.HomePage;
 import model.NewItemPage;
 import model.status_pages.MultiConfigurationProjectStatusPage;
 import model.status_pages.PipelineStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -124,8 +127,11 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(pipelineStatusPage.getDescriptionText(), TestDataUtils.NEW_DESCRIPTION);
     }
 
+    @Owner("ViktoriyaD")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify that creating NewItem with special characters is not possible")
     @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
-    public void testCreateNewItemWithUnsafeCharacterName(Character specialCharacter, String expectedErrorMessage) {
+    public void testCreateNewItemWithSpecialCharacterName(Character specialCharacter, String expectedErrorMessage) {
         String errorMessage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
@@ -224,18 +230,6 @@ public class NewItemTest extends BaseTest {
 
         Assert.assertEquals(createItemErrorPage.getErrorHeader(), "Error");
         Assert.assertEquals(createItemErrorPage.getErrorMessage(), "No name is specified");
-    }
-
-    @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
-    public void testCreateFreestyleProjectWithIncorrectCharacters(Character specialCharacter, String expectedErrorMessage) {
-            NewItemPage newItemPage = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .clearItemName()
-                .setItemName(String.valueOf(specialCharacter))
-                .selectFreestyleProjectType();
-
-            Assert.assertEquals(newItemPage.getItemNameInvalidMessage(), String.format("» ‘%s’ is an unsafe character", specialCharacter));
     }
 
     @Test
@@ -380,18 +374,6 @@ public class NewItemTest extends BaseTest {
                 .getItemNameInvalidMessage();
 
         Assert.assertEquals(actualErrorMessage, String.format("» A job already exists with the name ‘%s’", TestDataUtils.PROJECT_NAME));
-    }
-
-    @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
-    public void testCreateMultibranchPipelineUnsafeCharacter(Character specialCharacter, String errorMessage) {
-        String actualErrorMessage = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .setItemName(specialCharacter.toString())
-                .selectMultibranchPipelineType()
-                .getItemNameInvalidMessage();
-
-        Assert.assertEquals(actualErrorMessage, String.format("» ‘%s’ is an unsafe character", specialCharacter));
     }
 
     @Test

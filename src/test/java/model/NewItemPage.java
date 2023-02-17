@@ -1,5 +1,6 @@
 package model;
 
+import io.qameta.allure.Step;
 import model.base.BaseConfigPage;
 import model.base.MainBasePage;
 import model.config_pages.*;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +71,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return this;
     }
 
+    @Step("Set the New Item name: {name}")
     public NewItemPage<ConfigPage> setItemName(String name) {
         getWait(2).until(ExpectedConditions.visibilityOf(itemName)).sendKeys(name);
 
@@ -135,6 +138,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return itemNameRequiredMsg.getText();
     }
 
+    @Step("Get an Error message text")
     public String getItemNameInvalidMessage() {
 
         return getWait(2).until(ExpectedConditions.visibilityOf(itemNameInvalidMsg)).getText();

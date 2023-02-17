@@ -31,6 +31,7 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
         super(driver);
     }
 
+    @Step("Click 'New Item' on the Side Menu")
     public NewItemPage<?> clickNewItem() {
         newItem.click();
 
