@@ -62,6 +62,9 @@ public class HomePage extends MainBasePage {
     @FindBy(css = "#tasks a")
     private List<WebElement> sideMenuList;
 
+    @FindBy(id = "systemmessage")
+    private WebElement systemMessage;
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -187,6 +190,7 @@ public class HomePage extends MainBasePage {
         return this;
     }
 
+    @Step("Click on Folder name in dashboard")
     public FolderStatusPage clickFolder(String folderName) {
         getDriver().findElement(By.xpath("//span[text()='" + folderName + "']")).click();
 
@@ -319,5 +323,10 @@ public class HomePage extends MainBasePage {
         viewAllTab.click();
 
         return this;
+    }
+
+    @Step("Get 'System Message' from dashboard")
+    public String getSystemMessageFromDashboard() {
+       return systemMessage.getText();
     }
 }

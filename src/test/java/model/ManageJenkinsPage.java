@@ -79,6 +79,7 @@ public class ManageJenkinsPage extends MainBasePage {
         return new FooterComponent(getDriver());
     }
 
+    @Step("Click 'Configure System' link on 'System Configuration' section")
     public JenkinsConfigureSystemPage clickConfigureSystem() {
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), configureSystem);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(configureSystem)).click();

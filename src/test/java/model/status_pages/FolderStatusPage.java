@@ -1,5 +1,6 @@
 package model.status_pages;
 
+import io.qameta.allure.Step;
 import model.NewItemPage;
 import model.base.BaseStatusPage;
 import model.status_side_menu_component.FolderStatusSideMenuComponent;
@@ -40,6 +41,9 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
 
     @FindBy(id = "empty-state-block")
     private WebElement emptyStateBlock;
+
+    @FindBy(id = "systemmessage")
+    private WebElement systemMessage;
 
     @Override
     protected FolderStatusSideMenuComponent createSideMenuComponent() {
@@ -121,5 +125,10 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
     public WebElement getEmptyStateBlock() {
 
         return emptyStateBlock;
+    }
+
+    @Step("Get 'System Message' from folder")
+    public String getSystemMessageFromFolder() {
+        return systemMessage.getText();
     }
 }

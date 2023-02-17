@@ -1,5 +1,6 @@
 package model.base.base_components;
 
+import io.qameta.allure.Step;
 import model.HomePage;
 import model.status_pages.FolderStatusPage;
 import org.openqa.selenium.WebDriver;
@@ -25,6 +26,7 @@ public class BreadcrumbsComponent extends BaseComponent {
         return breadcrumbs.getText();
     }
 
+    @Step("Click 'Dashboard' link")
     public HomePage clickDashboard() {
         topMenuRoot.click();
 

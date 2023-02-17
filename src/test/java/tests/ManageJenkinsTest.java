@@ -5,6 +5,7 @@ import model.HomePage;
 import model.ManageOldDataPage;
 import model.ManageUsersPage;
 import model.StatusUserPage;
+import model.status_pages.FolderStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -303,5 +304,38 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickCreateUserAndGetErrorMessage();
 
         Assert.assertEquals(errorMessageWhenEmptyConfirmPassword, "Invalid e-mail address");
+    }
+
+    @Owner("Maria Servachak")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("Function")
+    @Description("Add a system message to the Jenkins configuration and verify that this message is displayed on the dashboard and on the folder status page")
+    @Test
+    public void testSetSystemMessage() {
+        ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
+
+        FolderStatusPage folderStatusPage = new HomePage(getDriver())
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickConfigureSystem()
+                .setSystemMessage(TestDataUtils.DESCRIPTION)
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .clickFolder(TestDataUtils.FOLDER_NAME);
+
+        HomePage homePage = folderStatusPage
+                .getBreadcrumbs()
+                .clickDashboard();
+
+        Assert.assertEquals(folderStatusPage.getSystemMessageFromFolder(), TestDataUtils.DESCRIPTION);
+        Assert.assertEquals(homePage.getSystemMessageFromDashboard(), TestDataUtils.DESCRIPTION);
+
+        homePage
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickConfigureSystem()
+                .setSystemMessage("")
+                .clickSaveButton();
     }
 }

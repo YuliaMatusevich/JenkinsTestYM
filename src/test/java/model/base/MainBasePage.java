@@ -1,5 +1,6 @@
 package model.base;
 
+import io.qameta.allure.Step;
 import model.base.base_components.BreadcrumbsComponent;
 import model.base.base_components.FooterComponent;
 import model.base.base_components.HeaderComponent;
@@ -19,6 +20,7 @@ public abstract class MainBasePage extends BasePage {
         return new HeaderComponent(getDriver());
     }
 
+    @Step("Switch to Breadcrumbs panel")
     public BreadcrumbsComponent getBreadcrumbs() {
         return new BreadcrumbsComponent(getDriver());
     }
