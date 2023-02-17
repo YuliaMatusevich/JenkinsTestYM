@@ -1,5 +1,6 @@
 package model.config_pages;
 
+import io.qameta.allure.Step;
 import model.base.BaseConfigPage;
 import model.status_pages.PipelineStatusPage;
 import org.openqa.selenium.Keys;
@@ -72,12 +73,14 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
         super(driver);
     }
 
+    @Step("Click the GitHub checkbox on the configuration page")
     public PipelineConfigPage clickGitHubCheckbox() {
         gitHubCheckbox.click();
 
         return this;
     }
 
+    @Step("Set the GitHub repository '{gitHubRepo}' on the configuration page")
     public PipelineConfigPage setGitHubRepo(String gitHubRepo) {
         getAction().moveToElement(gitHubUrl).click().sendKeys(gitHubRepo).perform();
 

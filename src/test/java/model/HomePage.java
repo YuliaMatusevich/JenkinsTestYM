@@ -154,6 +154,7 @@ public class HomePage extends MainBasePage {
         return new DeletePage<>(getDriver(), this);
     }
 
+    @Step("Click the job drop-down menu with name '{name}' on the dashboard")
     public HomePage clickJobDropDownMenu(String name) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(
                 "//tr[@id='job_%s']//button[@class='jenkins-menu-dropdown-chevron']", name)))).click();
@@ -167,6 +168,7 @@ public class HomePage extends MainBasePage {
         return new MultibranchPipelineStatusPage(getDriver());
     }
 
+    @Step("Click configure in the drop-down menu")
     public PipelineConfigPage clickConfigureDropDownMenu() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
 

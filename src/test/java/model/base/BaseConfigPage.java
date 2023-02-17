@@ -1,5 +1,6 @@
 package model.base;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,6 +28,7 @@ public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Se
 
     protected abstract StatusPage createStatusPage();
 
+    @Step("Click save button on the configuration page")
     public StatusPage clickSaveButton() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(saveButton)).click();
 

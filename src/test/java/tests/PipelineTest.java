@@ -1,9 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.*;
 import model.*;
 import model.config_pages.PipelineConfigPage;
 import model.status_pages.PipelineStatusPage;
@@ -154,6 +151,10 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(homePageHeaderText, "Welcome to Jenkins!");
     }
 
+    @Owner("Igor Klimenko")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Check the GitHub creation button on the side menu")
     @Test
     public void testAddingGitRepository() {
         final String gitHubRepo = "https://github.com/patriotby07/simple-maven-project-with-tests";
