@@ -1,5 +1,6 @@
 package model;
 
+import io.qameta.allure.Step;
 import model.base.BasePage;
 import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +19,7 @@ public class DeletePage<ParentPage extends BasePage> extends MainBasePage {
         this.parentPage = parentPage;
     }
 
+    @Step("Click on Yes button in the Delete page")
     public ParentPage clickYes() {
         yesButton.click();
 

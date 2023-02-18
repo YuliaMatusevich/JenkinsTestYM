@@ -32,7 +32,7 @@ public class HomePage extends MainBasePage {
     @FindBy(linkText = "Rename")
     private WebElement renameDropDownMenu;
 
-    @FindBy(xpath = "//li[@index='2']")
+    @FindBy(xpath = "//span[contains(text(),'Delete')]")
     private WebElement deleteButtonInDropDownMenu;
 
     @FindBy(tagName = "h1")
@@ -150,6 +150,7 @@ public class HomePage extends MainBasePage {
         return new PipelineStatusPage(getDriver());
     }
 
+    @Step("Click Delete in the drop-down menu")
     public DeletePage<HomePage> clickDeleteDropDownMenu() {
         getWait(3).until(ExpectedConditions.elementToBeClickable(deleteButtonInDropDownMenu));
         deleteButtonInDropDownMenu.click();
@@ -178,6 +179,7 @@ public class HomePage extends MainBasePage {
         return new PipelineConfigPage(getDriver());
     }
 
+    @Step("Present header text")
     public String getHeaderText() {
 
         return getWait(10).until(ExpectedConditions.visibilityOf(header)).getText();

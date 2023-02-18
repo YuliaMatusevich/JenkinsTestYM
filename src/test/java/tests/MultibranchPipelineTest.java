@@ -1,5 +1,9 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import model.HomePage;
 import model.status_pages.MultibranchPipelineStatusPage;
 import org.testng.Assert;
@@ -182,5 +186,21 @@ public class MultibranchPipelineTest extends BaseTest {
                 .getJobList();
 
         Assert.assertTrue(folderContent.stream().anyMatch(option -> option.contains(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)), "Multibranch Pipeline is NOT present in folder");
+    }
+
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Check if MultibranchPipeline can be deleted")
+    @Test
+    public void testDeleteMultibranchPipelineUsingDropDown() {
+        createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
+
+        String welcomeJenkinsHeader = new HomePage(getDriver())
+                .clickJobDropDownMenu(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .clickDeleteDropDownMenu()
+                .clickYes()
+                .getHeaderText();
+
+        Assert.assertEquals(welcomeJenkinsHeader, "Welcome to Jenkins!");
     }
 }
