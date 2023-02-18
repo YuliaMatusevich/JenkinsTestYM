@@ -2,9 +2,6 @@ package runner;
 
 import io.qameta.allure.Step;
 import model.HomePage;
-import model.views.EditGlobalViewPage;
-import model.views.EditListViewPage;
-import model.views.EditMyViewPage;
 import org.openqa.selenium.WebDriver;
 
 public class ProjectMethodsUtils {

@@ -9,7 +9,6 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public abstract class BaseModel {
 
     private final WebDriver driver;

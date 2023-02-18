@@ -1,4 +1,5 @@
 package model.views;
+
 import model.DeletePage;
 import model.HomePage;
 import model.base.BasePage;
@@ -8,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -178,15 +180,15 @@ public class ViewPage extends MainBasePage {
         return listJobTableHeaders.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
-    public String getActiveViewName(){
+    public String getActiveViewName() {
 
         return activeView.getText();
     }
-    
+
     public String getListProjectsNamesFromView() {
         String names = listProjects.get(0).getText();
-        for (int i = 1; i <listProjects.size() ; i++) {
-           names =  names.concat( " ").concat(listProjects.get(i).getText());
+        for (int i = 1; i < listProjects.size(); i++) {
+            names = names.concat(" ").concat(listProjects.get(i).getText());
         }
         return names;
     }

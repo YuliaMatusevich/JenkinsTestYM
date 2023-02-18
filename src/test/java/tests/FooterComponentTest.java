@@ -1,6 +1,9 @@
 package tests;
 
-import model.*;
+import model.ExternalJenkinsPage;
+import model.HomePage;
+import model.RestApiPage;
+import model.XmlPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;

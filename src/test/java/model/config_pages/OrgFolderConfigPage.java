@@ -72,7 +72,7 @@ public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, Org
     }
 
     public OrgFolderConfigPage clickMetricsButton() {
-        TestUtils.scrollToElement_PlaceInCenter(getDriver(),childHealthMetricsButton);
+        TestUtils.scrollToElement_PlaceInCenter(getDriver(), childHealthMetricsButton);
         getWait(5)
                 .until(TestUtils.ExpectedConditions.elementIsNotMoving(childHealthMetricsButton));
         getWait(5).until(ExpectedConditions.elementToBeClickable(childHealthMetricsButton))

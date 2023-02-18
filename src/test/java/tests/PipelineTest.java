@@ -1,10 +1,10 @@
 package tests;
 
 import io.qameta.allure.*;
-import model.*;
+import model.HomePage;
+import model.RenameItemErrorPage;
 import model.config_pages.PipelineConfigPage;
 import model.status_pages.PipelineStatusPage;
-import model.views.EditMyViewPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;

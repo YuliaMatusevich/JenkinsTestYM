@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PipelineStatusSideMenuComponent extends BaseStatusSideMenuComponent <PipelineStatusPage, PipelineConfigPage> {
+public class PipelineStatusSideMenuComponent extends BaseStatusSideMenuComponent<PipelineStatusPage, PipelineConfigPage> {
 
     @FindBy(xpath = "(//a[contains(@class,'task-link')])[7]")
     private WebElement gitHub;

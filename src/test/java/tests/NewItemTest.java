@@ -13,8 +13,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
-import runner.TestUtils;
 import runner.TestDataUtils;
+import runner.TestUtils;
 
 import java.util.List;
 
@@ -114,7 +114,7 @@ public class NewItemTest extends BaseTest {
 
     @Test(dependsOnMethods = "testCreateNewPipelineWithDescription")
     public void testCreateNewPipelineFromExisting() {
-    PipelineStatusPage pipelineStatusPage = new HomePage(getDriver())
+        PipelineStatusPage pipelineStatusPage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
                 .setItemName(TestDataUtils.NEW_PROJECT_NAME)
@@ -138,7 +138,7 @@ public class NewItemTest extends BaseTest {
                 .setItemName(String.valueOf(specialCharacter))
                 .getItemNameInvalidMessage();
 
-        Assert.assertEquals(errorMessage,  String.format("» ‘%s’ is an unsafe character", specialCharacter));
+        Assert.assertEquals(errorMessage, String.format("» ‘%s’ is an unsafe character", specialCharacter));
     }
 
     @Test
@@ -308,7 +308,7 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(multiConfigProject.getDescriptionText(), TestDataUtils.DESCRIPTION);
     }
 
-    @Test (dependsOnMethods = "testCreateMultiConfigurationProjectWithDescription")
+    @Test(dependsOnMethods = "testCreateMultiConfigurationProjectWithDescription")
     public void testCreateNewMCProjectAsCopyFromExistingProject() {
         String actualDescription = new HomePage(getDriver())
                 .getSideMenu()

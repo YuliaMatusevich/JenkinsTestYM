@@ -144,7 +144,7 @@ public class JenkinsUtils {
                 getCrumbFromPage(userPage));
     }
 
-    public static void clearData(){
+    public static void clearData() {
         JenkinsUtils.deleteViews();
         JenkinsUtils.deleteJobs();
         JenkinsUtils.deleteUsers();

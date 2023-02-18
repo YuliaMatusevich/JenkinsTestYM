@@ -1,12 +1,13 @@
 package tests;
 
-import static runner.TestUtils.getRandomStr;
 import model.CreateItemErrorPage;
 import model.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
+
+import static runner.TestUtils.getRandomStr;
 
 public class CopyItemTest extends BaseTest {
 

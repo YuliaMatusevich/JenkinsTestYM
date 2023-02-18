@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.BaseUtils;
 import runner.TestUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -236,12 +237,12 @@ public class EditListViewPage extends BaseEditViewPage {
         return tableMenuMap;
     }
 
-    public int getNumberOfAllAddColumnDropDownMenuItems(){
+    public int getNumberOfAllAddColumnDropDownMenuItems() {
 
         return listAddColumnDropDownMenuItemsText.size();
     }
 
-    public EditListViewPage clickLastExistingColumnDeleteButton(){
+    public EditListViewPage clickLastExistingColumnDeleteButton() {
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), lastExistingColumnDeleteButton);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(lastExistingColumnDeleteButton));
         lastExistingColumnDeleteButton.click();
@@ -280,11 +281,11 @@ public class EditListViewPage extends BaseEditViewPage {
         return uniqueSectionOnListViewEditPage.getText();
     }
 
-    public boolean isAlertPresent(){
+    public boolean isAlertPresent() {
         try {
             getDriver().switchTo().alert();
             return true;
-        } catch(NoAlertPresentException e){
+        } catch (NoAlertPresentException e) {
             e.fillInStackTrace();
             return false;
         }

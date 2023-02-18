@@ -1,7 +1,7 @@
 package tests;
 
-import model.status_pages.FolderStatusPage;
 import model.HomePage;
+import model.status_pages.FolderStatusPage;
 import model.status_pages.FreestyleProjectStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -197,7 +197,7 @@ public class FolderTest extends BaseTest {
     @Test
     public void testMoveFreestyleProjectInFolderUsingDropDownMenu() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
 
         List<String> projectNamesInFolder = new HomePage(getDriver())
                 .clickJobDropDownMenu(TestDataUtils.FREESTYLE_PROJECT_NAME)
@@ -391,7 +391,7 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesInFolder.contains(TestDataUtils.MULTIBRANCH_PIPELINE_NAME));
     }
 
-    @Test (dependsOnMethods = "testCreateMultibranchPipelineProjectInFolder")
+    @Test(dependsOnMethods = "testCreateMultibranchPipelineProjectInFolder")
     public void testDeleteMultibranchPipelineFromFolder() {
 
         FolderStatusPage folder = new HomePage(getDriver())

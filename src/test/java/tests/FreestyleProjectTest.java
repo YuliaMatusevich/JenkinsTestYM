@@ -1,6 +1,9 @@
 package tests;
 
-import model.*;
+import model.BuildWithParametersPage;
+import model.ChangesBuildsPage;
+import model.HomePage;
+import model.RenameItemErrorPage;
 import model.config_pages.FreestyleProjectConfigPage;
 import model.status_pages.FreestyleProjectStatusPage;
 import org.testng.Assert;
@@ -8,6 +11,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -315,7 +319,7 @@ public class FreestyleProjectTest extends BaseTest {
 
     @Test
     public void testFreestyleProjectBuildDateAndTime() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
 
         String actualBuildDateTime = new HomePage(getDriver())
                 .clickFreestyleProjectName()

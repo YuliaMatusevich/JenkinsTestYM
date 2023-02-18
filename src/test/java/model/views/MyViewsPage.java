@@ -128,7 +128,7 @@ public class MyViewsPage extends MainBasePage {
         return displayedDescriptionText.getText();
     }
 
-    public MyViewsPage clickEditDescription(){
+    public MyViewsPage clickEditDescription() {
         editDescriptionButton.click();
 
         return this;
@@ -140,23 +140,29 @@ public class MyViewsPage extends MainBasePage {
         return this;
     }
 
-    public boolean tableSizeM(){return tableSizeM.isDisplayed();}
+    public boolean tableSizeM() {
+        return tableSizeM.isDisplayed();
+    }
 
-    public MyViewsPage clickSizeS(){
+    public MyViewsPage clickSizeS() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(buttonSizeS)).click();
 
         return this;
     }
 
-    public boolean tableSizeS(){return tableSizeS.isDisplayed();}
+    public boolean tableSizeS() {
+        return tableSizeS.isDisplayed();
+    }
 
-    public MyViewsPage clickSizeL(){
+    public MyViewsPage clickSizeL() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(buttonSizeL)).click();
 
         return this;
     }
 
-    public boolean tableSizeL(){return tableSizeL.isDisplayed();}
+    public boolean tableSizeL() {
+        return tableSizeL.isDisplayed();
+    }
 
     public List<String> getJobNamesList() {
         return jobList

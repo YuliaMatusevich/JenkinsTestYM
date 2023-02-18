@@ -9,8 +9,6 @@ import runner.TestDataUtils;
 
 import java.util.List;
 
-import static runner.TestUtils.getRandomStr;
-
 public class PeoplePageTest extends BaseTest {
 
     @Test

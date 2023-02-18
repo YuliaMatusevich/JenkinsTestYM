@@ -1,4 +1,5 @@
 package model.base;
+
 import model.views.ViewPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

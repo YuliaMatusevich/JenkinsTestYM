@@ -24,7 +24,7 @@ public class MultibranchPipelineStatusSideMenuComponent extends BaseStatusSideMe
         super(driver, statusPage);
     }
 
-    public List<String> getMenuOptions(){
+    public List<String> getMenuOptions() {
         return menuOptions
                 .stream()
                 .map(WebElement::getText)

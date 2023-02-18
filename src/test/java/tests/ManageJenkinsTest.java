@@ -15,7 +15,6 @@ import runner.TestDataUtils;
 
 import java.util.List;
 
-
 public class ManageJenkinsTest extends BaseTest {
 
     @Test

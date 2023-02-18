@@ -9,7 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
 
-import static runner.TestUtils.*;
+import static runner.TestUtils.scrollToElement;
+import static runner.TestUtils.scrollToEnd;
 
 public class ManageJenkinsPage extends MainBasePage {
 

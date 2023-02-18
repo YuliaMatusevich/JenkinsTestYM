@@ -27,6 +27,6 @@ public class EditMyViewPage extends BaseEditViewPage {
     public EditMyViewPage clickEditMyView() {
         editViewLink.click();
 
-        return new  EditMyViewPage(getDriver());
+        return new EditMyViewPage(getDriver());
     }
 }

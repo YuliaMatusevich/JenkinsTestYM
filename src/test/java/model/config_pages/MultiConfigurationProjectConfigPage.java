@@ -1,6 +1,5 @@
 package model.config_pages;
 
-import java.util.List;
 import model.base.BaseConfigPage;
 import model.status_pages.MultiConfigurationProjectStatusPage;
 import org.openqa.selenium.By;
@@ -9,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
+
+import java.util.List;
 
 import static runner.TestUtils.scrollToElement_PlaceInCenter;
 

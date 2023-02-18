@@ -1,8 +1,5 @@
 package tests;
 
-import java.util.Arrays;
-import java.util.List;
-
 import model.ConsoleOutputPage;
 import model.HomePage;
 import model.RenameItemErrorPage;
@@ -15,6 +12,9 @@ import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
 import runner.TestUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MultiConfigurationProjectTest extends BaseTest {
 
@@ -147,6 +147,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         Assert.assertEquals(jobStatusIconTooltip, "Disabled");
     }
+
     @Ignore
     @Test(dependsOnMethods = "testMultiConfigurationProjectDisableCheckIconDashboardPage")
     public void testMultiConfigurationProjectEnableCheckIconDashboardPage() {

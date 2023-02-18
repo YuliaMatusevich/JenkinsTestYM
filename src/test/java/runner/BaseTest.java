@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import org.testng.annotations.AfterMethod;
 import runner.order.OrderForTests;
 import runner.order.OrderUtils;
 

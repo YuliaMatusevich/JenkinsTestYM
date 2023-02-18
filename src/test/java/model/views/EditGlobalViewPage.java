@@ -83,12 +83,12 @@ public class EditGlobalViewPage extends BaseEditViewPage {
         return errorPageDetailsText.getText().equals(String.format("‘%c’ is an unsafe character", illegalCharacter));
     }
 
-    public String getAddColumnDropDownMenuItemTextByOrder(int itemNumber){
+    public String getAddColumnDropDownMenuItemTextByOrder(int itemNumber) {
 
         return listAddColumnDropDownMenuItems.findElement(By.cssSelector(String.format("li:nth-child(%d)", itemNumber))).getText();
     }
 
-    public EditGlobalViewPage clickAddColumnDropDownMenuItemByOrder(int itemNumber){
+    public EditGlobalViewPage clickAddColumnDropDownMenuItemByOrder(int itemNumber) {
         listAddColumnDropDownMenuItems.findElement(By.cssSelector(String.format("li:nth-child(%d)", itemNumber))).click();
 
         return new EditGlobalViewPage(getDriver());
