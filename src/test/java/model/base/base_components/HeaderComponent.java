@@ -1,5 +1,6 @@
 package model.base.base_components;
 
+import io.qameta.allure.Step;
 import model.*;
 import model.status_pages.MultiConfigurationProjectStatusPage;
 import model.views.MyViewsPage;
@@ -92,6 +93,7 @@ public class HeaderComponent extends BaseComponent {
         return new StatusUserPage(getDriver());
     }
 
+    @Step("Get username from the header")
     public String getUserNameText() {
 
         return iconUserName.getText();

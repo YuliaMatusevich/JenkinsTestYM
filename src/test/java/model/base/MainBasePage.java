@@ -16,6 +16,7 @@ public abstract class MainBasePage extends BasePage {
         return new FooterComponent(getDriver());
     }
 
+    @Step("Switch to header")
     public HeaderComponent getHeader() {
         return new HeaderComponent(getDriver());
     }

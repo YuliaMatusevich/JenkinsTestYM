@@ -17,6 +17,9 @@ import java.util.List;
 
 public class ManageJenkinsTest extends BaseTest {
 
+    @Severity(SeverityLevel.MINOR)
+    @Feature("Function")
+    @Description("Rename 'Full Name' for User with valid characters and verity that New Full Name is displayed on StatusUserPage and on Header and on Breadcrumbs")
     @Test
     public void testRenameFullUserName() {
         StatusUserPage userStatusPage = new HomePage(getDriver())

@@ -32,6 +32,7 @@ public class ManageUsersPage extends MainBasePage {
         super(driver);
     }
 
+    @Step("Click on 'Configure' icon in the table")
     public ConfigureUserPage clickConfigureUser() {
         configureUser.click();
 

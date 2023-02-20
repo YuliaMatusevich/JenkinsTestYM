@@ -22,6 +22,7 @@ public class BreadcrumbsComponent extends BaseComponent {
         super(driver);
     }
 
+    @Step("Get full username from the breadcrumbs")
     public String getTextBreadcrumbs() {
         return breadcrumbs.getText();
     }

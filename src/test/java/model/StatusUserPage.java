@@ -1,5 +1,6 @@
 package model;
 
+import io.qameta.allure.Step;
 import model.base.MainBasePage;
 import model.base.side_menu.UserSideMenuComponent;
 import org.openqa.selenium.WebDriver;
@@ -44,12 +45,14 @@ public class StatusUserPage extends MainBasePage {
         return new UserSideMenuComponent(getDriver());
     }
 
+    @Step("Refresh the page")
     public StatusUserPage refreshPage() {
         getDriver().navigate().refresh();
 
         return this;
     }
 
+    @Step("Get full username from the title on the main panel")
     public String getH1Title() {
         return h1Title.getText();
     }

@@ -1,5 +1,6 @@
 package model;
 
+import io.qameta.allure.Step;
 import model.base.MainBasePage;
 import model.base.side_menu.UserSideMenuComponent;
 import org.openqa.selenium.WebDriver;
@@ -25,18 +26,21 @@ public class ConfigureUserPage extends MainBasePage {
         return new UserSideMenuComponent(getDriver());
     }
 
+    @Step("Clear 'Full Name' field")
     public ConfigureUserPage clearFullNameField() {
         inputFieldFullUserName.clear();
 
         return this;
     }
 
+    @Step("Set '{name}' into 'Full Name' field")
     public ConfigureUserPage setFullName(String name) {
         inputFieldFullUserName.sendKeys(name);
 
         return this;
     }
 
+    @Step("Click on 'Save' button")
     public StatusUserPage clickSaveButton() {
         saveButton.click();
 
