@@ -360,4 +360,16 @@ public class ManageJenkinsTest extends BaseTest {
 
         Assert.assertTrue(nodeNamesList.contains(TestDataUtils.ITEM_NAME));
     }
+
+    @Test
+    public void testCheckIconSize(){
+
+        boolean iconSize = new HomePage(getDriver())
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickManageCredentials()
+                .isIconEqualSmallIcon();
+
+        Assert.assertFalse(iconSize);
+    }
 }

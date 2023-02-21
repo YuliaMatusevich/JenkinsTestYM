@@ -32,6 +32,9 @@ public class ManageJenkinsPage extends MainBasePage {
     @FindBy(xpath = "//a[@href='configure']")
     private WebElement configureSystem;
 
+    @FindBy(xpath = "//a[@href='credentials']")
+    private WebElement manageCredentials;
+
     public ManageJenkinsPage(WebDriver driver) {
         super(driver);
     }
@@ -86,5 +89,12 @@ public class ManageJenkinsPage extends MainBasePage {
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(configureSystem)).click();
 
         return new JenkinsConfigureSystemPage(getDriver());
+    }
+
+    public JenkinsManageCredentialsPage clickManageCredentials(){
+        TestUtils.scrollToElement_PlaceInCenter(getDriver(), manageCredentials);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(manageCredentials)).click();
+
+        return new JenkinsManageCredentialsPage(getDriver());
     }
 }
