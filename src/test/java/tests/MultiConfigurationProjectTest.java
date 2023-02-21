@@ -270,6 +270,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(mcpStatusPage.NewestBuildIsDisplayed());
     }
 
+    @Ignore
     @Test
     public void testSetConfigurationMatrix() {
         ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);

@@ -340,4 +340,24 @@ public class ManageJenkinsTest extends BaseTest {
                 .setSystemMessage("")
                 .clickSaveButton();
     }
+
+    @Owner("Dmitry Starski")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Create New Node by clicking on 'Build Executor Status' on Dashboard")
+    @Test
+    public void testCreateNewNodeWithValidNameFromDashboard() {
+        List<String> nodeNamesList = new HomePage(getDriver())
+                .getSideMenu()
+                .clickBuildExecutorStatus()
+                .getSideMenu()
+                .clickNewNode()
+                .setName(TestDataUtils.ITEM_NAME)
+                .selectPermanentAgent()
+                .clickCreateButton()
+                .clickSaveButton()
+                .getNodeTitles();
+
+        Assert.assertTrue(nodeNamesList.contains(TestDataUtils.ITEM_NAME));
+    }
 }

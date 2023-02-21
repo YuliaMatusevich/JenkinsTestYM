@@ -1,10 +1,7 @@
 package model.base.side_menu;
 
 import io.qameta.allure.Step;
-import model.BuildHistoryPage;
-import model.ManageJenkinsPage;
-import model.NewItemPage;
-import model.PeoplePage;
+import model.*;
 import model.views.MyViewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,6 +23,9 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
 
     @FindBy(css = "a[href='/me/my-views']")
     private WebElement myViews;
+
+    @FindBy(xpath = "//a[@href='/computer/']")
+    private WebElement buildExecutorStatus;
 
     public HomeSideMenuComponent(WebDriver driver) {
         super(driver);
@@ -61,5 +61,11 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
         myViews.click();
 
         return new MyViewsPage(getDriver());
+    }
+
+    @Step("Click 'Build Executor Status' menu link")
+    public ManageNodesAndCloudsPage clickBuildExecutorStatus() {
+        buildExecutorStatus.click();
+        return new ManageNodesAndCloudsPage(getDriver());
     }
 }
