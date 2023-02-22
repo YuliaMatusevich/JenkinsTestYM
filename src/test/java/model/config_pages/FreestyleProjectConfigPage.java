@@ -105,6 +105,16 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     @FindBy(id = "textarea._.targets")
     private WebElement goalsField;
 
+    @FindBy(xpath = "//button[text()='Add post-build action']")
+    private WebElement postBuildActionButton;
+
+    @FindBy(xpath = "//a[text()= 'Build other projects']")
+    private WebElement buildOtherProjects;
+
+    @FindBy(xpath = "//input[@name = 'buildTrigger.childProjects']")
+    private WebElement projectToBuildField;
+
+
     @Override
     protected FreestyleProjectStatusPage createStatusPage() {
         return new FreestyleProjectStatusPage(getDriver());
@@ -292,6 +302,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     public String getHeadlineText() {
         return headline.getText();
     }
+
     @Step("Select ‘Invoke top-level Maven targets’ in dropdown menu")
     public FreestyleProjectConfigPage selectInvokeTopLevelMavenTargets() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(invokeTopLevelMavenTargets));
@@ -317,4 +328,34 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
+
+    @Step("Open 'Add post-build action' dropdown")
+    public FreestyleProjectConfigPage openAddPostBuildActionDropDown() {
+        scrollToElement_PlaceInCenter(getDriver(), postBuildActionButton);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(postBuildActionButton));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(postBuildActionButton));
+        postBuildActionButton.click();
+
+        return this;
+    }
+
+    @Step("Select 'Build other project")
+    public FreestyleProjectConfigPage selectBuildOtherProjects() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(buildOtherProjects));
+        buildOtherProjects.click();
+
+        return this;
+    }
+
+    @Step("Set 'Project to build' '{name}")
+    public FreestyleProjectConfigPage setProjectToBuildName(String name) {
+        scrollToElement(getDriver(), projectToBuildField);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(projectToBuildField));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(projectToBuildField));
+        projectToBuildField.sendKeys(name);
+
+        return this;
+    }
+
+
 }

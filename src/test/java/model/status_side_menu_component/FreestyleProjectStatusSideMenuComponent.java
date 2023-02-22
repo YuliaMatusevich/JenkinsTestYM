@@ -118,4 +118,12 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
 
         return new BuildStatusPage(getDriver());
     }
+
+    @Step("Get build status")
+    public FreestyleProjectStatusPage getBuildStatus() {
+        getWait(60).until(ExpectedConditions.visibilityOf((buildLoadingIconSuccess)));
+        getWait(10).until(ExpectedConditions.attributeToBe(buildsInformation, "style", "display: none;"));
+
+        return new FreestyleProjectStatusPage(getDriver());
+    }
 }

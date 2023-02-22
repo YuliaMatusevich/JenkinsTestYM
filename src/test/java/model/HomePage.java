@@ -205,6 +205,7 @@ public class HomePage extends MainBasePage {
         return new FolderConfigPage(getDriver());
     }
 
+    @Step("Get job build status")
     public String getJobBuildStatus(String name) {
         return getDriver().findElement(By.id(String.format("job_%s", name)))
                 .findElement(By.xpath(".//*[name()='svg']")).getAttribute("tooltip");

@@ -12,6 +12,8 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
+import runner.TestUtils;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -365,4 +367,48 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(actualConsoleOutput.contains("T E S T S"));
         Assert.assertTrue(actualConsoleOutput.contains("BUILD SUCCESS"));
     }
+
+    @Owner("Yulia Matusevich")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Build projects with 'Build other project' option in Post Build Actions")
+    @Test
+    public void testBuildProjectWithBuildOtherProjectOption() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),TestDataUtils.FREESTYLE_PROJECT_NAME2);
+
+       String project1StatusIconBeforeBuild  = new HomePage(getDriver())
+               .getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME);
+
+       String project2StatusIconBeforeBuild  = new HomePage(getDriver())
+                .getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME2);
+
+       String project1StatusIconAfterBuild = new HomePage(getDriver())
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .getSideMenu()
+                .clickConfigure()
+                .openAddPostBuildActionDropDown()
+                .selectBuildOtherProjects()
+                .setProjectToBuildName(TestDataUtils.FREESTYLE_PROJECT_NAME2)
+                .clickSaveButton()
+                .getSideMenu()
+                .clickBuildNow()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME);
+
+        String project2StatusIconAfterBuild  = new HomePage(getDriver())
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME2)
+                .getSideMenu()
+                .getBuildStatus()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME2);
+
+        Assert.assertEquals(project1StatusIconBeforeBuild, "Not built");
+        Assert.assertEquals(project2StatusIconBeforeBuild, "Not built");
+        Assert.assertEquals(project1StatusIconAfterBuild, "Success");
+        Assert.assertEquals(project2StatusIconAfterBuild, "Success");
+    }
+
 }

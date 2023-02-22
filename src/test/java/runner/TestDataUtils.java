@@ -14,6 +14,7 @@ public class TestDataUtils {
     public static final String NEW_USER_FULL_NAME = getRandomStr();
 
     public static final String FREESTYLE_PROJECT_NAME = getRandomStr();
+    public static final String FREESTYLE_PROJECT_NAME2 = getRandomStr();
     public static final String FREESTYLE_PROJECT_RENAME = getRandomStr();
 
     public static final String MULTIBRANCH_PIPELINE_NAME = getRandomStr();
