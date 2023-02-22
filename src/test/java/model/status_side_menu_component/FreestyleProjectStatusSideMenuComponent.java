@@ -1,5 +1,7 @@
 package model.status_side_menu_component;
 
+import io.qameta.allure.Step;
+import model.BuildStatusPage;
 import model.BuildWithParametersPage;
 import model.ChangesBuildsPage;
 import model.HomePage;
@@ -75,7 +77,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
 
         return countBuilds;
     }
-
+    @Step("Click 'Build Now'")
     public FreestyleProjectStatusPage clickBuildNow() {
         buildNow.click();
         getWait(60).until(ExpectedConditions.visibilityOf((buildLoadingIconSuccess)));
@@ -107,5 +109,13 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         getWait(20).until(ExpectedConditions.visibilityOf((buildDateTimeField)));
 
         return buildDateTimeField.getText();
+    }
+    @Step("Click on the last build in 'Build History' on side menu")
+    public BuildStatusPage clickBuildIconInBuildHistory() {
+        getWait(60).until(ExpectedConditions.not(ExpectedConditions
+                .attributeContains(buildStatusIcon, "tooltip", "progress")));
+        buildStatusIcon.click();
+
+        return new BuildStatusPage(getDriver());
     }
 }

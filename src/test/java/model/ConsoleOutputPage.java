@@ -1,5 +1,6 @@
 package model;
 
+import io.qameta.allure.Step;
 import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,7 @@ public class ConsoleOutputPage extends MainBasePage {
         super(driver);
     }
 
+    @Step("Get 'Console Output' text")
     public String getConsoleOutputText() {
         getWait(60).until(ExpectedConditions.visibilityOf(buildStatusIcon));
 

@@ -1,5 +1,6 @@
 package model.config_pages;
 
+import io.qameta.allure.Step;
 import model.base.BaseConfigPage;
 import model.status_pages.FreestyleProjectStatusPage;
 import org.openqa.selenium.By;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static runner.TestUtils.scrollToElement_PlaceInCenter;
+import static runner.TestUtils.*;
 
 public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectStatusPage, FreestyleProjectConfigPage> {
 
@@ -92,6 +93,17 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     @FindBy(xpath = "//button[@data-section-id='source-code-management']")
     private WebElement linkSourceCodeManagement;
+
+    @FindBy(xpath = "//a[text()= 'Invoke top-level Maven targets']")
+    private WebElement invokeTopLevelMavenTargets;
+
+    @FindBy(name = "maven.name")
+    private WebElement mavenVersionField;
+    @FindBy(xpath ="//select[@class='jenkins-input']//option[last()]")
+    private WebElement lastMavenOptionInMavenVersionField;
+
+    @FindBy(id = "textarea._.targets")
+    private WebElement goalsField;
 
     @Override
     protected FreestyleProjectStatusPage createStatusPage() {
@@ -202,7 +214,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
-
+    @Step("Select 'Source Code Management GIT'")
     public FreestyleProjectConfigPage selectSourceCodeManagementGIT() {
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(radioGitButton));
         getAction()
@@ -213,7 +225,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
-
+    @Step("Input GIT Repository URL")
     public FreestyleProjectConfigPage inputGITRepositoryURL(String url) {
         getWait(10).until(ExpectedConditions.elementToBeClickable(fieldInputRepositoryURL)).sendKeys(url);
 
@@ -225,7 +237,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
-
+    @Step("Click on ‘Add Build Steps' button in ‘Build Steps' section")
     public FreestyleProjectConfigPage openAddBuildStepDropDown() {
         scrollToElement_PlaceInCenter(getDriver(), buildStepsButton);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildStepsButton));
@@ -262,7 +274,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return buildPeriodicallyCheckbox.isSelected();
     }
-
+    @Step("Set 'Branch Specifier' field with '{branchSpecifier}'")
     public FreestyleProjectConfigPage inputBranchSpecifier(String branchSpecifier) {
         scrollToElement_PlaceInCenter(getDriver(), branchSpecifierInputField);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(branchSpecifierInputField)).clear();
@@ -279,5 +291,30 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     public String getHeadlineText() {
         return headline.getText();
+    }
+    @Step("Select ‘Invoke top-level Maven targets’ in dropdown menu")
+    public FreestyleProjectConfigPage selectInvokeTopLevelMavenTargets() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(invokeTopLevelMavenTargets));
+        invokeTopLevelMavenTargets.click();
+
+        return this;
+    }
+    @Step("Select ‘Last Maven option’ in ‘Maven Version’ dropdown menu")
+    public FreestyleProjectConfigPage selectMavenVersion() {
+        scrollToEnd(getDriver());
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(mavenVersionField));
+        mavenVersionField.click();
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(lastMavenOptionInMavenVersionField));
+        lastMavenOptionInMavenVersionField.click();
+
+        return this;
+    }
+    @Step("Set ‘{goal}’ in ‘Goals’ field")
+    public FreestyleProjectConfigPage setGoal(String goal) {
+        scrollToElement(getDriver(), goalsField);
+        getWait(5).until(ExpectedConditions.elementToBeClickable(goalsField));
+        goalsField.sendKeys(goal);
+
+        return this;
     }
 }

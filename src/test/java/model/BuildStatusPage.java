@@ -1,5 +1,6 @@
 package model;
 
+import io.qameta.allure.Step;
 import model.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,7 +14,7 @@ public class BuildStatusPage extends MainBasePage {
     public BuildStatusPage(WebDriver driver) {
         super(driver);
     }
-
+    @Step("Click on ‘Console output’ on side menu")
     public ConsoleOutputPage clickConsoleOutput() {
         consoleOutput.click();
 

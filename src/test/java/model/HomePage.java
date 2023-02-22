@@ -107,7 +107,7 @@ public class HomePage extends MainBasePage {
 
         return new FreestyleProjectStatusPage(getDriver());
     }
-
+    @Step("Select ‘Freestyle project’ name '{name}' to configure;")
     public FreestyleProjectStatusPage clickFreestyleProjectName(String name) {
         getWait(10).until(ExpectedConditions.elementToBeClickable(By.linkText(name))).click();
 

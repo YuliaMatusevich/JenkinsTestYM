@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import model.BuildWithParametersPage;
 import model.ChangesBuildsPage;
 import model.HomePage;
@@ -11,7 +12,6 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -331,5 +331,38 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(actualBuildDateTime.contains(currentDate()));
         Assert.assertTrue(actualBuildDateTime.contains(currentTime()));
         Assert.assertTrue(actualBuildDateTime.contains(currentDayPeriod()));
+    }
+    @Owner("Liudmila Plucci")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Build project sourced from GitHub using Maven with Build Steps goal: 'test'")
+    @Test
+    public void testBuildGitProjectWithBuildStepsMaven() {
+        final String repositoryURL = "https://github.com/LiudmilaPlucci/Java_05";
+        final String branchSpecifier = "*/main";
+        final String goal = "test";
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+
+        String actualConsoleOutput = new HomePage(getDriver())
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .getSideMenu()
+                .clickConfigure()
+                .selectSourceCodeManagementGIT()
+                .inputGITRepositoryURL(repositoryURL)
+                .inputBranchSpecifier(branchSpecifier)
+                .openAddBuildStepDropDown()
+                .selectInvokeTopLevelMavenTargets()
+                .selectMavenVersion()
+                .setGoal(goal)
+                .clickSaveButton()
+                .getSideMenu()
+                .clickBuildNow()
+                .getSideMenu()
+                .clickBuildIconInBuildHistory()
+                .clickConsoleOutput()
+                .getConsoleOutputText();
+
+        Assert.assertTrue(actualConsoleOutput.contains("T E S T S"));
+        Assert.assertTrue(actualConsoleOutput.contains("BUILD SUCCESS"));
     }
 }

@@ -1,5 +1,6 @@
 package model.base.side_menu;
 
+import io.qameta.allure.Step;
 import model.DeletePage;
 import model.HomePage;
 import model.MovePage;
@@ -61,7 +62,7 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
 
         return new MovePage<>(getDriver(), page);
     }
-
+    @Step("Click 'Configure' on side menu")
     public ConfigPage clickConfigure() {
         configure.click();
 
