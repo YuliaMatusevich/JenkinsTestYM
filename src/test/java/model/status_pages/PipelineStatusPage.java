@@ -28,9 +28,6 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
     @FindBy(id = "yui-gen1")
     private WebElement enableProjectButton;
 
-    @FindBy(className = "duration")
-    private WebElement stageView;
-
     @FindBy(id = "enable-project")
     private WebElement messageDisabledProject;
 
@@ -39,6 +36,12 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
 
     @FindBy(xpath = "//a[@href='lastBuild/']")
     private WebElement lastBuildLink;
+
+    @FindBy(css = ".build-status-icon__outer>[tooltip = 'Success &gt; Console Output']")
+    private WebElement buildLoadingIconSuccess;
+
+    @FindBy(css = "#no-builds")
+    private WebElement buildsInformation;
 
     @Override
     protected PipelineStatusSideMenuComponent createSideMenuComponent() {
@@ -87,9 +90,11 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
         return new PipelineStatusPage(getDriver());
     }
 
+    @Step("Click 'Build Now' button")
     public PipelineStatusPage clickBuildNow(String name) {
         getDriver().findElement(By.xpath(String.format("//a[@href='/job/%s/build?delay=0sec']", name))).click();
-        getWait(20).until(ExpectedConditions.visibilityOf(stageView));
+        getWait(60).until(ExpectedConditions.visibilityOf((buildLoadingIconSuccess)));
+        getWait(10).until(ExpectedConditions.attributeToBe(buildsInformation, "style", "display: none;"));
 
         return this;
     }
