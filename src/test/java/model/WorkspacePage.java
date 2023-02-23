@@ -6,14 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class WorkspacePage extends MainBasePage {
 
-    @FindBy(className = "fileList")
+    @FindBy(xpath = "//table[@class = 'fileList']//a")
     private List<WebElement> listOfFolders;
 
     public WorkspacePage(WebDriver driver) {
@@ -21,11 +19,11 @@ public class WorkspacePage extends MainBasePage {
     }
 
     @Step("Get list of folders")
-    public Set<String> getListOfFolders() {
+    public List<String> getListOfFolders() {
 
         return listOfFolders
                 .stream()
                 .map(WebElement::getText)
-                .collect(Collectors.toCollection(HashSet::new));
+                .collect(Collectors.toList());
     }
 }

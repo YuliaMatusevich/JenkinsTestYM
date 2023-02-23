@@ -322,8 +322,10 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     }
     @Step("Set ‘{goal}’ in ‘Goals’ field")
     public FreestyleProjectConfigPage setGoal(String goal) {
-        scrollToElement(getDriver(), goalsField);
-        getWait(5).until(ExpectedConditions.elementToBeClickable(goalsField));
+        scrollToEnd(getDriver());
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(goalsField));
+        goalsField.clear();
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(goalsField));
         goalsField.sendKeys(goal);
 
         return this;

@@ -37,6 +37,12 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
     @FindBy(xpath = "//span[contains(@class, 'build-status-icon')]/span/child::*")
     private WebElement buildStatusIcon;
 
+    @FindBy(xpath = "//span[contains(@class, 'build-status-icon')]/span/child::*")
+    private List<WebElement> buildStatusIconList;
+
+    @FindBy(xpath = "//span[contains(@class, 'build-status-icon')]/span/child::*[last()]")
+    private WebElement buildStatusIconLast;
+
     @FindBy(linkText = "Changes")
     private WebElement changes;
 
@@ -45,6 +51,9 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
 
     @FindBy(xpath = "//span[text()='Workspace']")
     private WebElement workspace;
+
+    @FindBy(xpath = "//div[contains(@class, 'pane build-name')]/a[last()]")
+    private WebElement numberOfLastBuild;
 
     @Override
     protected FreestyleProjectConfigPage createConfigPage() {
@@ -78,14 +87,19 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
 
         return countBuilds;
     }
+
     @Step("Click 'Build Now'")
-    public FreestyleProjectStatusPage clickBuildNow() {
+    public FreestyleProjectStatusPage clickBuildNowAndWaitSuccessStatus() {
+        int countBuildsInList = buildStatusIconList.size() + 1;
         buildNow.click();
-        getWait(60).until(ExpectedConditions.visibilityOf((buildLoadingIconSuccess)));
-        getWait(10).until(ExpectedConditions.attributeToBe(buildsInformation, "style", "display: none;"));
+        getWait(20).until(ExpectedConditions.textToBePresentInElement(
+                numberOfLastBuild, "#" + countBuildsInList));
+        getWait(60).until(ExpectedConditions.attributeToBe(
+                buildStatusIconLast, "tooltip", "Success &gt; Console Output"));
 
         return new FreestyleProjectStatusPage(getDriver());
     }
+
 
     public BreadcrumbsComponent getBreadcrumbs() {
         return new BreadcrumbsComponent(getDriver());
@@ -111,6 +125,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
 
         return buildDateTimeField.getText();
     }
+
     @Step("Click on the last build in 'Build History' on side menu")
     public BuildStatusPage clickBuildIconInBuildHistory() {
         getWait(60).until(ExpectedConditions.not(ExpectedConditions
@@ -130,7 +145,8 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
 
     @Step("Get 'Workspace' on side menu")
     public WorkspacePage clickWorkspace() {
-        JavascriptExecutor executor = (JavascriptExecutor)getDriver();
+        getWait(60).until(ExpectedConditions.visibilityOf((buildLoadingIconSuccess)));
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
         executor.executeScript("arguments[0].click();", workspace);
 
         return new WorkspacePage(getDriver());

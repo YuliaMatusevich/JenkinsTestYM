@@ -163,7 +163,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .countBuilds();
         int countBuildsAfterCreatingNewBuild = new FreestyleProjectStatusPage(getDriver())
                 .getSideMenu()
-                .clickBuildNow()
+                .clickBuildNowAndWaitSuccessStatus()
                 .getSideMenu()
                 .countBuilds();
 
@@ -324,7 +324,7 @@ public class FreestyleProjectTest extends BaseTest {
         String actualBuildDateTime = new HomePage(getDriver())
                 .clickFreestyleProjectName()
                 .getSideMenu()
-                .clickBuildNow()
+                .clickBuildNowAndWaitSuccessStatus()
                 .getSideMenu()
                 .getBuildDateTime();
 
@@ -356,7 +356,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .setGoal(goal)
                 .clickSaveButton()
                 .getSideMenu()
-                .clickBuildNow()
+                .clickBuildNowAndWaitSuccessStatus()
                 .getSideMenu()
                 .clickBuildIconInBuildHistory()
                 .clickConsoleOutput()
@@ -390,7 +390,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .setProjectToBuildName(TestDataUtils.FREESTYLE_PROJECT_NAME2)
                 .clickSaveButton()
                 .getSideMenu()
-                .clickBuildNow()
+                .clickBuildNowAndWaitSuccessStatus()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -413,31 +413,29 @@ public class FreestyleProjectTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
     @Description("Build project sourced from GitHub using Maven with Build Steps goal: 'clean'")
-    @Test
+    @Test(dependsOnMethods = "testBuildGitProjectWithBuildStepsMaven")
     public void testBuildGitProjectWithBuildStepsMavenClean() {
-        final String repositoryURL = "https://github.com/LiudmilaPlucci/Java_05";
-        final String branchSpecifier = "*/main";
         final String goal = "clean";
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
 
-        Set<String> actualListOfFolders = new HomePage(getDriver())
+        List<String> actualListOfFoldersBeforeClean = new HomePage(getDriver())
                 .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
-                .getSideMenu()
-                .clickConfigure()
-                .selectSourceCodeManagementGIT()
-                .inputGITRepositoryURL(repositoryURL)
-                .inputBranchSpecifier(branchSpecifier)
-                .openAddBuildStepDropDown()
-                .selectInvokeTopLevelMavenTargets()
-                .selectMavenVersion()
-                .setGoal(goal)
-                .clickSaveButton()
-                .getSideMenu()
-                .clickBuildNow()
                 .getSideMenu()
                 .clickWorkspace()
                 .getListOfFolders();
 
+        List<String> actualListOfFolders = new HomePage(getDriver())
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .getSideMenu()
+                .clickConfigure()
+                .setGoal(goal)
+                .clickSaveButton()
+                .getSideMenu()
+                .clickBuildNowAndWaitSuccessStatus()
+                .getSideMenu()
+                .clickWorkspace()
+                .getListOfFolders();
+
+        Assert.assertTrue(actualListOfFoldersBeforeClean.contains("target"));
         Assert.assertFalse(actualListOfFolders.contains("target"));
     }
 
