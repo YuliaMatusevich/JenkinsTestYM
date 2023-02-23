@@ -27,6 +27,8 @@ public class TestDataUtils {
     public static final String ORGANIZATION_FOLDER_RENAME = getRandomStr();
 
     public static final String PIPELINE_NAME = getRandomStr();
+    public static final String PIPELINE_NAME_2 = getRandomStr();
+
     public static final String PIPELINE_RENAME = getRandomStr() + "renamed";
 
     public static final String GLOBAL_VIEW_NAME = getRandomStr();

@@ -64,6 +64,15 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
     @FindBy(className = "textarea-preview")
     private WebElement previewTextDescription;
 
+    @FindBy(xpath = "//label[text()='Build after other projects are built']")
+    private WebElement buildAfterOtherProjectsAreBuiltCheckbox;
+
+    @FindBy(xpath = "//label[text()='Trigger builds remotely (e.g., from scripts)']")
+    private WebElement triggerBuildsRemotelyCheckbox;
+
+    @FindBy(xpath = "//input[@name='_.upstreamProjects']")
+    private WebElement projectsToWatchField;
+
     @Override
     protected PipelineStatusPage createStatusPage() {
         return new PipelineStatusPage(getDriver());
@@ -183,5 +192,15 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
 
     public boolean isDisplayedPreviewTextDescription() {
         return previewTextDescription.isDisplayed();
+    }
+
+    @Step("set checkbox 'Build after other projects are built' and choose project")
+    public PipelineConfigPage setTriggerBuildAfterOtherProjectsAreBuilt(String jobName) {
+        TestUtils.scrollToElement_PlaceInCenter(getDriver(), triggerBuildsRemotelyCheckbox);
+        getWait(3).until(ExpectedConditions.elementToBeClickable(buildAfterOtherProjectsAreBuiltCheckbox)).click();
+        getWait(3).until(ExpectedConditions.elementToBeClickable(projectsToWatchField)).click();
+        getWait(3).until(ExpectedConditions.elementToBeClickable(projectsToWatchField)).sendKeys(jobName);
+
+        return this;
     }
 }

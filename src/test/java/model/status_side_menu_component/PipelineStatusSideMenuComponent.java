@@ -1,5 +1,6 @@
 package model.status_side_menu_component;
 
+import io.qameta.allure.Step;
 import model.BuildWithParametersPage;
 import model.base.side_menu.BaseStatusSideMenuComponent;
 import model.config_pages.PipelineConfigPage;
@@ -22,6 +23,12 @@ public class PipelineStatusSideMenuComponent extends BaseStatusSideMenuComponent
 
     @FindBy(linkText = "Build with Parameters")
     private WebElement buildWithParameters;
+
+    @FindBy(css = ".build-status-icon__outer>[tooltip = 'Success &gt; Console Output']")
+    private WebElement buildLoadingIconSuccess;
+
+    @FindBy(css = "#no-builds")
+    private WebElement buildsInformation;
 
     @Override
     protected PipelineConfigPage createConfigPage() {
@@ -53,5 +60,13 @@ public class PipelineStatusSideMenuComponent extends BaseStatusSideMenuComponent
         getWait(5).until(ExpectedConditions.elementToBeClickable(buildWithParameters)).click();
 
         return new BuildWithParametersPage<>(getDriver(), new PipelineStatusPage(getDriver()));
+    }
+
+    @Step("Get build status")
+    public PipelineStatusPage getBuildStatus() {
+        getWait(60).until(ExpectedConditions.visibilityOf((buildLoadingIconSuccess)));
+        getWait(10).until(ExpectedConditions.attributeToBe(buildsInformation, "style", "display: none;"));
+
+        return new PipelineStatusPage(getDriver());
     }
 }

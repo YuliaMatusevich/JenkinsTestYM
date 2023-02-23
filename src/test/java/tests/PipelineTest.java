@@ -301,4 +301,39 @@ public class PipelineTest extends BaseTest {
 
         Assert.assertEquals(actualCheckIcon, expectedCheckIcon);
     }
+
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Configure project to be automatically built after successful building of the other project")
+    @Owner("Denis Sebrovsky")
+    @Test
+    public void testConfigureProjectToBeBuiltAfterBuildingOtherProject() {
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME_2);
+
+        String buildStatusBeforeBuild = new HomePage(getDriver())
+                .getJobBuildStatus(TestDataUtils.PIPELINE_NAME_2);
+
+        String buildStatusAfterBuild = new HomePage(getDriver())
+                .clickPipelineJob(TestDataUtils.PIPELINE_NAME_2)
+                .getSideMenu()
+                .clickConfigure()
+                .setTriggerBuildAfterOtherProjectsAreBuilt(TestDataUtils.PIPELINE_NAME)
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .clickPipelineJob(TestDataUtils.PIPELINE_NAME)
+                .clickBuildNow(TestDataUtils.PIPELINE_NAME)
+                .getBreadcrumbs()
+                .clickDashboard()
+                .clickPipelineJob(TestDataUtils.PIPELINE_NAME_2)
+                .getSideMenu()
+                .getBuildStatus()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .getJobBuildStatus(TestDataUtils.PIPELINE_NAME_2);
+
+        Assert.assertEquals(buildStatusBeforeBuild, "Not built");
+        Assert.assertEquals(buildStatusAfterBuild, "Success");
+    }
 }
