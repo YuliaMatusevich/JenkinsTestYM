@@ -12,8 +12,6 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
-import runner.TestUtils;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -411,4 +409,35 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(project2StatusIconAfterBuild, "Success");
     }
 
+    @Owner("Liudmila Plucci")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Build project sourced from GitHub using Maven with Build Steps goal: 'clean'")
+    @Test
+    public void testBuildGitProjectWithBuildStepsMavenClean() {
+        final String repositoryURL = "https://github.com/LiudmilaPlucci/Java_05";
+        final String branchSpecifier = "*/main";
+        final String goal = "clean";
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+
+        Set<String> actualListOfFolders = new HomePage(getDriver())
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .getSideMenu()
+                .clickConfigure()
+                .selectSourceCodeManagementGIT()
+                .inputGITRepositoryURL(repositoryURL)
+                .inputBranchSpecifier(branchSpecifier)
+                .openAddBuildStepDropDown()
+                .selectInvokeTopLevelMavenTargets()
+                .selectMavenVersion()
+                .setGoal(goal)
+                .clickSaveButton()
+                .getSideMenu()
+                .clickBuildNow()
+                .getSideMenu()
+                .clickWorkspace()
+                .getListOfFolders();
+
+        Assert.assertFalse(actualListOfFolders.contains("target"));
+    }
 }

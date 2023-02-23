@@ -1,14 +1,12 @@
 package model.status_side_menu_component;
 
 import io.qameta.allure.Step;
-import model.BuildStatusPage;
-import model.BuildWithParametersPage;
-import model.ChangesBuildsPage;
-import model.HomePage;
+import model.*;
 import model.base.base_components.BreadcrumbsComponent;
 import model.base.side_menu.BaseStatusSideMenuComponent;
 import model.config_pages.FreestyleProjectConfigPage;
 import model.status_pages.FreestyleProjectStatusPage;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,6 +42,9 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
 
     @FindBy(css = ".pane.build-details a")
     private WebElement buildDateTimeField;
+
+    @FindBy(xpath = "//span[text()='Workspace']")
+    private WebElement workspace;
 
     @Override
     protected FreestyleProjectConfigPage createConfigPage() {
@@ -125,5 +126,13 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         getWait(10).until(ExpectedConditions.attributeToBe(buildsInformation, "style", "display: none;"));
 
         return new FreestyleProjectStatusPage(getDriver());
+    }
+
+    @Step("Get 'Workspace' on side menu")
+    public WorkspacePage clickWorkspace() {
+        JavascriptExecutor executor = (JavascriptExecutor)getDriver();
+        executor.executeScript("arguments[0].click();", workspace);
+
+        return new WorkspacePage(getDriver());
     }
 }
