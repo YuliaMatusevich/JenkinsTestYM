@@ -440,4 +440,19 @@ public class FreestyleProjectTest extends BaseTest {
 
         Assert.assertFalse(actualListOfFolders.contains("target"));
     }
+
+    @Test (dependsOnMethods = "testBuildProjectWithBuildOtherProjectOption")
+    public void testDownstreamProjectSectionAndListOfConnectedProjectsAppearsOnUpstreamProjectStatusPage() {
+
+        List<String> h2HeaderNamesList = new HomePage(getDriver())
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .getH2HeaderNamesList();
+
+        List<String> downstreamProjectList = new HomePage(getDriver())
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .getDownstreamProjectNamesList();
+
+        Assert.assertTrue(h2HeaderNamesList.contains("Downstream Projects"));
+        Assert.assertTrue(downstreamProjectList.contains(TestDataUtils.FREESTYLE_PROJECT_NAME2));
+    }
 }

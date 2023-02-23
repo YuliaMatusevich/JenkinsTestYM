@@ -8,6 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectStatusPage, FreestyleProjectStatusSideMenuComponent> {
 
     @FindBy(xpath = "//textarea[@name = 'description']")
@@ -25,6 +28,14 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
     @FindBy(linkText = "Edit description")
     private WebElement buttonEditDescription;
 
+    @FindBy(xpath = "//div[@id = 'main-panel']//h2")
+    private List<WebElement> listOfH2Headers;
+
+    @FindBy(xpath = "//a[@class = 'model-link jenkins-icon-adjacent']")
+    private List<WebElement> listOfDownstreamProjects;
+
+
+    //a[@class = "model-link jenkins-icon-adjacent"]
     @Override
     protected FreestyleProjectStatusSideMenuComponent createSideMenuComponent() {
         return new FreestyleProjectStatusSideMenuComponent(getDriver(), this);
@@ -69,4 +80,20 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
 
         return new FolderStatusPage(getDriver());
     }
+
+    public List<String> getH2HeaderNamesList() {
+        return listOfH2Headers
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getDownstreamProjectNamesList() {
+        return listOfDownstreamProjects
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+
 }

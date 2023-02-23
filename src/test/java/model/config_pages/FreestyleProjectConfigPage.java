@@ -352,6 +352,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         scrollToElement(getDriver(), projectToBuildField);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(projectToBuildField));
         getWait(5).until(ExpectedConditions.elementToBeClickable(projectToBuildField));
+        projectToBuildField. click();
         projectToBuildField.sendKeys(name);
 
         return this;
