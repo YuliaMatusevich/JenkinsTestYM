@@ -1,8 +1,10 @@
 package model.status_pages;
 
+import io.qameta.allure.Step;
 import model.HomePage;
 import model.base.BaseStatusPage;
 import model.status_side_menu_component.FreestyleProjectStatusSideMenuComponent;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,8 +36,6 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
     @FindBy(xpath = "//a[@class = 'model-link jenkins-icon-adjacent']")
     private List<WebElement> listOfDownstreamProjects;
 
-
-    //a[@class = "model-link jenkins-icon-adjacent"]
     @Override
     protected FreestyleProjectStatusSideMenuComponent createSideMenuComponent() {
         return new FreestyleProjectStatusSideMenuComponent(getDriver(), this);
@@ -93,6 +93,12 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
+    }
+    @Step("Click the upstream project name '{name}")
+    public FreestyleProjectStatusPage clickUpstreamProjectName(String name) {
+        getDriver().findElement(By.xpath("//a[@href='/job/" + name + "/']")).click();
+
+        return new FreestyleProjectStatusPage(getDriver());
     }
 
 

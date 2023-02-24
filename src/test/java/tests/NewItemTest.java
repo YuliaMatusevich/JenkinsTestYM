@@ -69,7 +69,7 @@ public class NewItemTest extends BaseTest {
                 .selectPipelineType()
                 .clickOkButton()
                 .clickSaveButton()
-                .getNameText();
+                .getHeaderText();
 
         Assert.assertEquals(actualPipelineName, "Pipeline " + TestDataUtils.PROJECT_NAME);
     }
@@ -214,7 +214,7 @@ public class NewItemTest extends BaseTest {
                 .selectFreestyleProjectType()
                 .clickOkButton()
                 .clickSaveButton()
-                .getNameText();
+                .getHeaderText();
 
         Assert.assertEquals(freestyleProjectTitle, String.format("Project %s", TestDataUtils.PROJECT_NAME));
     }

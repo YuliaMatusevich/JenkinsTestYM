@@ -50,7 +50,7 @@ public class PipelineTest extends BaseTest {
                 .clearFieldAndInputNewName(TestDataUtils.PIPELINE_RENAME)
                 .clickRenameButton();
 
-        Assert.assertEquals(new PipelineStatusPage(getDriver()).getNameText(), "Pipeline " + TestDataUtils.PIPELINE_RENAME);
+        Assert.assertEquals(new PipelineStatusPage(getDriver()).getHeaderText(), "Pipeline " + TestDataUtils.PIPELINE_RENAME);
     }
 
     @Test

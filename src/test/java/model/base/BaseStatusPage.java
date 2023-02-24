@@ -24,7 +24,7 @@ public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSi
         super(driver);
     }
 
-    public String getNameText() {
+    public String getHeaderText() {
         return getWait(5).until(ExpectedConditions.elementToBeClickable(header)).getText();
     }
 

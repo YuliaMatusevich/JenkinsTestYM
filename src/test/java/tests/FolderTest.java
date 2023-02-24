@@ -289,7 +289,7 @@ public class FolderTest extends BaseTest {
                 .clickOkButton()
                 .clickSaveButton();
 
-        Assert.assertTrue(folderStatusPage.getNameText().contains(TestDataUtils.FOLDER_NAME_2));
+        Assert.assertTrue(folderStatusPage.getHeaderText().contains(TestDataUtils.FOLDER_NAME_2));
         Assert.assertTrue(folderStatusPage.getTopMenuLinkText().contains(TestDataUtils.FOLDER_NAME_2));
         Assert.assertTrue(folderStatusPage.getTopMenuLinkText().contains(TestDataUtils.FOLDER_NAME));
     }

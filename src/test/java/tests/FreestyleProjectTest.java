@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 import static runner.TestUtils.*;
 
 public class FreestyleProjectTest extends BaseTest {
@@ -28,7 +27,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
                 .clickDisableProjectBtn();
 
-        Assert.assertEquals(freestyleProjectStatusPage.getNameText(), String.format("Project %s", TestDataUtils.FREESTYLE_PROJECT_NAME));
+        Assert.assertEquals(freestyleProjectStatusPage.getHeaderText(), String.format("Project %s", TestDataUtils.FREESTYLE_PROJECT_NAME));
         Assert.assertEquals(freestyleProjectStatusPage.getWarningMsg(), "This project is currently disabled");
 
         HomePage homePage = freestyleProjectStatusPage.getBreadcrumbs().clickDashboard();
@@ -54,7 +53,7 @@ public class FreestyleProjectTest extends BaseTest {
         final FreestyleProjectStatusPage freestyleProjectStatusPage = new HomePage(getDriver())
                 .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME);
 
-        Assert.assertEquals(freestyleProjectStatusPage.getNameText(), String.format("Project %s", TestDataUtils.FREESTYLE_PROJECT_NAME));
+        Assert.assertEquals(freestyleProjectStatusPage.getHeaderText(), String.format("Project %s", TestDataUtils.FREESTYLE_PROJECT_NAME));
     }
 
     @Test
@@ -135,7 +134,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         String freestyleName = new HomePage(getDriver())
                 .clickFreestyleProjectName()
-                .getNameText();
+                .getHeaderText();
 
         Assert.assertEquals(freestyleName, String.format("Project %s", TestDataUtils.FREESTYLE_PROJECT_NAME));
     }
@@ -452,5 +451,20 @@ public class FreestyleProjectTest extends BaseTest {
 
         Assert.assertTrue(h2HeaderNamesList.contains("Downstream Projects"));
         Assert.assertTrue(downstreamProjectList.contains(TestDataUtils.FREESTYLE_PROJECT_NAME2));
+    }
+
+    @Owner("Yulia Matusevich")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Check if the Downstream project name link leads to the correct Upstream project Status Page")
+    @Test (dependsOnMethods = "testBuildProjectWithBuildOtherProjectOption")
+    public void testDownstreamProjectNameLeadsToCorrectUpstreamProjectStatusPage() {
+
+        String downstreamProjectName= new HomePage(getDriver())
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .clickUpstreamProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME2)
+                .getHeaderText();
+
+        Assert.assertTrue(downstreamProjectName.contains(TestDataUtils.FREESTYLE_PROJECT_NAME2));
     }
 }

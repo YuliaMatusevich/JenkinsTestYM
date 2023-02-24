@@ -74,7 +74,7 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
 
     public String getPipelineName() {
 
-        return getNameText().substring(getNameText().indexOf(" ") + 1);
+        return getHeaderText().substring(getHeaderText().indexOf(" ") + 1);
     }
 
     @Step("Click 'disable project' button")

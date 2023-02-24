@@ -56,7 +56,7 @@ public class OrganizationFolderTest extends BaseTest {
                 .inputDisplayName(TestDataUtils.DISPLAY_NAME)
                 .clickSaveButton();
 
-        Assert.assertEquals(orgFolderStatusPage.getNameText(), TestDataUtils.DISPLAY_NAME);
+        Assert.assertEquals(orgFolderStatusPage.getHeaderText(), TestDataUtils.DISPLAY_NAME);
     }
 
     @Test
