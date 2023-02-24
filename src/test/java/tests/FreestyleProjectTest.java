@@ -438,6 +438,11 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertFalse(actualListOfFolders.contains("target"));
     }
 
+    @Owner("Yulia Matusevich")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Check the downstream project section and list of connected projects appear " +
+            "on the StatusPage of the Upstream project")
     @Test (dependsOnMethods = "testBuildProjectWithBuildOtherProjectOption")
     public void testDownstreamProjectSectionAndListOfConnectedProjectsAppearsOnUpstreamProjectStatusPage() {
 
