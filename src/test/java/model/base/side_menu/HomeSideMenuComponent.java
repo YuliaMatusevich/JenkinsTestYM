@@ -9,6 +9,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class HomeSideMenuComponent extends BaseSideMenuComponent {
 
     @FindBy(linkText = "New Item")
@@ -31,6 +34,9 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
 
     @FindBy(linkText = "Delete Agent")
     private WebElement deleteAgent;
+
+    @FindBy(xpath = "//div[@id='executors']//tr//th/a")
+    private List<WebElement> nodeList;
 
     public HomeSideMenuComponent(WebDriver driver) {
         super(driver);
@@ -86,5 +92,13 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
         getWait(5).until(ExpectedConditions.elementToBeClickable(deleteAgent)).click();
 
         return new DeletePage<>(getDriver(), new ManageNodesAndCloudsPage(getDriver()));
+    }
+
+    @Step("Get Node List from 'Build Executor Status' section")
+    public List<String> getNodeList() {
+        return nodeList
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
     }
 }

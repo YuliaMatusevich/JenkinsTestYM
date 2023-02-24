@@ -65,6 +65,9 @@ public class HomePage extends MainBasePage {
     @FindBy(id = "systemmessage")
     private WebElement systemMessage;
 
+    @FindBy(xpath = "//a[@href='computer/new']")
+    private WebElement setUpAnAgent;
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -331,5 +334,11 @@ public class HomePage extends MainBasePage {
     @Step("Get 'System Message' from dashboard")
     public String getSystemMessageFromDashboard() {
        return systemMessage.getText();
+    }
+
+    @Step("Click on 'Set up an agent' on dashboard")
+    public NewNodePage clickOnSetUpAnAgent() {
+        setUpAnAgent.click();
+        return new NewNodePage(getDriver());
     }
 }

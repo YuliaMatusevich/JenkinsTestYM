@@ -388,4 +388,24 @@ public class ManageJenkinsTest extends BaseTest {
 
         Assert.assertFalse(nodeNameList.contains(TestDataUtils.ITEM_NAME));
     }
+
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Create New Node with valid name by option 'Set up an agent' on Dashboard")
+    @Test
+    public void testCreateNewNodeWithValidNameByOptionSetUpAnAgent() {
+        List<String> nodeNameList = new HomePage(getDriver())
+                .clickOnSetUpAnAgent()
+                .setName(TestDataUtils.ITEM_NAME)
+                .selectPermanentAgent()
+                .clickCreateButton()
+                .clickSaveButton()
+                .getBreadcrumbs()
+                .clickDashboard()
+                .getSideMenu()
+                .getNodeList();
+
+        Assert.assertTrue(nodeNameList.contains(TestDataUtils.ITEM_NAME));
+    }
 }
