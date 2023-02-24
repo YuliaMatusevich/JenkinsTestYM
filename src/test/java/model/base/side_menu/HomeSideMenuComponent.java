@@ -3,9 +3,11 @@ package model.base.side_menu;
 import io.qameta.allure.Step;
 import model.*;
 import model.views.MyViewsPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomeSideMenuComponent extends BaseSideMenuComponent {
 
@@ -26,6 +28,9 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
 
     @FindBy(xpath = "//a[@href='/computer/']")
     private WebElement buildExecutorStatus;
+
+    @FindBy(linkText = "Delete Agent")
+    private WebElement deleteAgent;
 
     public HomeSideMenuComponent(WebDriver driver) {
         super(driver);
@@ -67,5 +72,19 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
     public ManageNodesAndCloudsPage clickBuildExecutorStatus() {
         buildExecutorStatus.click();
         return new ManageNodesAndCloudsPage(getDriver());
+    }
+
+    @Step("Click on '{nodeName}' node dropdown menu")
+    public HomeSideMenuComponent clickNodeDropdownMenu(String nodeName) {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(By.xpath("//tr/th/a[@href='/computer/" + nodeName + "/']/button"))).click();
+
+        return this;
+    }
+
+    @Step("Select 'DeleteAgent' option in dropdown menu")
+    public DeletePage<ManageNodesAndCloudsPage> selectDeleteAgentInDropdown() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(deleteAgent)).click();
+
+        return new DeletePage<>(getDriver(), new ManageNodesAndCloudsPage(getDriver()));
     }
 }

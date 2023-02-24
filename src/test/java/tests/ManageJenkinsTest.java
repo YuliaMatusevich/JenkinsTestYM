@@ -372,4 +372,20 @@ public class ManageJenkinsTest extends BaseTest {
 
         Assert.assertFalse(iconSize);
     }
+
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Delete Node By DropDown On Dashboard")
+    @Test(dependsOnMethods = "testCreateNewNodeWithValidNameFromDashboard")
+    public void testDeleteNodeByDropDownOnDashboard() {
+        List<String> nodeNameList = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNodeDropdownMenu(TestDataUtils.ITEM_NAME)
+                .selectDeleteAgentInDropdown()
+                .clickYes()
+                .getNodeTitles();
+
+        Assert.assertFalse(nodeNameList.contains(TestDataUtils.ITEM_NAME));
+    }
 }
