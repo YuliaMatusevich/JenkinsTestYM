@@ -1,8 +1,8 @@
 package tests;
 
 import io.qameta.allure.*;
-import model.*;
-import model.status_pages.FolderStatusPage;
+import model.page.*;
+import model.page.status.FolderStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;

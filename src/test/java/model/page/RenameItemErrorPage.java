@@ -1,0 +1,27 @@
+package model.page;
+
+import model.page.base.MainBasePage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class RenameItemErrorPage extends MainBasePage {
+
+    @FindBy(xpath = "//div[@id = 'main-panel']/p")
+    private WebElement errorMessage;
+
+    @FindBy(xpath = "//div[@id='main-panel']/h1")
+    private WebElement headerErrorMessage;
+
+    public RenameItemErrorPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public String getErrorMessage() {
+        return errorMessage.getText();
+    }
+
+    public String getHeadErrorMessage() {
+        return headerErrorMessage.getText();
+    }
+}

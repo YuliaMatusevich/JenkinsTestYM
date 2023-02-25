@@ -1,7 +1,7 @@
 package tests;
 
-import model.CreateItemErrorPage;
-import model.HomePage;
+import model.page.CreateItemErrorPage;
+import model.page.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;

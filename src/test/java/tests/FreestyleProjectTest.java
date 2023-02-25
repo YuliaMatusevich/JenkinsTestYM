@@ -1,12 +1,12 @@
 package tests;
 
 import io.qameta.allure.*;
-import model.BuildWithParametersPage;
-import model.ChangesBuildsPage;
-import model.HomePage;
-import model.RenameItemErrorPage;
-import model.config_pages.FreestyleProjectConfigPage;
-import model.status_pages.FreestyleProjectStatusPage;
+import model.page.BuildWithParametersPage;
+import model.page.ChangesBuildsPage;
+import model.page.HomePage;
+import model.page.RenameItemErrorPage;
+import model.page.config.FreestyleProjectConfigPage;
+import model.page.status.FreestyleProjectStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;

@@ -1,7 +1,7 @@
 package tests;
 
-import model.BuildHistoryPage;
-import model.HomePage;
+import model.page.BuildHistoryPage;
+import model.page.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;

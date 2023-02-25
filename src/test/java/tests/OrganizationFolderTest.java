@@ -1,8 +1,8 @@
 package tests;
 
-import model.HomePage;
-import model.status_pages.FolderStatusPage;
-import model.status_pages.OrgFolderStatusPage;
+import model.page.HomePage;
+import model.page.status.FolderStatusPage;
+import model.page.status.OrgFolderStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;

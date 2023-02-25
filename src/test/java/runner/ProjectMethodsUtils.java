@@ -1,10 +1,8 @@
 package runner;
 
 import io.qameta.allure.Step;
-import model.HomePage;
+import model.page.HomePage;
 import org.openqa.selenium.WebDriver;
-
-import java.util.List;
 
 public class ProjectMethodsUtils {
 

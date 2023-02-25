@@ -1,7 +1,7 @@
 package tests;
 
-import model.HomePage;
-import model.views.*;
+import model.page.HomePage;
+import model.page.view.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.Test;

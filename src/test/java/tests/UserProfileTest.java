@@ -1,6 +1,6 @@
 package tests;
 
-import model.StatusUserPage;
+import model.page.StatusUserPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;

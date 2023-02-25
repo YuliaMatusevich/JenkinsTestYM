@@ -1,10 +1,10 @@
 package tests;
 
-import model.ConsoleOutputPage;
-import model.HomePage;
-import model.RenameItemErrorPage;
-import model.config_pages.MultiConfigurationProjectConfigPage;
-import model.status_pages.MultiConfigurationProjectStatusPage;
+import model.page.ConsoleOutputPage;
+import model.page.HomePage;
+import model.page.RenameItemErrorPage;
+import model.page.config.MultiConfigurationProjectConfigPage;
+import model.page.status.MultiConfigurationProjectStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
