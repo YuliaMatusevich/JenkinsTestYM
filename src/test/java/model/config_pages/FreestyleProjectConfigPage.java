@@ -31,7 +31,8 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     @FindBy(xpath = "//input[@name='_.daysToKeepStr']")
     private WebElement daysToKeepBuilds;
 
-    @FindBy(xpath = "//input[@name='_.numToKeepStr']")
+//    @FindBy(xpath = "//input[@name='_.numToKeepStr']")
+    @FindBy(name = "_.numToKeepStr")
     private WebElement maxNumberOfBuildsToKeep;
 
     @FindBy(xpath = "//label[text() = 'This project is parameterized']")
@@ -114,7 +115,6 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     @FindBy(xpath = "//input[@name = 'buildTrigger.childProjects']")
     private WebElement projectToBuildField;
 
-
     @Override
     protected FreestyleProjectStatusPage createStatusPage() {
         return new FreestyleProjectStatusPage(getDriver());
@@ -124,6 +124,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         super(driver);
     }
 
+    @Step("Click 'Discard Old Builds' checkbox")
     public FreestyleProjectConfigPage clickDiscardOldBuildsCheckbox() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(discardOldBuildsCheckbox)).click();
 
@@ -143,6 +144,14 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     public FreestyleProjectConfigPage typeMaxNumberOfBuildsToKeep(String numberOfBuilds) {
         maxNumberOfBuildsToKeep.sendKeys(numberOfBuilds);
+
+        return this;
+    }
+
+    @Step("Set '{numberOfBuilds}' in the 'Max # of builds to keep' field")
+    public FreestyleProjectConfigPage typeMaxNumberOfBuildsToKeep(int numberOfBuilds) {
+        maxNumberOfBuildsToKeep.click();
+        maxNumberOfBuildsToKeep.sendKeys(Integer.toString(numberOfBuilds));
 
         return this;
     }

@@ -12,10 +12,9 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+
+import java.util.*;
+
 import static runner.TestUtils.*;
 
 public class FreestyleProjectTest extends BaseTest {
@@ -331,6 +330,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(actualBuildDateTime.contains(currentTime()));
         Assert.assertTrue(actualBuildDateTime.contains(currentDayPeriod()));
     }
+
     @Owner("Liudmila Plucci")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -372,15 +372,15 @@ public class FreestyleProjectTest extends BaseTest {
     @Test
     public void testBuildProjectWithBuildOtherProjectOption() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(),TestDataUtils.FREESTYLE_PROJECT_NAME2);
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME2);
 
-       String project1StatusIconBeforeBuild  = new HomePage(getDriver())
-               .getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME);
+        String project1StatusIconBeforeBuild = new HomePage(getDriver())
+                .getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME);
 
-       String project2StatusIconBeforeBuild  = new HomePage(getDriver())
+        String project2StatusIconBeforeBuild = new HomePage(getDriver())
                 .getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME2);
 
-       String project1StatusIconAfterBuild = new HomePage(getDriver())
+        String project1StatusIconAfterBuild = new HomePage(getDriver())
                 .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
                 .getSideMenu()
                 .clickConfigure()
@@ -394,7 +394,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickDashboard()
                 .getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME);
 
-        String project2StatusIconAfterBuild  = new HomePage(getDriver())
+        String project2StatusIconAfterBuild = new HomePage(getDriver())
                 .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME2)
                 .getSideMenu()
                 .getBuildStatus()
@@ -443,7 +443,7 @@ public class FreestyleProjectTest extends BaseTest {
     @Feature("Function")
     @Description("Check the downstream project section and list of connected projects appear " +
             "on the StatusPage of the Upstream project")
-    @Test (dependsOnMethods = "testBuildProjectWithBuildOtherProjectOption")
+    @Test(dependsOnMethods = "testBuildProjectWithBuildOtherProjectOption")
     public void testDownstreamProjectSectionAndListOfConnectedProjectsAppearsOnUpstreamProjectStatusPage() {
 
         List<String> h2HeaderNamesList = new HomePage(getDriver())
@@ -462,14 +462,45 @@ public class FreestyleProjectTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
     @Description("Check if the Downstream project name link leads to the correct Upstream project Status Page")
-    @Test (dependsOnMethods = "testBuildProjectWithBuildOtherProjectOption")
+    @Test(dependsOnMethods = "testBuildProjectWithBuildOtherProjectOption")
     public void testDownstreamProjectNameLeadsToCorrectUpstreamProjectStatusPage() {
 
-        String downstreamProjectName= new HomePage(getDriver())
+        String downstreamProjectName = new HomePage(getDriver())
                 .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
                 .clickUpstreamProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME2)
                 .getHeaderText();
 
         Assert.assertTrue(downstreamProjectName.contains(TestDataUtils.FREESTYLE_PROJECT_NAME2));
+    }
+
+    @Owner("ViktoriyaD")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Test Build Project with 'Discard Old Builds' option configured with maximum number of saved builds")
+    @Test
+    public void testBuildProjectWithDiscardOldBuildsMaxLimit() throws InterruptedException {
+        final int expectedMaxNumberOfBuildsToKeep = 2;
+        final int amountsOfBuild = 3;
+        final String[] expectedListOfBuildNames = new String[]{"#3", "#2"};
+
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        List<String> actualAmountOfSavedBuilds =
+                new HomePage(getDriver())
+                        .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                        .getSideMenu()
+                        .clickConfigure()
+                        .clickDiscardOldBuildsCheckbox()
+                        .typeMaxNumberOfBuildsToKeep(expectedMaxNumberOfBuildsToKeep)
+                        .clickSaveButton()
+                        .getSideMenu()
+                        .clickBuildNowAndWaitStatusChangedNTimes(amountsOfBuild)
+                        .getBreadcrumbs()
+                        .clickDashboard()
+                        .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                        .getSideMenu()
+                        .getListOfSavedBuilds();
+
+        Assert.assertEquals(actualAmountOfSavedBuilds.size(), expectedMaxNumberOfBuildsToKeep);
+        Assert.assertEquals(actualAmountOfSavedBuilds.toArray(), expectedListOfBuildNames);
     }
 }

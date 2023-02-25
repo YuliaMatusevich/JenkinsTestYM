@@ -13,6 +13,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuComponent<FreestyleProjectStatusPage, FreestyleProjectConfigPage> {
 
@@ -54,6 +55,9 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
 
     @FindBy(xpath = "//div[contains(@class, 'pane build-name')]/a[last()]")
     private WebElement numberOfLastBuild;
+
+    @FindBy(xpath = "//a[@class='model-link inside build-link display-name']")
+    private List<WebElement> listOfBuildNames;
 
     @Override
     protected FreestyleProjectConfigPage createConfigPage() {
@@ -100,6 +104,17 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         return new FreestyleProjectStatusPage(getDriver());
     }
 
+    @Step("Click 'Build Now' '{n}' times")
+    public FreestyleProjectStatusPage clickBuildNowAndWaitStatusChangedNTimes(int n) throws InterruptedException {
+        for (int i = 0; i < n; i++) {
+            buildNow.click();
+            getWait(60).until(ExpectedConditions.attributeContains(buildStatusIconLast, "tooltip", "&gt; Console Output"));
+        }
+        getWait(20).until(ExpectedConditions.textToBePresentInElement(
+                numberOfLastBuild, "#" + n));
+
+        return new FreestyleProjectStatusPage(getDriver());
+    }
 
     public BreadcrumbsComponent getBreadcrumbs() {
         return new BreadcrumbsComponent(getDriver());
@@ -150,5 +165,13 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         executor.executeScript("arguments[0].click();", workspace);
 
         return new WorkspacePage(getDriver());
+    }
+
+    @Step("Get a list of saved builds")
+    public List<String> getListOfSavedBuilds() {
+        return listOfBuildNames
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
     }
 }
