@@ -4,6 +4,8 @@ import io.qameta.allure.Step;
 import model.HomePage;
 import org.openqa.selenium.WebDriver;
 
+import java.util.List;
+
 public class ProjectMethodsUtils {
 
     @Step("Create new pipeline project and return to dashboard")
@@ -166,6 +168,18 @@ public class ProjectMethodsUtils {
                 .clickManageJenkins()
                 .clickConfigureSystem()
                 .selectDefaultView(name)
+                .clickSaveButton();
+    }
+
+    public static void createNewNode(WebDriver driver, String name) {
+        new HomePage(driver)
+                .getSideMenu()
+                .clickBuildExecutorStatus()
+                .getSideMenu()
+                .clickNewNode()
+                .setName(TestDataUtils.ITEM_NAME)
+                .selectPermanentAgent()
+                .clickCreateButton()
                 .clickSaveButton();
     }
 }

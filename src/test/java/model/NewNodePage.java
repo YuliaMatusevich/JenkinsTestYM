@@ -18,6 +18,9 @@ public class NewNodePage extends MainBasePage {
     @FindBy(id = "ok")
     private WebElement createButton;
 
+    @FindBy(xpath = "//div[@class='error']")
+    private WebElement nodeNameInvalidMsg;
+
     public NewNodePage(WebDriver driver) {
         super(driver);
     }
@@ -38,5 +41,11 @@ public class NewNodePage extends MainBasePage {
     public NodeConfigPage clickCreateButton() {
         createButton.click();
         return new NodeConfigPage(getDriver());
+    }
+
+    @Step("Get an Error message text")
+    public String getNodeNameInvalidMessage() {
+
+        return getWait(2).until(ExpectedConditions.visibilityOf(nodeNameInvalidMsg)).getText();
     }
 }

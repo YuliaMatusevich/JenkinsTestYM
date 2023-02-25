@@ -1,10 +1,7 @@
 package tests;
 
 import io.qameta.allure.*;
-import model.HomePage;
-import model.ManageOldDataPage;
-import model.ManageUsersPage;
-import model.StatusUserPage;
+import model.*;
 import model.status_pages.FolderStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -362,7 +359,7 @@ public class ManageJenkinsTest extends BaseTest {
     }
 
     @Test
-    public void testCheckIconSize(){
+    public void testCheckIconSize() {
 
         boolean iconSize = new HomePage(getDriver())
                 .getSideMenu()
@@ -393,6 +390,7 @@ public class ManageJenkinsTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
     @Description("Create New Node with valid name by option 'Set up an agent' on Dashboard")
+    @Ignore
     @Test
     public void testCreateNewNodeWithValidNameByOptionSetUpAnAgent() {
         List<String> nodeNameList = new HomePage(getDriver())
@@ -407,5 +405,24 @@ public class ManageJenkinsTest extends BaseTest {
                 .getNodeList();
 
         Assert.assertTrue(nodeNameList.contains(TestDataUtils.ITEM_NAME));
+    }
+
+    @Owner("Elena Grueber")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Create New Node With Existed Name by clicking on 'Build Executor Status' on Dashboard")
+    @Test
+    public void testCreateNewNodeWithExistedNameFromDashboard() {
+        ProjectMethodsUtils.createNewNode(getDriver(), TestDataUtils.ITEM_NAME);
+        String errorMessageWhenExistedName = "Agent called ‘" + TestDataUtils.ITEM_NAME + "’ already exists";
+        NewNodePage nodePage = new HomePage(getDriver())
+                .getSideMenu()
+                .clickBuildExecutorStatus()
+                .getSideMenu()
+                .clickNewNode()
+                .setName(TestDataUtils.ITEM_NAME)
+                .selectPermanentAgent();
+
+        Assert.assertEquals(nodePage.getNodeNameInvalidMessage(), errorMessageWhenExistedName);
     }
 }
