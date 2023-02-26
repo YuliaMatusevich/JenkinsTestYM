@@ -35,6 +35,12 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
     @FindBy(xpath = "//a[@class = 'model-link jenkins-icon-adjacent']")
     private List<WebElement> listOfDownstreamProjects;
 
+    @FindBy(xpath = "//a[@href='lastCompletedBuild/testReport/']")
+    private WebElement latestTestResultLink;
+
+    @FindBy(xpath = "//div[contains(@id,'history-chart')]")
+    private WebElement testResultHistoryChart;
+
     @Override
     protected FreestyleProjectStatusSideMenuComponent createSideMenuComponent() {
         return new FreestyleProjectStatusSideMenuComponent(getDriver(), this);
@@ -100,6 +106,25 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
         getDriver().findElement(By.xpath("//a[@href='/job/" + name + "/']")).click();
 
         return new FreestyleProjectStatusPage(getDriver());
+    }
+
+    @Step ("get 'Latest Test Result' link text")
+    public String getTestResultLinkText() {
+        return latestTestResultLink.getText();
+    }
+
+    @Step ("Check if 'Latest Test Result' link is displayed")
+    public boolean isTestResultLinkClickable() {
+        getWait(10).until(ExpectedConditions.elementToBeClickable(latestTestResultLink));
+
+        return latestTestResultLink.isEnabled();
+    }
+
+    @Step("Check if Test result history chart is Displayed")
+    public boolean isTestResultHistoryChartDisplayed() {
+        getWait(10).until(ExpectedConditions.visibilityOf(testResultHistoryChart));
+
+        return testResultHistoryChart.isDisplayed();
     }
 
 

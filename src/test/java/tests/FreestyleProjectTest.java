@@ -503,4 +503,49 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(actualAmountOfSavedBuilds.size(), expectedMaxNumberOfBuildsToKeep);
         Assert.assertEquals(actualAmountOfSavedBuilds.toArray(), expectedListOfBuildNames);
     }
+
+    @Owner("Yulia Matusevich")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Check if the 'Latest Test Result' link and test result history chart appear on the project Status Page " +
+            "when the 'Publish JUnit test result report' option of the 'Add post-build actions' is used")
+    @Test()
+    public void testBuildProjectWithPostBuildActionPublishJUnitReport() {
+        final String repositoryURL = "https://github.com/LiudmilaPlucci/Java_05";
+        final String branchSpecifier = "*/main";
+        final String goal = "clean compile test";
+        final String reportPath = "target/surefire-reports/*.xml";
+        final String expectedLinkName = "Latest Test Result";
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+
+        FreestyleProjectStatusPage freestyleProjectStatusPage = new HomePage(getDriver())
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .getSideMenu()
+                .clickConfigure()
+                .selectSourceCodeManagementGIT()
+                .inputGITRepositoryURL(repositoryURL)
+                .inputBranchSpecifier(branchSpecifier)
+                .openAddBuildStepDropDown()
+                .selectInvokeTopLevelMavenTargets()
+                .selectMavenVersion()
+                .setGoal(goal)
+                .clickSaveButton()
+                .getSideMenu()
+                .clickBuildNowAndWaitBuildCompleted()
+                .getSideMenu()
+                .clickConfigure()
+                .openAddPostBuildActionDropDown()
+                .selectPublishJUnitTestResultReport()
+                .setReportPath(reportPath)
+                .clearHealthReportAmplificationFactorField()
+                .clickSaveButton()
+                .getSideMenu()
+                .clickBuildNowAndWaitBuildCompleted()
+                .getBreadcrumbs()
+                .clickFreestyleProjectNameOnBreadcrumbs(TestDataUtils.FREESTYLE_PROJECT_NAME);
+
+        Assert.assertTrue(freestyleProjectStatusPage.isTestResultLinkClickable());
+        Assert.assertEquals(freestyleProjectStatusPage.getTestResultLinkText(), expectedLinkName);
+        Assert.assertTrue(freestyleProjectStatusPage.isTestResultHistoryChartDisplayed());
+    }
 }

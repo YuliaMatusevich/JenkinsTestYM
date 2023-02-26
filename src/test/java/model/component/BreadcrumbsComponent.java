@@ -4,6 +4,8 @@ import io.qameta.allure.Step;
 import model.page.HomePage;
 import model.component.base.BaseComponent;
 import model.page.status.FolderStatusPage;
+import model.page.status.FreestyleProjectStatusPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,5 +41,12 @@ public class BreadcrumbsComponent extends BaseComponent {
         parentFolderRoot.click();
 
         return new FolderStatusPage(getDriver());
+    }
+
+    @Step("Click Freestyle project '{name}' to refresh the page")
+    public FreestyleProjectStatusPage clickFreestyleProjectNameOnBreadcrumbs(String name) {
+        getDriver().findElement(By.xpath("//ul[@id = 'breadcrumbs']//a[contains(@href,'/job/"+ name + "/')]")).click();
+
+        return new FreestyleProjectStatusPage(getDriver());
     }
 }

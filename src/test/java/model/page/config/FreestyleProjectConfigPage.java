@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import model.page.base.BaseConfigPage;
 import model.page.status.FreestyleProjectStatusPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -114,6 +115,15 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     @FindBy(xpath = "//input[@name = 'buildTrigger.childProjects']")
     private WebElement projectToBuildField;
+
+    @FindBy(xpath = "//a[text() = 'Publish JUnit test result report']")
+    private WebElement publishJUnitTestResultReport;
+
+    @FindBy(name = "_.testResults")
+    private WebElement reportPathField;
+
+    @FindBy(name = "_.healthScaleFactor")
+    private WebElement healthReportAmplificationFactorField;
 
     @Override
     protected FreestyleProjectStatusPage createStatusPage() {
@@ -368,6 +378,35 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
+
+    @Step("Select 'Publish JUnit Test Result Report' option of the 'Post-build actions' dropdown menu")
+    public FreestyleProjectConfigPage selectPublishJUnitTestResultReport() {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(publishJUnitTestResultReport));
+        publishJUnitTestResultReport.click();
+
+        return this;
+    }
+
+    @Step("Set ‘{reportPath}’ in ‘Test report XMLs’ field")
+    public FreestyleProjectConfigPage setReportPath(String reportPath) {
+        scrollToEnd(getDriver());
+        getWait(10).until(TestUtils.ExpectedConditions.elementIsNotMoving(reportPathField));
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("arguments[0].click();", reportPathField);
+        reportPathField.sendKeys(reportPath);
+
+        return this;
+    }
+
+    @Step("Clear 'Health report amplification factor' field")
+    public FreestyleProjectConfigPage clearHealthReportAmplificationFactorField() {
+        scrollToElement(getDriver(), healthReportAmplificationFactorField);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(healthReportAmplificationFactorField));
+        healthReportAmplificationFactorField.clear();
+
+        return this;
+    }
+
 
 
 }
