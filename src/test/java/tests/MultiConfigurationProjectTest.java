@@ -1,5 +1,7 @@
 package tests;
 
+
+import io.qameta.allure.Flaky;
 import model.page.ConsoleOutputPage;
 import model.page.HomePage;
 import model.page.RenameItemErrorPage;
@@ -225,6 +227,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(buildNowButton.buildNowButtonIsDisplayed());
     }
 
+    @Flaky
     @Test
     public void testMultiConfigurationProjectWithBuildStepCheckBuildSuccess() {
         ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
