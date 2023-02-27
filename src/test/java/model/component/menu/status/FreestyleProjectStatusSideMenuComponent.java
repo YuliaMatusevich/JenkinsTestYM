@@ -105,12 +105,15 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
     }
 
     @Step("Click 'Build Now' '{n}' times")
-    public FreestyleProjectStatusPage clickBuildNowAndWaitStatusChangedNTimes(int n) throws InterruptedException {
+    public FreestyleProjectStatusPage clickBuildNowAndWaitStatusChangedNTimes(int n) {
         for (int i = 0; i < n; i++) {
             buildNow.click();
-            getWait(60).until(ExpectedConditions.attributeContains(buildStatusIconLast, "tooltip", "&gt; Console Output"));
+            getWait(60).until(ExpectedConditions.textToBePresentInElement(
+                    numberOfLastBuild, "#" + (i + 1)));
+            getWait(60).until((ExpectedConditions.not(ExpectedConditions.attributeToBe(
+                    buildStatusIconLast, "tooltip", "In progress &gt; Console Output"))));
         }
-        getWait(20).until(ExpectedConditions.textToBePresentInElement(
+        getWait(60).until(ExpectedConditions.textToBePresentInElement(
                 numberOfLastBuild, "#" + n));
 
         return new FreestyleProjectStatusPage(getDriver());

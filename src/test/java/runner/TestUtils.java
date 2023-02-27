@@ -5,7 +5,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TestUtils {
 
@@ -109,5 +111,13 @@ public class TestUtils {
         Date date = new Date();
 
         return new SimpleDateFormat("a").format(date);
+    }
+
+    public static List<String> getListOfLastKeepElements(int allElements, int keepElements) {
+        List<String> listOfLastKeepElements = new ArrayList<>();
+        for (int i = 0; i < keepElements; i++) {
+            listOfLastKeepElements.add("#" + (allElements - i));
+        }
+        return listOfLastKeepElements;
     }
 }

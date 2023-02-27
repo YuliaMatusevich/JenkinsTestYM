@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
+import runner.TestUtils;
 
 import java.util.*;
 
@@ -480,8 +481,8 @@ public class FreestyleProjectTest extends BaseTest {
     @Test
     public void testBuildProjectWithDiscardOldBuildsMaxLimit() throws InterruptedException {
         final int expectedMaxNumberOfBuildsToKeep = 2;
-        final int amountsOfBuild = 3;
-        final String[] expectedListOfBuildNames = new String[]{"#3", "#2"};
+        final int amountsOfBuild = expectedMaxNumberOfBuildsToKeep + 3;
+        final List<String> expectedListOfBuildNames = TestUtils.getListOfLastKeepElements(amountsOfBuild,expectedMaxNumberOfBuildsToKeep);
 
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
         List<String> actualAmountOfSavedBuilds =
@@ -494,14 +495,12 @@ public class FreestyleProjectTest extends BaseTest {
                         .clickSaveButton()
                         .getSideMenu()
                         .clickBuildNowAndWaitStatusChangedNTimes(amountsOfBuild)
-                        .getBreadcrumbs()
-                        .clickDashboard()
-                        .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                        .refreshFreestyleProjectStatusPage()
                         .getSideMenu()
                         .getListOfSavedBuilds();
 
         Assert.assertEquals(actualAmountOfSavedBuilds.size(), expectedMaxNumberOfBuildsToKeep);
-        Assert.assertEquals(actualAmountOfSavedBuilds.toArray(), expectedListOfBuildNames);
+        Assert.assertEquals(actualAmountOfSavedBuilds, expectedListOfBuildNames);
     }
 
     @Owner("Yulia Matusevich")

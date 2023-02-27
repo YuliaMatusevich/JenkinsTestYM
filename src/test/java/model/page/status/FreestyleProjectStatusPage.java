@@ -128,4 +128,11 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
 
         return testResultHistoryChart.isDisplayed();
     }
+
+    @Step("Refresh FreestyleProjectStatus page")
+    public FreestyleProjectStatusPage refreshFreestyleProjectStatusPage() {
+        getDriver().navigate().refresh();
+
+        return this;
+    }
 }
