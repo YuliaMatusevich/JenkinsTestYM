@@ -49,6 +49,8 @@ public class TestDataUtils {
     public static final String DESCRIPTION = getRandomStr();
     public static final String NEW_DESCRIPTION = "New description";
 
+    public static final String GITHUB_REPOSITORY_URL = "https://github.com/RedRoverSchool/JenkinsQA_05-test.git";
+
     @DataProvider(name = "specialCharacters")
     public static Object[][] specialCharactersList() {
         return new Object[][]{{'&', "&amp;"}, {'>', "&gt;"}, {'<', "&lt;"}, {'!', "!"}, {'@', "@"}, {'#', "#"},

@@ -376,7 +376,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     @Step("Set 'Project to build' '{name}")
     public FreestyleProjectConfigPage setProjectToBuildName(String name) {
-        scrollToElement(getDriver(), projectToBuildField);
+        scrollToElement_PlaceInCenter(getDriver(), projectToBuildField);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(projectToBuildField));
         getWait(5).until(ExpectedConditions.elementToBeClickable(projectToBuildField));
         projectToBuildField.click();

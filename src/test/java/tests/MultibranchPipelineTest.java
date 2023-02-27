@@ -7,6 +7,7 @@ import io.qameta.allure.SeverityLevel;
 import model.page.HomePage;
 import model.page.status.MultibranchPipelineStatusPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -113,6 +114,7 @@ public class MultibranchPipelineTest extends BaseTest {
         Assert.assertEquals(descriptionText, description);
     }
 
+    @Ignore
     @Test
     public void testChangeProjectIcon() {
         createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);

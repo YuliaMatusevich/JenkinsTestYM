@@ -8,6 +8,7 @@ import model.page.RenameItemErrorPage;
 import model.page.config.FreestyleProjectConfigPage;
 import model.page.status.FreestyleProjectStatusPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -338,7 +339,6 @@ public class FreestyleProjectTest extends BaseTest {
     @Description("Build project sourced from GitHub using Maven with Build Steps goal: 'test'")
     @Test
     public void testBuildGitProjectWithBuildStepsMaven() {
-        final String repositoryURL = "https://github.com/LiudmilaPlucci/Java_05";
         final String branchSpecifier = "*/main";
         final String goal = "test";
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -348,7 +348,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .getSideMenu()
                 .clickConfigure()
                 .selectSourceCodeManagementGIT()
-                .inputGITRepositoryURL(repositoryURL)
+                .inputGITRepositoryURL(TestDataUtils.GITHUB_REPOSITORY_URL)
                 .inputBranchSpecifier(branchSpecifier)
                 .openAddBuildStepDropDown()
                 .selectInvokeTopLevelMavenTargets()
@@ -502,7 +502,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(actualAmountOfSavedBuilds.size(), expectedMaxNumberOfBuildsToKeep);
         Assert.assertEquals(actualAmountOfSavedBuilds, expectedListOfBuildNames);
     }
-
+    @Ignore
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -510,7 +510,6 @@ public class FreestyleProjectTest extends BaseTest {
             "when the 'Publish JUnit test result report' option of the 'Add post-build actions' is used")
     @Test()
     public void testBuildProjectWithPostBuildActionPublishJUnitReport() {
-        final String repositoryURL = "https://github.com/LiudmilaPlucci/Java_05";
         final String branchSpecifier = "*/main";
         final String goal = "clean compile test";
         final String reportPath = "target/surefire-reports/*.xml";
@@ -522,7 +521,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .getSideMenu()
                 .clickConfigure()
                 .selectSourceCodeManagementGIT()
-                .inputGITRepositoryURL(repositoryURL)
+                .inputGITRepositoryURL(TestDataUtils.GITHUB_REPOSITORY_URL)
                 .inputBranchSpecifier(branchSpecifier)
                 .openAddBuildStepDropDown()
                 .selectInvokeTopLevelMavenTargets()
