@@ -2,8 +2,8 @@ package model.page;
 
 import io.qameta.allure.Step;
 import model.page.base.BaseStatusPage;
-import model.page.base.MainBasePage;
 import model.component.menu.HomeSideMenuComponent;
+import model.page.base.MainBasePageWithSideMenu;
 import model.page.config.FolderConfigPage;
 import model.page.config.FreestyleProjectConfigPage;
 import model.page.config.PipelineConfigPage;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 import static runner.TestUtils.scrollToElement;
 
-public class HomePage extends MainBasePage {
+public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
     @FindBy(css = "tr td a.model-link")
     private List<WebElement> jobList;
@@ -68,13 +68,13 @@ public class HomePage extends MainBasePage {
     @FindBy(xpath = "//a[@href='computer/new']")
     private WebElement setUpAnAgent;
 
-    public HomePage(WebDriver driver) {
-        super(driver);
+    @Override
+    protected HomeSideMenuComponent createSideMenuComponent() {
+        return new HomeSideMenuComponent(getDriver());
     }
 
-    @Step("Move to side menu")
-    public HomeSideMenuComponent getSideMenu() {
-        return new HomeSideMenuComponent(getDriver());
+    public HomePage(WebDriver driver) {
+        super(driver);
     }
 
     public NewViewFromDashboardPage<?> clickAddViewLink() {
@@ -110,6 +110,7 @@ public class HomePage extends MainBasePage {
 
         return new FreestyleProjectStatusPage(getDriver());
     }
+
     @Step("Select ‘Freestyle project’ name '{name}' to configure;")
     public FreestyleProjectStatusPage clickFreestyleProjectName(String name) {
         getWait(10).until(ExpectedConditions.elementToBeClickable(By.linkText(name))).click();
@@ -186,13 +187,6 @@ public class HomePage extends MainBasePage {
     public String getHeaderText() {
 
         return getWait(10).until(ExpectedConditions.visibilityOf(header)).getText();
-    }
-
-    public HomePage clickJobDropdownMenu(String folderName) {
-        getWait(5).until(ExpectedConditions
-                .elementToBeClickable(By.xpath("//a[@href='job/" + folderName + "/']/button"))).click();
-
-        return this;
     }
 
     @Step("Click on Folder name in dashboard")

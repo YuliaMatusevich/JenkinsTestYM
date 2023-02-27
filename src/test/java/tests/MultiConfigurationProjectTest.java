@@ -38,7 +38,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
 
         MultiConfigurationProjectStatusPage multiConfigPrStatusPage = new HomePage(getDriver())
-                .clickJobDropdownMenu(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
+                .clickJobDropDownMenu(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
                 .clickRenameMultiConfigurationDropDownMenu()
                 .clearFieldAndInputNewName(TestDataUtils.MULTI_CONFIGURATION_PROJECT_RENAME)
                 .clickRenameButton();

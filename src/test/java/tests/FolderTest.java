@@ -102,7 +102,7 @@ public class FolderTest extends BaseTest {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME_2);
 
         HomePage homePage = new HomePage(getDriver())
-                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
+                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME)
                 .clickMoveButtonDropdown(new FolderStatusPage(getDriver()))
                 .selectFolder(TestDataUtils.FOLDER_NAME_2)
                 .clickMoveButton()
@@ -132,7 +132,7 @@ public class FolderTest extends BaseTest {
     public void testRenameFolderFromDropDownMenuConfigure() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
         HomePage homePage = new HomePage(getDriver())
-                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
+                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME)
                 .clickConfigDropDownMenu()
                 .setProjectName(TestDataUtils.FOLDER_NAME_2)
                 .clickSaveButton()
@@ -146,7 +146,7 @@ public class FolderTest extends BaseTest {
     public void testRenameFolderFromDropDownMenuRename() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
         HomePage homePage = new HomePage(getDriver())
-                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
+                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME)
                 .clickRenameFolderDropDownMenu()
                 .clearFieldAndInputNewName(TestDataUtils.FOLDER_NAME_2)
                 .clickRenameButton()
@@ -312,7 +312,7 @@ public class FolderTest extends BaseTest {
     @Test(dependsOnMethods = "testCreateFolderWithDescription")
     public void testRenameFolderWithDescription() {
         FolderStatusPage folder = new HomePage(getDriver())
-                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
+                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME)
                 .clickRenameFolderDropDownMenu()
                 .clearFieldAndInputNewName(TestDataUtils.FOLDER_NAME)
                 .clickRenameButton()
@@ -343,7 +343,7 @@ public class FolderTest extends BaseTest {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME_2);
 
         String folderDescription = new HomePage(getDriver())
-                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME_2)
+                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME_2)
                 .clickConfigDropDownMenu()
                 .setDescription(TestDataUtils.DESCRIPTION)
                 .clickSaveButton()
