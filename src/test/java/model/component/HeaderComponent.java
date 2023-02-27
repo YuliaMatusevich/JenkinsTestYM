@@ -15,6 +15,7 @@ import runner.TestUtils;
 import java.util.List;
 
 public class HeaderComponent extends BaseComponent {
+
     @FindBy(id = "jenkins-head-icon")
     private WebElement jenkinsHeadIcon;
 

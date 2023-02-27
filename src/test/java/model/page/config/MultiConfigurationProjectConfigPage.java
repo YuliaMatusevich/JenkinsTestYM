@@ -214,5 +214,4 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
 
         return contentField.getAttribute("value");
     }
-
 }

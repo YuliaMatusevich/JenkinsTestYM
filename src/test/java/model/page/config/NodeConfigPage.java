@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import runner.TestUtils;
 
 public class NodeConfigPage extends MainBasePage {
+
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement saveButton;
 

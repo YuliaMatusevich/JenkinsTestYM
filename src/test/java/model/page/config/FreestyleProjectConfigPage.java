@@ -32,7 +32,6 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     @FindBy(xpath = "//input[@name='_.daysToKeepStr']")
     private WebElement daysToKeepBuilds;
 
-//    @FindBy(xpath = "//input[@name='_.numToKeepStr']")
     @FindBy(name = "_.numToKeepStr")
     private WebElement maxNumberOfBuildsToKeep;
 
@@ -101,7 +100,8 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     @FindBy(name = "maven.name")
     private WebElement mavenVersionField;
-    @FindBy(xpath ="//select[@class='jenkins-input']//option[last()]")
+
+    @FindBy(xpath = "//select[@class='jenkins-input']//option[last()]")
     private WebElement lastMavenOptionInMavenVersionField;
 
     @FindBy(id = "textarea._.targets")
@@ -243,6 +243,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
+
     @Step("Select 'Source Code Management GIT'")
     public FreestyleProjectConfigPage selectSourceCodeManagementGIT() {
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(radioGitButton));
@@ -254,6 +255,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
+
     @Step("Input GIT Repository URL")
     public FreestyleProjectConfigPage inputGITRepositoryURL(String url) {
         getWait(10).until(ExpectedConditions.elementToBeClickable(fieldInputRepositoryURL)).sendKeys(url);
@@ -266,6 +268,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
+
     @Step("Click on ‘Add Build Steps' button in ‘Build Steps' section")
     public FreestyleProjectConfigPage openAddBuildStepDropDown() {
         scrollToElement_PlaceInCenter(getDriver(), buildStepsButton);
@@ -303,6 +306,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return buildPeriodicallyCheckbox.isSelected();
     }
+
     @Step("Set 'Branch Specifier' field with '{branchSpecifier}'")
     public FreestyleProjectConfigPage inputBranchSpecifier(String branchSpecifier) {
         scrollToElement_PlaceInCenter(getDriver(), branchSpecifierInputField);
@@ -329,6 +333,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
+
     @Step("Select ‘Last Maven option’ in ‘Maven Version’ dropdown menu")
     public FreestyleProjectConfigPage selectMavenVersion() {
         scrollToEnd(getDriver());
@@ -339,6 +344,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
+
     @Step("Set ‘{goal}’ in ‘Goals’ field")
     public FreestyleProjectConfigPage setGoal(String goal) {
         scrollToEnd(getDriver());
@@ -373,7 +379,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         scrollToElement(getDriver(), projectToBuildField);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(projectToBuildField));
         getWait(5).until(ExpectedConditions.elementToBeClickable(projectToBuildField));
-        projectToBuildField. click();
+        projectToBuildField.click();
         projectToBuildField.sendKeys(name);
 
         return this;
@@ -406,7 +412,4 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
         return this;
     }
-
-
-
 }

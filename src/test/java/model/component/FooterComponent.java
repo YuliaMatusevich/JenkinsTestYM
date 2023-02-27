@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 
 public class FooterComponent extends BaseComponent {
+
     @FindBy(xpath = "//a[@href='https://www.jenkins.io/']")
     private WebElement jenkinsFooterLink;
 

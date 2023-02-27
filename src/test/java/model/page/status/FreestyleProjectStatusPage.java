@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,7 +87,7 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
         return new FolderStatusPage(getDriver());
     }
 
-    @Step ("Collect list of h2 headers")
+    @Step("Collect list of h2 headers")
     public List<String> getH2HeaderNamesList() {
         return listOfH2Headers
                 .stream()
@@ -94,13 +95,14 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
                 .collect(Collectors.toList());
     }
 
-    @Step ("Collect list of downstream projects' names")
+    @Step("Collect list of downstream projects' names")
     public List<String> getDownstreamProjectNamesList() {
         return listOfDownstreamProjects
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
     }
+
     @Step("Click the upstream project name '{name}")
     public FreestyleProjectStatusPage clickUpstreamProjectName(String name) {
         getDriver().findElement(By.xpath("//a[@href='/job/" + name + "/']")).click();
@@ -126,6 +128,4 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
 
         return testResultHistoryChart.isDisplayed();
     }
-
-
 }

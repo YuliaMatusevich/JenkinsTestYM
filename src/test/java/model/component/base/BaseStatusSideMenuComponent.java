@@ -62,6 +62,7 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
 
         return new MovePage<>(getDriver(), page);
     }
+
     @Step("Click 'Configure' on side menu")
     public ConfigPage clickConfigure() {
         configure.click();
