@@ -8,7 +8,6 @@ import model.page.RenameItemErrorPage;
 import model.page.config.FreestyleProjectConfigPage;
 import model.page.status.FreestyleProjectStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -245,7 +244,6 @@ public class FreestyleProjectTest extends BaseTest {
     @Test(dependsOnMethods = "testConfigureJobAsParameterized")
     public void testConfigureSourceCodeByGIT() {
         final String repositoryURL = "https://github.com/RedRoverSchool/JenkinsQA_05.git";
-        final String branchSpecifier = "main";
 
         HomePage page = new HomePage(getDriver())
                 .clickFreestyleProjectName()
@@ -255,7 +253,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickLinkSourceCodeManagement()
                 .selectSourceCodeManagementGIT()
                 .inputGITRepositoryURL(repositoryURL)
-                .inputBranchSpecifier(branchSpecifier)
+                .inputBranchSpecifier(TestDataUtils.BRANCH_SPECIFIER)
                 .clickSaveButton()
                 .getSideMenu()
                 .clickBuildNowAndRedirectToDashboardAfterBuildCompleted();
@@ -339,7 +337,6 @@ public class FreestyleProjectTest extends BaseTest {
     @Description("Build project sourced from GitHub using Maven with Build Steps goal: 'test'")
     @Test
     public void testBuildGitProjectWithBuildStepsMaven() {
-        final String branchSpecifier = "*/main";
         final String goal = "test";
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
 
@@ -349,7 +346,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickConfigure()
                 .selectSourceCodeManagementGIT()
                 .inputGITRepositoryURL(TestDataUtils.GITHUB_REPOSITORY_URL)
-                .inputBranchSpecifier(branchSpecifier)
+                .inputBranchSpecifier(TestDataUtils.BRANCH_SPECIFIER)
                 .openAddBuildStepDropDown()
                 .selectInvokeTopLevelMavenTargets()
                 .selectMavenVersion()
@@ -502,15 +499,14 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(actualAmountOfSavedBuilds.size(), expectedMaxNumberOfBuildsToKeep);
         Assert.assertEquals(actualAmountOfSavedBuilds, expectedListOfBuildNames);
     }
-    @Ignore
+
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
     @Description("Check if the 'Latest Test Result' link and test result history chart appear on the project Status Page " +
             "when the 'Publish JUnit test result report' option of the 'Add post-build actions' is used")
-    @Test()
+    @Test
     public void testBuildProjectWithPostBuildActionPublishJUnitReport() {
-        final String branchSpecifier = "*/main";
         final String goal = "clean compile test";
         final String reportPath = "target/surefire-reports/*.xml";
         final String expectedLinkName = "Latest Test Result";
@@ -522,16 +518,11 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickConfigure()
                 .selectSourceCodeManagementGIT()
                 .inputGITRepositoryURL(TestDataUtils.GITHUB_REPOSITORY_URL)
-                .inputBranchSpecifier(branchSpecifier)
+                .inputBranchSpecifier(TestDataUtils.BRANCH_SPECIFIER)
                 .openAddBuildStepDropDown()
                 .selectInvokeTopLevelMavenTargets()
                 .selectMavenVersion()
                 .setGoal(goal)
-                .clickSaveButton()
-                .getSideMenu()
-                .clickBuildNowAndWaitBuildCompleted()
-                .getSideMenu()
-                .clickConfigure()
                 .openAddPostBuildActionDropDown()
                 .selectPublishJUnitTestResultReport()
                 .setReportPath(reportPath)
@@ -539,8 +530,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickSaveButton()
                 .getSideMenu()
                 .clickBuildNowAndWaitBuildCompleted()
-                .getBreadcrumbs()
-                .clickFreestyleProjectNameOnBreadcrumbs(TestDataUtils.FREESTYLE_PROJECT_NAME);
+                .refreshFreestyleProjectStatusPage();
 
         Assert.assertTrue(freestyleProjectStatusPage.isTestResultLinkClickable());
         Assert.assertEquals(freestyleProjectStatusPage.getTestResultLinkText(), expectedLinkName);
