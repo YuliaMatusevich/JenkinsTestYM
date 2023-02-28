@@ -169,7 +169,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
         return this;
     }
-
+    @Step("Click on MultibranchPipeline name '{name}' on the dashboard")
     public MultibranchPipelineStatusPage clickJobMultibranchPipeline(String name) {
         getDriver().findElement(By.xpath("//span[text()='" + name + "']")).click();
 

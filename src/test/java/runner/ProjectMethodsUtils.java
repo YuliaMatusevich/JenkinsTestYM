@@ -55,6 +55,7 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
+    @Step("Create new MultibranchPipeline project and return to dashboard")
     public static void createNewMultibranchPipeline(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()

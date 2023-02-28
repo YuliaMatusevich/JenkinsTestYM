@@ -1,5 +1,6 @@
 package model.page.status;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseStatusPage;
 import model.page.config.MultibranchPipelineConfigPage;
 import model.component.menu.status.MultibranchPipelineStatusSideMenuComponent;
@@ -40,6 +41,7 @@ public class MultibranchPipelineStatusPage extends BaseStatusPage<MultibranchPip
         return warningMessage.getText().split(" \n")[0];
     }
 
+    @Step("Get attribute 'class' from project icon")
     public String getAttributeProjectIcon() {
         return projectIcon.getAttribute("class");
     }

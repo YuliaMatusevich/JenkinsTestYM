@@ -1,5 +1,6 @@
 package model.page.config;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseConfigPage;
 import model.page.status.MultibranchPipelineStatusPage;
 import org.openqa.selenium.WebDriver;
@@ -44,6 +45,7 @@ public class MultibranchPipelineConfigPage extends BaseConfigPage<MultibranchPip
         return this;
     }
 
+    @Step("Select default icon for MultibranchPipeline project")
     public MultibranchPipelineConfigPage selectIcon() {
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), selectIcon);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(selectIcon)).click();
