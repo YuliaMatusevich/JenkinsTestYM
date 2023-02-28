@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,6 +28,7 @@ public class JenkinsManageCredentialsPage extends MainBasePage {
         return this;
     }
 
+    @Step("Make sure the icon size is the same")
     public boolean isIconEqualSmallIcon() {
         String str = getIconSize();
         clickSmallSizeIcon();

@@ -358,6 +358,10 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertTrue(nodeNamesList.contains(TestDataUtils.ITEM_NAME));
     }
 
+    @Owner("Stanislav Akulionok")
+    @Severity(SeverityLevel.TRIVIAL)
+    @Feature("UI")
+    @Description ("The 'Jenkins Credentials Provider' icon is reduced in size when the 'S' button is pressed")
     @Test
     public void testCheckIconSize() {
 

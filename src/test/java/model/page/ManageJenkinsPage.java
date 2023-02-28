@@ -91,6 +91,7 @@ public class ManageJenkinsPage extends MainBasePage {
         return new JenkinsConfigureSystemPage(getDriver());
     }
 
+    @Step("Click 'Manage Credentials' link on Security section")
     public JenkinsManageCredentialsPage clickManageCredentials(){
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), manageCredentials);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(manageCredentials)).click();
