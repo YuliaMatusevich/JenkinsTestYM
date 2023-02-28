@@ -1,8 +1,8 @@
 package model.page;
 
 import io.qameta.allure.Step;
-import model.page.base.MainBasePage;
 import model.component.menu.ManageBuildsAndCloudsSideMenuComponent;
+import model.page.base.MainBasePageWithSideMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ManageNodesAndCloudsPage extends MainBasePage {
+public class ManageNodesAndCloudsPage extends MainBasePageWithSideMenu<ManageBuildsAndCloudsSideMenuComponent> {
     @FindBy(xpath = "//tbody//a[@class='jenkins-table__link model-link inside']")
     private List<WebElement> tableBody;
 
@@ -19,8 +19,8 @@ public class ManageNodesAndCloudsPage extends MainBasePage {
         super(driver);
     }
 
-    @Step("Switch to side menu")
-    public ManageBuildsAndCloudsSideMenuComponent getSideMenu() {
+    @Override
+    protected ManageBuildsAndCloudsSideMenuComponent createSideMenuComponent() {
         return new ManageBuildsAndCloudsSideMenuComponent(getDriver());
     }
 

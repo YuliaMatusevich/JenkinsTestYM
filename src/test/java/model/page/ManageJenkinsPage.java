@@ -1,8 +1,9 @@
 package model.page;
 
 import io.qameta.allure.Step;
-import model.page.base.MainBasePage;
+import model.component.menu.HomeSideMenuComponent;
 import model.component.FooterComponent;
+import model.page.base.MainBasePageWithSideMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,7 +13,7 @@ import runner.TestUtils;
 import static runner.TestUtils.scrollToElement;
 import static runner.TestUtils.scrollToEnd;
 
-public class ManageJenkinsPage extends MainBasePage {
+public class ManageJenkinsPage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
     @FindBy(xpath = "//a[@href='configureTools']")
     private WebElement configureTools;
@@ -37,6 +38,11 @@ public class ManageJenkinsPage extends MainBasePage {
 
     public ManageJenkinsPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    protected HomeSideMenuComponent createSideMenuComponent() {
+        return new HomeSideMenuComponent(getDriver());
     }
 
     public GlobalToolConfigurationPage clickConfigureTools() {

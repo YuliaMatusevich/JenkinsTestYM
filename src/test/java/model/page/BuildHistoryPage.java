@@ -1,6 +1,7 @@
 package model.page;
 
-import model.page.base.MainBasePage;
+import model.component.menu.HomeSideMenuComponent;
+import model.page.base.MainBasePageWithSideMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,11 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BuildHistoryPage extends MainBasePage {
-
-    public BuildHistoryPage(WebDriver driver) {
-        super(driver);
-    }
+public class BuildHistoryPage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
     @FindBy(xpath = "//a[@href='/iconSize?16x16']")
     private WebElement smallSizeIcon;
@@ -47,6 +44,15 @@ public class BuildHistoryPage extends MainBasePage {
 
     @FindBy(tagName = "h1")
     private WebElement header;
+
+    public BuildHistoryPage(WebDriver driver) {
+        super(driver);
+    }
+
+    @Override
+    protected HomeSideMenuComponent createSideMenuComponent() {
+        return new HomeSideMenuComponent(getDriver());
+    }
 
     public boolean smallSizeIconIsDisplayed() {
 

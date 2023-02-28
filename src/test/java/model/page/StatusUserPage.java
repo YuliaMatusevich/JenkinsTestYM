@@ -1,14 +1,14 @@
 package model.page;
 
 import io.qameta.allure.Step;
-import model.page.base.MainBasePage;
 import model.component.menu.UserSideMenuComponent;
+import model.page.base.MainBasePageWithSideMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class StatusUserPage extends MainBasePage {
+public class StatusUserPage extends MainBasePageWithSideMenu<UserSideMenuComponent> {
 
     @FindBy(xpath = "//h1")
     private WebElement h1Title;
@@ -41,7 +41,8 @@ public class StatusUserPage extends MainBasePage {
         super(driver);
     }
 
-    public UserSideMenuComponent getSideMenu() {
+    @Override
+    protected UserSideMenuComponent createSideMenuComponent() {
         return new UserSideMenuComponent(getDriver());
     }
 

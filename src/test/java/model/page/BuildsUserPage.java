@@ -1,12 +1,12 @@
 package model.page;
 
-import model.page.base.MainBasePage;
 import model.component.menu.UserSideMenuComponent;
+import model.page.base.MainBasePageWithSideMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class BuildsUserPage extends MainBasePage {
+public class BuildsUserPage extends MainBasePageWithSideMenu<UserSideMenuComponent> {
 
     @FindBy(css = "div#main-panel > h1")
     private WebElement headerH1;
@@ -16,7 +16,8 @@ public class BuildsUserPage extends MainBasePage {
         super(driver);
     }
 
-    public UserSideMenuComponent getSideMenu() {
+    @Override
+    protected UserSideMenuComponent createSideMenuComponent() {
         return new UserSideMenuComponent(getDriver());
     }
 

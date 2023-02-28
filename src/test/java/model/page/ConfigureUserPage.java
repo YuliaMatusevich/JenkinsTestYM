@@ -1,13 +1,13 @@
 package model.page;
 
 import io.qameta.allure.Step;
-import model.page.base.MainBasePage;
 import model.component.menu.UserSideMenuComponent;
+import model.page.base.MainBasePageWithSideMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class ConfigureUserPage extends MainBasePage {
+public class ConfigureUserPage extends MainBasePageWithSideMenu<UserSideMenuComponent> {
 
     @FindBy(css = "input[name='_.fullName']")
     private WebElement inputFieldFullUserName;
@@ -22,7 +22,8 @@ public class ConfigureUserPage extends MainBasePage {
         super(driver);
     }
 
-    public UserSideMenuComponent getSideMenu() {
+    @Override
+    protected UserSideMenuComponent createSideMenuComponent() {
         return new UserSideMenuComponent(getDriver());
     }
 
