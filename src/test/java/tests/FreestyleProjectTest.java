@@ -471,6 +471,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(downstreamProjectName.contains(TestDataUtils.FREESTYLE_PROJECT_NAME2));
     }
 
+    @TmsLink("2RF9x5pb")
     @Owner("ViktoriyaD")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
