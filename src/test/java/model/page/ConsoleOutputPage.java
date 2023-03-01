@@ -22,7 +22,7 @@ public class ConsoleOutputPage extends MainBasePage {
         super(driver);
     }
 
-    @Step("Get 'Console Output' text")
+    @Step("Get text of the 'Console Output' log")
     public String getConsoleOutputText() {
         getWait(60).until(ExpectedConditions.visibilityOf(buildStatusIcon));
 

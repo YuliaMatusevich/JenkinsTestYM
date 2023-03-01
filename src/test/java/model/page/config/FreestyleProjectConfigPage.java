@@ -141,6 +141,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
+    @Step("Input '{numberOfDays}' in the 'Days to keep builds' field of the 'Discard old builds' option")
     public FreestyleProjectConfigPage typeDaysToKeepBuilds(String numberOfDays) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(daysToKeepBuilds)).sendKeys(numberOfDays);
 
@@ -152,6 +153,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return daysToKeepBuilds.getAttribute("value");
     }
 
+    @Step("Set '{numberOfBuilds}' in the 'Max # of builds to keep' field")
     public FreestyleProjectConfigPage typeMaxNumberOfBuildsToKeep(String numberOfBuilds) {
         maxNumberOfBuildsToKeep.sendKeys(numberOfBuilds);
 
@@ -171,72 +173,84 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return maxNumberOfBuildsToKeep.getAttribute("value");
     }
 
+    @Step("Switch on 'This Project Is Parametrized' checkbox")
     public FreestyleProjectConfigPage switchONCheckBoxThisProjectIsParametrized() {
         checkBoxProjectIsParametrized.click();
 
         return this;
     }
 
+    @Step("Open 'Add Parameter' dropdown")
     public FreestyleProjectConfigPage clickButtonAddParameter() {
         buttonAddParameter.click();
 
         return this;
     }
 
+    @Step("Select 'String Parameter' in the 'Add Parameter' dropdown")
     public FreestyleProjectConfigPage selectStringParameter() {
         stringParameter.click();
 
         return this;
     }
 
+    @Step("Input '{stringParameterName}' in the 'Name' field of the 'String Parameter' section")
     public FreestyleProjectConfigPage inputStringParameterName(String stringParameterName) {
         getWait(5).until(ExpectedConditions.visibilityOf(fieldInputStringParameterName)).sendKeys(stringParameterName);
 
         return this;
     }
 
+    @Step("Input '{stringParameterDefaultValue}' in the 'Default Value' field of the 'String Parameter' section")
     public FreestyleProjectConfigPage inputStringParameterDefaultValue(String stringParameterDefaultValue) {
         fieldInputStringParameterDefaultValue.sendKeys(stringParameterDefaultValue);
 
         return this;
     }
 
+    @Step("Select 'Choice Parameter' in the 'Add Parameter' dropdown")
     public FreestyleProjectConfigPage selectChoiceParameter() {
         choiceParameter.click();
 
         return this;
     }
 
+    @Step("Input '{choiceParameterName}' in the 'Name' field of the 'Choice Parameter' section")
     public FreestyleProjectConfigPage inputChoiceParameterName(String choiceParameterName) {
         getWait(5).until(ExpectedConditions.visibilityOf(fieldInputChoiceParameterName)).sendKeys(choiceParameterName);
 
         return this;
     }
 
+    @Step("Input '{choiceParameterValue}' in the 'Choices' field of the 'Choice Parameter' section")
     public FreestyleProjectConfigPage inputChoiceParameterValue(String choiceParameterValue) {
         fieldInputChoiceParameterValue.sendKeys(choiceParameterValue);
 
         return this;
     }
 
+    @Step("Select 'Boolean Parameter' in the 'Add Parameter' dropdown")
     public FreestyleProjectConfigPage selectBooleanParameter() {
         booleanParameter.click();
 
         return this;
     }
 
+    @Step("Input '{booleanParameterName}' in the 'Name' field of the 'Boolean Parameter' section")
     public FreestyleProjectConfigPage inputBooleanParameterName(String booleanParameterName) {
         getWait(10).until(ExpectedConditions.visibilityOf(fieldInputBooleanParameterName)).sendKeys(booleanParameterName);
 
         return this;
     }
 
+    @Step("Switch on 'Set by Default' in the 'Boolean Parameter' section")
     public FreestyleProjectConfigPage switchONBooleanParameterAsDefault() {
         setByDefault.click();
 
         return this;
     }
 
+    @Step("Scroll down and select 'String Parameter' in the 'Add Parameter' dropdown")
     public FreestyleProjectConfigPage scrollAndClickAddParameterButton() {
         scrollToElement_PlaceInCenter(getDriver(), buttonAddParameter);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(buttonAddParameter)).click();
@@ -244,7 +258,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
-    @Step("Select 'Source Code Management GIT'")
+    @Step("Select 'Git' radio button in the 'Source Code Management' section of the Configuration page")
     public FreestyleProjectConfigPage selectSourceCodeManagementGIT() {
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(radioGitButton));
         getAction()
@@ -256,20 +270,21 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
-    @Step("Input GIT Repository URL")
+    @Step("Input '{url}' in the 'Repository URL' field. Refer to TestDataUtils.GITHUB_REPOSITORY_URL")
     public FreestyleProjectConfigPage inputGITRepositoryURL(String url) {
         getWait(10).until(ExpectedConditions.elementToBeClickable(fieldInputRepositoryURL)).sendKeys(url);
 
         return this;
     }
 
+    @Step("Switch off 'This Project Is Parametrized' checkbox")
     public FreestyleProjectConfigPage switchOFFCheckBoxThisProjectIsParametrized() {
         checkBoxProjectIsParametrized.click();
 
         return this;
     }
 
-    @Step("Click on ‘Add Build Steps' button in ‘Build Steps' section")
+    @Step("Open ‘Add Build Steps' dropdown in the ‘Build Steps' section")
     public FreestyleProjectConfigPage openAddBuildStepDropDown() {
         scrollToElement_PlaceInCenter(getDriver(), buildStepsButton);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildStepsButton));
@@ -279,6 +294,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
+    @Step("Get list of displayed build steps in the 'Add build steps' dropdown")
     public Set<String> getOptionsInBuildStepsDropDown() {
 
         return listOfElementsInBuildStepsDropDown
@@ -287,12 +303,14 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
                 .collect(Collectors.toCollection(HashSet::new));
     }
 
+    @Step("Click 'Build Triggers' on the side menu")
     public FreestyleProjectConfigPage clickBuildTriggersSideMenuOption() {
         buildTriggersSideMenuOption.click();
 
         return this;
     }
 
+    @Step("Select 'Build periodically' checkbox in the 'Build Triggers' section")
     public FreestyleProjectConfigPage scrollAndClickBuildPeriodicallyCheckbox() {
         scrollToElement_PlaceInCenter(getDriver(), buildPeriodicallyOption);
         getWait(20).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildPeriodicallyOption)).click();
@@ -302,12 +320,13 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
+    @Step("Verify if 'Build Periodically' checkbox in the 'Build Triggers' section is checked")
     public boolean verifyThatBuildPeriodicallyCheckboxIsSelected() {
 
         return buildPeriodicallyCheckbox.isSelected();
     }
 
-    @Step("Set 'Branch Specifier' field with '{branchSpecifier}'")
+    @Step("Input '{branchSpecifier}' in the 'Branch Specifier' field")
     public FreestyleProjectConfigPage inputBranchSpecifier(String branchSpecifier) {
         scrollToElement_PlaceInCenter(getDriver(), branchSpecifierInputField);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(branchSpecifierInputField)).clear();
@@ -316,6 +335,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
+    @Step("Click 'Source Code Management' on the side menu")
     public FreestyleProjectConfigPage clickLinkSourceCodeManagement() {
         linkSourceCodeManagement.click();
 
@@ -326,7 +346,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return headline.getText();
     }
 
-    @Step("Select ‘Invoke top-level Maven targets’ in dropdown menu")
+    @Step("Select ‘Invoke top-level Maven targets’ in dropdown menu of the 'Build Steps' section")
     public FreestyleProjectConfigPage selectInvokeTopLevelMavenTargets() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(invokeTopLevelMavenTargets));
         invokeTopLevelMavenTargets.click();
@@ -334,7 +354,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
-    @Step("Select ‘Last Maven option’ in ‘Maven Version’ dropdown menu")
+    @Step("Select last available Maven version in the dropdown menu in ‘Maven Version’ field")
     public FreestyleProjectConfigPage selectMavenVersion() {
         scrollToEnd(getDriver());
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(mavenVersionField));
@@ -356,7 +376,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
-    @Step("Open 'Add post-build action' dropdown")
+    @Step("Open 'Add post-build action' dropdown in the 'Post-build Actions' section")
     public FreestyleProjectConfigPage openAddPostBuildActionDropDown() {
         scrollToElement_PlaceInCenter(getDriver(), postBuildActionButton);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(postBuildActionButton));
@@ -366,7 +386,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
-    @Step("Select 'Build other project")
+    @Step("Select 'Build other project' option in the 'Post-build Actions' dropdown menu")
     public FreestyleProjectConfigPage selectBuildOtherProjects() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(buildOtherProjects));
         buildOtherProjects.click();
@@ -374,7 +394,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
         return this;
     }
 
-    @Step("Set 'Project to build' '{name}")
+    @Step("Input the project '{name} in the 'Project to build' field of the 'Build other project' section")
     public FreestyleProjectConfigPage setProjectToBuildName(String name) {
         scrollToElement_PlaceInCenter(getDriver(), projectToBuildField);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(projectToBuildField));

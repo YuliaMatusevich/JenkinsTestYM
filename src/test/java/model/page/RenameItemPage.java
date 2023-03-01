@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseStatusPage;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,7 @@ public class RenameItemPage<StatusPage extends BaseStatusPage<?, ?>> extends Mai
         this.statusPage = statusPage;
     }
 
+    @Step("Set '{nemName}' in the 'New Name' field")
     public RenameItemPage<StatusPage> clearFieldAndInputNewName(String newName) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(fieldInputtingNewName)).clear();
         fieldInputtingNewName.sendKeys(newName);
@@ -28,6 +30,7 @@ public class RenameItemPage<StatusPage extends BaseStatusPage<?, ?>> extends Mai
         return this;
     }
 
+    @Step("Click 'Rename' button")
     public RenameItemErrorPage clickRenameButtonWithInvalidData() {
         renameButton.click();
 

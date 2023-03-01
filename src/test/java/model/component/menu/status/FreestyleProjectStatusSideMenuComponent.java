@@ -68,12 +68,14 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         super(driver, statusPage);
     }
 
+    @Step("Click 'Build with Parametest' on the side menu")
     public BuildWithParametersPage<FreestyleProjectStatusPage> clickBuildWithParameters() {
         buildWithParameters.click();
 
         return new BuildWithParametersPage<>(getDriver(), page);
     }
 
+    @Step("Open 'Build History' on the side menu")
     public FreestyleProjectStatusPage openBuildHistory() {
         if (chevronDownIconOnBuildHistory.getAttribute("title").equals("expand")) {
             chevronDownIconOnBuildHistory.click();
@@ -82,6 +84,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         return new FreestyleProjectStatusPage(getDriver());
     }
 
+    @Step("Count builds displayed in the 'Build History' section on side menu")
     public int countBuilds() {
         getWait(10).until(ExpectedConditions.attributeContains(buildsInformation, "style", "display"));
         int countBuilds = 0;
@@ -92,7 +95,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         return countBuilds;
     }
 
-    @Step("Click 'Build Now'")
+    @Step("Click 'Build Now' on the side menu and wait for all builds are completed with 'Success' result' ")
     public FreestyleProjectStatusPage clickBuildNowAndWaitSuccessStatus() {
         int countBuildsInList = buildStatusIconList.size() + 1;
         buildNow.click();
@@ -104,7 +107,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         return new FreestyleProjectStatusPage(getDriver());
     }
 
-    @Step("Click 'Build Now' '{n}' times")
+    @Step("Click 'Build Now' on the side menu '{n}' times and wait for all builds with any result are completed")
     public FreestyleProjectStatusPage clickBuildNowAndWaitStatusChangedNTimes(int n) {
         for (int i = 0; i < n; i++) {
             buildNow.click();
@@ -119,7 +122,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         return new FreestyleProjectStatusPage(getDriver());
     }
 
-    @Step("Click 'Build Now' and wait for builds with any result are completed")
+    @Step("Click 'Build Now' on the side menu and wait for all builds with any result are completed")
     public FreestyleProjectStatusPage clickBuildNowAndWaitBuildCompleted() {
         int countBuildsInList = buildStatusIconList.size() + 1;
         buildNow.click();
@@ -135,6 +138,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         return new BreadcrumbsComponent(getDriver());
     }
 
+    @Step("Click 'Build Now' on the side menu and get the 'Dashboard' when the build is completed")
     public HomePage clickBuildNowAndRedirectToDashboardAfterBuildCompleted() {
         buildNow.click();
         getWait(60).until(ExpectedConditions.not(ExpectedConditions
@@ -156,7 +160,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         return buildDateTimeField.getText();
     }
 
-    @Step("Click on the last build in 'Build History' on side menu")
+    @Step("Click the last build icon in 'Build History' section on side menu")
     public BuildStatusPage clickBuildIconInBuildHistory() {
         getWait(60).until(ExpectedConditions.not(ExpectedConditions
                 .attributeContains(buildStatusIcon, "tooltip", "progress")));
@@ -182,7 +186,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
         return new WorkspacePage(getDriver());
     }
 
-    @Step("Get a list of saved builds")
+    @Step("Get a list of saved builds' names from 'Build History' section on the side menu")
     public List<String> getListOfSavedBuilds() {
         return listOfBuildNames
                 .stream()

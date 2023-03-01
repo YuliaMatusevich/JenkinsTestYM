@@ -51,12 +51,14 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
         super(driver);
     }
 
+    @Step("Click 'Disable Project' button")
     public FreestyleProjectStatusPage clickDisableProjectBtn() {
         disableProjectBtn.click();
 
         return this;
     }
 
+    @Step("Clear description field and input new description text, Click 'OK' button then")
     public FreestyleProjectStatusPage inputAndSaveDescriptionText(String description) {
         getWait(10).until(ExpectedConditions.elementToBeClickable(fieldDescriptionText)).clear();
         fieldDescriptionText.sendKeys(description);
@@ -65,16 +67,19 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
         return this;
     }
 
+    @Step("Click 'OK' in the alert message to confirm deletion")
     public HomePage confirmAlertAndDeleteProject() {
         getDriver().switchTo().alert().accept();
 
         return new HomePage(getDriver());
     }
 
+    @Step("Get warning message text")
     public String getWarningMsg() {
         return warningForm.getText().substring(0, warningForm.getText().indexOf("\n"));
     }
 
+    @Step("Click 'Edit description' link")
     public FreestyleProjectStatusPage clickButtonEditDescription() {
         buttonEditDescription.click();
 

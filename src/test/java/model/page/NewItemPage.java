@@ -78,6 +78,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return this;
     }
 
+    @Step("Select 'Freestyle project' type")
     public NewItemPage<FreestyleProjectConfigPage> selectFreestyleProjectType() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(freestyleProject)).click();
 
@@ -117,6 +118,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return new NewItemPage<>(getDriver(), new OrgFolderConfigPage(getDriver()));
     }
 
+    @Step("Click 'OK' button")
     public ConfigPage clickOkButton() {
         okButton.click();
 

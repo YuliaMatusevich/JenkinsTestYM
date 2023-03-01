@@ -19,6 +19,7 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
+    @Step("Create Freestyle project with valid random name")
     public static void createNewFreestyleProject(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()

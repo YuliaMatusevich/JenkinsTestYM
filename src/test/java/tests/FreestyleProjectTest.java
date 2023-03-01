@@ -20,6 +20,10 @@ import static runner.TestUtils.*;
 
 public class FreestyleProjectTest extends BaseTest {
 
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if Project status contains expected text when 'Disable Project' option has been applied")
     @Test
     public void testDisableProject() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -34,6 +38,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(homePage.getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME), "Disabled");
     }
 
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if the Project status icon displayed an expected status when 'Disable Project' option has been applied")
     @Test(dependsOnMethods = "testDisableProject")
     public void testEnableProject() {
         final String jobStatusIconTooltip = new HomePage(getDriver())
@@ -46,6 +54,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(jobStatusIconTooltip, "Not built");
     }
 
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if expected Project is opened from Dashboard, appropriate Status page contains an expected text")
     @Test
     public void testFreestyleProjectPageIsOpenedFromDashboard() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -56,6 +68,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectStatusPage.getHeaderText(), String.format("Project %s", TestDataUtils.FREESTYLE_PROJECT_NAME));
     }
 
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.TRIVIAL)
+    @Feature("UI")
+    @Description("Verify if expected description of the project has been added")
     @Test
     public void testAddDescription() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -71,6 +87,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectDescription, descriptionText);
     }
 
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.TRIVIAL)
+    @Feature("UI")
+    @Description("Verify if expected description of the project has been updated")
     @Test(dependsOnMethods = "testAddDescription")
     public void testEditDescription() {
         final String newDescription = "It's new description to job";
@@ -83,6 +103,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(page.getDescriptionText(), newDescription);
     }
 
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.TRIVIAL)
+    @Feature("UI")
+    @Description("Verify if Changes Builds Page contains expected text")
     @Test
     public void testNoBuildFreestyleProjectChanges() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -95,6 +119,11 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(page.getPageText(), "Changes\nNo builds.");
     }
 
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if the list of projects' names on Dashboard contains expected Project name." +
+            "Thus proving that the project renamed successfully.")
     @Test
     public void testRenameFreestyleProject() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -113,6 +142,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(jobsList.contains(TestDataUtils.FREESTYLE_PROJECT_RENAME));
     }
 
+    @Owner("Viktoriya D")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if error message arrears and contains expected text when attempting to rename an existing project with invalid data")
     @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
     public void testRenameFreestyleProjectToIncorrectViaSideMenu(Character specialCharacter, String expectedErrorMessage) {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -128,6 +161,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(renameItemErrorPage.getErrorMessage(), String.format("‘%s’ is an unsafe character", expectedErrorMessage));
     }
 
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if Project name link on the Dashboard forwards to appropriate Project page")
     @Test
     public void testViewFreestyleProjectPage() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -139,6 +176,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleName, String.format("Project %s", TestDataUtils.FREESTYLE_PROJECT_NAME));
     }
 
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if 'Configure' menu in the Project dropdown menu on the Dashboard leads to 'Configuration' page")
     @Test
     public void testFreestyleProjectConfigureByDropdown() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -150,6 +191,11 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectConfigPage.getHeadlineText(), "Configuration");
     }
 
+    @Owner("MaksPt")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if the build displayed in the 'Build History' section on the side menu " +
+            "by comparing number of builds before and after current build")
     @Test
     public void testCreateBuildNowOnFreestyleProjectPage() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -169,6 +215,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(countBuildsAfterCreatingNewBuild, countBuildsBeforeCreatingNewBuild + 1);
     }
 
+    @Owner("Anastasia Yakimova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify deletion of the project using side menu")
     @Test
     public void testDeleteFreestyleProject() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -183,6 +233,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(pageHeaderText, "Welcome to Jenkins!");
     }
 
+    @Owner("olpolezhaeva")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("UI")
+    @Description("Verify if all expected lines of the side menu are displayed ")
     @Test
     public void testFreestyleConfigSideMenu() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -199,6 +253,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(actualFreestyleConfigSideMenu, expectedFreestyleConfigSideMenu);
     }
 
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that expected parameters are saved and displayed after build is completed ")
     @Test
     public void testConfigureJobAsParameterized() {
         final String stringParameterName = "Held post";
@@ -241,6 +299,11 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(page.isBooleanParameterSetByDefault());
     }
 
+
+    @Owner("AlekseiChapaev")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify if project sourced by GitHub successfully built")
     @Test(dependsOnMethods = "testConfigureJobAsParameterized")
     public void testConfigureSourceCodeByGIT() {
         final String repositoryURL = "https://github.com/RedRoverSchool/JenkinsQA_05.git";
@@ -262,6 +325,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertNotEquals(page.getBuildDurationTime(), "N/A");
     }
 
+    @Owner("Anastasia Yakimova")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("Function")
+    @Description("Verify if 'Days to keep builds' and 'Max # of builds to keep' settings of 'Discard old builds' are displayed upon saved")
     @Test
     public void testCheckFieldsDaysAndMaxNumberOfBuildsToKeepInConfigure() {
         final String expectedDaysToKeepBuilds = Integer.toString((int) (Math.random() * 20 + 1));
@@ -283,6 +350,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectConfigPage.getMaxNumberOfBuildsToKeep(), expectedMaxNumberOfBuildsToKeep);
     }
 
+    @Owner("Anastasia Yakimova")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("UI")
+    @Description("Verify if all expected options are displayed in the 'Add build steps' dropdown of the 'Build Steps' section")
     @Test
     public void testBuildStepsOptions() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -300,6 +371,10 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(actualOptionsInBuildStepsSection, expectedOptionsInBuildStepsSection);
     }
 
+    @Owner("Anastasia Yakimova")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verify if 'Build Periodically' checkbox in the 'Build Triggers' section is checked")
     @Test
     public void testSelectBuildPeriodicallyCheckbox() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -315,6 +390,11 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(selectedCheckbox);
     }
 
+    @Owner("Yulia Matusevich")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("Function")
+    @Description("Verify build time displayed in the 'Build History' section of the side menu s the same as system date and time")
+    @Flaky
     @Test
     public void testFreestyleProjectBuildDateAndTime() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -334,7 +414,9 @@ public class FreestyleProjectTest extends BaseTest {
     @Owner("Liudmila Plucci")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
-    @Description("Build project sourced from GitHub using Maven with Build Steps goal: 'test'")
+    @Description("Test if Console Output page  log contains 'T E S T S' section thus proving that tests of sourced project were run." +
+            "Test if Console Output log contains 'BUILD SUCCESS' text thus proving that the run was success" +
+            "Project sourced from GitHub using Maven with Build Steps goal: 'test'")
     @Test
     public void testBuildGitProjectWithBuildStepsMaven() {
         final String goal = "test";
@@ -366,7 +448,8 @@ public class FreestyleProjectTest extends BaseTest {
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
-    @Description("Build projects with 'Build other project' option in Post Build Actions")
+    @Description("Verify if the Downstream project is built automatically directly upon the Upstream project is built." +
+            "Stream is set using 'Build other project' option is in 'Post-Build Actions' section of the Configuration Page")
     @Test
     public void testBuildProjectWithBuildOtherProjectOption() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -387,7 +470,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .setProjectToBuildName(TestDataUtils.FREESTYLE_PROJECT_NAME2)
                 .clickSaveButton()
                 .getSideMenu()
-                .clickBuildNowAndWaitSuccessStatus()
+                .clickBuildNowAndWaitBuildCompleted()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -409,7 +492,8 @@ public class FreestyleProjectTest extends BaseTest {
     @Owner("Liudmila Plucci")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
-    @Description("Build project sourced from GitHub using Maven with Build Steps goal: 'clean'")
+    @Description("Verify if 'target' folder disappears from the 'Workspace' page when Build Steps goal: 'clean' is set. " +
+            "Thus confirming that 'clean' command is succeed. Project sourced from GitHub using Maven.")
     @Test(dependsOnMethods = "testBuildGitProjectWithBuildStepsMaven")
     public void testBuildGitProjectWithBuildStepsMavenClean() {
         final String goal = "clean";
@@ -459,7 +543,7 @@ public class FreestyleProjectTest extends BaseTest {
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
-    @Description("Check if the Downstream project name link leads to the correct Upstream project Status Page")
+    @Description("Check if the Downstream project name link on the Status page leads to the correct Upstream project Status Page")
     @Test(dependsOnMethods = "testBuildProjectWithBuildOtherProjectOption")
     public void testDownstreamProjectNameLeadsToCorrectUpstreamProjectStatusPage() {
 
@@ -475,7 +559,8 @@ public class FreestyleProjectTest extends BaseTest {
     @Owner("ViktoriyaD")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
-    @Description("Test Build Project with 'Discard Old Builds' option configured with maximum number of saved builds")
+    @Description("Check if the project 'Build History' section on the side menu saves and displays exactly the same amount of builds" +
+            " as configured by the 'Discard Old Builds' option in the Configuration page")
     @Test
     public void testBuildProjectWithDiscardOldBuildsMaxLimit() throws InterruptedException {
         final int expectedMaxNumberOfBuildsToKeep = 2;

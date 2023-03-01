@@ -28,7 +28,7 @@ public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Se
 
     protected abstract StatusPage createStatusPage();
 
-    @Step("Click save button on the configuration page")
+    @Step("Click 'Save' button on the configuration page")
     public StatusPage clickSaveButton() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(saveButton)).click();
 
@@ -41,6 +41,7 @@ public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Se
         return (Self) this;
     }
 
+    @Step("Get list of lines' names of the side menu")
     public Set<String> collectConfigSideMenu() {
         return configSideMenu.stream().map(WebElement::getText).collect(Collectors.toCollection(TreeSet::new));
     }

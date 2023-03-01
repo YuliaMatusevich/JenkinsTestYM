@@ -83,6 +83,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new NewViewFromDashboardPage<>(getDriver(), null);
     }
 
+    @Step("get list of projects' names")
     public List<String> getJobNamesList() {
         return jobList
                 .stream()
@@ -105,13 +106,14 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
                 .collect(Collectors.toList());
     }
 
+    @Step("Click 'Freestyle project' on the Home page")
     public FreestyleProjectStatusPage clickFreestyleProjectName() {
         getWait(10).until(ExpectedConditions.visibilityOfAllElements(jobList)).get(0).click();
 
         return new FreestyleProjectStatusPage(getDriver());
     }
 
-    @Step("Select ‘Freestyle project’ name '{name}' to configure;")
+    @Step("Select ‘Freestyle project’ '{name}' on the Dashboard")
     public FreestyleProjectStatusPage clickFreestyleProjectName(String name) {
         getWait(10).until(ExpectedConditions.elementToBeClickable(By.linkText(name))).click();
 
@@ -183,7 +185,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new PipelineConfigPage(getDriver());
     }
 
-    @Step("Present header text")
+    @Step("Get Header Text")
     public String getHeaderText() {
 
         return getWait(10).until(ExpectedConditions.visibilityOf(header)).getText();
@@ -202,7 +204,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new FolderConfigPage(getDriver());
     }
 
-    @Step("Get job build status")
+    @Step("Get job build status on the Home page")
     public String getJobBuildStatus(String name) {
         return getDriver().findElement(By.id(String.format("job_%s", name)))
                 .findElement(By.xpath(".//*[name()='svg']")).getAttribute("tooltip");
@@ -264,6 +266,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return this;
     }
 
+    @Step("Select 'Configure' in the dropdown menu")
     public FreestyleProjectConfigPage clickConfigDropDownMenuFreestyle() {
         getWait(6).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
 

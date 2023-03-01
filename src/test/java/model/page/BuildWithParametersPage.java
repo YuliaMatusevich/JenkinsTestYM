@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseStatusPage;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
@@ -49,6 +50,7 @@ public class BuildWithParametersPage<StatusPage extends BaseStatusPage<?, ?>> ex
         return descriptionText.getText();
     }
 
+    @Step("Get list of parameters' names")
     public String getNthParameterName(int n) {
         return listInputParameterNames.get(n - 1).getAttribute("value");
     }

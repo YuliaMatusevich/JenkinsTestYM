@@ -18,7 +18,7 @@ public class WorkspacePage extends MainBasePage {
         super(driver);
     }
 
-    @Step("Get list of folders")
+    @Step("Get list of folders on the 'Workspace' page")
     public List<String> getListOfFolders() {
 
         return listOfFolders

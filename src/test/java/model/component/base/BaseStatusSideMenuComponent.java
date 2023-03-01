@@ -33,6 +33,7 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
         super(driver, statusPage);
     }
 
+    @Step("Click 'Rename' on the side menu")
     public RenameItemPage<StatusPage> clickRename() {
         rename.click();
 
@@ -45,6 +46,7 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
         return toPage;
     }
 
+    @Step ("Click 'Delete' on the side menu")
     public StatusPage clickDeleteToMyStatusPage() {
         return clickDelete(page);
     }

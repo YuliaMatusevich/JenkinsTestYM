@@ -1,5 +1,6 @@
 package model.page.base;
 
+import io.qameta.allure.Step;
 import model.component.base.BaseStatusSideMenuComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,10 +25,12 @@ public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSi
         super(driver);
     }
 
+    @Step("Get the name of the page by Header text")
     public String getHeaderText() {
         return getWait(5).until(ExpectedConditions.elementToBeClickable(header)).getText();
     }
 
+    @Step("Get description text")
     public String getDescriptionText() {
         return getWait(5).until(ExpectedConditions.visibilityOf(description)).getText();
     }
@@ -37,6 +40,7 @@ public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSi
     }
 
     @SuppressWarnings("unchecked")
+    @Step("Click 'Add description' or 'Edit description'")
     public Self clickAddOrEditDescription() {
         addOrEditDescriptionLink.click();
 
