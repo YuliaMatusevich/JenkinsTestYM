@@ -306,7 +306,6 @@ public class FreestyleProjectTest extends BaseTest {
     @Description("Verify if project sourced by GitHub successfully built")
     @Test(dependsOnMethods = "testConfigureJobAsParameterized")
     public void testConfigureSourceCodeByGIT() {
-        final String repositoryURL = "https://github.com/RedRoverSchool/JenkinsQA_05.git";
 
         HomePage page = new HomePage(getDriver())
                 .clickFreestyleProjectName()
@@ -315,7 +314,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .switchOFFCheckBoxThisProjectIsParametrized()
                 .clickLinkSourceCodeManagement()
                 .selectSourceCodeManagementGIT()
-                .inputGITRepositoryURL(repositoryURL)
+                .inputGITRepositoryURL(TestDataUtils.GITHUB_REPOSITORY_URL)
                 .inputBranchSpecifier(TestDataUtils.BRANCH_SPECIFIER)
                 .clickSaveButton()
                 .getSideMenu()

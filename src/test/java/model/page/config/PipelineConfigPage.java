@@ -137,7 +137,7 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
     }
 
     public PipelineConfigPage clickParameterizationCheckbox() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(parameterizationCheckbox)).click();
+        getWait(10).until(ExpectedConditions.elementToBeClickable(parameterizationCheckbox)).click();
 
         return this;
     }

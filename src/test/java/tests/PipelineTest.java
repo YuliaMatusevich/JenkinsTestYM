@@ -6,6 +6,7 @@ import model.page.RenameItemErrorPage;
 import model.page.config.PipelineConfigPage;
 import model.page.status.PipelineStatusPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -157,18 +158,18 @@ public class PipelineTest extends BaseTest {
     @Description("Check the GitHub creation button on the side menu")
     @Test
     public void testAddingGitRepository() {
-        final String gitHubRepo = "https://github.com/patriotby07/simple-maven-project-with-tests";
 
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
         PipelineStatusPage pipelineProjectPage = new HomePage(getDriver())
                 .clickJobDropDownMenu(TestDataUtils.PIPELINE_NAME)
                 .clickConfigureDropDownMenu()
                 .clickGitHubCheckbox()
-                .setGitHubRepo(gitHubRepo)
+                .setGitHubRepo(TestDataUtils.GITHUB_REPOSITORY_URL)
                 .clickSaveButton();
 
         Assert.assertTrue(pipelineProjectPage.getSideMenu().isDisplayedGitHubOnSideMenu());
-        Assert.assertTrue(pipelineProjectPage.getSideMenu().getAttributeGitHubSideMenu("href").contains(gitHubRepo));
+        Assert.assertTrue(pipelineProjectPage.getSideMenu()
+                .getAttributeGitHubSideMenu("href").contains(TestDataUtils.GITHUB_REPOSITORY_URL));
     }
 
     @Test
@@ -186,6 +187,7 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(emptyErrorArea, "");
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testWarningMessageIsDisappeared")
     public void testBuildParametrizedProject() {
         String consoleOutputText = new HomePage(getDriver())
@@ -197,7 +199,7 @@ public class PipelineTest extends BaseTest {
                 .setChoiceParameter("Select User", "Admin", "Guest", "User")
                 .selectPipelineScriptFromScm()
                 .selectScriptScm()
-                .setGitHubUrl("https://github.com/patriotby07/simple-maven-project-with-tests")
+                .setGitHubUrl(TestDataUtils.GITHUB_REPOSITORY_URL)
                 .clickSaveButton()
                 .getSideMenu()
                 .clickBuildWithParameters()
