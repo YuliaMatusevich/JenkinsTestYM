@@ -10,8 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
 
-import static runner.TestUtils.scrollToElement;
-import static runner.TestUtils.scrollToEnd;
+import static runner.TestUtils.*;
 
 public class ManageJenkinsPage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
@@ -52,7 +51,7 @@ public class ManageJenkinsPage extends MainBasePageWithSideMenu<HomeSideMenuComp
         return new GlobalToolConfigurationPage(getDriver());
     }
 
-    @Step("Click 'Manage Users' link on 'Security' section")
+    @Step("Click on 'Manage Users' link in 'Security' section")
     public ManageUsersPage clickManageUsers() {
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), manageUsers);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(manageUsers)).click();
@@ -66,6 +65,7 @@ public class ManageJenkinsPage extends MainBasePageWithSideMenu<HomeSideMenuComp
         return header1.getText();
     }
 
+    @Step("Click on 'Manage Old Data' link in 'Troubleshooting' section")
     public ManageOldDataPage clickLinkManageOldData() {
         scrollToElement(getDriver(), linkManageOldData);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(linkManageOldData)).click();
@@ -73,6 +73,7 @@ public class ManageJenkinsPage extends MainBasePageWithSideMenu<HomeSideMenuComp
         return new ManageOldDataPage(getDriver());
     }
 
+    @Step("Click on 'Manage Plugins' link in 'System Configuration' section")
     public PluginManagerPage clickLinkManagePlugins() {
         scrollToElement(getDriver(), linkPluginManager);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(linkPluginManager)).click();

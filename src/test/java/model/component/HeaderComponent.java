@@ -62,12 +62,14 @@ public class HeaderComponent extends BaseComponent {
         return new HomePage(getDriver());
     }
 
+    @Step("Click on 'Jenkins' name icon on the header")
     public HomePage clickJenkinsNameIcon() {
         jenkinsNameIcon.click();
 
         return new HomePage(getDriver());
     }
 
+    @Step("Click on 'log out' link on the header")
     public LoginPage clickLogOut() {
         logOut.click();
 

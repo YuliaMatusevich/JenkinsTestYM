@@ -444,6 +444,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(actualConsoleOutput.contains("BUILD SUCCESS"));
     }
 
+    @Flaky
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")

@@ -14,6 +14,8 @@ import java.util.List;
 
 public class ManageJenkinsTest extends BaseTest {
 
+    @TmsLink("lE2qeHdF")
+    @Owner("Nadia Ludanik")
     @Severity(SeverityLevel.MINOR)
     @Feature("Function")
     @Description("Rename 'Full Name' for User with valid characters and verity that New Full Name is displayed on StatusUserPage and on Header and on Breadcrumbs")
@@ -37,6 +39,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertEquals(userStatusPage.getH1Title(), TestDataUtils.NEW_USER_FULL_NAME);
     }
 
+    @TmsLink("4kAcrDNU")
+    @Owner("Nadia Ludanik")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("Function")
+    @Description("Verify that the user, after logging out of the session, in which changing of the FullName have been made, is able to see the 'new FullName' in the header when logging in again")
     @Test(dependsOnMethods = "testRenameFullUserName")
     public void testNewFullNameAfterReLogging() {
         new HomePage(getDriver())
@@ -47,6 +54,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertEquals(new HomePage(getDriver()).getHeader().getUserNameText(), TestDataUtils.NEW_USER_FULL_NAME);
     }
 
+    @TmsLink("8YAYAHrO")
+    @Owner("Aleksei Chapaev")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verify that there is no entries of old data are found on the 'Manage Old Data' page")
     @Test
     public void testManageOldData() {
         ManageOldDataPage page = new HomePage(getDriver())
@@ -58,6 +70,12 @@ public class ManageJenkinsTest extends BaseTest {
     }
 
     @Ignore
+    @Flaky
+    @TmsLink("Ud8LDADw")
+    @Owner("Aleksei Chapaev")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that installed plugin NOT found in 'Available' tab installed plugin but found in 'Installed' tab")
     @Test
     public void testPluginManagerInstallPlugin() {
         final String pluginName = "TestNG Results";
@@ -81,6 +99,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertTrue(notice.contains("Failed to load: TestNG Results Plugin"));
     }
 
+    @TmsLink("0ak6t6Hy")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Try to create user with empty name and verify that error message '\"\" is prohibited as a username for security reasons.' appeared")
     @Test
     public void testCreateUserWithEmptyName() {
         String errorMessageWhenEmptyUserName = new HomePage(getDriver())
@@ -97,6 +120,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertEquals(errorMessageWhenEmptyUserName, "\"\" is prohibited as a username for security reasons.");
     }
 
+    @TmsLink("3pQppG3t")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Try to create user with invalid characters in name and verify that error message 'User name must only contain alphanumeric characters, underscore and dash' appeared")
     @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
     public void testCreateUserWithIncorrectCharactersInName(Character specialCharacter, String errorMessage) {
         String errorMessageWhenIncorrectCharacters = new HomePage(getDriver())
@@ -114,6 +142,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertEquals(errorMessageWhenIncorrectCharacters, "User name must only contain alphanumeric characters, underscore and dash");
     }
 
+    @TmsLink("HFC4xCSR")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Create user going from 'Manage Users' page with valid data and verify that new user is created and is displayed on the 'Manage users' page")
     @Test
     public void testCreateUser() {
         ManageUsersPage manageUsersPage = new HomePage(getDriver())
@@ -132,6 +165,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertTrue(manageUsersPage.getListOfFullNamesOfUsers().contains(TestDataUtils.USER_FULL_NAME), TestDataUtils.USER_FULL_NAME + " fullName not found");
     }
 
+    @TmsLink("e53PF9Xx")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Delete user by 'delete user' icon in the table on the 'Manage users' page and verify that deleted user is not displayed on the 'Manage users' page")
     @Test
     public void testDeleteUser() {
         ProjectMethodsUtils.createNewUser(getDriver(), TestDataUtils.USER_NAME, TestDataUtils.PASSWORD, TestDataUtils.USER_FULL_NAME, TestDataUtils.EMAIL);
@@ -147,6 +185,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertFalse(listOfUsers.contains(TestDataUtils.USER_NAME));
     }
 
+    @TmsLink("tXliH1OH")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Try to create user with exist name and verify that error message 'User name is already taken' appeared")
     @Test
     public void testCreateUserWithExistName() {
         ProjectMethodsUtils.createNewUser(getDriver(), TestDataUtils.USER_NAME, TestDataUtils.PASSWORD, TestDataUtils.USER_FULL_NAME, TestDataUtils.EMAIL);
@@ -166,6 +209,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertEquals(errorMessageWhenExistName, "User name is already taken");
     }
 
+    @TmsLink("VGtfAc0W")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Try to create user with empty 'Password' field and verify that error message 'Password is required' appeared")
     @Test
     public void testCreateUserWithEmptyPassword() {
         String errorMessageWhenEmptyPassword = new HomePage(getDriver())
@@ -182,6 +230,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertEquals(errorMessageWhenEmptyPassword, "Password is required");
     }
 
+    @TmsLink("wO5G0fwq")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Try to create user with empty 'Confirm password' field and verify that error message 'Password didn't match' appeared")
     @Test
     public void testCreateUserWithEmptyConfirmPassword() {
         String errorMessageWhenEmptyConfirmPassword = new HomePage(getDriver())
@@ -198,6 +251,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertEquals(errorMessageWhenEmptyConfirmPassword, "Password didn't match");
     }
 
+    @TmsLink("CZrnbgVE")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Delete user by 'Delete' on the side menu on the 'Status user' page and verify that deleted user is not displayed on the 'People' page")
     @Test
     public void testDeleteUserGoingFromStatusUserPage() {
         ProjectMethodsUtils.createNewUser(getDriver(), TestDataUtils.USER_NAME, TestDataUtils.PASSWORD, TestDataUtils.USER_FULL_NAME, TestDataUtils.EMAIL);
@@ -216,6 +274,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertFalse(listOfUsers.contains(TestDataUtils.USER_NAME));
     }
 
+    @TmsLink("0J05H5rt")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Delete user by 'Delete' on the side menu on the 'Configure user' page and verify that deleted user is not displayed on the 'People' page")
     @Test
     public void testDeleteUserGoingFromConfigureUserPage() {
         ProjectMethodsUtils.createNewUser(getDriver(), TestDataUtils.USER_NAME, TestDataUtils.PASSWORD, TestDataUtils.USER_FULL_NAME, TestDataUtils.EMAIL);
@@ -236,6 +299,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertFalse(listOfUsers.contains(TestDataUtils.USER_NAME));
     }
 
+    @TmsLink("yixkCbNN")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Delete user by 'Delete' on the side menu on the 'Builds user' page and verify that deleted user is not displayed on the 'People' page")
     @Test
     public void testDeleteUserGoingFromBuildsUserPage() {
         ProjectMethodsUtils.createNewUser(getDriver(), TestDataUtils.USER_NAME, TestDataUtils.PASSWORD, TestDataUtils.USER_FULL_NAME, TestDataUtils.EMAIL);
@@ -256,6 +324,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertFalse(listOfUsers.contains(TestDataUtils.USER_NAME));
     }
 
+    @TmsLink("xSB0f2rB")
+    @Owner("Maria Servachak")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Change default view on 'Jenkins Configure System' page and verify that Default view is changed on the dashboard")
     @Test
     public void testChangeDefaultView() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -285,10 +358,11 @@ public class ManageJenkinsTest extends BaseTest {
         ProjectMethodsUtils.changeDefaultView(getDriver(), "All".toLowerCase());
     }
 
+    @TmsLink("GlNQXUvn")
     @Owner("Ina Ramankova")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
-    @Description("Try to create User with empty E-mail address and get error message \"Invalid e-mail address\" appeared")
+    @Description("Try to create user with empty E-mail address and verify that error message 'Invalid e-mail address' appeared")
     @Test
     public void testCreateUserWithEmptyEmailAddress() {
         String errorMessageWhenEmptyConfirmPassword = new HomePage(getDriver())
@@ -305,6 +379,7 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertEquals(errorMessageWhenEmptyConfirmPassword, "Invalid e-mail address");
     }
 
+    @TmsLink("Q3eM8fl6")
     @Owner("Maria Servachak")
     @Severity(SeverityLevel.MINOR)
     @Feature("Function")
@@ -338,6 +413,7 @@ public class ManageJenkinsTest extends BaseTest {
                 .clickSaveButton();
     }
 
+    @TmsLink("Q0BEas9B")
     @Owner("Dmitry Starski")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -358,10 +434,11 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertTrue(nodeNamesList.contains(TestDataUtils.ITEM_NAME));
     }
 
+    @TmsLink("SzScD2x7")
     @Owner("Stanislav Akulionok")
     @Severity(SeverityLevel.TRIVIAL)
     @Feature("UI")
-    @Description ("The 'Jenkins Credentials Provider' icon is reduced in size when the 'S' button is pressed")
+    @Description("The 'Jenkins Credentials Provider' icon is reduced in size when the 'S' button is pressed")
     @Test
     public void testCheckIconSize() {
 
@@ -374,6 +451,7 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertFalse(iconSize);
     }
 
+    @TmsLink("HyjbQZz8")
     @Owner("Ina Ramankova")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -390,11 +468,12 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertFalse(nodeNameList.contains(TestDataUtils.ITEM_NAME));
     }
 
+    @Ignore
+    @TmsLink("wDWLOqNz")
     @Owner("Ina Ramankova")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
     @Description("Create New Node with valid name by option 'Set up an agent' on Dashboard")
-    @Ignore
     @Test
     public void testCreateNewNodeWithValidNameByOptionSetUpAnAgent() {
         List<String> nodeNameList = new HomePage(getDriver())
@@ -411,6 +490,7 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertTrue(nodeNameList.contains(TestDataUtils.ITEM_NAME));
     }
 
+    @TmsLink("5O9NxH4z")
     @Owner("Elena Grueber")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")

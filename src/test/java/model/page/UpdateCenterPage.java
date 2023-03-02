@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +19,7 @@ public class UpdateCenterPage extends MainBasePage {
     @FindBy(xpath = "//a[text() = 'Go back to the top page']")
     private WebElement buttonGoBackToTopPage;
 
+    @Step("Click on 'Go back to the top page' link")
     public HomePage clickButtonGoBackToTopPage() {
         scrollToElement(getDriver(), buttonGoBackToTopPage);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(buttonGoBackToTopPage));

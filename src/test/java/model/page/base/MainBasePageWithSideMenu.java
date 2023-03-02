@@ -12,7 +12,7 @@ public abstract class MainBasePageWithSideMenu<SideMenu extends BaseSideMenuComp
         super(driver);
     }
 
-    @Step("Get side menu")
+    @Step("Switch to side menu")
     public SideMenu getSideMenu() {
         return createSideMenuComponent();
     }

@@ -23,6 +23,7 @@ public class JenkinsConfigureSystemPage extends MainBasePage {
         super(driver);
     }
 
+    @Step("Select in 'Default view' dropdown option '{nameView}'")
     public JenkinsConfigureSystemPage selectDefaultView(String nameView) {
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), defaultView);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(defaultView)).click();

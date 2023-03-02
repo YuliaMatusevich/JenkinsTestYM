@@ -19,7 +19,7 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
-    @Step("Create Freestyle project with valid random name")
+    @Step("Create Freestyle project with valid random name and return to dashboard")
     public static void createNewFreestyleProject(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()
@@ -117,6 +117,7 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
+    @Step("Create new ListView and return to dashboard")
     public static void createNewListViewForDashboard(WebDriver driver, String name) {
         new HomePage(driver)
                 .clickAddViewLink()
@@ -137,6 +138,7 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
+    @Step("Create new User and return to dashboard")
     public static void createNewUser(WebDriver driver, String username, String password, String fullName, String email) {
         new HomePage(driver)
                 .getSideMenu()

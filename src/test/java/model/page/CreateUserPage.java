@@ -34,47 +34,49 @@ public class CreateUserPage extends MainBasePage {
         super(driver);
     }
 
-    @Step("Set '{name}' in 'Username' field")
+    @Step("Input name '{name}' into 'Username' field")
     public CreateUserPage setUsername(String name) {
         username.sendKeys(name);
 
         return this;
     }
 
-    @Step("Set '{name}' in 'Password' field")
+    @Step("Input password '{name}' into 'Password' field")
     public CreateUserPage setPassword(String name) {
         password.sendKeys(name);
 
         return this;
     }
 
-    @Step("Set '{name}' in 'Confirm password' field")
+    @Step("Input password '{name}' into 'Confirm password' field")
     public CreateUserPage confirmPassword(String name) {
         confirmPassword.sendKeys(name);
 
         return this;
     }
 
-    @Step("Set '{name}' in 'Full name' field")
+    @Step("Input full name '{name}' into 'Full name' field")
     public CreateUserPage setFullName(String name) {
         fullName.sendKeys(name);
 
         return this;
     }
 
+    @Step("Input email '{name}' into 'E-mail address' field")
     public CreateUserPage setEmail(String name) {
         email.sendKeys(name);
 
         return this;
     }
 
+    @Step("Click on 'Create User' button")
     public ManageUsersPage clickCreateUserButton() {
         createUserButton.click();
 
         return new ManageUsersPage(getDriver());
     }
 
-    @Step("Click 'Create User' button and get error message '{errorMessage}'")
+    @Step("Click on 'Create User' button and get error message")
     public String clickCreateUserAndGetErrorMessage() {
         createUserButton.click();
 

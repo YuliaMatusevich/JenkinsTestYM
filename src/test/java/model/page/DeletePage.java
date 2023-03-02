@@ -19,7 +19,7 @@ public class DeletePage<ParentPage extends BasePage> extends MainBasePage {
         this.parentPage = parentPage;
     }
 
-    @Step("Click on Yes button in the Delete page")
+    @Step("Click on 'Yes' button on the Delete page")
     public ParentPage clickYes() {
         yesButton.click();
 

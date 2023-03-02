@@ -50,6 +50,7 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
         return new NewItemPage<>(getDriver(), null);
     }
 
+    @Step("Click on 'People' link on the side menu")
     public PeoplePage clickPeople() {
         people.click();
 
@@ -62,7 +63,7 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
         return new BuildHistoryPage(getDriver());
     }
 
-    @Step("Click 'Manage Jenkins' link on side menu")
+    @Step("Click on 'Manage Jenkins' link on the side menu")
     public ManageJenkinsPage clickManageJenkins() {
         manageJenkins.click();
 

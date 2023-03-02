@@ -39,13 +39,14 @@ public class ManageUsersPage extends MainBasePage {
         return new ConfigureUserPage(getDriver());
     }
 
-    @Step("Click 'Create User' link on side menu")
+    @Step("Click on 'Create User' link on side menu")
     public CreateUserPage clickCreateUser() {
         createUser.click();
 
         return new CreateUserPage(getDriver());
     }
 
+    @Step("Get list of UserIDs in the table")
     public List<String> getListOfUserIDs() {
         List<String> listOfUserIDs = new ArrayList<>();
         getWait(5).until(ExpectedConditions.visibilityOfAllElements(userIdList));
@@ -55,6 +56,7 @@ public class ManageUsersPage extends MainBasePage {
         return listOfUserIDs;
     }
 
+    @Step("Get list of full names of users in the table")
     public List<String> getListOfFullNamesOfUsers() {
         List<String> listOfFullNamesOfUsers = new ArrayList<>();
         getWait(5).until(ExpectedConditions.visibilityOfAllElements(userFullNameList));
@@ -64,6 +66,7 @@ public class ManageUsersPage extends MainBasePage {
         return listOfFullNamesOfUsers;
     }
 
+    @Step("Click on delete user icon in the table")
     public DeletePage<ManageUsersPage> clickDeleteUser(String name) {
         getWait(3).until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[href='user/" + name.toLowerCase() + "/delete']"))).click();
 

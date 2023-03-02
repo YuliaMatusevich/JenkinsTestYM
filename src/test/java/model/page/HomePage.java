@@ -77,6 +77,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         super(driver);
     }
 
+    @Step("Click on new view icon")
     public NewViewFromDashboardPage<?> clickAddViewLink() {
         addViewLink.click();
 
@@ -311,10 +312,12 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return listJobTableHeaders.size();
     }
 
+    @Step("Get attribute view 'All'")
     public String getAttributeViewAll() {
         return viewAllTab.getAttribute("class");
     }
 
+    @Step("Get list of side menu options")
     public List<String> getSideMenuList() {
         return sideMenuList
                 .stream()
@@ -322,6 +325,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
                 .collect(Collectors.toList());
     }
 
+    @Step("Click attribute view 'All'")
     public HomePage clickViewAll() {
         viewAllTab.click();
 

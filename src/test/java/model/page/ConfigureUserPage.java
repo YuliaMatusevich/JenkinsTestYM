@@ -34,7 +34,7 @@ public class ConfigureUserPage extends MainBasePageWithSideMenu<UserSideMenuComp
         return this;
     }
 
-    @Step("Set '{name}' into 'Full Name' field")
+    @Step("Input full name '{name}' into 'Full Name' field")
     public ConfigureUserPage setFullName(String name) {
         inputFieldFullUserName.sendKeys(name);
 

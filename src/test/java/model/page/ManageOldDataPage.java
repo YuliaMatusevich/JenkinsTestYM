@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,7 @@ public class ManageOldDataPage extends MainBasePage {
     @FindBy(id = "main-panel")
     private WebElement mainPanel;
 
+    @Step("Get text under the table on the main panel")
     public String getMainPanelNoticeText() {
         String[] actualText = mainPanel.getText().split("\n");
 

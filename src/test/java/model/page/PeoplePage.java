@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.component.menu.HomeSideMenuComponent;
 import model.page.base.MainBasePageWithSideMenu;
 import org.openqa.selenium.By;
@@ -43,6 +44,7 @@ public class PeoplePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> 
         return new HomeSideMenuComponent(getDriver());
     }
 
+    @Step("Get list of users in the table on the 'People' page")
     public List<String> getListOfUsers() {
         List<String> listOfUsers = new ArrayList<>();
         getWait(5).until(ExpectedConditions.visibilityOfAllElements(usersIdList));
@@ -93,6 +95,7 @@ public class PeoplePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> 
         return listIconSizeButtonsNames.toString().replaceAll("\n", "").trim();
     }
 
+    @Step("Click on UserID '{user}' in the table")
     public StatusUserPage clickUserID(String user) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(By.linkText(user))).click();
 

@@ -1,5 +1,6 @@
 package model.component.menu;
 
+import io.qameta.allure.Step;
 import model.page.BuildsUserPage;
 import model.page.ConfigureUserPage;
 import model.page.DeletePage;
@@ -25,18 +26,21 @@ public class UserSideMenuComponent extends BaseSideMenuComponent {
         super(driver);
     }
 
+    @Step("Click on 'Delete' link on the side menu")
     public DeletePage<HomePage> clickDelete() {
         delete.click();
 
         return new DeletePage<>(getDriver(), new HomePage(getDriver()));
     }
 
+    @Step("Click on 'Configure' link on the side menu")
     public ConfigureUserPage clickConfigure() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(configure)).click();
 
         return new ConfigureUserPage(getDriver());
     }
 
+    @Step("Click on 'Builds' link on the side menu")
     public BuildsUserPage clickBuilds() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(builds)).click();
 
