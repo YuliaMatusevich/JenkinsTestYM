@@ -208,7 +208,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .countBuilds();
         int countBuildsAfterCreatingNewBuild = new FreestyleProjectStatusPage(getDriver())
                 .getSideMenu()
-                .clickBuildNowAndWaitSuccessStatus()
+                .clickBuildNowAndWaitBuildCompleted()
                 .getSideMenu()
                 .countBuilds();
 
@@ -401,7 +401,7 @@ public class FreestyleProjectTest extends BaseTest {
         String actualBuildDateTime = new HomePage(getDriver())
                 .clickFreestyleProjectName()
                 .getSideMenu()
-                .clickBuildNowAndWaitSuccessStatus()
+                .clickBuildNowAndWaitBuildCompleted()
                 .getSideMenu()
                 .getBuildDateTime();
 

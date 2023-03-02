@@ -124,11 +124,8 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
 
     @Step("Click 'Build Now' on the side menu and wait for all builds with any result are completed")
     public FreestyleProjectStatusPage clickBuildNowAndWaitBuildCompleted() {
-        int countBuildsInList = buildStatusIconList.size() + 1;
-        buildNow.click();
-        getWait(20).until(ExpectedConditions.textToBePresentInElement(
-                numberOfLastBuild, "#" + countBuildsInList));
-        getWait(60).until((ExpectedConditions.not(ExpectedConditions.attributeContains
+         buildNow.click();
+         getWait(60).until((ExpectedConditions.not(ExpectedConditions.attributeContains
                 (buildStatusIconLast, "tooltip", "In progress &gt; Console Output"))));
 
         return new FreestyleProjectStatusPage(getDriver());
