@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+import runner.JenkinsUtils;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
 

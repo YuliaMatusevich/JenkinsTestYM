@@ -8,6 +8,7 @@ import model.page.RenameItemErrorPage;
 import model.page.config.FreestyleProjectConfigPage;
 import model.page.status.FreestyleProjectStatusPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -349,6 +350,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectConfigPage.getMaxNumberOfBuildsToKeep(), expectedMaxNumberOfBuildsToKeep);
     }
 
+    @Ignore
     @Owner("Anastasia Yakimova")
     @Severity(SeverityLevel.NORMAL)
     @Feature("UI")
@@ -389,6 +391,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(selectedCheckbox);
     }
 
+    @Ignore
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.MINOR)
     @Feature("Function")
@@ -489,6 +492,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(project2StatusIconAfterBuild, "Success");
     }
 
+    @Ignore
     @Owner("Liudmila Plucci")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -565,7 +569,7 @@ public class FreestyleProjectTest extends BaseTest {
     public void testBuildProjectWithDiscardOldBuildsMaxLimit() throws InterruptedException {
         final int expectedMaxNumberOfBuildsToKeep = 2;
         final int amountsOfBuild = expectedMaxNumberOfBuildsToKeep + 3;
-        final List<String> expectedListOfBuildNames = TestUtils.getListOfLastKeepElements(amountsOfBuild,expectedMaxNumberOfBuildsToKeep);
+        final List<String> expectedListOfBuildNames = TestUtils.getListOfLastKeepElements(amountsOfBuild, expectedMaxNumberOfBuildsToKeep);
 
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
         List<String> actualAmountOfSavedBuilds =

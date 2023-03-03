@@ -1,13 +1,13 @@
 package runner;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class JenkinsUtils {
@@ -54,7 +54,6 @@ public class JenkinsUtils {
             result.add("Cookie");
             result.add(sessionId);
         }
-
         return result.toArray(String[]::new);
     }
 
@@ -144,9 +143,18 @@ public class JenkinsUtils {
                 getCrumbFromPage(userPage));
     }
 
+    private static void deleteNodes() {
+        String nodePage = getPage("");
+        deleteByLink("manage/computer/%s/doDelete",
+                getSubstringsFromPage(nodePage, "href=\"/manage/computer/", "/\""),
+                getCrumbFromPage(nodePage));
+    }
+
     public static void clearData() {
         JenkinsUtils.deleteViews();
         JenkinsUtils.deleteJobs();
         JenkinsUtils.deleteUsers();
+        JenkinsUtils.deleteNodes();
     }
 }
+
