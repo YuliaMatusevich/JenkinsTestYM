@@ -21,6 +21,7 @@ import static runner.TestUtils.*;
 
 public class FreestyleProjectTest extends BaseTest {
 
+    @TmsLink("Vorq8fwS")
     @Owner("AlekseiChapaev")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Function")
@@ -39,6 +40,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(homePage.getJobBuildStatus(TestDataUtils.FREESTYLE_PROJECT_NAME), "Disabled");
     }
 
+    @TmsLink("K2XphOUR")
     @Owner("AlekseiChapaev")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Function")
@@ -55,6 +57,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(jobStatusIconTooltip, "Not built");
     }
 
+    @TmsLink("8R2wOBkW")
     @Owner("AlekseiChapaev")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Function")
@@ -69,6 +72,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectStatusPage.getHeaderText(), String.format("Project %s", TestDataUtils.FREESTYLE_PROJECT_NAME));
     }
 
+    @TmsLink("mccmMRAf")
     @Owner("AlekseiChapaev")
     @Severity(SeverityLevel.TRIVIAL)
     @Feature("UI")
@@ -88,6 +92,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectDescription, descriptionText);
     }
 
+    @TmsLink("GitmsFrN")
     @Owner("AlekseiChapaev")
     @Severity(SeverityLevel.TRIVIAL)
     @Feature("UI")
@@ -104,6 +109,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(page.getDescriptionText(), newDescription);
     }
 
+    @TmsLink("L2SOzVav")
     @Owner("AlekseiChapaev")
     @Severity(SeverityLevel.TRIVIAL)
     @Feature("UI")
@@ -120,6 +126,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(page.getPageText(), "Changes\nNo builds.");
     }
 
+    @TmsLink("Mdy9vs4r")
     @Owner("AlekseiChapaev")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Function")
@@ -143,6 +150,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(jobsList.contains(TestDataUtils.FREESTYLE_PROJECT_RENAME));
     }
 
+    @TmsLink("bic5dwk6")
     @Owner("Viktoriya D")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Function")
@@ -177,6 +185,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleName, String.format("Project %s", TestDataUtils.FREESTYLE_PROJECT_NAME));
     }
 
+    @TmsLink("iYC68Efm")
     @Owner("AlekseiChapaev")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Function")
@@ -192,6 +201,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectConfigPage.getHeadlineText(), "Configuration");
     }
 
+    @TmsLink("TOGd7h7D")
     @Owner("MaksPt")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Function")
@@ -216,6 +226,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(countBuildsAfterCreatingNewBuild, countBuildsBeforeCreatingNewBuild + 1);
     }
 
+    @TmsLink("dVfHyxtT")
     @Owner("Anastasia Yakimova")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -234,6 +245,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(pageHeaderText, "Welcome to Jenkins!");
     }
 
+    @TmsLink("vh3qVkb4")
     @Owner("olpolezhaeva")
     @Severity(SeverityLevel.NORMAL)
     @Feature("UI")
@@ -254,6 +266,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(actualFreestyleConfigSideMenu, expectedFreestyleConfigSideMenu);
     }
 
+    @TmsLink("VHIiPWUB")
     @Owner("AlekseiChapaev")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -300,7 +313,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(page.isBooleanParameterSetByDefault());
     }
 
-
+    @TmsLink("LwT0WCMC")
     @Owner("AlekseiChapaev")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -325,6 +338,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertNotEquals(page.getBuildDurationTime(), "N/A");
     }
 
+    @TmsLink("Kb5N8hNa")
     @Owner("Anastasia Yakimova")
     @Severity(SeverityLevel.MINOR)
     @Feature("Function")
@@ -351,6 +365,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Ignore
+    @TmsLink("LwT0WCMC")
     @Owner("Anastasia Yakimova")
     @Severity(SeverityLevel.NORMAL)
     @Feature("UI")
@@ -372,6 +387,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(actualOptionsInBuildStepsSection, expectedOptionsInBuildStepsSection);
     }
 
+    @TmsLink("ycsejQJr")
     @Owner("Anastasia Yakimova")
     @Severity(SeverityLevel.MINOR)
     @Feature("UI")
@@ -392,6 +408,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Ignore
+    @TmsLink("i9kUcRNl")
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.MINOR)
     @Feature("Function")
@@ -413,6 +430,8 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(actualBuildDateTime.contains(currentDayPeriod()));
     }
 
+    @Ignore
+    @TmsLink("y0zlLD5l")
     @Owner("Liudmila Plucci")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -447,6 +466,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(actualConsoleOutput.contains("BUILD SUCCESS"));
     }
 
+    @TmsLink("zeYtr1Kt")
     @Flaky
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.CRITICAL)
@@ -493,6 +513,7 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Ignore
+    @TmsLink("76Qyfari")
     @Owner("Liudmila Plucci")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -524,6 +545,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertFalse(actualListOfFolders.contains("target"));
     }
 
+    @TmsLink("u5a7rxJB")
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -544,6 +566,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(downstreamProjectList.contains(TestDataUtils.FREESTYLE_PROJECT_NAME2));
     }
 
+    @TmsLink("geEPuS8j")
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
@@ -590,6 +613,8 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(actualAmountOfSavedBuilds, expectedListOfBuildNames);
     }
 
+    @Ignore
+    @TmsLink("TkTvKnz0")
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Function")
