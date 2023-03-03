@@ -16,6 +16,7 @@ import java.util.List;
 
 public class PipelineTest extends BaseTest {
 
+    @TmsLink("TaFR4Mkn")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Function")
     @Description("Check if pipeline project can be disabled")
@@ -30,6 +31,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(actualMessageDisabledProject, "This project is currently disabled");
     }
 
+    @TmsLink("hTueKlqU")
+    @Owner("Denis Sebrovsky")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Check if pipeline project can be enabled after disabling")
     @Test(dependsOnMethods = "testDisablePipelineProjectMessage")
     public void testEnablePipelineProject() {
         String jobStatusAfterEnable = new HomePage(getDriver())
@@ -42,6 +48,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertNotEquals(jobStatusAfterEnable, "Disabled");
     }
 
+    @TmsLink("1ywqKe4A")
+    @Owner("Dmitry Starski")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Check if pipeline project can be renamed")
     @Test
     public void testRenamePipelineWithValidName() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
