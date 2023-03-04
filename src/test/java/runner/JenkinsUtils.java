@@ -1,8 +1,5 @@
 package runner;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -144,10 +141,10 @@ public class JenkinsUtils {
     }
 
     private static void deleteNodes() {
-        String nodePage = getPage("");
-        deleteByLink("manage/computer/%s/doDelete",
-                getSubstringsFromPage(nodePage, "href=\"/manage/computer/", "/\""),
-                getCrumbFromPage(nodePage));
+        String mainPage = getPage("");
+        deleteByLink("computer/%s/doDelete",
+                getSubstringsFromPage(mainPage, "href=\"/computer/", "/\""),
+                getCrumbFromPage(mainPage));
     }
 
     public static void clearData() {
