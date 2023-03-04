@@ -286,7 +286,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     @Step("Open ‘Add Build Steps' dropdown in the ‘Build Steps' section")
     public FreestyleProjectConfigPage openAddBuildStepDropDown() {
-        scrollToElement_PlaceInCenter(getDriver(), buildStepsButton);
+        scrollToEnd(getDriver());
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(buildStepsButton));
         getWait(5).until(ExpectedConditions.elementToBeClickable(buildStepsButton));
         buildStepsButton.click();
@@ -378,7 +378,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     @Step("Open 'Add post-build action' dropdown in the 'Post-build Actions' section")
     public FreestyleProjectConfigPage openAddPostBuildActionDropDown() {
-        scrollToElement_PlaceInCenter(getDriver(), postBuildActionButton);
+        scrollToEnd(getDriver());
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(postBuildActionButton));
         getWait(5).until(ExpectedConditions.elementToBeClickable(postBuildActionButton));
         postBuildActionButton.click();
@@ -396,7 +396,7 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
 
     @Step("Input the project '{name} in the 'Project to build' field of the 'Build other project' section")
     public FreestyleProjectConfigPage setProjectToBuildName(String name) {
-        scrollToElement_PlaceInCenter(getDriver(), projectToBuildField);
+        scrollToEnd(getDriver());
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(projectToBuildField));
         getWait(5).until(ExpectedConditions.elementToBeClickable(projectToBuildField));
         projectToBuildField.click();

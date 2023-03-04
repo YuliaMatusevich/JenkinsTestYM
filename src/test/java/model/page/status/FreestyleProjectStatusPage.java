@@ -121,10 +121,10 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
     }
 
     @Step ("Check if 'Latest Test Result' link is displayed")
-    public boolean isTestResultLinkClickable() {
+    public boolean isTestResultLinkDisplayed() {
         getWait(10).until(ExpectedConditions.elementToBeClickable(latestTestResultLink));
 
-        return latestTestResultLink.isEnabled();
+        return latestTestResultLink.isDisplayed();
     }
 
     @Step("Check if Test result history chart is Displayed")

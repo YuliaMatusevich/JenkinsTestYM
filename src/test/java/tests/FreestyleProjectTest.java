@@ -236,7 +236,7 @@ public class FreestyleProjectTest extends BaseTest {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
 
         String pageHeaderText = new HomePage(getDriver())
-                .clickFreestyleProjectName()
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
                 .getSideMenu()
                 .clickDeleteToMyStatusPage()
                 .confirmAlertAndDeleteProject()
@@ -364,7 +364,6 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(freestyleProjectConfigPage.getMaxNumberOfBuildsToKeep(), expectedMaxNumberOfBuildsToKeep);
     }
 
-    @Ignore
     @TmsLink("LwT0WCMC")
     @Owner("Anastasia Yakimova")
     @Severity(SeverityLevel.NORMAL)
@@ -413,13 +412,12 @@ public class FreestyleProjectTest extends BaseTest {
     @Severity(SeverityLevel.MINOR)
     @Feature("Function")
     @Description("Verify build time displayed in the 'Build History' section of the side menu s the same as system date and time")
-    @Flaky
     @Test
     public void testFreestyleProjectBuildDateAndTime() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
 
         String actualBuildDateTime = new HomePage(getDriver())
-                .clickFreestyleProjectName()
+                .clickFreestyleProjectName(TestDataUtils.FREESTYLE_PROJECT_NAME)
                 .getSideMenu()
                 .clickBuildNowAndWaitBuildCompleted()
                 .getSideMenu()
@@ -452,7 +450,6 @@ public class FreestyleProjectTest extends BaseTest {
                 .inputBranchSpecifier(TestDataUtils.BRANCH_SPECIFIER)
                 .openAddBuildStepDropDown()
                 .selectInvokeTopLevelMavenTargets()
-                .selectMavenVersion()
                 .setGoal(goal)
                 .clickSaveButton()
                 .getSideMenu()
@@ -636,7 +633,6 @@ public class FreestyleProjectTest extends BaseTest {
                 .inputBranchSpecifier(TestDataUtils.BRANCH_SPECIFIER)
                 .openAddBuildStepDropDown()
                 .selectInvokeTopLevelMavenTargets()
-                .selectMavenVersion()
                 .setGoal(goal)
                 .openAddPostBuildActionDropDown()
                 .selectPublishJUnitTestResultReport()
@@ -647,7 +643,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickBuildNowAndWaitBuildCompleted()
                 .refreshFreestyleProjectStatusPage();
 
-        Assert.assertTrue(freestyleProjectStatusPage.isTestResultLinkClickable());
+        Assert.assertTrue(freestyleProjectStatusPage.isTestResultLinkDisplayed());
         Assert.assertEquals(freestyleProjectStatusPage.getTestResultLinkText(), expectedLinkName);
         Assert.assertTrue(freestyleProjectStatusPage.isTestResultHistoryChartDisplayed());
     }

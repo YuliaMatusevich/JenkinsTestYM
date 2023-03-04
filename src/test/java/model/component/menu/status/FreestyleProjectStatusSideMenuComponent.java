@@ -126,7 +126,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
     public FreestyleProjectStatusPage clickBuildNowAndWaitBuildCompleted() {
          buildNow.click();
          getWait(60).until((ExpectedConditions.not(ExpectedConditions.attributeContains
-                (buildStatusIconLast, "tooltip", "In progress &gt; Console Output"))));
+                (buildStatusIcon, "tooltip", "progress"))));
 
         return new FreestyleProjectStatusPage(getDriver());
     }
