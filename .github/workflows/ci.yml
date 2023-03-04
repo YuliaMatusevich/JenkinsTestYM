@@ -58,6 +58,12 @@ jobs:
           APP_OPTIONS: port=8080;admin.username=${{ secrets.ADMIN_USERNAME }};admin.password=${{ secrets.ADMIN_PASSWORD }}
           CI_RUN: true
 
+      - name: Attach screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          path: screenshots
+
       - name: Get Allure history
         uses: actions/checkout@v2
         if: always()
