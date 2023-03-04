@@ -31,12 +31,14 @@ public class MultibranchPipelineStatusPage extends BaseStatusPage<MultibranchPip
         super(driver);
     }
 
+    @Step("Click on the 'Disable/Enable' button to disable project")
     public MultibranchPipelineStatusPage clickDisableEnableButton() {
         disableEnableButton.click();
 
         return this;
     }
 
+    @Step("Get warning message about disabled project")
     public String getWarningMessage() {
         return warningMessage.getText().split(" \n")[0];
     }
@@ -46,10 +48,12 @@ public class MultibranchPipelineStatusPage extends BaseStatusPage<MultibranchPip
         return projectIcon.getAttribute("class");
     }
 
+    @Step("Is the 'Disable/Enable' button containing the text 'disable' at the moment")
     public boolean isDisableButtonPresent() {
         return disableEnableButton.getText().contains("Disable Multibranch Pipeline");
     }
 
+    @Step("Click on the 'Configure the project' link on the Multibranch Pipeline status page")
     public MultibranchPipelineConfigPage clickLinkConfigureTheProject() {
         linkConfigureTheProject.click();
 

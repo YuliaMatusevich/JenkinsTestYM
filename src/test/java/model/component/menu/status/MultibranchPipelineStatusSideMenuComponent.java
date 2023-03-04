@@ -1,5 +1,6 @@
 package model.component.menu.status;
 
+import io.qameta.allure.Step;
 import model.component.base.BaseStatusSideMenuComponent;
 import model.page.config.MultibranchPipelineConfigPage;
 import model.page.status.MultibranchPipelineStatusPage;
@@ -24,6 +25,7 @@ public class MultibranchPipelineStatusSideMenuComponent extends BaseStatusSideMe
         super(driver, statusPage);
     }
 
+    @Step("Get the list of side menu items")
     public List<String> getMenuOptions() {
         return menuOptions
                 .stream()

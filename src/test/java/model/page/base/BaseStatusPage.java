@@ -35,6 +35,7 @@ public abstract class BaseStatusPage<Self extends BaseStatusPage<?, ?>, StatusSi
         return getWait(5).until(ExpectedConditions.visibilityOf(description)).getText();
     }
 
+    @Step("Get the text of the additional description")
     public String getAdditionalDescriptionText() {
         return additionalDescription.getText();
     }

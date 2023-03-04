@@ -31,6 +31,7 @@ public class MultibranchPipelineConfigPage extends BaseConfigPage<MultibranchPip
         super(driver);
     }
 
+    @Step("Input random name '{name}' into the 'Display name' field")
     public MultibranchPipelineConfigPage setDisplayName(String name) {
         displayName.clear();
         displayName.sendKeys(name);
@@ -38,6 +39,7 @@ public class MultibranchPipelineConfigPage extends BaseConfigPage<MultibranchPip
         return this;
     }
 
+    @Step("Input random description '{text}' into the 'Description' field")
     public MultibranchPipelineConfigPage setDescription(String text) {
         description.clear();
         description.sendKeys(text);

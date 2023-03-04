@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseStatusPage;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +23,7 @@ public class MovePage<StatusPage extends BaseStatusPage<?, ?>> extends MainBaseP
         this.statusPage = statusPage;
     }
 
+    @Step("Select folder name '{name}' in the drop down menu")
     public MovePage<StatusPage> selectFolder(String name) {
         new Select(dropdown).selectByVisibleText("Jenkins » " + name);
 
@@ -34,6 +36,7 @@ public class MovePage<StatusPage extends BaseStatusPage<?, ?>> extends MainBaseP
         return this;
     }
 
+    @Step("Click on the 'Move' button to confirm the move")
     public StatusPage clickMoveButton() {
         moveButton.click();
 

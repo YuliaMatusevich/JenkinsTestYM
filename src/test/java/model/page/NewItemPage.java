@@ -71,7 +71,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return this;
     }
 
-    @Step("Set the New Item name: {name}")
+    @Step("Input the New Item name: {name}")
     public NewItemPage<ConfigPage> setItemName(String name) {
         getWait(2).until(ExpectedConditions.visibilityOf(itemName)).sendKeys(name);
 
@@ -97,6 +97,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return new NewItemPage<>(getDriver(), new MultiConfigurationProjectConfigPage(getDriver()));
     }
 
+    @Step("Select 'Folder' type")
     public NewItemPage<FolderConfigPage> selectFolderType() {
         folderType.click();
 

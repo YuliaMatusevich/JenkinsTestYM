@@ -35,6 +35,7 @@ public abstract class BaseConfigPage<StatusPage extends BaseStatusPage<?, ?>, Se
         return createStatusPage();
     }
 
+    @Step("Click on the 'Apply' button")
     public Self clickApplyButton() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(applyButton)).click();
 

@@ -44,6 +44,7 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
+    @Step("Create new Folder and return to dashboard")
     public static void createNewFolder(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()

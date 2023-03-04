@@ -84,7 +84,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new NewViewFromDashboardPage<>(getDriver(), null);
     }
 
-    @Step("get list of projects' names")
+    @Step("Get list of projects' names")
     public List<String> getJobNamesList() {
         return jobList
                 .stream()
@@ -139,6 +139,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new RenameItemPage<>(getDriver(), new FolderStatusPage(getDriver()));
     }
 
+    @Step("Click 'Rename' in the drop-down menu")
     public RenameItemPage<MultibranchPipelineStatusPage> clickRenameMultibranchPipelineDropDownMenu() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(renameDropDownMenu)).click();
 

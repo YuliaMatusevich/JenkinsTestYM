@@ -37,6 +37,7 @@ public class RenameItemPage<StatusPage extends BaseStatusPage<?, ?>> extends Mai
         return new RenameItemErrorPage(getDriver());
     }
 
+    @Step("Click 'Rename' button")
     public StatusPage clickRenameButton() {
         renameButton.click();
 

@@ -61,6 +61,7 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
         return new NewItemPage<>(getDriver(), null);
     }
 
+    @Step("Get list of job names")
     public List<String> getJobList() {
         return getWait(5).until(ExpectedConditions.visibilityOfAllElements(jobList))
                 .stream()

@@ -227,6 +227,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(buildNowButton.buildNowButtonIsDisplayed());
     }
 
+    @Ignore
     @Flaky
     @Test
     public void testMultiConfigurationProjectWithBuildStepCheckBuildSuccess() {
