@@ -7,7 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-import runner.JenkinsUtils;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
 
@@ -469,7 +468,6 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertFalse(nodeNameList.contains(TestDataUtils.ITEM_NAME));
     }
 
-    @Ignore
     @TmsLink("wDWLOqNz")
     @Owner("Ina Ramankova")
     @Severity(SeverityLevel.CRITICAL)
