@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import model.page.HomePage;
 import model.page.PeoplePage;
 import org.testng.Assert;
@@ -11,6 +12,11 @@ import java.util.List;
 
 public class PeoplePageTest extends BaseTest {
 
+    @TmsLink("L7BaR0hF")
+    @Owner("Liudmila Plucci")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Checking for the presence of required elements on the page: header, footer, buttons")
     @Test
     public void testPeoplePageContent() {
         PeoplePage peoplePage = new HomePage(getDriver())
@@ -28,6 +34,11 @@ public class PeoplePageTest extends BaseTest {
         Assert.assertEquals(peoplePage.getListIconSizeButtonsAsString(), "Small Medium Large");
     }
 
+    @TmsLink("nErWohqh")
+    @Owner("Evan Mai")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Locate a newly created user within the 'People' section")
     @Test
     public void testFindUserInThePeopleSection() {
         PeoplePage peoplePage = new HomePage(getDriver())
@@ -49,6 +60,11 @@ public class PeoplePageTest extends BaseTest {
         Assert.assertTrue(peoplePage.getListOfUsers().contains(TestDataUtils.USER_NAME), TestDataUtils.USER_NAME + " not found");
     }
 
+    @TmsLink("e53PF9Xx")
+    @Owner("Evan Mai")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that user was deleted")
     @Test(dependsOnMethods = "testFindUserInThePeopleSection")
     public void testPeopleDeleteUser() {
         PeoplePage peoplePage = new PeoplePage(getDriver())
@@ -67,6 +83,11 @@ public class PeoplePageTest extends BaseTest {
         Assert.assertFalse(peoplePage.getListOfUsers().contains(TestDataUtils.USER_NAME), TestDataUtils.USER_NAME + " wasn't deleted");
     }
 
+    @TmsLink("N1A394Tp")
+    @Owner("Darina M")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that new user was created")
     @Test
     public void testCreateUser() {
         List<String> userList = new HomePage(getDriver())
@@ -89,6 +110,11 @@ public class PeoplePageTest extends BaseTest {
         Assert.assertTrue(userList.contains(TestDataUtils.USER_NAME), TestDataUtils.USER_NAME + " not found");
     }
 
+    @TmsLink("hiJarrLA")
+    @Owner("Darina M")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verify the header of the 'People' page")
     @Test
     public void testViewPeoplePage() {
         var peoplePage = new HomePage(getDriver())
@@ -98,6 +124,11 @@ public class PeoplePageTest extends BaseTest {
         Assert.assertEquals(peoplePage.getNameOfHeader(), "People");
     }
 
+    @TmsLink("lDCG6pdz")
+    @Owner("Ina Romankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that new user was created going from 'People' page")
     @Test
     public void testCreateUserGoingFromPeoplePage() {
         List<String> userList = new HomePage(getDriver())
