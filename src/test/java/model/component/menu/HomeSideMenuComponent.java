@@ -57,6 +57,7 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
         return new PeoplePage(getDriver());
     }
 
+    @Step("Click on 'Build History' link on the side menu")
     public BuildHistoryPage clickBuildHistory() {
         buildHistory.click();
 
