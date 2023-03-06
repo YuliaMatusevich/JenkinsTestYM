@@ -1,5 +1,6 @@
 package model.page.status;
 
+import io.qameta.allure.Step;
 import model.page.HomePage;
 import model.page.base.BaseStatusPage;
 import model.component.menu.status.MultiConfigurationProjectSideMenuComponent;
@@ -71,14 +72,18 @@ public class MultiConfigurationProjectStatusPage extends BaseStatusPage<MultiCon
         return new HomePage(getDriver());
     }
 
+    @Step("Click 'Disable Project' button on job page")
     public MultiConfigurationProjectStatusPage clickDisableButton() {
         disableButton.click();
 
         return new MultiConfigurationProjectStatusPage(getDriver());
     }
 
+    @Step("Click 'Enable' button on job page")
     public MultiConfigurationProjectStatusPage clickEnableButton() {
+        getWait(3).until(ExpectedConditions.elementToBeClickable(enableButton));
         enableButton.click();
+        getWait(3).until(ExpectedConditions.visibilityOf(disableButton));
 
         return new MultiConfigurationProjectStatusPage(getDriver());
     }

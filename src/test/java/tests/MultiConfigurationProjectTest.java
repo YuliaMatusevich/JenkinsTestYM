@@ -1,7 +1,7 @@
 package tests;
 
 
-import io.qameta.allure.Flaky;
+import io.qameta.allure.*;
 import model.page.ConsoleOutputPage;
 import model.page.HomePage;
 import model.page.RenameItemErrorPage;
@@ -136,6 +136,10 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(multiConfigurationProjectStatusPage.getNameMultiConfigProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
     }
 
+    @TmsLink("2r92DxXC")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Check if multi-configuration project can be disabled")
     @Test
     public void testMultiConfigurationProjectDisableCheckIconDashboardPage() {
         ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
@@ -149,8 +153,12 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         Assert.assertEquals(jobStatusIconTooltip, "Disabled");
     }
-
-    @Ignore
+    
+    @TmsLink("H8UJ4TPf")
+    @Owner("Denis Sebrovsky")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Check if disabled multi-configuration project can be enabled")
     @Test(dependsOnMethods = "testMultiConfigurationProjectDisableCheckIconDashboardPage")
     public void testMultiConfigurationProjectEnableCheckIconDashboardPage() {
         String jobStatusIconTooltip = new HomePage(getDriver())

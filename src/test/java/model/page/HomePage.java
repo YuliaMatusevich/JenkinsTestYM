@@ -212,6 +212,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
                 .findElement(By.xpath(".//*[name()='svg']")).getAttribute("tooltip");
     }
 
+    @Step("Click on '{name}' multi-configuration project")
     public MultiConfigurationProjectStatusPage clickMultiConfigurationProject(String name) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(By.linkText(name))).click();
         return new MultiConfigurationProjectStatusPage(getDriver());
