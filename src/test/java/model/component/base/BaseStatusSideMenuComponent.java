@@ -1,10 +1,10 @@
 package model.component.base;
 
 import io.qameta.allure.Step;
+import model.component.menu.IMenu;
 import model.page.DeletePage;
 import model.page.HomePage;
 import model.page.MovePage;
-import model.page.RenameItemPage;
 import model.page.base.BaseConfigPage;
 import model.page.base.BasePage;
 import model.page.base.BaseStatusPage;
@@ -13,10 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusPage<?, ?>, ConfigPage extends BaseConfigPage<?, ?>> extends BaseSideMenuWithGenericComponent<StatusPage> {
-
-    @FindBy(linkText = "Rename")
-    private WebElement rename;
+public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusPage<?, ?>, ConfigPage extends BaseConfigPage<?, ?>> extends BaseSideMenuWithGenericComponent<StatusPage> implements IMenu<StatusPage> {
 
     @FindBy(xpath = "//div[@id='tasks']//span[contains(., 'Delete')]")
     private WebElement delete;
@@ -33,11 +30,8 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
         super(driver, statusPage);
     }
 
-    @Step("Click 'Rename' on the side menu")
-    public RenameItemPage<StatusPage> clickRename() {
-        rename.click();
-
-        return new RenameItemPage<>(getDriver(), page);
+    public StatusPage getStatusPage() {
+        return page;
     }
 
     private <T extends BasePage> T clickDelete(T toPage) {

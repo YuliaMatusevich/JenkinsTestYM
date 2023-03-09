@@ -26,7 +26,7 @@ public class MultibranchPipelineTest extends BaseTest {
         createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         String actualMultibranchPipeline = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .clickJobDropdownMenu(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .clickRenameMultibranchPipelineDropDownMenu()
                 .clearFieldAndInputNewName(TestDataUtils.MULTIBRANCH_PIPELINE_RENAME)
                 .clickRenameButton()
@@ -244,7 +244,7 @@ public class MultibranchPipelineTest extends BaseTest {
         createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
 
         String welcomeJenkinsHeader = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
+                .clickJobDropdownMenu(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .clickDeleteDropDownMenu()
                 .clickYes()
                 .getHeaderText();

@@ -4,6 +4,7 @@ import io.qameta.allure.*;
 import model.page.HomePage;
 import model.page.RenameItemErrorPage;
 import model.page.config.PipelineConfigPage;
+import model.page.status.FolderStatusPage;
 import model.page.status.PipelineStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -57,8 +58,8 @@ public class PipelineTest extends BaseTest {
     public void testRenamePipelineWithValidName() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
         new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.PIPELINE_NAME)
-                .clickRenamePipelineDropDownMenu()
+                .clickJobDropdownMenu(TestDataUtils.PIPELINE_NAME)
+                .clickRenamePipelineDropdownMenu()
                 .clearFieldAndInputNewName(TestDataUtils.PIPELINE_RENAME)
                 .clickRenameButton();
 
@@ -78,8 +79,8 @@ public class PipelineTest extends BaseTest {
                 .clickCreateButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .clickJobDropDownMenu(TestDataUtils.PIPELINE_NAME)
-                .clickRenamePipelineDropDownMenu()
+                .clickJobDropdownMenu(TestDataUtils.PIPELINE_NAME)
+                .clickRenamePipelineDropdownMenu()
                 .clearFieldAndInputNewName(TestDataUtils.PIPELINE_RENAME)
                 .clickRenameButton()
                 .getBreadcrumbs()
@@ -97,8 +98,8 @@ public class PipelineTest extends BaseTest {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
 
         RenameItemErrorPage renameItemErrorPage = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.PIPELINE_NAME)
-                .clickRenamePipelineDropDownMenu()
+                .clickJobDropdownMenu(TestDataUtils.PIPELINE_NAME)
+                .clickRenamePipelineDropdownMenu()
                 .clickRenameButtonWithInvalidData();
 
         Assert.assertEquals(renameItemErrorPage.getHeadErrorMessage(), "Error");
@@ -112,8 +113,8 @@ public class PipelineTest extends BaseTest {
         String actualRenameErrorMessage = new HomePage(getDriver())
                 .getBreadcrumbs()
                 .clickDashboard()
-                .clickJobDropDownMenu(TestDataUtils.PIPELINE_NAME)
-                .clickRenamePipelineDropDownMenu()
+                .clickJobDropdownMenu(TestDataUtils.PIPELINE_NAME)
+                .clickRenamePipelineDropdownMenu()
                 .clearFieldAndInputNewName(TestDataUtils.PIPELINE_NAME + specialCharacter)
                 .clickRenameButtonWithInvalidData()
                 .getErrorMessage();
@@ -172,7 +173,7 @@ public class PipelineTest extends BaseTest {
 
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
         PipelineStatusPage pipelineProjectPage = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.PIPELINE_NAME)
+                .clickJobDropdownMenu(TestDataUtils.PIPELINE_NAME)
                 .clickConfigureDropDownMenu()
                 .clickGitHubCheckbox()
                 .setGitHubRepo(TestDataUtils.GITHUB_REPOSITORY_URL)
@@ -202,7 +203,7 @@ public class PipelineTest extends BaseTest {
     @Test(dependsOnMethods = "testWarningMessageIsDisappeared")
     public void testBuildParametrizedProject() {
         String consoleOutputText = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.PIPELINE_NAME)
+                .clickJobDropdownMenu(TestDataUtils.PIPELINE_NAME)
                 .clickConfigureDropDownMenu()
                 .clickParameterizationCheckbox()
                 .clickAddParameter()

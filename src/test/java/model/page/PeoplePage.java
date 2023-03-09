@@ -1,7 +1,7 @@
 package model.page;
 
-import io.qameta.allure.Step;
 import model.component.menu.HomeSideMenuComponent;
+import io.qameta.allure.Step;
 import model.page.base.MainBasePageWithSideMenu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

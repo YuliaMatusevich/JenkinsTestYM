@@ -15,11 +15,11 @@ public abstract class BaseModel {
     private final Map<Integer, WebDriverWait> waitMap = new HashMap<>();
     private Actions action;
 
-    protected WebDriver getDriver() {
+    public WebDriver getDriver() {
         return driver;
     }
 
-    protected WebDriverWait getWait(int seconds) {
+    public WebDriverWait getWait(int seconds) {
         return waitMap.computeIfAbsent(seconds, duration -> new WebDriverWait(driver, Duration.ofSeconds(duration)));
     }
 

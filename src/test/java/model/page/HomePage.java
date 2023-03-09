@@ -1,6 +1,8 @@
 package model.page;
 
 import io.qameta.allure.Step;
+import model.component.base.BaseComponent;
+import model.component.menu.IMenu;
 import model.page.base.BaseStatusPage;
 import model.component.menu.HomeSideMenuComponent;
 import model.page.base.MainBasePageWithSideMenu;
@@ -23,14 +25,26 @@ import static runner.TestUtils.scrollToElement;
 
 public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
+    public static class DropdownMenu<StatusPage extends BaseStatusPage<?, ?>> extends BaseComponent implements IMenu<StatusPage> {
+
+        private final StatusPage statusPage;
+
+        public DropdownMenu(WebDriver driver, StatusPage statusPage) {
+            super(driver);
+            this.statusPage = statusPage;
+        }
+
+        @Override
+        public StatusPage getStatusPage() {
+            return statusPage;
+        }
+    }
+
     @FindBy(css = "tr td a.model-link")
     private List<WebElement> jobList;
 
     @FindBy(linkText = "Configure")
     private WebElement configureDropDownMenu;
-
-    @FindBy(linkText = "Rename")
-    private WebElement renameDropDownMenu;
 
     @FindBy(xpath = "//span[contains(text(),'Delete')]")
     private WebElement deleteButtonInDropDownMenu;
@@ -121,31 +135,31 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new FreestyleProjectStatusPage(getDriver());
     }
 
-    public RenameItemPage<PipelineStatusPage> clickRenamePipelineDropDownMenu() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(renameDropDownMenu)).click();
+    @Step("Click the job drop-down menu with name '{name}' on the dashboard")
+    public HomePage clickJobDropdownMenu(String name) {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(
+                By.xpath(String.format("//tr[@id='job_%s']//button[@class='jenkins-menu-dropdown-chevron']", name)))).click();
 
-        return new RenameItemPage<>(getDriver(), new PipelineStatusPage(getDriver()));
+        return this;
     }
 
-    public RenameItemPage<MultiConfigurationProjectStatusPage> clickRenameMultiConfigurationDropDownMenu() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(renameDropDownMenu)).click();
-
-        return new RenameItemPage<>(getDriver(), new MultiConfigurationProjectStatusPage(getDriver()));
+    public RenameItemPage<PipelineStatusPage> clickRenamePipelineDropdownMenu() {
+        return new DropdownMenu<>(getDriver(), new PipelineStatusPage(getDriver())).clickRename();
     }
 
-    public RenameItemPage<FolderStatusPage> clickRenameFolderDropDownMenu() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(renameDropDownMenu)).click();
+    public RenameItemPage<MultiConfigurationProjectStatusPage> clickRenameMultiConfigurationDropdownMenu() {
+        return new DropdownMenu<>(getDriver(), new MultiConfigurationProjectStatusPage(getDriver())).clickRename();
+    }
 
-        return new RenameItemPage<>(getDriver(), new FolderStatusPage(getDriver()));
+    public RenameItemPage<FolderStatusPage> clickRenameFolderDropdownMenu() {
+        return new DropdownMenu<>(getDriver(), new FolderStatusPage(getDriver())).clickRename();
     }
 
     @Step("Click 'Rename' in the drop-down menu")
     public RenameItemPage<MultibranchPipelineStatusPage> clickRenameMultibranchPipelineDropDownMenu() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(renameDropDownMenu)).click();
-
-        return new RenameItemPage<>(getDriver(), new MultibranchPipelineStatusPage(getDriver()));
+        return new DropdownMenu<>(getDriver(), new MultibranchPipelineStatusPage(getDriver())).clickRename();
     }
-
+    
     public ConfigurationGeneralPage clickConfigDropDownMenu() {
         getWait(6).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
 
@@ -166,13 +180,6 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new DeletePage<>(getDriver(), this);
     }
 
-    @Step("Click the job drop-down menu with name '{name}' on the dashboard")
-    public HomePage clickJobDropDownMenu(String name) {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(
-                "//tr[@id='job_%s']//button[@class='jenkins-menu-dropdown-chevron']", name)))).click();
-
-        return this;
-    }
     @Step("Click on MultibranchPipeline name '{name}' on the dashboard")
     public MultibranchPipelineStatusPage clickJobMultibranchPipeline(String name) {
         getDriver().findElement(By.xpath("//span[text()='" + name + "']")).click();

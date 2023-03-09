@@ -54,7 +54,7 @@ public class FolderTest extends BaseTest {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
 
         List<String> projectNamesOnDashboard = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME)
+                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
                 .clickConfigureDropDownMenuForFolder()
                 .setDisplayName(TestDataUtils.DISPLAY_NAME)
                 .setDescription("change name")
@@ -102,7 +102,7 @@ public class FolderTest extends BaseTest {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME_2);
 
         HomePage homePage = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME)
+                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
                 .clickMoveButtonDropdown(new FolderStatusPage(getDriver()))
                 .selectFolder(TestDataUtils.FOLDER_NAME_2)
                 .clickMoveButton()
@@ -132,7 +132,7 @@ public class FolderTest extends BaseTest {
     public void testRenameFolderFromDropDownMenuConfigure() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
         HomePage homePage = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME)
+                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
                 .clickConfigDropDownMenu()
                 .setProjectName(TestDataUtils.FOLDER_NAME_2)
                 .clickSaveButton()
@@ -146,8 +146,8 @@ public class FolderTest extends BaseTest {
     public void testRenameFolderFromDropDownMenuRename() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
         HomePage homePage = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME)
-                .clickRenameFolderDropDownMenu()
+                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
+                .clickRenameFolderDropdownMenu()
                 .clearFieldAndInputNewName(TestDataUtils.FOLDER_NAME_2)
                 .clickRenameButton()
                 .getBreadcrumbs()
@@ -200,7 +200,7 @@ public class FolderTest extends BaseTest {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
 
         List<String> projectNamesInFolder = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .clickJobDropdownMenu(TestDataUtils.FREESTYLE_PROJECT_NAME)
                 .clickMoveButtonDropdown(new FreestyleProjectStatusPage(getDriver()))
                 .selectFolder(TestDataUtils.FOLDER_NAME)
                 .clickMoveButton()
@@ -312,8 +312,8 @@ public class FolderTest extends BaseTest {
     @Test(dependsOnMethods = "testCreateFolderWithDescription")
     public void testRenameFolderWithDescription() {
         FolderStatusPage folder = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME)
-                .clickRenameFolderDropDownMenu()
+                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
+                .clickRenameFolderDropdownMenu()
                 .clearFieldAndInputNewName(TestDataUtils.FOLDER_NAME)
                 .clickRenameButton()
                 .getBreadcrumbs()
@@ -343,7 +343,7 @@ public class FolderTest extends BaseTest {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME_2);
 
         String folderDescription = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME_2)
+                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME_2)
                 .clickConfigDropDownMenu()
                 .setDescription(TestDataUtils.DESCRIPTION)
                 .clickSaveButton()
@@ -430,7 +430,7 @@ public class FolderTest extends BaseTest {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
 
         String welcomeJenkinsHeader = new HomePage(getDriver())
-                .clickJobDropDownMenu(TestDataUtils.FOLDER_NAME)
+                .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
                 .clickDeleteDropDownMenu()
                 .clickYes()
                 .getHeaderText();
