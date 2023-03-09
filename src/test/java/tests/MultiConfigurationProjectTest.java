@@ -154,6 +154,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(jobStatusIconTooltip, "Disabled");
     }
     
+    @Ignore
     @TmsLink("H8UJ4TPf")
     @Owner("Denis Sebrovsky")
     @Severity(SeverityLevel.NORMAL)

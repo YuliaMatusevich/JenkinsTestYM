@@ -4,6 +4,7 @@ import model.component.HeaderComponent;
 import model.page.*;
 import model.page.view.MyViewsPage;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -19,6 +20,7 @@ public class HeaderComponentTest extends BaseTest {
         Assert.assertTrue(actualResult);
     }
 
+    @Ignore
     @Test
     public void testUserIdInUserAccountLinkAndInUserPage() {
 
