@@ -245,7 +245,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
     }
 
     public String getJobBuildStatus() {
-
+        getWait(3).until(ExpectedConditions.visibilityOf(buildStatusIcon));
         return buildStatusIcon.getAttribute("tooltip");
     }
 

@@ -153,8 +153,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
 
         Assert.assertEquals(jobStatusIconTooltip, "Disabled");
     }
-    
-    @Ignore
+
     @TmsLink("H8UJ4TPf")
     @Owner("Denis Sebrovsky")
     @Severity(SeverityLevel.NORMAL)
@@ -167,7 +166,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .clickEnableButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .getJobBuildStatus(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
+                .getJobBuildStatus();
 
         Assert.assertEquals(jobStatusIconTooltip, "Not built");
     }
