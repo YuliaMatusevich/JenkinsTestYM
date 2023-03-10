@@ -30,6 +30,7 @@ public class MovePage<StatusPage extends BaseStatusPage<?, ?>> extends MainBaseP
         return this;
     }
 
+    @Step("Select Jenkins dashboard in the drop down menu")
     public MovePage<StatusPage> selectDashboardAsFolder() {
         new Select(dropdown).selectByVisibleText("Jenkins");
 

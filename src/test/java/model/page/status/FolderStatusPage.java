@@ -111,6 +111,7 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
         return new FreestyleProjectStatusPage(getDriver());
     }
 
+    @Step("Click on Organization Folder name '{name}' on the Folder page")
     public OrgFolderStatusPage clickOrgFolder(String name) {
         getDriver().findElement(By.xpath("//span[text()= '" + name + "']")).click();
 

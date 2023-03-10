@@ -45,6 +45,7 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
         return clickDelete(page);
     }
 
+    @Step("Click 'Delete' on the side menu")
     public DeletePage<HomePage> clickDeleteToHomePage() {
         return clickDelete(new DeletePage<>(getDriver(), new HomePage(getDriver())));
     }
@@ -53,7 +54,7 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
         return clickDelete(new DeletePage<>(getDriver(), new FolderStatusPage(getDriver())));
     }
 
-    @Step("Click on the 'Move' in the side menu")
+    @Step("Click on the 'Move' on the side menu")
     public MovePage<StatusPage> clickMove() {
         move.click();
 

@@ -200,7 +200,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return getWait(10).until(ExpectedConditions.visibilityOf(header)).getText();
     }
 
-    @Step("Click on Folder name in dashboard")
+    @Step("Click on Folder name '{folderName}' on the dashboard")
     public FolderStatusPage clickFolder(String folderName) {
         getDriver().findElement(By.xpath("//span[text()='" + folderName + "']")).click();
 
@@ -295,6 +295,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return getWait(5).until(ExpectedConditions.visibilityOf(buildNowButton)).isDisplayed();
     }
 
+    @Step("Click Organization Folder name - '{name}' on dashboard")
     public OrgFolderStatusPage clickOrgFolder(String name) {
         getDriver().findElement(By.linkText(name)).click();
 

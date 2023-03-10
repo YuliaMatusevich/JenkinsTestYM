@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import model.page.HomePage;
 import model.page.status.FolderStatusPage;
 import model.page.status.OrgFolderStatusPage;
@@ -16,6 +17,11 @@ import static runner.TestUtils.getRandomStr;
 
 public class OrganizationFolderTest extends BaseTest {
 
+    @TmsLink("HpuGw5FI")
+    @Owner("Umida Kaharova")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify that the 'Organization Folder' can be renamed")
     @Test
     public void testRenameOrganizationFolder() {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
@@ -32,6 +38,11 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.ORGANIZATION_FOLDER_RENAME));
     }
 
+    @TmsLink("s4ILu5Hi")
+    @Owner("EkaterinaTurgunova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that the 'Organization Folder' can be deleted with the 'Delete' on the side menu")
     @Test
     public void testDeleteOrganizationFolderDependsMethods() {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
@@ -45,6 +56,11 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertFalse(homePage.getJobNamesList().contains(TestDataUtils.ORGANIZATION_FOLDER_NAME));
     }
 
+    @TmsLink("vTPNdXOw")
+    @Owner("EkaterinaTurgunova")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("The 'Display name' can be added to the Organization Folder")
     @Test
     public void testConfigureOrganizationFolderWithName() {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
@@ -59,6 +75,11 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertEquals(orgFolderStatusPage.getHeaderText(), TestDataUtils.DISPLAY_NAME);
     }
 
+    @TmsLink("vTPNdXOw")
+    @Owner("Stanislaw1349")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("The 'Description' can be added to the Organization Folder")
     @Test
     public void testConfigureOrganizationFolderWithDescription() {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
@@ -74,6 +95,11 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertEquals(orgFolderStatusPage.getAdditionalDescriptionText(), description);
     }
 
+    @TmsLink("D3Cgw46S")
+    @Owner("Ina Chemerko")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("The Organization folder can be moved to folder")
     @Test
     public void testMoveOrgFolderToFolder() {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
@@ -92,6 +118,11 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertTrue(folderStatusPage.getJobList().contains(TestDataUtils.ORGANIZATION_FOLDER_NAME));
     }
 
+    @TmsLink("iwaFKc65")
+    @Owner("Ina Chemerko")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("The Organization folder can be moved from folder to dashboard")
     @Test(dependsOnMethods = "testMoveOrgFolderToFolder")
     public void testMoveOrgFolderToDashboard() {
         HomePage homePage = new HomePage(getDriver())
@@ -108,6 +139,11 @@ public class OrganizationFolderTest extends BaseTest {
     }
 
     @Ignore
+    @TmsLink("LksqezL1")
+    @Owner("Alina_Sinyagina")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("The child health metrics can be added to Organization folder")
     @Test
     public void testCheckChildHealthMetrics() {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
@@ -122,6 +158,11 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertTrue(actualResult);
     }
 
+    @TmsLink("gR0bpDze")
+    @Owner("Alina_Sinyagina")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that the 'Organization Folder' can be disable")
     @Test
     public void testChangeStatusToDisableOrgFolder() {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);

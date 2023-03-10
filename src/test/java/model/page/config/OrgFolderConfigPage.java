@@ -1,5 +1,6 @@
 package model.page.config;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseConfigPage;
 import model.page.status.OrgFolderStatusPage;
 import org.openqa.selenium.WebDriver;
@@ -43,12 +44,14 @@ public class OrgFolderConfigPage extends BaseConfigPage<OrgFolderStatusPage, Org
         super(driver);
     }
 
+    @Step("Input random name '{name}' into the 'Display name' field")
     public OrgFolderConfigPage inputDisplayName(String name) {
         displayName.sendKeys(name);
 
         return this;
     }
 
+    @Step("Input random description '{name}' into the 'Description' field")
     public OrgFolderConfigPage inputDescription(String name) {
         description.sendKeys(name);
 

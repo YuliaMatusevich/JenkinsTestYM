@@ -1,5 +1,6 @@
 package model.page.status;
 
+import io.qameta.allure.Step;
 import model.page.HomePage;
 import model.page.base.BaseStatusPage;
 import model.page.config.OrgFolderConfigPage;
@@ -39,18 +40,21 @@ public class OrgFolderStatusPage extends BaseStatusPage<OrgFolderStatusPage, Org
         return new HomePage(getDriver());
     }
 
+    @Step("Click on the 'Configure the project' link on the Organization Folder status page")
     public OrgFolderConfigPage clickLinkConfigureTheProject() {
         linkConfigureTheProject.click();
 
         return new OrgFolderConfigPage(getDriver());
     }
 
+    @Step("Click on the 'Disable' button")
     public OrgFolderStatusPage clickDisableButton() {
         disableOrgFolderButton.click();
 
         return this;
     }
 
+    @Step("Get warning message and message color about disabled Organization Folder")
     public HashMap<String, String> getWarningTextAboutDisabledOrgFolder() {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("Warning Message", warningTextAboutDisableOrgFolder.getText().substring(0, warningTextAboutDisableOrgFolder.getText().indexOf(" \n")));

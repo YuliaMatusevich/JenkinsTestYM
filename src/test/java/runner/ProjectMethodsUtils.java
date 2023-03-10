@@ -70,6 +70,7 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
+    @Step("Create new Organization folder and return to dashboard")
     public static void createNewOrganizationFolder(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()
