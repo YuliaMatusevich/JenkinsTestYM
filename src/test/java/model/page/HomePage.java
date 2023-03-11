@@ -304,6 +304,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new PipelineStatusPage(getDriver());
     }
 
+    @Step("Get list of existing jobs")
     public String getJobListAsString() {
         StringBuilder listProjectsNames = new StringBuilder();
         for (WebElement projects : jobList) {

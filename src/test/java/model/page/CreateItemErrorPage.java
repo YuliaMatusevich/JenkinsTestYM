@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,10 +24,12 @@ public class CreateItemErrorPage extends MainBasePage {
         super(driver);
     }
 
+    @Step("Get error message")
     public String getErrorMessage() {
         return errorMessage.getText();
     }
 
+    @Step("Get error header")
     public String getErrorHeader() {
         return errorHeader.getText();
     }

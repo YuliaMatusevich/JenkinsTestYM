@@ -126,6 +126,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return configPage;
     }
 
+    @Step("Click 'Ok' button to create an item")
     public CreateItemErrorPage clickOkToCreateItemErrorPage() {
         okButton.click();
 
@@ -151,6 +152,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return okButton.isEnabled();
     }
 
+    @Step("Input '{name}' into 'Copy from' field")
     public NewItemPage<?> setCopyFrom(String name) {
         getAction().moveToElement(copyFrom).click().sendKeys(name).perform();
 
@@ -164,6 +166,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return this;
     }
 
+    @Step("Check if 'Copy from' field is displayed")
     public boolean isDisplayedFieldCopyFrom() {
         try {
             TestUtils.scrollToEnd(getDriver());
