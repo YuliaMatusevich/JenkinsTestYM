@@ -429,7 +429,6 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(actualBuildDateTime.contains(currentDayPeriod()));
     }
 
-    @Ignore
     @TmsLink("y0zlLD5l")
     @Owner("Liudmila Plucci")
     @Severity(SeverityLevel.CRITICAL)
@@ -440,6 +439,7 @@ public class FreestyleProjectTest extends BaseTest {
     @Test
     public void testBuildGitProjectWithBuildStepsMaven() {
         final String goal = "test";
+        ProjectMethodsUtils.setMavenVersion(getDriver(),TestDataUtils.MAVEN_NAME);
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
 
         String actualConsoleOutput = new HomePage(getDriver())
@@ -451,6 +451,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .inputBranchSpecifier(TestDataUtils.BRANCH_SPECIFIER)
                 .openAddBuildStepDropDown()
                 .selectInvokeTopLevelMavenTargets()
+                .selectExactMavenVersionNameInDropdown(TestDataUtils.MAVEN_NAME)
                 .setGoal(goal)
                 .clickSaveButton()
                 .getSideMenu()
@@ -510,7 +511,6 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(project2StatusIconAfterBuild, "Success");
     }
 
-    @Ignore
     @TmsLink("76Qyfari")
     @Owner("Liudmila Plucci")
     @Severity(SeverityLevel.CRITICAL)

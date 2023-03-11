@@ -186,4 +186,16 @@ public class ProjectMethodsUtils {
                 .clickCreateButton()
                 .clickSaveButton();
     }
+
+    @Step("Set Maven in Global Tools Configuration with Maven name '{name}'")
+    public static void setMavenVersion(WebDriver driver, String name) {
+        new HomePage(driver)
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickConfigureTools()
+                .setMavenVersionWithNewName(TestDataUtils.MAVEN_NAME)
+                .clickApplyButton()
+                .getBreadcrumbs()
+                .clickDashboard();
+    }
 }

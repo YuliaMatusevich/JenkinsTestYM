@@ -355,12 +355,23 @@ public class FreestyleProjectConfigPage extends BaseConfigPage<FreestyleProjectS
     }
 
     @Step("Select last available Maven version in the dropdown menu in ‘Maven Version’ field")
-    public FreestyleProjectConfigPage selectMavenVersion() {
+    public FreestyleProjectConfigPage selectLastMavenVersion() {
         scrollToEnd(getDriver());
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(mavenVersionField));
         mavenVersionField.click();
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(lastMavenOptionInMavenVersionField));
         lastMavenOptionInMavenVersionField.click();
+
+        return this;
+    }
+
+    @Step("Select Maven version with name '{mavenName}' in dropdown of the 'Maven version' field " +
+            "in the 'Invoke top-level Maven targets' section")
+    public FreestyleProjectConfigPage selectExactMavenVersionNameInDropdown(String mavenName) {
+        scrollToEnd(getDriver());
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(mavenVersionField));
+        mavenVersionField.click();
+        getDriver().findElement(By.xpath( "//option[@value = '" + mavenName + "']")).click();
 
         return this;
     }

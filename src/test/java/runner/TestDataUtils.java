@@ -53,6 +53,8 @@ public class TestDataUtils {
 
     public static final String BRANCH_SPECIFIER = "*/main";
 
+    public static final String MAVEN_NAME = getRandomStr();
+
     @DataProvider(name = "specialCharacters")
     public static Object[][] specialCharactersList() {
         return new Object[][]{{'&', "&amp;"}, {'>', "&gt;"}, {'<', "&lt;"}, {'!', "!"}, {'@', "@"}, {'#', "#"},

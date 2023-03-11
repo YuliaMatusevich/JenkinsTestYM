@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +24,16 @@ public class GlobalToolConfigurationPage extends MainBasePage {
 
     @FindBy(id = "footer")
     private WebElement footerElement;
+
+    @FindBy(xpath = "//div[contains(text(),'List of Maven installations on this system')]")
+    private WebElement listOfMavenInstallationsAreaTextNotice;
+
+    @FindBy(xpath = "//button[text() = 'Maven installations...']")
+    private WebElement mavenInstallationsButton;
+
+    @FindBy(name= "_.id")
+    private WebElement mavenVersionDropdownField;
+
 
     public GlobalToolConfigurationPage(WebDriver driver) {
         super(driver);
@@ -57,5 +68,20 @@ public class GlobalToolConfigurationPage extends MainBasePage {
     public String getErrorAreaText() {
 
         return getWait(5).until(ExpectedConditions.visibilityOf(errorArea)).getText();
+    }
+
+    @Step("Set Maven version in Global Tools Configuration with new Maven name '{name}'")
+    public GlobalToolConfigurationPage setMavenVersionWithNewName(String mavenName) {
+        TestUtils.scrollToEnd(getDriver());
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(applyButton));
+        if(!(listOfMavenInstallationsAreaTextNotice.isDisplayed())) {
+            mavenInstallationsButton.click();
+        } addMavenButton.click();
+
+        TestUtils.scrollToElement_PlaceInCenter(getDriver(), mavenVersionDropdownField);
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(mavenVersionDropdownField));
+        mavenTitleField.sendKeys(mavenName);
+
+        return this;
     }
 }
