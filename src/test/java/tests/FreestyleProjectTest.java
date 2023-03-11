@@ -611,7 +611,6 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(actualAmountOfSavedBuilds, expectedListOfBuildNames);
     }
 
-    @Ignore
     @TmsLink("TkTvKnz0")
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.CRITICAL)
@@ -623,6 +622,7 @@ public class FreestyleProjectTest extends BaseTest {
         final String goal = "clean compile test";
         final String reportPath = "target/surefire-reports/*.xml";
         final String expectedLinkName = "Latest Test Result";
+        ProjectMethodsUtils.setMavenVersion(getDriver(),TestDataUtils.MAVEN_NAME);
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
 
         FreestyleProjectStatusPage freestyleProjectStatusPage = new HomePage(getDriver())
@@ -634,6 +634,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .inputBranchSpecifier(TestDataUtils.BRANCH_SPECIFIER)
                 .openAddBuildStepDropDown()
                 .selectInvokeTopLevelMavenTargets()
+                .selectExactMavenVersionNameInDropdown(TestDataUtils.MAVEN_NAME)
                 .setGoal(goal)
                 .openAddPostBuildActionDropDown()
                 .selectPublishJUnitTestResultReport()
