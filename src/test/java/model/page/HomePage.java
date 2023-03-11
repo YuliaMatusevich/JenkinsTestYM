@@ -265,11 +265,6 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return getDriver().findElement(By.xpath(String.format("//span[contains(text(),'%s')]", name))).getText();
     }
 
-    public String getStatusBuildText() {
-
-        return buildStatusIcon.getAttribute("tooltip");
-    }
-
     public HomePage movePointToCheckBox() {
         getAction().moveToElement(buildStatusIcon).perform();
 

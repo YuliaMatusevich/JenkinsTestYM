@@ -311,7 +311,7 @@ public class PipelineTest extends BaseTest {
                 .getBreadcrumbs()
                 .clickDashboard()
                 .movePointToCheckBox()
-                .getStatusBuildText();
+                .getJobBuildStatus();
 
         Assert.assertEquals(actualCheckIcon, expectedCheckIcon);
     }
