@@ -159,14 +159,22 @@ public class MultiConfigurationProjectTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Feature("Function")
     @Description("Check if disabled multi-configuration project can be enabled")
-    @Test(dependsOnMethods = "testMultiConfigurationProjectDisableCheckIconDashboardPage")
+    @Test
     public void testMultiConfigurationProjectEnableCheckIconDashboardPage() {
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
+
+        new HomePage(getDriver())
+                .clickMultiConfigurationProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
+                .clickDisableButton()
+                .getBreadcrumbs()
+                .clickDashboard();
+
         String jobStatusIconTooltip = new HomePage(getDriver())
                 .clickMultiConfigurationProject(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
                 .clickEnableButton()
                 .getBreadcrumbs()
                 .clickDashboard()
-                .getJobBuildStatus();
+                .getJobBuildStatus(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
 
         Assert.assertEquals(jobStatusIconTooltip, "Not built");
     }

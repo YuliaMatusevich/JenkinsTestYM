@@ -4,7 +4,6 @@ import io.qameta.allure.*;
 import model.page.HomePage;
 import model.page.RenameItemErrorPage;
 import model.page.config.PipelineConfigPage;
-import model.page.status.FolderStatusPage;
 import model.page.status.PipelineStatusPage;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -151,6 +150,7 @@ public class PipelineTest extends BaseTest {
         Assert.assertFalse(pipelineConfigPage.isDisplayedPreviewTextDescription());
     }
 
+    @Flaky
     @Test
     public void testDeletePipelineFromDashboard() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);

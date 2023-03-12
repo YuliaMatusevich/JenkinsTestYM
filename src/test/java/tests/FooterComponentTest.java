@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Flaky;
 import model.page.ExternalJenkinsPage;
 import model.page.HomePage;
 import model.page.RestApiPage;
@@ -46,6 +47,7 @@ public class FooterComponentTest extends BaseTest {
                 + "style information associated with it. The document tree is shown below.");
     }
 
+    @Flaky
     @Test
     public void testFooterLinkJenkinsIsClickable() {
         String externalJenkinsPageHeader = new HomePage(getDriver())

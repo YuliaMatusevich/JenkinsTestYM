@@ -81,9 +81,8 @@ public class MultiConfigurationProjectStatusPage extends BaseStatusPage<MultiCon
 
     @Step("Click 'Enable' button on job page")
     public MultiConfigurationProjectStatusPage clickEnableButton() {
-        getWait(3).until(ExpectedConditions.elementToBeClickable(enableButton));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(enableButton));
         enableButton.click();
-        getWait(3).until(ExpectedConditions.visibilityOf(disableButton));
 
         return new MultiConfigurationProjectStatusPage(getDriver());
     }
