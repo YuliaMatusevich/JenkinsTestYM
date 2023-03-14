@@ -37,6 +37,7 @@ public class BreadcrumbsComponent extends BaseComponent {
         return new HomePage(getDriver());
     }
 
+    @Step("Click on parent folder")
     public FolderStatusPage clickParentFolder() {
         parentFolderRoot.click();
 

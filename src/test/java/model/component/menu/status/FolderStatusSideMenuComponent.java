@@ -1,5 +1,6 @@
 package model.component.menu.status;
 
+import io.qameta.allure.Step;
 import model.page.NewItemPage;
 import model.component.base.BaseStatusSideMenuComponent;
 import model.page.config.FolderConfigPage;
@@ -22,6 +23,7 @@ public class FolderStatusSideMenuComponent extends BaseStatusSideMenuComponent<F
         super(driver, statusPage);
     }
 
+    @Step("Click on 'New Item' in the side menu")
     public NewItemPage<?> clickNewItem() {
         newItem.click();
 

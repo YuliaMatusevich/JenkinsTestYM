@@ -151,6 +151,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new DropdownMenu<>(getDriver(), new MultiConfigurationProjectStatusPage(getDriver())).clickRename();
     }
 
+    @Step("Select the 'Rename' option from the folder's dropdown menu")
     public RenameItemPage<FolderStatusPage> clickRenameFolderDropdownMenu() {
         return new DropdownMenu<>(getDriver(), new FolderStatusPage(getDriver())).clickRename();
     }
@@ -160,6 +161,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new DropdownMenu<>(getDriver(), new MultibranchPipelineStatusPage(getDriver())).clickRename();
     }
     
+    @Step("Click on 'Configure' dropdown menu")
     public ConfigurationGeneralPage clickConfigDropDownMenu() {
         getWait(6).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
 
@@ -207,6 +209,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new FolderStatusPage(getDriver());
     }
 
+    @Step("Click on 'Configure' in the dropdown menu")
     public FolderConfigPage clickConfigureDropDownMenuForFolder() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
 
@@ -225,6 +228,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new MultiConfigurationProjectStatusPage(getDriver());
     }
 
+    @Step("Click on 'Move' in the dropdown menu")
     public <T extends BaseStatusPage<T, ?>> MovePage<T> clickMoveButtonDropdown(T baseStatusPage) {
         getWait(5).until(ExpectedConditions.visibilityOf(moveButtonDropdown));
         scrollToElement(getDriver(), moveButtonDropdown);

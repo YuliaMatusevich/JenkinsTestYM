@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import model.page.HomePage;
 import model.page.status.FolderStatusPage;
 import model.page.status.FreestyleProjectStatusPage;
@@ -15,6 +16,11 @@ import static runner.TestUtils.getRandomStr;
 
 public class FolderTest extends BaseTest {
 
+    @TmsLink("iRLto5x7")
+    @Owner("Vita Zharskaya")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify the ability to create a new folder for organizing items")
     @Test
     public void testCreateFolder() {
         List<String> projectNamesOnDashboard = new HomePage(getDriver())
@@ -31,6 +37,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesOnDashboard.contains(TestDataUtils.FOLDER_NAME));
     }
 
+    @TmsLink("vAWUjRKF")
+    @Owner("Ina Ramankova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify the ability to create a 'Multi-configuration project' in existed folder")
     @Test
     public void testCreateMultiConfigurationProjectInFolder() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -49,6 +60,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(folderStatusPage.getJobList().contains(multiConfigurationProjectName));
     }
 
+    @TmsLink("oNC0G9nC")
+    @Owner("Ilya Korolkov")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the ability to create a unique display name for the folder")
     @Test
     public void testConfigureChangeFolderDisplayName() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -66,6 +82,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesOnDashboard.contains(TestDataUtils.DISPLAY_NAME));
     }
 
+    @TmsLink("28hfWiR7")
+    @Owner("Maks Pt")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify that the previously changed folder name is saved")
     @Test(dependsOnMethods = "testConfigureChangeFolderDisplayName")
     public void testConfigureFolderDisplayNameSaveFolderName() {
         String folderStatusPage = new HomePage(getDriver())
@@ -75,6 +96,11 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(folderStatusPage, "Folder name: " + TestDataUtils.FOLDER_NAME);
     }
 
+    @TmsLink("IzjUz5kr")
+    @Owner("Andrew Shapiro")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify that the folder can be moved into another folder")
     @Test
     public void testMoveFolderInFolder() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -96,6 +122,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(foldersNamesInFolder.contains(TestDataUtils.FOLDER_NAME));
     }
 
+    @TmsLink("bHnC2d35")
+    @Owner("Andrew Shapiro")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify that the folder can be moved into another folder from dropdown menu")
     @Test
     public void testMoveFolderInFolderFromDropdownMenuMoveButton() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -114,6 +145,11 @@ public class FolderTest extends BaseTest {
                 .clickFolder(TestDataUtils.FOLDER_NAME_2).getJobList().contains(TestDataUtils.FOLDER_NAME));
     }
 
+    @TmsLink("Pxtu2m1s")
+    @Owner("Andrew Shapiro")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify that the folder can be deleted")
     @Test
     public void testDeleteFolder() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -128,6 +164,11 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(pageHeaderText, "Welcome to Jenkins!");
     }
 
+    @TmsLink("oNC0G9nC")
+    @Owner("Andrew Shapiro")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify that the name of the folder can be changed through 'Configure' dropdown menu")
     @Test
     public void testRenameFolderFromDropDownMenuConfigure() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -142,6 +183,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.FOLDER_NAME_2));
     }
 
+    @TmsLink("dBpWY2Od")
+    @Owner("0jeqCDcX")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify that the name of the folder can be changed using the option 'Rename' dropdown menu")
     @Test
     public void testRenameFolderFromDropDownMenuRename() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -157,6 +203,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.FOLDER_NAME_2));
     }
 
+    @TmsLink("whA7Azxk")
+    @Owner("Arailym Ashimova")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify that the name of the folder can be changed through side menu")
     @Test
     public void testRenameFolderFromSideMenu() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -174,6 +225,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(newFolderName.contains(TestDataUtils.FOLDER_NAME_2));
     }
 
+    @TmsLink("ddlBlCgY")
+    @Owner("Maks Pt")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify ability to create 'Freestyle project' in folder using the option 'Create a job'")
     @Test
     public void testCreateFreestyleProjectInFolderCreateJob() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -194,6 +250,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesInFolder.contains(freestyleProjectName));
     }
 
+    @TmsLink("H8dMlRHm")
+    @Owner("Maks Pt")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the ability to create a 'Freestyle Project' in the folder")
     @Test
     public void testMoveFreestyleProjectInFolderUsingDropDownMenu() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -212,6 +273,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesInFolder.contains(TestDataUtils.FREESTYLE_PROJECT_NAME));
     }
 
+    @TmsLink("nuV6ObMF")
+    @Owner("Maks Pt")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the ability to create a 'Freestyle project' in the folder using the option 'New Item'")
     @Test
     public void testCreateFreestyleProjectInFolderNewItem() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -232,6 +298,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesInFolder.contains(TestDataUtils.FREESTYLE_PROJECT_NAME));
     }
 
+    @TmsLink("VQ4w9ZyF")
+    @Owner("Ina Romankova")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the ability to delete 'Freestyle Project' from the folder")
     @Test(dependsOnMethods = "testCreateFreestyleProjectInFolderNewItem")
     public void testDeleteFreestyleProjectInFolder() {
 
@@ -259,6 +330,11 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(jobList.size(), (jobListBeforeDeleting.size() - 1));
     }
 
+    @TmsLink("7i2o1N0L")
+    @Owner("Andrew Shapiro")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the ability to create folder in the folder using the option 'Create a job'")
     @Test
     public void testCreateFolderInFolderFromCreateJob() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -277,6 +353,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(folderNamesInFolder.contains(TestDataUtils.FOLDER_NAME_2));
     }
 
+    @TmsLink("WEBhQeoB")
+    @Owner("Igor Shmakov")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the ability to create a new folder in existing folder using the 'New Item' option")
     @Test
     public void testCreateFolderInFolderFromNewItem() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -294,6 +375,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(folderStatusPage.getTopMenuLinkText().contains(TestDataUtils.FOLDER_NAME));
     }
 
+    @TmsLink("8TVmjORt")
+    @Owner("Evgeniya Piskunova")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the ability to create a new folder with description")
     @Test
     public void testCreateFolderWithDescription() {
         String textDescription = new HomePage(getDriver())
@@ -309,6 +395,11 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(textDescription, TestDataUtils.DESCRIPTION);
     }
 
+    @TmsLink("0jeqCDcX")
+    @Owner("Andrew Shapiro")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the ability to rename a folder's name with a description")
     @Test(dependsOnMethods = "testCreateFolderWithDescription")
     public void testRenameFolderWithDescription() {
         FolderStatusPage folder = new HomePage(getDriver())
@@ -324,6 +415,11 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(folder.getAdditionalDescriptionText(), TestDataUtils.DESCRIPTION);
     }
 
+    @TmsLink("8TVmjORt")
+    @Owner("Igor Shmakov")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Ensure the ability to add a description to an existing folder through the field 'Description'")
     @Test
     public void testAddFolderDescription() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -338,6 +434,11 @@ public class FolderTest extends BaseTest {
         Assert.assertEquals(textDescription, TestDataUtils.DESCRIPTION);
     }
 
+    @TmsLink("qBCeUdZo")
+    @Owner("Andrew Shapiro")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Ensure the ability to add a description to an existing folder through the folder's dropdown menu")
     @Test
     public void testAddFolderDescriptionFromDropDownConfigure() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME_2);
@@ -352,6 +453,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(folderDescription.contains(TestDataUtils.DESCRIPTION));
     }
 
+    @TmsLink("T1Tyel4t")
+    @Owner("Sergei Obukhov")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Confirm that the created folder includes the newly created Freestyle Project")
     @Test
     public void testCreateFreestyleProjectInFolderByNewItemDropDownInCrambMenu() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -371,6 +477,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesInFolder.contains(freestyleProjectName));
     }
 
+    @TmsLink("vVV2AFAt")
+    @Owner("Vikky Efanova")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Confirm that the 'Multibranch Pipeline' project was successfully created within the folder")
     @Test
     public void testCreateMultibranchPipelineProjectInFolder() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
@@ -391,6 +502,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesInFolder.contains(TestDataUtils.MULTIBRANCH_PIPELINE_NAME));
     }
 
+    @TmsLink("awfycpQw")
+    @Owner("Den Sebrovsky")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Confirm that the 'Multibranch pipeline' no longer exists within the folder after it has been deleted")
     @Test(dependsOnMethods = "testCreateMultibranchPipelineProjectInFolder")
     public void testDeleteMultibranchPipelineFromFolder() {
 
@@ -405,6 +521,11 @@ public class FolderTest extends BaseTest {
         Assert.assertNotNull(folder.getEmptyStateBlock());
     }
 
+    @TmsLink("WRr5Px6O")
+    @Owner("Andrew Shapiro")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Confirm that a 'Pipeline Project' was created within the folder by using the 'Create a job' button")
     @Test
     public void testCreatePipelineInFolderFromCreateJobButton() {
         final String pipelineProjectName = getRandomStr();
@@ -425,6 +546,11 @@ public class FolderTest extends BaseTest {
         Assert.assertTrue(projectNamesInFolder.contains(pipelineProjectName));
     }
 
+    @TmsLink("08U6qhrf")
+    @Owner("Arailym Ashimova")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Confirm that the folder was successfully deleted by using the dropdown menu")
     @Test
     public void testDeleteFolderUsingDropDown() {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);

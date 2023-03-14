@@ -1,5 +1,6 @@
 package model.component.menu;
 
+import io.qameta.allure.Step;
 import model.IModel;
 import model.page.RenameItemPage;
 import model.page.base.BaseStatusPage;
@@ -10,6 +11,7 @@ public interface IMenu<StatusPage extends BaseStatusPage<?, ?>> extends IModel {
 
     StatusPage getStatusPage();
 
+    @Step("Click on 'Rename' button")
     default RenameItemPage<StatusPage> clickRename() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(By.partialLinkText("Rename"))).click();
 

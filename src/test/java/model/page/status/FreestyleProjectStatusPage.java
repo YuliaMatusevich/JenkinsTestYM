@@ -86,6 +86,7 @@ public class FreestyleProjectStatusPage extends BaseStatusPage<FreestyleProjectS
         return this;
     }
 
+    @Step("Confirm alert and delete Project from the folder")
     public FolderStatusPage confirmAlertAndDeleteProjectFromFolder() {
         getDriver().switchTo().alert().accept();
 

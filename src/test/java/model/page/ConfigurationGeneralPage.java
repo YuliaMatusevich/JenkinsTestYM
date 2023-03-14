@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.MainBasePage;
 import model.page.status.FolderStatusPage;
 import org.openqa.selenium.WebDriver;
@@ -21,18 +22,21 @@ public class ConfigurationGeneralPage extends MainBasePage {
         super(driver);
     }
 
+    @Step("Input '{name}' into the 'Display name' field")
     public ConfigurationGeneralPage setProjectName(String name) {
         getWait(5).until(ExpectedConditions.visibilityOf(displayName)).sendKeys(name);
 
         return this;
     }
 
+    @Step("Input '{text}' into the 'Description' field")
     public ConfigurationGeneralPage setDescription(String text) {
         getWait(5).until(ExpectedConditions.visibilityOf(description)).sendKeys(text);
 
         return this;
     }
 
+    @Step("Click 'Save' button")
     public FolderStatusPage clickSaveButton() {
         saveButton.click();
 

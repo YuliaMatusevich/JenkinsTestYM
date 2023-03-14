@@ -54,6 +54,7 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
         super(driver);
     }
 
+    @Step("Click on the 'New Item' dropdown menu within the breadcrumbs of this folder")
     public NewItemPage<?> clickNewItemDropdownThisFolderInBreadcrumbs() {
         getWait(5).until(ExpectedConditions.visibilityOf(breadcrumbsThisFolderToggleDropdown)).click();
         getWait(5).until(ExpectedConditions.visibilityOf(newItemInDropDown)).click();
@@ -69,12 +70,14 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
                 .collect(Collectors.toList());
     }
 
+    @Step("Click on 'Create a job' link")
     public NewItemPage<?> clickCreateJob() {
         createJob.click();
 
         return new NewItemPage<>(getDriver(), null);
     }
 
+    @Step("Click on 'Submit' button")
     public FolderStatusPage clickSubmitButton() {
         submitButton.click();
 
@@ -88,6 +91,7 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
                 .collect(Collectors.toList());
     }
 
+    @Step("Get name of the folder")
     public String getFolderName() {
         String[] namesBlock = getDriver().findElement(By.id("main-panel")).getText().split("\n");
 
@@ -98,6 +102,7 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
         return folderNameHeader.getText().trim();
     }
 
+    @Step("Input '{description} into the 'Description' field")
     public FolderStatusPage setDescription(String description) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(inputFieldDescription));
         inputFieldDescription.sendKeys(description);
@@ -105,6 +110,7 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
         return this;
     }
 
+    @Step("Click on Freestyle project name '{name}'")
     public FreestyleProjectStatusPage clickProject(String name) {
         getDriver().findElement(By.linkText(name)).click();
 
@@ -118,6 +124,7 @@ public class FolderStatusPage extends BaseStatusPage<FolderStatusPage, FolderSta
         return new OrgFolderStatusPage(getDriver());
     }
 
+    @Step("Select the 'Multibranch Pipeline' item named '{multibranchPipelineName}'")
     public MultibranchPipelineStatusPage clickMultibranchPipeline(String multibranchPipelineName) {
         getDriver().findElement(By.xpath("//span[text()='" + multibranchPipelineName + "']")).click();
 

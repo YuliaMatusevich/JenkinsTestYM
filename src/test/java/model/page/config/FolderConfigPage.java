@@ -1,5 +1,6 @@
 package model.page.config;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseConfigPage;
 import model.page.status.FolderStatusPage;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +25,7 @@ public class FolderConfigPage extends BaseConfigPage<FolderStatusPage, FolderCon
         super(driver);
     }
 
+    @Step("Input '{secondJobName}' into 'Display Name' field")
     public FolderConfigPage setDisplayName(String secondJobName) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(displayName));
         displayName.sendKeys(secondJobName);
@@ -31,6 +33,7 @@ public class FolderConfigPage extends BaseConfigPage<FolderStatusPage, FolderCon
         return this;
     }
 
+    @Step("Input '{inputDescription}' into 'Description' field")
     public FolderConfigPage setDescription(String inputDescription) {
         getWait(5).until(ExpectedConditions.visibilityOf(description)).click();
         description.sendKeys(inputDescription);

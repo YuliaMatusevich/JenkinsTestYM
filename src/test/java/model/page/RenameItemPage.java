@@ -22,7 +22,7 @@ public class RenameItemPage<StatusPage extends BaseStatusPage<?, ?>> extends Mai
         this.statusPage = statusPage;
     }
 
-    @Step("Set '{nemName}' in the 'New Name' field")
+    @Step("Set '{newName}' in the 'New Name' field")
     public RenameItemPage<StatusPage> clearFieldAndInputNewName(String newName) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(fieldInputtingNewName)).clear();
         fieldInputtingNewName.sendKeys(newName);

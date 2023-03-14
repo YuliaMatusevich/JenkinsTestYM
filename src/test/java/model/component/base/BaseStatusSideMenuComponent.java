@@ -50,6 +50,7 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
         return clickDelete(new DeletePage<>(getDriver(), new HomePage(getDriver())));
     }
 
+    @Step("Click on 'Delete Project' button")
     public DeletePage<FolderStatusPage> clickDeleteToFolder() {
         return clickDelete(new DeletePage<>(getDriver(), new FolderStatusPage(getDriver())));
     }

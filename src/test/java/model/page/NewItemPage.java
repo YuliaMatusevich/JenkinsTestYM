@@ -85,12 +85,14 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return new NewItemPage<>(getDriver(), new FreestyleProjectConfigPage(getDriver()));
     }
 
+    @Step("Select 'Pipeline' project type")
     public NewItemPage<PipelineConfigPage> selectPipelineType() {
         pipeline.click();
 
         return new NewItemPage<>(getDriver(), new PipelineConfigPage(getDriver()));
     }
 
+    @Step("Select 'Multi-configuration project' type")
     public NewItemPage<MultiConfigurationProjectConfigPage> selectMultiConfigurationProjectType() {
         multiConfigurationProject.click();
 
@@ -104,6 +106,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return new NewItemPage<>(getDriver(), new FolderConfigPage(getDriver()));
     }
 
+    @Step("Select 'Multibranch Pipeline' item")
     public NewItemPage<MultibranchPipelineConfigPage> selectMultibranchPipelineType() {
         getWait(1).until(ExpectedConditions.visibilityOf(multibranchPipeline));
         multibranchPipeline.click();
