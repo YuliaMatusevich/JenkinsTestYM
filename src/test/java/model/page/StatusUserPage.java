@@ -58,12 +58,14 @@ public class StatusUserPage extends MainBasePageWithSideMenu<UserSideMenuCompone
         return h1Title.getText();
     }
 
+    @Step("Click the 'Add description' link")
     public StatusUserPage clickAddDescriptionLink() {
         addDescriptionLink.click();
 
         return this;
     }
 
+    @Step("Clear the 'Description' field")
     public StatusUserPage clearDescriptionInputField() {
         getWait(10).until(ExpectedConditions.visibilityOf(descriptionInputField));
         descriptionInputField.clear();
@@ -71,23 +73,27 @@ public class StatusUserPage extends MainBasePageWithSideMenu<UserSideMenuCompone
         return this;
     }
 
+    @Step("Insert the description '{text}' into the description field")
     public StatusUserPage setDescriptionField(String text) {
         descriptionInputField.sendKeys(text);
 
         return this;
     }
 
+    @Step("Click 'Preview' link below the description field")
     public StatusUserPage clickPreviewLink() {
         previewLink.click();
 
         return this;
     }
 
+    @Step("Get description preview text")
     public String getPreviewText() {
 
         return previewField.getText();
     }
 
+    @Step("Click 'Hide preview' link below the description field")
     public StatusUserPage clickHidePreviewLink() {
         hidePreviewLink.click();
 
@@ -99,12 +105,14 @@ public class StatusUserPage extends MainBasePageWithSideMenu<UserSideMenuCompone
         return previewField.isDisplayed();
     }
 
+    @Step("Click 'Save' button")
     public StatusUserPage clickSaveButton() {
         saveButton.click();
 
         return this;
     }
 
+    @Step("Get description text")
     public String getDescriptionText() {
 
         return displayedDescriptionText.getText();

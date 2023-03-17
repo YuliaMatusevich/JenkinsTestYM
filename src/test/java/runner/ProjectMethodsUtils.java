@@ -157,13 +157,14 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
-    public static void editDescriptionUserActiveField(WebDriver driver, String name) {
+    @Step("Edit the description text in the description field ")
+    public static void editDescriptionUserActiveField(WebDriver driver, String text) {
         new HomePage(driver)
                 .getHeader()
                 .clickUserIcon()
                 .clickAddDescriptionLink()
                 .clearDescriptionInputField()
-                .setDescriptionField(name);
+                .setDescriptionField(text);
     }
 
     public static void changeDefaultView(WebDriver driver, String name) {

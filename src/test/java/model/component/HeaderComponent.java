@@ -91,6 +91,7 @@ public class HeaderComponent extends BaseComponent {
         return jenkinsNameIcon.isEnabled();
     }
 
+    @Step("Click the User profile icon")
     public StatusUserPage clickUserIcon() {
         iconUserName.click();
 

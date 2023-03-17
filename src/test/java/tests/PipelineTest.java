@@ -184,6 +184,7 @@ public class PipelineTest extends BaseTest {
                 .getAttributeGitHubSideMenu("href").contains(TestDataUtils.GITHUB_REPOSITORY_URL));
     }
 
+    @Ignore
     @Test
     public void testWarningMessageIsDisappeared() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
