@@ -6,7 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import runner.TestDataUtils;
 import runner.TestUtils;
+
+import java.util.List;
 
 public class GlobalToolConfigurationPage extends MainBasePage {
 
@@ -15,6 +18,9 @@ public class GlobalToolConfigurationPage extends MainBasePage {
 
     @FindBy(css = "input[checkurl$='MavenInstallation/checkName']")
     private WebElement mavenTitleField;
+
+    @FindBy(css = "input[checkurl$='MavenInstallation/checkName']")
+    private List<WebElement> mavenNamesList;
 
     @FindBy(xpath = "//button[text()='Apply']")
     private WebElement applyButton;
@@ -34,6 +40,11 @@ public class GlobalToolConfigurationPage extends MainBasePage {
     @FindBy(name= "_.id")
     private WebElement mavenVersionDropdownField;
 
+    @FindBy(xpath = "//button[@title = 'Delete Maven']")
+    private WebElement deleteMavenSign;
+
+    @FindBy(xpath = "//button[text() = 'Save']")
+    private WebElement saveButton;
 
     public GlobalToolConfigurationPage(WebDriver driver) {
         super(driver);
@@ -82,6 +93,32 @@ public class GlobalToolConfigurationPage extends MainBasePage {
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(mavenVersionDropdownField));
         mavenTitleField.sendKeys(mavenName);
 
+        return this;
+    }
+
+    @Step ("Click 'Save' button on the 'Global Configuration Page'")
+    public GlobalToolConfigurationPage clickSaveButton() {
+        TestUtils.scrollToEnd(getDriver());
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(saveButton));
+        getWait(5).until(ExpectedConditions.elementToBeClickable(saveButton)).click();
+
+        return this;
+    }
+    @Step("Delete all the Maven versions installed on the 'Global Configuration Page'")
+    public GlobalToolConfigurationPage deleteAllMavenInstallations() {
+        TestUtils.scrollToEnd(getDriver());
+        getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(applyButton));
+        if(!(listOfMavenInstallationsAreaTextNotice.isDisplayed())) {
+            mavenInstallationsButton.click();
+            int numberOfMavensInstalled = mavenNamesList.size();
+            for (int i = 0; i <= numberOfMavensInstalled - 1; i++){
+                TestUtils.scrollToElement_PlaceInCenter(getDriver(),deleteMavenSign);
+                getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(deleteMavenSign));
+                deleteMavenSign.click();
+                applyButton.click();
+            }
+        }
+        clickSaveButton();
         return this;
     }
 }

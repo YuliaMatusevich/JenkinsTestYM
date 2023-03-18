@@ -199,4 +199,12 @@ public class ProjectMethodsUtils {
                 .getBreadcrumbs()
                 .clickDashboard();
     }
+    @Step("Delete all Maven installations that were set on the Configuration page")
+    public static void deleteAllMavenInstalled(WebDriver driver) {
+        new HomePage(driver)
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickConfigureTools()
+                .deleteAllMavenInstallations();
+    }
 }

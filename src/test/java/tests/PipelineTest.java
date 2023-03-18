@@ -1,7 +1,9 @@
 package tests;
 
 import io.qameta.allure.*;
+import model.page.GlobalToolConfigurationPage;
 import model.page.HomePage;
+import model.page.ManageJenkinsPage;
 import model.page.RenameItemErrorPage;
 import model.page.config.PipelineConfigPage;
 import model.page.status.PipelineStatusPage;
@@ -184,16 +186,19 @@ public class PipelineTest extends BaseTest {
                 .getAttributeGitHubSideMenu("href").contains(TestDataUtils.GITHUB_REPOSITORY_URL));
     }
 
-    @Ignore
+    @TmsLink("ptPK5j1n")
+    @Owner("Yulia Matusevich")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("UI")
+    @Description("Verify if the warning message disappears when 'Name' field of 'Maven section' is filled in " +
+            "and 'Apply' button is clicked")
     @Test
     public void testWarningMessageIsDisappeared() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
-        String emptyErrorArea = new HomePage(getDriver())
-                .getSideMenu()
-                .clickManageJenkins()
+        ProjectMethodsUtils.deleteAllMavenInstalled(getDriver());
+        String emptyErrorArea = new ManageJenkinsPage(getDriver())
                 .clickConfigureTools()
-                .clickFirstAddMavenButton()
-                .setFirstMavenTitleField("Maven")
+                .setMavenVersionWithNewName(TestDataUtils.MAVEN_NAME)
                 .clickApplyButton()
                 .getErrorAreaText();
 

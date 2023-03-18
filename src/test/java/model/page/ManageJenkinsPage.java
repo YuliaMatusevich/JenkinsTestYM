@@ -44,6 +44,7 @@ public class ManageJenkinsPage extends MainBasePageWithSideMenu<HomeSideMenuComp
         return new HomeSideMenuComponent(getDriver());
     }
 
+    @Step("Click 'Global Tool Configuration' link in 'System Configuration' section")
     public GlobalToolConfigurationPage clickConfigureTools() {
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), configureTools);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(configureTools)).click();
