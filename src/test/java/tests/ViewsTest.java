@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import model.page.HomePage;
 import model.page.view.*;
 import org.openqa.selenium.NoSuchElementException;
@@ -18,6 +19,8 @@ import static runner.TestUtils.getRandomStr;
 
 public class ViewsTest extends BaseTest {
 
+    @Step("Creating All Six Item: Freestyle Project, Pipeline,Multi-configuration Project, Folder, Multibranch Pipeline," +
+            "Organization Folder ")
     public void createAllSixItems() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
@@ -27,12 +30,19 @@ public class ViewsTest extends BaseTest {
         ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
     }
 
+
+    @Step("Creating Views : Global View, List View, My View")
     public void createViews() {
         ProjectMethodsUtils.createNewGlobalViewForMyViews(getDriver(), TestDataUtils.GLOBAL_VIEW_NAME);
         ProjectMethodsUtils.createNewListViewForMyViews(getDriver(), TestDataUtils.LIST_VIEW_NAME);
         ProjectMethodsUtils.createNewMyViewForMyViews(getDriver(), TestDataUtils.MY_VIEW_NAME);
     }
 
+    @TmsLink("pAxP1BFq")
+    @Owner("Nadia Ludanik")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that Multibranch Pipeline contains expected Views : Global View, List View, My View")
     @Test
     public void testCreateViews() {
         ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
@@ -48,6 +58,10 @@ public class ViewsTest extends BaseTest {
         Assert.assertTrue(listViewsNames.contains(TestDataUtils.MY_VIEW_NAME));
     }
 
+    @Owner("Nadia Ludanik")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that Multibranch Pipeline contains expected Views : Global View, List View, My View")
     @Test
     public void testCreateListViewAndAddSixItems() {
         createAllSixItems();
@@ -67,6 +81,11 @@ public class ViewsTest extends BaseTest {
         Assert.assertEquals(actualResult, 6);
     }
 
+    @TmsLink("Y9Ulf9j1")
+    @Owner("Maria Servachak")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that created View contains existing name")
     @Test
     public void testCreateViewWithExistingName() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);

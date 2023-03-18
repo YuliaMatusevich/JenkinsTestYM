@@ -1,5 +1,6 @@
 package model.page.base;
 
+import io.qameta.allure.Step;
 import model.page.view.ViewPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,7 @@ public abstract class BaseEditViewPage extends MainBasePage {
         super(driver);
     }
 
+    @Step("Click 'Ok' Button")
     public ViewPage clickOkButton() {
         okButton.click();
 

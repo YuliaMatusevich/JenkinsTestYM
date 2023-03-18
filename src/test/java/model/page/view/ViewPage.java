@@ -1,5 +1,6 @@
 package model.page.view;
 
+import io.qameta.allure.Step;
 import model.page.DeletePage;
 import model.page.HomePage;
 import model.page.base.BasePage;
@@ -157,7 +158,7 @@ public class ViewPage extends MainBasePage {
 
         return listViewsNames.toString().trim();
     }
-
+    @Step("Get job names list")
     public List<String> getJobNamesList() {
         return jobList
                 .stream()

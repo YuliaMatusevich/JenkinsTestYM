@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class ProjectMethodsUtils {
 
-    @Step("Create new pipeline project and return to dashboard")
+    @Step("Create new pipeline project with valid random name and return to dashboard")
     public static void createNewPipelineProject(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()
@@ -31,7 +31,7 @@ public class ProjectMethodsUtils {
                 .getHeader()
                 .clickJenkinsNameIcon();
     }
-
+    @Step("Create Multi-configuration project with valid random name and return to dashboard")
     public static void createNewMultiConfigurationProject(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()
@@ -44,7 +44,7 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
-    @Step("Create new Folder and return to dashboard")
+    @Step("Create new Folder with valid random name and return to dashboard")
     public static void createNewFolder(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()
@@ -57,7 +57,7 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
-    @Step("Create new MultibranchPipeline project and return to dashboard")
+    @Step("Create new MultibranchPipeline project with valid random name and return to dashboard")
     public static void createNewMultibranchPipeline(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()
@@ -70,7 +70,7 @@ public class ProjectMethodsUtils {
                 .clickJenkinsNameIcon();
     }
 
-    @Step("Create new Organization folder and return to dashboard")
+    @Step("Create new Organization folder with valid random name and return to dashboard")
     public static void createNewOrganizationFolder(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()

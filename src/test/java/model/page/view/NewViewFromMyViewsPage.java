@@ -1,5 +1,6 @@
 package model.page.view;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseEditViewPage;
 import model.page.base.BaseNewViewPage;
 import org.openqa.selenium.WebDriver;
@@ -25,6 +26,7 @@ public class NewViewFromMyViewsPage<EditViewPage extends BaseEditViewPage> exten
         return new NewViewFromMyViewsPage<>(getDriver(), new EditGlobalViewPage(getDriver()));
     }
 
+    @Step("Select list view type in New View From my Views Page")
     public NewViewFromMyViewsPage<EditListViewPage> selectListViewType() {
         listViewType.click();
 
@@ -36,13 +38,14 @@ public class NewViewFromMyViewsPage<EditViewPage extends BaseEditViewPage> exten
 
         return new NewViewFromMyViewsPage<>(getDriver(), new EditMyViewPage(getDriver()));
     }
-
+    @Step("Set view name in New View From my Views Page")
     public NewViewFromMyViewsPage<EditViewPage> setViewName(String name) {
         getWait(2).until(ExpectedConditions.visibilityOf(viewName)).sendKeys(name);
 
         return this;
     }
 
+    @Step("Click 'Create Button'")
     public EditViewPage clickCreateButton() {
         createButton.click();
 

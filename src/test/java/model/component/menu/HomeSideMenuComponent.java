@@ -71,6 +71,7 @@ public class HomeSideMenuComponent extends BaseSideMenuComponent {
         return new ManageJenkinsPage(getDriver());
     }
 
+    @Step("Click on 'My Views' link on the side menu")
     public MyViewsPage clickMyViewsSideMenuLink() {
         myViews.click();
 

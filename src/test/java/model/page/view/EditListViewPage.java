@@ -1,5 +1,6 @@
 package model.page.view;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseEditViewPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -76,6 +77,7 @@ public class EditListViewPage extends BaseEditViewPage {
         super(driver);
     }
 
+    @Step("Add jobs to list view into Edit List View Page ")
     public EditListViewPage addJobsToListView(int numberOfJobs) {
         if (listJobsToAddListView.size() < numberOfJobs) {
             BaseUtils.log("Create more items");

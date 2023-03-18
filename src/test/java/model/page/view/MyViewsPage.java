@@ -1,5 +1,6 @@
 package model.page.view;
 
+import io.qameta.allure.Step;
 import model.page.BuildHistoryPage;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.By;
@@ -69,12 +70,14 @@ public class MyViewsPage extends MainBasePage {
         super(driver);
     }
 
+    @Step("get new view from My Views Page")
     public NewViewFromMyViewsPage<?> clickNewView() {
         newView.click();
 
         return new NewViewFromMyViewsPage<>(getDriver(), null);
     }
 
+    @Step("Get list of views names on My Views Page")
     public String getListViewsNames() {
         StringBuilder listViewsNames = new StringBuilder();
         for (WebElement view : listAllViews) {
