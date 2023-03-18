@@ -70,7 +70,7 @@ public class MyViewsPage extends MainBasePage {
         super(driver);
     }
 
-    @Step("get new view from My Views Page")
+    @Step("Click on the new view icon on the 'My Views' Page")
     public NewViewFromMyViewsPage<?> clickNewView() {
         newView.click();
 
@@ -87,6 +87,7 @@ public class MyViewsPage extends MainBasePage {
         return listViewsNames.toString().trim();
     }
 
+    @Step("Click on the viewName '{viewName}'")
     public ViewPage clickView(String viewName) {
         getDriver().findElement(By.cssSelector(".tabBar .tab a[href*='/my-views/view/" + viewName + "/']")).click();
 

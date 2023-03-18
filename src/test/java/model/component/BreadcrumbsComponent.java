@@ -30,7 +30,7 @@ public class BreadcrumbsComponent extends BaseComponent {
         return breadcrumbs.getText();
     }
 
-    @Step("Click 'Dashboard' link")
+    @Step("Click on 'Dashboard' link")
     public HomePage clickDashboard() {
         topMenuRoot.click();
 

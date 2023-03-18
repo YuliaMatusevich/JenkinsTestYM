@@ -143,6 +143,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return this;
     }
 
+    @Step("Select the 'Rename' option from the pipeline's dropdown menu")
     public RenameItemPage<PipelineStatusPage> clickRenamePipelineDropdownMenu() {
         return new DropdownMenu<>(getDriver(), new PipelineStatusPage(getDriver())).clickRename();
     }

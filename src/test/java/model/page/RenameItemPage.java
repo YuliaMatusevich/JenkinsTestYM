@@ -22,7 +22,7 @@ public class RenameItemPage<StatusPage extends BaseStatusPage<?, ?>> extends Mai
         this.statusPage = statusPage;
     }
 
-    @Step("Set '{newName}' in the 'New Name' field")
+    @Step("Set name '{newName}' in the 'New Name' field")
     public RenameItemPage<StatusPage> clearFieldAndInputNewName(String newName) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(fieldInputtingNewName)).clear();
         fieldInputtingNewName.sendKeys(newName);
@@ -30,14 +30,14 @@ public class RenameItemPage<StatusPage extends BaseStatusPage<?, ?>> extends Mai
         return this;
     }
 
-    @Step("Click 'Rename' button")
+    @Step("Click 'Rename' button without changing name in 'New Name' field")
     public RenameItemErrorPage clickRenameButtonWithInvalidData() {
         renameButton.click();
 
         return new RenameItemErrorPage(getDriver());
     }
 
-    @Step("Click 'Rename' button")
+    @Step("Click on 'Rename' button")
     public StatusPage clickRenameButton() {
         renameButton.click();
 

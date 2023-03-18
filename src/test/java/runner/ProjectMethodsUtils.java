@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class ProjectMethodsUtils {
 
-    @Step("Create new pipeline project with valid random name and return to dashboard")
+    @Step("Create new pipeline project with valid random name '{name}' and return to dashboard")
     public static void createNewPipelineProject(WebDriver driver, String name) {
         new HomePage(driver)
                 .getSideMenu()

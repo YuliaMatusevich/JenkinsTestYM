@@ -33,19 +33,20 @@ public class NewViewFromMyViewsPage<EditViewPage extends BaseEditViewPage> exten
         return new NewViewFromMyViewsPage<>(getDriver(), new EditListViewPage(getDriver()));
     }
 
+    @Step("Select 'My View' type on the 'New View' Page going From 'My Views' Page")
     public NewViewFromMyViewsPage<EditMyViewPage> selectMyViewType() {
         myViewType.click();
 
         return new NewViewFromMyViewsPage<>(getDriver(), new EditMyViewPage(getDriver()));
     }
-    @Step("Set view name in New View From my Views Page")
+    @Step("Set view name '{name}' in New View From my Views Page")
     public NewViewFromMyViewsPage<EditViewPage> setViewName(String name) {
         getWait(2).until(ExpectedConditions.visibilityOf(viewName)).sendKeys(name);
 
         return this;
     }
 
-    @Step("Click 'Create Button'")
+    @Step("Click on 'Create Button'")
     public EditViewPage clickCreateButton() {
         createButton.click();
 

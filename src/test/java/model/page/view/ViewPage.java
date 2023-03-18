@@ -137,6 +137,7 @@ public class ViewPage extends MainBasePage {
         return new EditListViewPage(getDriver());
     }
 
+    @Step("Collect a job list from the table")
     public String getJobListAsString() {
         StringBuilder listProjectsNames = new StringBuilder();
         for (WebElement projects : jobList) {

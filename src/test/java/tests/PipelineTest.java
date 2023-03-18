@@ -67,6 +67,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(new PipelineStatusPage(getDriver()).getHeaderText(), "Pipeline " + TestDataUtils.PIPELINE_RENAME);
     }
 
+    @TmsLink("g1ZVD8qP")
+    @Owner("Dmitry Starski")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if renamed pipeline is displayed in 'My Views'")
     @Test
     public void testRenamedPipelineIsDisplayedInMyViews() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
@@ -94,6 +99,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertTrue(actualJobListAsString.contains(TestDataUtils.PIPELINE_RENAME), TestDataUtils.PIPELINE_RENAME + " Pipeline not found");
     }
 
+    @TmsLink("fNJi5jxr")
+    @Owner("Dmitry Starski")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify 'Error' page is displayed and 'The new name is the same as the current name.' error message is displayed if Rename pipeline without changing name")
     @Test
     public void testRenamePipelineWithoutChangingName() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
