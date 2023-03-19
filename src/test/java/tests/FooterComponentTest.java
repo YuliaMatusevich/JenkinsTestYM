@@ -1,6 +1,6 @@
 package tests;
 
-import io.qameta.allure.Flaky;
+import io.qameta.allure.*;
 import model.page.ExternalJenkinsPage;
 import model.page.HomePage;
 import model.page.RestApiPage;
@@ -11,6 +11,11 @@ import runner.BaseTest;
 
 public class FooterComponentTest extends BaseTest {
 
+    @TmsLink("qXXhUpuj")
+    @Owner("Svetlana Babintseva/RustamKhudoyarov")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("Navigation")
+    @Description("Verification that the link redirect to the '/api/' page")
     @Test
     public void testFooterLinkRestRedirectToPage() {
 
@@ -23,6 +28,11 @@ public class FooterComponentTest extends BaseTest {
         Assert.assertEquals(new RestApiPage(getDriver()).getTextH1RestApi(), "REST API");
     }
 
+    @TmsLink("qXXhUpuj")
+    @Owner("Svetlana Babintseva/Rustam Khudoyarov")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("Navigation")
+    @Description("Verification that the link redirect to the 'https://www.jenkins.io/'")
     @Test
     public void testFooterLinkJenkinsRedirectToPage() {
 
@@ -36,6 +46,11 @@ public class FooterComponentTest extends BaseTest {
 
     }
 
+    @TmsLink("zmIllMYO")
+    @Owner("RustamKhudoyarov")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verification of getting an example XML-schema")
     @Test
     public void testFooterRestApiClickOnXmlApiDisplayXML() {
         XmlPage xmlPage = new HomePage(getDriver())
@@ -47,6 +62,10 @@ public class FooterComponentTest extends BaseTest {
                 + "style information associated with it. The document tree is shown below.");
     }
 
+    @Owner("DenSebrovsky")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verification that the link redirect to the 'https://www.jenkins.io/'")
     @Flaky
     @Test
     public void testFooterLinkJenkinsIsClickable() {

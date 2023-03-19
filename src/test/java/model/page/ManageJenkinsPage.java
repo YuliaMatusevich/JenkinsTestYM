@@ -1,8 +1,8 @@
 package model.page;
 
 import io.qameta.allure.Step;
-import model.component.menu.HomeSideMenuComponent;
 import model.component.FooterComponent;
+import model.component.menu.HomeSideMenuComponent;
 import model.page.base.MainBasePageWithSideMenu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import runner.TestUtils;
 
-import static runner.TestUtils.*;
+import static runner.TestUtils.scrollToElement;
+import static runner.TestUtils.scrollToEnd;
 
 public class ManageJenkinsPage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
@@ -82,6 +83,7 @@ public class ManageJenkinsPage extends MainBasePageWithSideMenu<HomeSideMenuComp
         return new PluginManagerPage(getDriver());
     }
 
+    @Step("Scroll to the end of the page")
     public FooterComponent moveToJenkinsVersion() {
         scrollToEnd(getDriver());
         WebElement linkJenkins = new HomePage(getDriver()).getFooter().getJenkinsFooterLink();
@@ -100,7 +102,7 @@ public class ManageJenkinsPage extends MainBasePageWithSideMenu<HomeSideMenuComp
     }
 
     @Step("Click 'Manage Credentials' link on Security section")
-    public JenkinsManageCredentialsPage clickManageCredentials(){
+    public JenkinsManageCredentialsPage clickManageCredentials() {
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), manageCredentials);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(manageCredentials)).click();
 

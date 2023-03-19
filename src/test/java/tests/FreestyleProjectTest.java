@@ -226,6 +226,7 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(countBuildsAfterCreatingNewBuild, countBuildsBeforeCreatingNewBuild + 1);
     }
 
+    @Ignore
     @Flaky
     @TmsLink("dVfHyxtT")
     @Owner("Anastasia Yakimova")

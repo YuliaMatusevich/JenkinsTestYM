@@ -12,6 +12,7 @@ public abstract class MainBasePage extends BasePage {
         super(driver);
     }
 
+    @Step("Switch to the footer")
     public FooterComponent getFooter() {
         return new FooterComponent(getDriver());
     }

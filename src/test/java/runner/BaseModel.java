@@ -1,5 +1,6 @@
 package runner;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -36,6 +37,7 @@ public abstract class BaseModel {
         PageFactory.initElements(getDriver(), this);
     }
 
+    @Step("Get the current URL")
     public String getCurrentURL() {
 
         return getDriver().getCurrentUrl();

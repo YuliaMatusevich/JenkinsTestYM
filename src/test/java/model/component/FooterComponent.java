@@ -1,8 +1,9 @@
 package model.component;
 
+import io.qameta.allure.Step;
+import model.component.base.BaseComponent;
 import model.page.ExternalJenkinsPage;
 import model.page.RestApiPage;
-import model.component.base.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +25,7 @@ public class FooterComponent extends BaseComponent {
         super(driver);
     }
 
+    @Step("Click on 'Jenkins Version' link")
     public ExternalJenkinsPage clickJenkinsVersion() {
         jenkinsFooterLink.click();
         ArrayList<String> tabs = new ArrayList<>(getDriver().getWindowHandles());
@@ -41,6 +43,7 @@ public class FooterComponent extends BaseComponent {
         return jenkinsFooterLink;
     }
 
+    @Step("Click on 'REST API' link")
     public RestApiPage clickRestApiLink() {
         restApi.click();
 

@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +18,7 @@ public class RestApiPage extends MainBasePage {
         super(driver);
     }
 
+    @Step("Click on 'XML API' link")
     public XmlPage clickXmlApi() {
         xmlApiLink.click();
 
