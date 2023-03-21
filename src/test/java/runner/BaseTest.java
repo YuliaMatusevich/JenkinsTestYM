@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Listeners({FilterForTests.class, OrderForTests.class})
+@Listeners({FilterForTests.class, OrderForTests.class, ConfigurationForTests.class})
 public abstract class BaseTest {
 
     private WebDriver driver;
