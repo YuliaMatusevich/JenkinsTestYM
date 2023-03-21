@@ -130,7 +130,7 @@ public class ViewPage extends MainBasePage {
 
         return new EditGlobalViewPage(getDriver());
     }
-
+    @Step("Click edit list view")
     public EditListViewPage clickEditListView() {
         editViewLink.click();
 

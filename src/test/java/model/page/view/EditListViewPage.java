@@ -101,11 +101,11 @@ public class EditListViewPage extends BaseEditViewPage {
 
         return this;
     }
-
+    @Step("Get count colums")
     public int getCountColumns() {
         return columns.size();
     }
-
+    @Step("Add column")
     public EditListViewPage addColumn(String type) {
         TestUtils.scrollToEnd(getDriver());
         getWait(10).until(ExpectedConditions.invisibilityOf(bottomStickerDynamic));
@@ -121,6 +121,8 @@ public class EditListViewPage extends BaseEditViewPage {
 
         return this;
     }
+
+    @Step("Add job to View")
 
     public EditListViewPage addJobToView(String name) {
         TestUtils.scrollToElement(getDriver(), sectionJobs);
@@ -151,19 +153,19 @@ public class EditListViewPage extends BaseEditViewPage {
 
         return this;
     }
-
+    @Step("Click 'Apply' button")
     public EditListViewPage clickApplyButton() {
         applyButton.click();
 
         return this;
     }
-
+    @Step("Get text confirm 'Saved' after clicking 'Apply' button")
     public String getTextConfirmAfterClickingApply() {
 
         return getWait(15).until(ExpectedConditions.visibilityOf(
                 confirmAfterClickingApply)).getText();
     }
-
+    @Step("Get selected job name")
     public String getSelectedJobName() {
 
         return markedCheckboxNameJob.getAttribute("name");
@@ -271,7 +273,7 @@ public class EditListViewPage extends BaseEditViewPage {
 
         return this;
     }
-
+    @Step("Click 'Jobs' checkbox for add/remove to list view")
     public EditListViewPage clickJobsCheckBoxForAddRemoveToListView(String jobName) {
         getDriver().findElement(By.cssSelector("label[title='" + jobName + "']")).click();
 

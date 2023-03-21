@@ -102,6 +102,11 @@ public class ViewsTest extends BaseTest {
                 "A view with name " + TestDataUtils.LIST_VIEW_NAME + " already exists");
     }
 
+    @TmsLink("Ne00Maqa")
+    @Owner("MaksPt")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that created List Views contains added settings ")
     @Test
     public void testCreateListViewWithAddSettings() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -133,7 +138,10 @@ public class ViewsTest extends BaseTest {
         Assert.assertEquals(textConfirmAfterClickingApply, "Saved");
     }
 
-
+    @Owner("Umida")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that created List Views contains added jobs:Freestyle Poject and Pipeline")
     @Test
     public void testAddJobsToListView() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
