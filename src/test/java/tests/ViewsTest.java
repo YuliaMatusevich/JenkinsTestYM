@@ -161,6 +161,11 @@ public class ViewsTest extends BaseTest {
         Assert.assertTrue(viewPage.getListProjectsNamesFromView().contains(TestDataUtils.FREESTYLE_PROJECT_NAME));
     }
 
+    @TmsLink("tU92jXT9")
+    @Owner("Ekaterina Tergunova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that added jobs to list view was removed and notification message was appeared")
     @Test(dependsOnMethods = "testAddJobsToListView")
     public void testDeselectJobsFromListView() {
         ViewPage viewPage = new HomePage(getDriver())
@@ -179,6 +184,11 @@ public class ViewsTest extends BaseTest {
                         + "You can either add some existing jobs to this view or create a new job in this view."));
     }
 
+    @TmsLink("tU92jXT9")
+    @Owner("Ekaterina Turgunova")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that created List Views was renamed")
     @Test
     public void testRenameView() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);

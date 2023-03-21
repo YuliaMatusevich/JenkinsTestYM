@@ -115,6 +115,7 @@ public class EditListViewPage extends BaseEditViewPage {
         return this;
     }
 
+    @Step("Rename view '{viewName}'")
     public EditListViewPage renameView(String name) {
         viewName.clear();
         viewName.sendKeys(name);
