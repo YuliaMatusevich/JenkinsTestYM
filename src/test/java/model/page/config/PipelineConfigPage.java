@@ -114,6 +114,7 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
         return this;
     }
 
+    @Step("Enter description in description input field")
     public PipelineConfigPage setDescriptionField(String name) {
         descriptionField.sendKeys(name);
 

@@ -34,14 +34,17 @@ public class CreateItemErrorPage extends MainBasePage {
         return errorHeader.getText();
     }
 
+    @Step("Get error text on CreateItemErrorPage")
     public String getErrorDescription() {
         return errorDescription.getText();
     }
 
+    @Step("Check if error picture is displayed on CreateItemErrorPage")
     public Boolean isErrorPictureDisplayed() {
         return errorPicture.isDisplayed();
     }
 
+    @Step("Get page URL")
     public String getPageUrl() {
         return getDriver().getCurrentUrl();
     }

@@ -20,7 +20,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
     private WebElement itemName;
 
     @FindBy(id = "itemname-required")
-    private WebElement itemNameRequiredMsg;
+    private WebElement itemNameRequiredMessage;
 
     @FindBy(id = "itemname-invalid")
     private WebElement itemNameInvalidMsg;
@@ -78,7 +78,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return this;
     }
 
-    @Step("Select 'Freestyle project' type")
+    @Step("Select 'Freestyle project' type on NewItemPage")
     public NewItemPage<FreestyleProjectConfigPage> selectFreestyleProjectType() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(freestyleProject)).click();
 
@@ -141,8 +141,9 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return itemsList.size();
     }
 
-    public String getItemNameRequiredMsg() {
-        return itemNameRequiredMsg.getText();
+    @Step("get message name cannot be empty")
+    public String getItemNameRequiredMessage() {
+        return itemNameRequiredMessage.getText();
     }
 
     @Step("Get an Error message text")
@@ -151,6 +152,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return getWait(2).until(ExpectedConditions.visibilityOf(itemNameInvalidMsg)).getText();
     }
 
+    @Step("Check if 'OK' button on the NewItemPage is enabled")
     public boolean isOkButtonEnabled() {
         return okButton.isEnabled();
     }
@@ -162,6 +164,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return this;
     }
 
+    @Step("Enter name of existing project to make a copy from it")
     public NewItemPage<ConfigPage> setCopyFromItemName(String name) {
         TestUtils.scrollToEnd(getDriver());
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(copyFrom)).sendKeys(name);
@@ -180,6 +183,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         }
     }
 
+    @Step("Get NewItemPage header")
     public String getH3HeaderText() {
 
         return getWait(10).until(ExpectedConditions.visibilityOf(h3Header)).getText();

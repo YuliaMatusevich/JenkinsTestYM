@@ -265,6 +265,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return getDriver().findElement(By.xpath(String.format("//*[@id='job_%s']/td[4]", name))).getText();
     }
 
+    @Step("Get selected project name")
     public String getJobName(String name) {
 
         return getDriver().findElement(By.xpath(String.format("//span[contains(text(),'%s')]", name))).getText();

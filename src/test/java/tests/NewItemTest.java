@@ -1,9 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Owner;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.*;
 import model.page.CreateItemErrorPage;
 import model.page.HomePage;
 import model.page.NewItemPage;
@@ -15,26 +12,16 @@ import runner.BaseTest;
 import runner.ProjectMethodsUtils;
 import runner.TestDataUtils;
 import runner.TestUtils;
-
 import java.util.List;
-
 import static runner.ProjectMethodsUtils.createNewFolder;
 import static runner.TestUtils.getRandomStr;
 
 public class NewItemTest extends BaseTest {
 
-    @Test
-    public void testNewItemsPageContainsItemsWithoutCreatedProject() {
-        final List<String> expectedResult = List.of("Freestyle project", "Pipeline", "Multi-configuration project",
-                "Folder", "Multibranch Pipeline", "Organization Folder");
-
-        NewItemPage newItemPage = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem();
-
-        Assert.assertEquals(newItemPage.newItemsNameList(), expectedResult);
-    }
-
+    @TmsLink("1KVCZhYo")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("UI")
+    @Description("Check if 'New Item' button on side menu navigates to NewItemPage")
     @Test
     public void testCheckNavigationToNewItemPage() {
         NewItemPage newItemPage = new HomePage(getDriver())
@@ -44,87 +31,21 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(newItemPage.getH3HeaderText(), "Enter an item name");
     }
 
+    @TmsLink("6A7BqMQ2")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("UI")
+    @Description("Check if NewItemPage contains all six project types: Freestyle project, Pipeline, "
+            + "Multi-configuration project, Folder, Multibranch Pipeline, Organization Folder")
     @Test
-    public void testCreateFolder() {
+    public void testNewItemPageContainsSixItems() {
+        final List<String> expectedResult = List.of("Freestyle project", "Pipeline", "Multi-configuration project",
+                "Folder", "Multibranch Pipeline", "Organization Folder");
 
-        HomePage homePage = new HomePage(getDriver())
+        NewItemPage newItemPage = new HomePage(getDriver())
                 .getSideMenu()
-                .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
-                .selectFolderType()
-                .clickOkButton()
-                .clickApplyButton()
-                .getBreadcrumbs()
-                .clickDashboard();
+                .clickNewItem();
 
-        Assert.assertEquals(homePage.getJobName(TestDataUtils.PROJECT_NAME), TestDataUtils.PROJECT_NAME);
-    }
-
-    @Test
-    public void testCreatePipelineAssertInsideJob() {
-        String actualPipelineName = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
-                .selectPipelineType()
-                .clickOkButton()
-                .clickSaveButton()
-                .getHeaderText();
-
-        Assert.assertEquals(actualPipelineName, "Pipeline " + TestDataUtils.PROJECT_NAME);
-    }
-
-    @Test
-    public void testCreatePipelineAssertOnDashboard() {
-        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PROJECT_NAME);
-        String actualPipelineName = new HomePage(getDriver())
-                .getJobName(TestDataUtils.PROJECT_NAME);
-
-        Assert.assertEquals(actualPipelineName, TestDataUtils.PROJECT_NAME);
-    }
-
-    @Test
-    public void testCreatePipelineAssertOnBreadcrumbs() {
-        String actualTextOnBreadcrumbs = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
-                .selectPipelineType()
-                .clickOkButton()
-                .getBreadcrumbs()
-                .getTextBreadcrumbs();
-
-        Assert.assertTrue(actualTextOnBreadcrumbs.contains(TestDataUtils.PROJECT_NAME), TestDataUtils.PROJECT_NAME + " Pipeline Not Found On Breadcrumbs");
-    }
-
-    @Test
-    public void testCreateNewPipelineWithDescription() {
-        String actualPipelineDescription = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
-                .selectPipelineType()
-                .clickOkButton()
-                .setDescriptionField(TestDataUtils.NEW_DESCRIPTION)
-                .clickSaveButton()
-                .getDescriptionText();
-
-        Assert.assertEquals(actualPipelineDescription, TestDataUtils.NEW_DESCRIPTION);
-    }
-
-    @Test(dependsOnMethods = "testCreateNewPipelineWithDescription")
-    public void testCreateNewPipelineFromExisting() {
-        PipelineStatusPage pipelineStatusPage = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .setItemName(TestDataUtils.NEW_PROJECT_NAME)
-                .selectPipelineType()
-                .setCopyFromItemName(TestDataUtils.PROJECT_NAME)
-                .clickOkButton()
-                .clickSaveButton();
-
-        Assert.assertEquals(pipelineStatusPage.getPipelineName(), TestDataUtils.NEW_PROJECT_NAME);
-        Assert.assertEquals(pipelineStatusPage.getDescriptionText(), TestDataUtils.NEW_DESCRIPTION);
+        Assert.assertEquals(newItemPage.newItemsNameList(), expectedResult);
     }
 
     @Owner("ViktoriyaD")
@@ -141,6 +62,189 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(errorMessage, String.format("» ‘%s’ is an unsafe character", specialCharacter));
     }
 
+    @TmsLink("Lnb4Fkq3")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Feature")
+    @Description("Check if a new freestyle project can be created")
+    @Test
+    public void testCreateNewFreestyleProject() {
+        final String freestyleProjectTitle = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .selectFreestyleProjectType()
+                .clickOkButton()
+                .clickSaveButton()
+                .getHeaderText();
+
+        Assert.assertEquals(freestyleProjectTitle, String.format("Project %s", TestDataUtils.FREESTYLE_PROJECT_NAME));
+    }
+
+    @TmsLink("Q2h9QUX4")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Feature")
+    @Description("Check if a new freestyle project with only spaces in name can be created")
+    @Test
+    public void testCreateFreestyleProjectWithSpacesInsteadOfName() {
+        CreateItemErrorPage createItemErrorPage = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(" ")
+                .selectFreestyleProjectType()
+                .clickOkToCreateItemErrorPage();
+
+        Assert.assertEquals(createItemErrorPage.getErrorHeader(), "Error");
+        Assert.assertEquals(createItemErrorPage.getErrorMessage(), "No name is specified");
+    }
+
+    @TmsLink("6qgwLMkK")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Feature")
+    @Description("Check if a new freestyle project can be created using the name of already existing project")
+    @Test
+    public void testCreateNewFreestyleProjectWithDuplicateName() {
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+
+        String actualResult = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(TestDataUtils.FREESTYLE_PROJECT_NAME)
+                .selectFreestyleProjectType()
+                .getItemNameInvalidMessage();
+
+        Assert.assertEquals(actualResult, String.format("» A job already exists with the name ‘%s’", TestDataUtils.FREESTYLE_PROJECT_NAME));
+    }
+
+    @TmsLink("evK4GPAv")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Feature")
+    @Description("Check if a new freestyle project with empty name can be created")
+    @Test
+    public void testCreateFreestyleProjectWithEmptyName() {
+        NewItemPage newItemPage = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .selectFreestyleProjectType();
+
+        Assert.assertEquals(newItemPage.getItemNameRequiredMessage(),
+                "» This field cannot be empty, please enter a valid name");
+        Assert.assertFalse(newItemPage.isOkButtonEnabled());
+    }
+
+    @TmsLink("1LRyBVVC")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Kate Bay")
+    @Feature("Feature")
+    @Description("Check if a new freestyle project with name from 256 characters can be created")
+    @Test
+    public void testCreateNewFreestyleProjectWithLongNameFrom256Characters() {
+        final String expectedURL = "view/all/createItem";
+        final String expectedTextOfError = "A problem occurred while processing the request.";
+
+        CreateItemErrorPage errorPage = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(getRandomStr(256))
+                .selectFreestyleProjectType()
+                .clickOkToCreateItemErrorPage();
+
+        Assert.assertTrue(errorPage.getPageUrl().endsWith(expectedURL));
+        Assert.assertTrue(errorPage.isErrorPictureDisplayed());
+        Assert.assertEquals(errorPage.getErrorDescription(), expectedTextOfError);
+    }
+
+    @TmsLink("aqZH8gmR")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Gregory Ikhsanov")
+    @Feature("Feature")
+    @Description("Verify that pipeline project can be created and assert it on job page")
+    @Test
+    public void testCreatePipelineAssertInsideJob() {
+        String actualPipelineName = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(TestDataUtils.PIPELINE_NAME)
+                .selectPipelineType()
+                .clickOkButton()
+                .clickSaveButton()
+                .getHeaderText();
+
+        Assert.assertEquals(actualPipelineName, "Pipeline " + TestDataUtils.PIPELINE_NAME);
+    }
+
+    @TmsLink("ar7WqxrG")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Radas Ivan")
+    @Feature("Feature")
+    @Description("Check if pipeline project can be created and assert it on Dashboard")
+    @Test
+    public void testCreatePipelineAssertOnDashboard() {
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
+        String actualPipelineName = new HomePage(getDriver())
+                .getJobName(TestDataUtils.PIPELINE_NAME);
+
+        Assert.assertEquals(actualPipelineName, TestDataUtils.PIPELINE_NAME);
+    }
+
+    @TmsLink("KK6a5QQO")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Anna Fedorova")
+    @Feature("Feature")
+    @Description("Verify if pipeline project can be created and assert it on breadcrumbs menu")
+    @Test
+    public void testCreatePipelineAssertOnBreadcrumbs() {
+        String actualTextOnBreadcrumbs = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(TestDataUtils.PIPELINE_NAME)
+                .selectPipelineType()
+                .clickOkButton()
+                .getBreadcrumbs()
+                .getTextBreadcrumbs();
+
+        Assert.assertTrue(actualTextOnBreadcrumbs.contains(TestDataUtils.PIPELINE_NAME), TestDataUtils.PIPELINE_NAME + " Pipeline Not Found On Breadcrumbs");
+    }
+
+    @TmsLink("m30ZGnDl")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Anna Fedorova")
+    @Feature("Feature")
+    @Description("Verify if pipeline project with description can be created")
+    @Test
+    public void testCreateNewPipelineWithDescription() {
+        String actualPipelineDescription = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(TestDataUtils.PIPELINE_NAME)
+                .selectPipelineType()
+                .clickOkButton()
+                .setDescriptionField(TestDataUtils.NEW_DESCRIPTION)
+                .clickSaveButton()
+                .getDescriptionText();
+
+        Assert.assertEquals(actualPipelineDescription, TestDataUtils.NEW_DESCRIPTION);
+    }
+
+    @TmsLink("Ew3JXeZc")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Anna Fedorova")
+    @Feature("Feature")
+    @Description("Check if pipeline project can be created as a copy of existing pipeline project")
+    @Test(dependsOnMethods = "testCreateNewPipelineWithDescription")
+    public void testCreateNewPipelineFromExisting() {
+        PipelineStatusPage pipelineStatusPage = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(TestDataUtils.PIPELINE_NAME_2)
+                .selectPipelineType()
+                .setCopyFromItemName(TestDataUtils.PIPELINE_NAME)
+                .clickOkButton()
+                .clickSaveButton();
+
+        Assert.assertEquals(pipelineStatusPage.getPipelineName(), TestDataUtils.PIPELINE_NAME_2);
+        Assert.assertEquals(pipelineStatusPage.getDescriptionText(), TestDataUtils.NEW_DESCRIPTION);
+    }
+
     @Test
     public void testCreateNewItemTypePipelineWithEmptyName() {
         final String nameNewItemTypePipeline = "";
@@ -150,7 +254,7 @@ public class NewItemTest extends BaseTest {
                 .setItemName(nameNewItemTypePipeline)
                 .selectPipelineType();
 
-        Assert.assertEquals(newItemPage.getItemNameRequiredMsg(), "» This field cannot be empty, please enter a valid name");
+        Assert.assertEquals(newItemPage.getItemNameRequiredMessage(), "» This field cannot be empty, please enter a valid name");
     }
 
     @Test
@@ -203,76 +307,6 @@ public class NewItemTest extends BaseTest {
                 .getErrorMessage();
 
         Assert.assertEquals(errorMessage, "No such job: " + jobName);
-    }
-
-    @Test
-    public void testCreateNewFreestyleProject() {
-        final String freestyleProjectTitle = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
-                .selectFreestyleProjectType()
-                .clickOkButton()
-                .clickSaveButton()
-                .getHeaderText();
-
-        Assert.assertEquals(freestyleProjectTitle, String.format("Project %s", TestDataUtils.PROJECT_NAME));
-    }
-
-    @Test
-    public void testCreateFreestyleProjectWithSpacesInsteadOfName() {
-        CreateItemErrorPage createItemErrorPage = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .setItemName(" ")
-                .selectFreestyleProjectType()
-                .clickOkToCreateItemErrorPage();
-
-        Assert.assertEquals(createItemErrorPage.getErrorHeader(), "Error");
-        Assert.assertEquals(createItemErrorPage.getErrorMessage(), "No name is specified");
-    }
-
-    @Test
-    public void testCreateNewFreestyleProjectWithDuplicateName() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.PROJECT_NAME);
-
-        String actualResult = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
-                .selectFreestyleProjectType()
-                .getItemNameInvalidMessage();
-
-        Assert.assertEquals(actualResult, String.format("» A job already exists with the name ‘%s’", TestDataUtils.PROJECT_NAME));
-    }
-
-    @Test
-    public void testCreateFreestyleProjectWithEmptyName() {
-        NewItemPage newItemPage = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .selectFreestyleProjectType();
-
-        Assert.assertEquals(newItemPage.getItemNameRequiredMsg(),
-                "» This field cannot be empty, please enter a valid name");
-        Assert.assertFalse(newItemPage.isOkButtonEnabled());
-    }
-
-    @Test
-    public void testCreateNewFreestyleProjectWithLongNameFrom256Characters() {
-        final String expectedURL = "view/all/createItem";
-        final String expectedTextOfError = "A problem occurred while processing the request.";
-
-        CreateItemErrorPage errorPage = new HomePage(getDriver())
-                .getSideMenu()
-                .clickNewItem()
-                .setItemName(getRandomStr(256))
-                .selectFreestyleProjectType()
-                .clickOkToCreateItemErrorPage();
-
-        Assert.assertTrue(errorPage.getPageUrl().endsWith(expectedURL));
-        Assert.assertTrue(errorPage.isErrorPictureDisplayed());
-        Assert.assertEquals(errorPage.getErrorDescription(), expectedTextOfError);
     }
 
     @Test
@@ -330,6 +364,22 @@ public class NewItemTest extends BaseTest {
     }
 
     @Test
+    public void testCreateFolder() {
+
+        HomePage homePage = new HomePage(getDriver())
+                .getSideMenu()
+                .clickNewItem()
+                .setItemName(TestDataUtils.PROJECT_NAME)
+                .selectFolderType()
+                .clickOkButton()
+                .clickApplyButton()
+                .getBreadcrumbs()
+                .clickDashboard();
+
+        Assert.assertEquals(homePage.getJobName(TestDataUtils.PROJECT_NAME), TestDataUtils.PROJECT_NAME);
+    }
+
+    @Test
     public void testCreateMultibranchPipeline() {
         HomePage homePage = new HomePage(getDriver())
                 .getSideMenu()
@@ -351,7 +401,7 @@ public class NewItemTest extends BaseTest {
                 .clickNewItem()
                 .selectMultibranchPipelineType();
 
-        Assert.assertEquals(newItemPage.getItemNameRequiredMsg(),
+        Assert.assertEquals(newItemPage.getItemNameRequiredMessage(),
                 "» This field cannot be empty, please enter a valid name");
         Assert.assertFalse(newItemPage.isOkButtonEnabled());
     }
@@ -417,7 +467,7 @@ public class NewItemTest extends BaseTest {
                 .clickNewItem()
                 .setItemName("")
                 .selectOrgFolderType()
-                .getItemNameRequiredMsg();
+                .getItemNameRequiredMessage();
 
         Assert.assertEquals(errMessageEmptyName,
                 "» This field cannot be empty, please enter a valid name");

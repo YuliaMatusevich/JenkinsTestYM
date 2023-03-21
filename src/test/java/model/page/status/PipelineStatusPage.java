@@ -72,6 +72,7 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
         return new HomePage(getDriver());
     }
 
+    @Step("Get created pipeline name")
     public String getPipelineName() {
 
         return getHeaderText().substring(getHeaderText().indexOf(" ") + 1);
