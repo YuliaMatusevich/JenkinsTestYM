@@ -508,4 +508,21 @@ public class ManageJenkinsTest extends BaseTest {
 
         Assert.assertEquals(nodePage.getNodeNameInvalidMessage(), errorMessageWhenExistedName);
     }
+
+    @TmsLink("W4istgzS")
+    @Owner("Yulia Matusevich")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that Email Extension Plugin is installed and enabled")
+    @Test
+    public void testIsEmailPluginInstalledAndEnabled() {
+        PluginManagerPage page = new HomePage(getDriver())
+                .getSideMenu()
+                .clickManageJenkins()
+                .clickLinkManagePlugins()
+                .clickLinkInstalled();
+
+        Assert.assertTrue(page.isEmailExtensionPluginInstalled(), "Email Extension plugin is not installed");
+        Assert.assertTrue(page. isEmailExtensionPluginEnabled(), "Email Extension plugin is disabled");
+    }
 }

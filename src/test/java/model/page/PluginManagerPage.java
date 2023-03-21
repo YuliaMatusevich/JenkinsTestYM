@@ -27,6 +27,12 @@ public class PluginManagerPage extends MainBasePage {
     @FindBy(xpath = "//a[contains(text(), 'TestNG Results Plugin')]/parent::div/following-sibling::div")
     private WebElement resultField;
 
+    @FindBy(xpath = "//table[@id='plugins']/tbody/tr[@data-plugin-id='email-ext']")
+    private WebElement emailExtensionPlugin;
+
+    @FindBy(xpath = "//tr[@data-plugin-name = 'Email Extension Plugin']//span[contains(@class, 'toggle-switch')]")
+    public WebElement emailExtensionPluginToggleSwitch;
+
     public PluginManagerPage(WebDriver driver) {
         super(driver);
     }
@@ -70,5 +76,19 @@ public class PluginManagerPage extends MainBasePage {
         linkInstalled.click();
 
         return this;
+    }
+
+    @Step("Check if 'Email Extension' plugin is installed")
+    public boolean isEmailExtensionPluginInstalled() {
+        getWait(5).until(ExpectedConditions.visibilityOf(emailExtensionPlugin));
+
+        return emailExtensionPlugin.isDisplayed();
+    }
+
+    @Step("Check if 'Email Extension' plugin is enabled")
+    public boolean isEmailExtensionPluginEnabled() {
+        getWait(5).until(ExpectedConditions.visibilityOf(emailExtensionPluginToggleSwitch));
+
+        return emailExtensionPluginToggleSwitch.isEnabled();
     }
 }
