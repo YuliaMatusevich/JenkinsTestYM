@@ -1,7 +1,6 @@
 package tests;
 
 import io.qameta.allure.*;
-import model.page.GlobalToolConfigurationPage;
 import model.page.HomePage;
 import model.page.ManageJenkinsPage;
 import model.page.RenameItemErrorPage;
@@ -117,6 +116,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(renameItemErrorPage.getErrorMessage(), "The new name is the same as the current name.");
     }
 
+    @TmsLink("rXuJoRMV")
+    @Owner("Dmitry Starski")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify 'Error' page is displayed and '‘<spChar>’ is an unsafe character' error message is displayed if rename pipeline using special character")
     @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
     public void testRenamePipelineUsingSpecialCharacter(Character specialCharacter, String expectedErrorMessage) {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
@@ -133,6 +137,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(actualRenameErrorMessage, String.format("‘%s’ is an unsafe character", expectedErrorMessage));
     }
 
+    @TmsLink("V53nWkVE")
+    @Owner("Evan Mai")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the preview of description is displayed if fill out a description in the field of pipeline")
     @Test
     public void testPipelinePreviewDescription() {
         PipelineConfigPage pipelineConfigPage = new HomePage(getDriver())
@@ -147,6 +156,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(pipelineConfigPage.getTextareaPreview(), TestDataUtils.DESCRIPTION);
     }
 
+    @TmsLink("2dk6piRi")
+    @Owner("Evan Mai")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the preview of description is not displayed if click on the 'Hide preview' link")
     @Test
     public void testPipelineHidePreviewDescription() {
         PipelineConfigPage pipelineConfigPage = new HomePage(getDriver())
@@ -163,6 +177,11 @@ public class PipelineTest extends BaseTest {
     }
 
     @Flaky
+    @TmsLink("FR3NUF0b")
+    @Owner("Denis Sebrovsky")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify deleted Pipeline name doesn’t exist on a dashboard page if delete Pipeline with a menu button")
     @Test
     public void testDeletePipelineFromDashboard() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);

@@ -114,25 +114,28 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
         return this;
     }
 
-    @Step("Enter description in description input field")
+    @Step("Enter description '{name}' in description input field")
     public PipelineConfigPage setDescriptionField(String name) {
         descriptionField.sendKeys(name);
 
         return this;
     }
 
+    @Step("Click on 'Preview' link")
     public PipelineConfigPage clickPreviewLink() {
         previewLink.click();
 
         return this;
     }
 
+    @Step("Click on 'Hide preview' link")
     public PipelineConfigPage clickHidePreviewLink() {
         hidePreviewLink.click();
 
         return this;
     }
 
+    @Step("Get text from 'Preview' area")
     public String getTextareaPreview() {
         return textareaPreview.getText();
     }
@@ -191,6 +194,7 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
         return this;
     }
 
+    @Step("Verify the preview of description is displayed")
     public boolean isDisplayedPreviewTextDescription() {
         return previewTextDescription.isDisplayed();
     }

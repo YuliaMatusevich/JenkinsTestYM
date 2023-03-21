@@ -66,6 +66,7 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
         return this;
     }
 
+    @Step("Confirm alert 'Delete the Pipeline?' by clicking on the 'Ok' button")
     public HomePage confirmAlertAndDeletePipeline() {
         getDriver().switchTo().alert().accept();
 
