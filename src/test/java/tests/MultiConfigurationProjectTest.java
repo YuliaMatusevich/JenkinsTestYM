@@ -8,7 +8,6 @@ import model.page.RenameItemErrorPage;
 import model.page.config.MultiConfigurationProjectConfigPage;
 import model.page.status.MultiConfigurationProjectStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -243,7 +242,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(buildNowButton.buildNowButtonIsDisplayed());
     }
 
-    @Ignore
     @Flaky
     @Test
     public void testMultiConfigurationProjectWithBuildStepCheckBuildSuccess() {
@@ -290,7 +288,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(mcpStatusPage.NewestBuildIsDisplayed());
     }
 
-    @Ignore
     @Test
     public void testSetConfigurationMatrix() {
         ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
@@ -313,7 +310,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(configMatrix.configurationMatrixIsDisplayed());
     }
 
-    @Ignore
     @Test
     public void testSetContentInThreeBuildStepsBuildStatusOnGitHubCommitSaved() {
         final int COUNT_BUILD_STEPS = 3;

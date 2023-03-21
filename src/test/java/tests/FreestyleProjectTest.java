@@ -8,7 +8,6 @@ import model.page.RenameItemErrorPage;
 import model.page.config.FreestyleProjectConfigPage;
 import model.page.status.FreestyleProjectStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -226,7 +225,6 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertEquals(countBuildsAfterCreatingNewBuild, countBuildsBeforeCreatingNewBuild + 1);
     }
 
-    @Ignore
     @Flaky
     @TmsLink("dVfHyxtT")
     @Owner("Anastasia Yakimova")
@@ -408,7 +406,6 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(selectedCheckbox);
     }
 
-    @Ignore
     @TmsLink("i9kUcRNl")
     @Owner("Yulia Matusevich")
     @Severity(SeverityLevel.MINOR)

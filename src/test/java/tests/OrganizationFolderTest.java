@@ -5,7 +5,6 @@ import model.page.HomePage;
 import model.page.status.FolderStatusPage;
 import model.page.status.OrgFolderStatusPage;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 import runner.ProjectMethodsUtils;
@@ -138,7 +137,6 @@ public class OrganizationFolderTest extends BaseTest {
         Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.ORGANIZATION_FOLDER_NAME));
     }
 
-    @Ignore
     @TmsLink("LksqezL1")
     @Owner("Alina_Sinyagina")
     @Severity(SeverityLevel.NORMAL)
