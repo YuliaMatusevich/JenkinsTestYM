@@ -89,3 +89,20 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: allure-history
+
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v2
+        if: always()
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          from: jenkins05test@gmail.com
+          subject: Test results for pull request ${{ github.event.pull_request.number }}
+          to: jenkins05test@gmail.com
+          body: |
+            Hello ${{ github.event.pull_request.user.login }} !
+            Your pull request #${{ github.event.pull_request.number }} has been tested.            
+            Here are the test results on github: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Here are allure report: https://redroverschool.github.io/JenkinsQA_05/index.html          
