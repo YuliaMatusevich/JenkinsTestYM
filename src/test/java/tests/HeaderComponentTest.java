@@ -1,11 +1,11 @@
 package tests;
 
+import com.sun.source.tree.AssertTree;
 import io.qameta.allure.*;
 import model.component.HeaderComponent;
 import model.page.*;
 import model.page.view.MyViewsPage;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -26,21 +26,25 @@ public class HeaderComponentTest extends BaseTest {
         Assert.assertTrue(actualResult);
     }
 
-    @Ignore
+    @TmsLink("aJTanIdo")
+    @Owner("Snezhana F")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("UI")
+    @Description("Verify that User name in the header and on the User page are the same and the User page has User ID")
     @Test
-    public void testUserIdInUserAccountLinkAndInUserPage() {
+    public void testUserNameInHeaderAndInUserPage() {
+        HomePage homePage = new HomePage(getDriver());
 
-        String usernameInUserAccountLink = new HomePage(getDriver())
+        String userNameInHeader = homePage
                 .getHeader()
                 .getUserNameText();
 
-        String usernameInUserPage = new HomePage(getDriver())
+        StatusUserPage statusUserPage = homePage
                 .getHeader()
-                .clickUserIcon()
-                .getUserIDText();
+                .clickUserIcon();
 
-        Assert.assertEquals(usernameInUserPage,
-                String.format("Jenkins User ID: %s", usernameInUserAccountLink));
+        Assert.assertEquals(statusUserPage.getH1Title(), userNameInHeader);
+        Assert.assertEquals(statusUserPage.getUserIDText(), "Jenkins User ID: admin");
     }
 
     @Owner("Vadim Trefilov")
