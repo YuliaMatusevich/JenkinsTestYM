@@ -118,6 +118,7 @@ public class StatusUserPage extends MainBasePageWithSideMenu<UserSideMenuCompone
         return displayedDescriptionText.getText();
     }
 
+    @Step("Get user ID text")
     public String getUserIDText() {
 
         return userID.getText();

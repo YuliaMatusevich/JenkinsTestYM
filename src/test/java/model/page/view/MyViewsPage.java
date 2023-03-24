@@ -175,6 +175,7 @@ public class MyViewsPage extends MainBasePage {
                 .collect(Collectors.toList());
     }
 
+    @Step("Get text of 'My View' breadcrumb")
     public String getMyViewsTopMenuLinkText() {
 
         return myViewsTopMenuLink.getText();

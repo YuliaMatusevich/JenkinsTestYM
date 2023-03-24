@@ -56,6 +56,7 @@ public class HeaderComponent extends BaseComponent {
         super(driver);
     }
 
+    @Step ("Click 'Jenkins' icon")
     public HomePage clickJenkinsHeadIcon() {
         getWait(10).until(ExpectedConditions.elementToBeClickable(jenkinsHeadIcon)).click();
 
@@ -104,6 +105,7 @@ public class HeaderComponent extends BaseComponent {
         return iconUserName.getText();
     }
 
+    @Step("Enter '{request}' text into the search field")
     public SearchResultPage setSearchFieldAndClickEnter(String request) {
         searchField.sendKeys(request);
         getWait(3).until(TestUtils.ExpectedConditions.elementIsNotMoving(searchField)).sendKeys(Keys.ENTER);
@@ -118,12 +120,14 @@ public class HeaderComponent extends BaseComponent {
         return new MultiConfigurationProjectStatusPage(getDriver());
     }
 
+    @Step("Open User dropdown menu")
     public HeaderComponent clickUserDropdownMenu() {
         userDropdownMenu.click();
 
         return this;
     }
 
+    @Step ("Click 'Credentials' link in the User dropdown menu")
     public CredentialsPage clickCredentialsItemInUserDropdownMenu() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(
                 credentialsItemInUserDropdownMenu)).click();
@@ -131,6 +135,7 @@ public class HeaderComponent extends BaseComponent {
         return new CredentialsPage(getDriver());
     }
 
+    @Step ("Click 'My View' link in the User dropdown menu")
     public MyViewsPage clickMyViewItemInUserDropdownMenu() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(
                 myViewItemInUserDropdownMenu)).click();
@@ -138,6 +143,7 @@ public class HeaderComponent extends BaseComponent {
         return new MyViewsPage(getDriver());
     }
 
+    @Step ("Click 'Configure' link in the User dropdown menu")
     public ConfigureUserPage clickConfigureItemInUserDropdownMenu() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(
                 configureItemInUserDropdownMenu)).click();
@@ -145,6 +151,7 @@ public class HeaderComponent extends BaseComponent {
         return new ConfigureUserPage(getDriver());
     }
 
+    @Step("Click 'Builds' link in the User dropdown menu")
     public BuildsUserPage clickBuildsItemInUserDropdownMenu() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(
                 buildsItemInUserDropdownMenu)).click();
@@ -152,6 +159,7 @@ public class HeaderComponent extends BaseComponent {
         return new BuildsUserPage(getDriver());
     }
 
+    @Step("Count a number of User dropdown menu lines")
     public int getItemsCountInUserDropdownMenu() {
         int itemsCount = 0;
         for (WebElement item : getWait(5).until(
@@ -163,6 +171,7 @@ public class HeaderComponent extends BaseComponent {
         return itemsCount;
     }
 
+    @Step("Collect titles of User dropdown menu lines")
     public String getItemsNamesInUserDropdownMenu() {
         StringBuilder itemsNames = new StringBuilder();
         for (WebElement item : getWait(5).until(
@@ -174,6 +183,7 @@ public class HeaderComponent extends BaseComponent {
         return itemsNames.toString().trim();
     }
 
+    @Step ("Set {str} text into the Search field")
     public HeaderComponent setTextInSearchField(String str) {
         searchField.sendKeys(str);
         getWait(3).until(ExpectedConditions.attributeToBeNotEmpty(searchField, "value"));

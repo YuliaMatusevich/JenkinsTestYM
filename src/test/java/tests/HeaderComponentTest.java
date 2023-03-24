@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import model.component.HeaderComponent;
 import model.page.*;
 import model.page.view.MyViewsPage;
@@ -12,6 +13,11 @@ import java.util.List;
 
 public class HeaderComponentTest extends BaseTest {
 
+    @TmsLink("9KuZvMb8")
+    @Owner("ServachakM")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description ("Verify if Jenkins Icon is displayed in the Header")
     @Test
     public void testIsJenkinsNameIconExist() {
 
@@ -37,6 +43,10 @@ public class HeaderComponentTest extends BaseTest {
                 String.format("Jenkins User ID: %s", usernameInUserAccountLink));
     }
 
+    @Owner("Vadim Trefilov")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description ("Verify a quantity and titles of User dropdown menu lines")
     @Test
     public void testCountAndNamesItemsInUserDropdownMenu() {
         int itemsCount = new HomePage(getDriver())
@@ -53,6 +63,10 @@ public class HeaderComponentTest extends BaseTest {
         Assert.assertEquals(itemsNames, "Builds Configure My Views Credentials");
     }
 
+    @Owner("Vadim Trefilov")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description ("Verify if 'Builds' link in the User dropdown menu leads to the expected page named as 'Builds for admin'")
     @Test
     public void testUserDropdownMenuToOpenBuildsUserPage() {
         BuildsUserPage buildsUserPage = new HomePage(getDriver())
@@ -64,6 +78,10 @@ public class HeaderComponentTest extends BaseTest {
                 "Builds for admin");
     }
 
+    @Owner("Irina Samo")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("UI")
+    @Description("Verify that Jenkins icon is displayed and enabled in the Header")
     @Test
     public void testLogoHeadIconIsSeen() {
 
@@ -73,6 +91,10 @@ public class HeaderComponentTest extends BaseTest {
         Assert.assertTrue(homePage.getHeader().isJenkinsHeadIconEnabled());
     }
 
+    @Owner("Irina Samo")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description ("Verify that click on Jenkins icon leads to the Main page when click on Manage Jenkins page")
     @Test
     public void testManageJenkinsClickNameIconToReturnToTheMainPage() {
         ManageJenkinsPage manageJenkinsPage = new HomePage(getDriver())
@@ -88,6 +110,11 @@ public class HeaderComponentTest extends BaseTest {
         Assert.assertEquals(homePage.getHeaderText(), "Welcome to Jenkins!");
     }
 
+    @Owner("Vadim Trefilov")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if 'Configure' link in the User dropdown menu leads to the expected page " +
+            "that contains 'Add new Token' section")
     @Test
     public void testUserDropdownMenuToOpenConfigureUserPage() {
         ConfigureUserPage configureUserPage = new HomePage(getDriver())
@@ -99,6 +126,11 @@ public class HeaderComponentTest extends BaseTest {
                 "Add new Token");
     }
 
+    @Owner("Vadim Trefilov")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description ("Verify if click on 'My views' link in the User dropdown menu leads to the views page " +
+            "that confirmed by 'My views' breadcrumb" )
     @Test
     public void testUserDropdownMenuToOpenMyViewsUserPage() {
         MyViewsPage myViewsPage = new HomePage(getDriver())
@@ -110,6 +142,11 @@ public class HeaderComponentTest extends BaseTest {
                 "My Views");
     }
 
+    @Owner("Vadim Trefilov")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if 'Credentials' link in the User dropdown menu leads to the expected page " +
+            "named as 'Credentials'")
     @Test
     public void testUserDropdownMenuToOpenCredentialsUserPage() {
         CredentialsPage credentialsPage = new HomePage(getDriver())
@@ -121,6 +158,10 @@ public class HeaderComponentTest extends BaseTest {
                 "Credentials");
     }
 
+    @Owner("NadyaSenyukova")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify if click on the Jenkins icon leads to the Main page that confirmed by base URL")
     @Test
     public void testReturnFromNewItemPageToHomePageByClickingOnHeadIcon() {
 
@@ -134,6 +175,10 @@ public class HeaderComponentTest extends BaseTest {
         Assert.assertEquals(actualURL, "http://localhost:8080/");
     }
 
+    @Owner("Nadia Ludanik")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description ("Verify that list of search results is not empty and contains expected search request")
     @Test
     public void testCheckTheAppropriateSearchResult() {
         String organizationFolderName = "OrganizationFolder_" + (int) (Math.random() * 1000);
@@ -159,6 +204,10 @@ public class HeaderComponentTest extends BaseTest {
         }
     }
 
+    @Owner("Irina Samo")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description ("Verify that 'Search' field value contains expected text {text} and clear after click on the Jenkins icon")
     @Test
     public void testLogoHeadIconReloadMainPage() {
         String text = "Salut!";

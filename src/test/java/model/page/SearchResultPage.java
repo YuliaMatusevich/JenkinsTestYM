@@ -1,5 +1,6 @@
 package model.page;
 
+import io.qameta.allure.Step;
 import model.page.base.MainBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +18,7 @@ public class SearchResultPage extends MainBasePage {
         super(driver);
     }
 
+    @Step("Get list of search results")
     public List<String> getSearchResultList() {
         List<String> resultsList = new ArrayList<>();
         for (WebElement result : searchResults) {
