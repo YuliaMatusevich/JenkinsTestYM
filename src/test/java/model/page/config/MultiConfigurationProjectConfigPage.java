@@ -1,5 +1,6 @@
 package model.page.config;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseConfigPage;
 import model.page.status.MultiConfigurationProjectStatusPage;
 import org.openqa.selenium.By;
@@ -75,12 +76,14 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         super(driver);
     }
 
+    @Step("Enter some description into description input field")
     public MultiConfigurationProjectConfigPage inputDescription(String description) {
         inputDescription.sendKeys(description);
 
         return new MultiConfigurationProjectConfigPage(getDriver());
     }
 
+    @Step("Click 'Preview' button to show preview description")
     public MultiConfigurationProjectConfigPage showPreview() {
         getWait(5).until(ExpectedConditions.visibilityOf(textareaShowPreview)).click();
 

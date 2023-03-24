@@ -94,6 +94,7 @@ public class MyViewsPage extends MainBasePage {
         return new ViewPage(getDriver());
     }
 
+    @Step("Get all project names as list")
     public String getListProjectsNamesAsString() {
         StringBuilder listProjectsNames = new StringBuilder();
         for (WebElement projects : listProjects) {

@@ -61,6 +61,7 @@ public class MultiConfigurationProjectStatusPage extends BaseStatusPage<MultiCon
         return this;
     }
 
+    @Step("Get name of the project")
     public String getNameMultiConfigProject(String name) {
 
         return getDriver().findElement(By.xpath("//li[@class='item']//a[@href='/job/" + name + "/']")).getText();

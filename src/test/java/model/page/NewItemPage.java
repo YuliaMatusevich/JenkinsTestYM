@@ -114,6 +114,7 @@ public class NewItemPage<ConfigPage extends BaseConfigPage<?, ?>> extends MainBa
         return new NewItemPage<>(getDriver(), new MultibranchPipelineConfigPage(getDriver()));
     }
 
+    @Step("Select 'Organization folder' item")
     public NewItemPage<OrgFolderConfigPage> selectOrgFolderType() {
         TestUtils.scrollToElement(getDriver(), orgFolder);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(orgFolder));

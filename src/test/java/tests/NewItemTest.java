@@ -245,6 +245,11 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(pipelineStatusPage.getDescriptionText(), TestDataUtils.NEW_DESCRIPTION);
     }
 
+    @TmsLink("v7X8N5Xr")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Pavel Kartavenko")
+    @Feature("Feature")
+    @Description("Check if pipeline job can be created without name")
     @Test
     public void testCreateNewItemTypePipelineWithEmptyName() {
         final String nameNewItemTypePipeline = "";
@@ -257,73 +262,97 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(newItemPage.getItemNameRequiredMessage(), "» This field cannot be empty, please enter a valid name");
     }
 
+    @TmsLink("Jn2hOYQL")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Gregory Ikhsanov")
+    @Feature("Feature")
+    @Description("Check if pipeline job can be created with name, that is a name of already existing project")
     @Test
     public void testCreatePipelineExistingNameError() {
         String newItemPageErrorMessage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
+                .setItemName(TestDataUtils.PIPELINE_NAME)
                 .selectPipelineType()
                 .clickOkButton()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
+                .setItemName(TestDataUtils.PIPELINE_NAME)
                 .selectPipelineType()
                 .getItemNameInvalidMessage();
 
-        Assert.assertEquals(newItemPageErrorMessage, (String.format("» A job already exists with the name ‘%s’", TestDataUtils.PROJECT_NAME)));
+        Assert.assertEquals(newItemPageErrorMessage, (String.format("» A job already exists with the name ‘%s’", TestDataUtils.PIPELINE_NAME)));
     }
 
+    @TmsLink("gwJ1umdK")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Arailym Ashimova")
+    @Feature("Feature")
+    @Description("Check if pipeline job is displayed on MyViewsPage")
     @Test
     public void testCreatedPipelineDisplayedOnMyViews() {
         String pipelineNameInMyViewList = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
+                .setItemName(TestDataUtils.PIPELINE_NAME)
                 .selectPipelineType()
                 .clickOkButton()
                 .getBreadcrumbs()
                 .clickDashboard()
                 .getSideMenu()
-                .clickMyViewsSideMenuLink().getListProjectsNamesAsString();
+                .clickMyViewsSideMenuLink()
+                .getListProjectsNamesAsString();
 
-        Assert.assertTrue(pipelineNameInMyViewList.contains(TestDataUtils.PROJECT_NAME), TestDataUtils.PROJECT_NAME + " Pipeline not found");
+        Assert.assertTrue(pipelineNameInMyViewList.contains(TestDataUtils.PIPELINE_NAME), TestDataUtils.PIPELINE_NAME + " Pipeline not found");
     }
 
+    @TmsLink("rgiXKWKB")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Igor Klimenko")
+    @Feature("Feature")
+    @Description("Check if pipeline can be created from another project using not existing name")
     @Test
     public void testCreateNewItemFromOtherNonExistingName() {
         createNewFolder(getDriver(), TestDataUtils.PROJECT_NAME);
-        final String jobName = TestUtils.getRandomStr(7);
 
         String errorMessage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(jobName)
+                .setItemName(TestDataUtils.PIPELINE_NAME)
                 .selectPipelineType()
-                .setCopyFrom(jobName)
+                .setCopyFrom(TestDataUtils.PIPELINE_NAME)
                 .clickOkToCreateItemErrorPage()
                 .getErrorMessage();
 
-        Assert.assertEquals(errorMessage, "No such job: " + jobName);
+        Assert.assertEquals(errorMessage, "No such job: " + TestDataUtils.PIPELINE_NAME);
     }
 
+    @TmsLink("g4SSpzfi")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Anastasia Yakimova")
+    @Feature("Feature")
+    @Description("Check if multi-configuration project can be created with valid name")
     @Test
     public void testCreateMultiConfigurationProjectWithValidName() {
         HomePage homePage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
+                .setItemName(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME)
                 .selectMultiConfigurationProjectType()
                 .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard();
 
-        Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.PROJECT_NAME));
+        Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME));
     }
 
+    @TmsLink("mSxZf8qt")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Feature")
+    @Description("Check if multi-configuration project can be created with description")
     @Test
     public void testCreateMultiConfigurationProjectWithDescription() {
 
@@ -342,6 +371,11 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(multiConfigProject.getDescriptionText(), TestDataUtils.DESCRIPTION);
     }
 
+    @TmsLink("iTlY9aBK")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Anastasia Yakimova")
+    @Feature("Feature")
+    @Description("Check if multi-configuration project can be created as a copy of existing project with description")
     @Test(dependsOnMethods = "testCreateMultiConfigurationProjectWithDescription")
     public void testCreateNewMCProjectAsCopyFromExistingProject() {
         String actualDescription = new HomePage(getDriver())
@@ -363,37 +397,51 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(actualJobName, TestDataUtils.NEW_PROJECT_NAME);
     }
 
+    @TmsLink("dhH00tqj")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Evgeniya Piskunova")
+    @Feature("Feature")
+    @Description("Check if a new folder can be created")
     @Test
     public void testCreateFolder() {
 
         HomePage homePage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
+                .setItemName(TestDataUtils.FOLDER_NAME)
                 .selectFolderType()
                 .clickOkButton()
                 .clickApplyButton()
                 .getBreadcrumbs()
                 .clickDashboard();
 
-        Assert.assertEquals(homePage.getJobName(TestDataUtils.PROJECT_NAME), TestDataUtils.PROJECT_NAME);
+        Assert.assertEquals(homePage.getJobName(TestDataUtils.FOLDER_NAME), TestDataUtils.FOLDER_NAME);
     }
 
+    @TmsLink("8e0E87Yp")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Feature")
+    @Description("Check if a new multibranch pipeline can be created")
     @Test
     public void testCreateMultibranchPipeline() {
         HomePage homePage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
+                .setItemName(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .selectMultibranchPipelineType()
                 .clickOkButton()
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard();
 
-        Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.PROJECT_NAME));
+        Assert.assertTrue(homePage.getJobNamesList().contains(TestDataUtils.MULTIBRANCH_PIPELINE_NAME));
     }
 
+    @TmsLink("O0BB7UOH")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Julia Dmitrieva")
+    @Feature("Feature")
+    @Description("Check if multibranch pipeline with empty name can be created")
     @Test
     public void testCreateMultibranchPipelineEmptyName() {
         NewItemPage newItemPage = new HomePage(getDriver())
@@ -406,12 +454,17 @@ public class NewItemTest extends BaseTest {
         Assert.assertFalse(newItemPage.isOkButtonEnabled());
     }
 
+    @TmsLink("ods5Hnvj")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Julia Dmitrieva")
+    @Feature("Feature")
+    @Description("Check if multibranch pipeline can be created with name, that is a name of already existing project")
     @Test
     public void testCreateMultibranchPipelineWithExistingName() {
         String actualErrorMessage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
+                .setItemName(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .selectMultibranchPipelineType()
                 .clickOkButton()
                 .clickSaveButton()
@@ -419,13 +472,18 @@ public class NewItemTest extends BaseTest {
                 .clickDashboard()
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
+                .setItemName(TestDataUtils.MULTIBRANCH_PIPELINE_NAME)
                 .selectMultibranchPipelineType()
                 .getItemNameInvalidMessage();
 
-        Assert.assertEquals(actualErrorMessage, String.format("» A job already exists with the name ‘%s’", TestDataUtils.PROJECT_NAME));
+        Assert.assertEquals(actualErrorMessage, String.format("» A job already exists with the name ‘%s’", TestDataUtils.MULTIBRANCH_PIPELINE_NAME));
     }
 
+    @TmsLink("DEQVVZKR")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Julia Dmitrieva")
+    @Feature("Feature")
+    @Description("Check if multibranch pipeline can be created with unsafe characters in name")
     @Test
     public void testCreateMultibranchPipelineInvalidName() {
         NewItemPage newItemPage = new HomePage(getDriver())
@@ -444,12 +502,17 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(createItemErrorPage.getErrorMessage(), "‘@’ is an unsafe character");
     }
 
+    @TmsLink("9exZkDCt")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Nadia Ludanik")
+    @Feature("Feature")
+    @Description("Verify that organization folder can be created")
     @Test
     public void testCreateOrgFolder() {
         List<String> allFolders = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
+                .setItemName(TestDataUtils.ORGANIZATION_FOLDER_NAME)
                 .selectFolderType()
                 .clickOkButton()
                 .clickSaveButton()
@@ -457,11 +520,16 @@ public class NewItemTest extends BaseTest {
                 .clickDashboard()
                 .getJobNamesList();
 
-        Assert.assertTrue(allFolders.contains(TestDataUtils.PROJECT_NAME));
+        Assert.assertTrue(allFolders.contains(TestDataUtils.ORGANIZATION_FOLDER_NAME));
     }
 
+    @TmsLink("rKiSToXZ")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Elena Grueber")
+    @Feature("Feature")
+    @Description("Verify that organization folder can be created with empty name")
     @Test
-    public void testOrgFolderEmptyNameErr() {
+    public void testOrgFolderEmptyNameError() {
         String errMessageEmptyName = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
@@ -473,6 +541,9 @@ public class NewItemTest extends BaseTest {
                 "» This field cannot be empty, please enter a valid name");
     }
 
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Feature")
+    @Description("Check if organization folder can be created with empty name")
     @Test
     public void testCreateOrgFolderWithEmptyName() {
         NewItemPage newItemPage = new HomePage(getDriver())
@@ -484,29 +555,37 @@ public class NewItemTest extends BaseTest {
         Assert.assertFalse(newItemPage.isOkButtonEnabled());
     }
 
+    @TmsLink("kPVnKO87")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Elena Grueber")
+    @Feature("Feature")
+    @Description("Verify that organization folder can be created with name, that is a name of other existing project")
     @Test
-    public void testCreateOrgFolderExistName() {
-        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.PROJECT_NAME);
+    public void testCreateOrgFolderWithExistingName() {
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
 
-        String errMessage = new HomePage(getDriver())
+        String errorMessage = new HomePage(getDriver())
                 .getSideMenu()
                 .clickNewItem()
-                .setItemName(TestDataUtils.PROJECT_NAME)
+                .setItemName(TestDataUtils.ORGANIZATION_FOLDER_NAME)
                 .selectFolderType()
                 .getItemNameInvalidMessage();
 
-        Assert.assertEquals(errMessage, "» A job already exists with the name ‘"
-                + TestDataUtils.PROJECT_NAME + "’");
+        Assert.assertEquals(errorMessage, "» A job already exists with the name ‘"
+                + TestDataUtils.ORGANIZATION_FOLDER_NAME + "’");
     }
 
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Feature")
+    @Description("Verify that all six different job types can be created")
     @Test
     public void testCreateOneItemFromListOfJobTypes() {
-        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestUtils.getRandomStr());
-        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestUtils.getRandomStr());
-        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestUtils.getRandomStr());
-        ProjectMethodsUtils.createNewFolder(getDriver(), TestUtils.getRandomStr());
-        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), TestUtils.getRandomStr());
-        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestUtils.getRandomStr());
+        ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
+        ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
+        ProjectMethodsUtils.createNewMultiConfigurationProject(getDriver(), TestDataUtils.MULTI_CONFIGURATION_PROJECT_NAME);
+        ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
+        ProjectMethodsUtils.createNewMultibranchPipeline(getDriver(), TestDataUtils.MULTIBRANCH_PIPELINE_NAME);
+        ProjectMethodsUtils.createNewOrganizationFolder(getDriver(), TestDataUtils.ORGANIZATION_FOLDER_NAME);
 
         int actualNumberOfJobs = new HomePage(getDriver())
                 .getJobNamesList()
