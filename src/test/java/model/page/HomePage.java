@@ -169,6 +169,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new ConfigurationGeneralPage(getDriver());
     }
 
+    @Step("Click on pipeline project name")
     public PipelineStatusPage clickPipelineProjectName() {
         jobList.get(0).click();
 
@@ -249,6 +250,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return null;
     }
 
+    @Step("Get job build status")
     public String getJobBuildStatus() {
         getWait(3).until(ExpectedConditions.visibilityOf(buildStatusIcon));
         return buildStatusIcon.getAttribute("tooltip");
@@ -260,6 +262,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new ViewPage(getDriver());
     }
 
+    @Step("Get last success text")
     public String getLastSuccessText(String name) {
 
         return getDriver().findElement(By.xpath(String.format("//*[@id='job_%s']/td[4]", name))).getText();
@@ -271,6 +274,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return getDriver().findElement(By.xpath(String.format("//span[contains(text(),'%s')]", name))).getText();
     }
 
+    @Step("Move point to checkbox")
     public HomePage movePointToCheckBox() {
         getAction().moveToElement(buildStatusIcon).perform();
 

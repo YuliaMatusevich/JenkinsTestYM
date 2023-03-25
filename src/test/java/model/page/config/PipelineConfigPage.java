@@ -96,18 +96,21 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
         return this;
     }
 
+    @Step("Scroll to end of pipeline config page")
     public PipelineConfigPage scrollToEndPipelineConfigPage() {
         TestUtils.scrollToEnd(getDriver());
 
         return this;
     }
 
+    @Step("Click on 'Try sample' pipeline dropdown menu")
     public PipelineConfigPage clickTrySamplePipelineDropDownMenu() {
         getWait(10).until(ExpectedConditions.visibilityOf(trySamplePipelineDropDownMenu)).click();
 
         return this;
     }
 
+    @Step("Click on 'Hello World'")
     public PipelineConfigPage clickHelloWorld() {
         helloWorldScript.click();
 
@@ -140,24 +143,28 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
         return textareaPreview.getText();
     }
 
+    @Step("Check the 'This project is parameterized' checkbox")
     public PipelineConfigPage clickParameterizationCheckbox() {
         getWait(10).until(ExpectedConditions.elementToBeClickable(parameterizationCheckbox)).click();
 
         return this;
     }
 
+    @Step("Click on 'Add parameter' button")
     public PipelineConfigPage clickAddParameter() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(addParameter)).click();
 
         return this;
     }
 
+    @Step("Select 'Choice Parameter' option")
     public PipelineConfigPage clickChoiceParameter() {
         choiceParameter.click();
 
         return this;
     }
 
+    @Step("Input parameter '{name}' name into 'Name' field and choice parameters '{choice1}', '{choice2}', '{choice3}' into 'Choices' field")
     public PipelineConfigPage setChoiceParameter(String name, String choice1, String choice2, String choice3) {
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), parameterizationCheckbox);
         getWait(5).until(TestUtils.ExpectedConditions.elementIsNotMoving(parameterizationCheckbox));
@@ -173,6 +180,7 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
         return this;
     }
 
+    @Step("Select the 'Pipeline script from SCM' option from the 'Definition' dropdown")
     public PipelineConfigPage selectPipelineScriptFromScm() {
         TestUtils.scrollToEnd(getDriver());
         getWait(5).until(ExpectedConditions.visibilityOf(pipelineScriptFromScm));
@@ -181,6 +189,7 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
         return this;
     }
 
+    @Step("Select the 'Git' option from the 'SCM' dropdown")
     public PipelineConfigPage selectScriptScm() {
         getWait(5).until(ExpectedConditions.visibilityOf(scriptScm));
         new Select(scriptScm).selectByVisibleText("Git");
@@ -188,6 +197,7 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineStatusPage, Pipel
         return this;
     }
 
+    @Step("Input gitHub Url '{gitHubUrl}' into 'Repository URL' field")
     public PipelineConfigPage setGitHubUrl(String gitHubUrl) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(gitHub)).sendKeys(gitHubUrl);
 

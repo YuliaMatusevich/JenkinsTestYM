@@ -235,6 +235,11 @@ public class PipelineTest extends BaseTest {
     }
 
     @Ignore
+    @TmsLink("six4yL4A")
+    @Owner("Igor Klimenko")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify Console Output contains Tests result 'BUILD SUCCESS' and Message: 'Finished: SUCCESS' if build parametrized project")
     @Test(dependsOnMethods = "testWarningMessageIsDisappeared")
     public void testBuildParametrizedProject() {
         String consoleOutputText = new HomePage(getDriver())
@@ -260,6 +265,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertTrue(consoleOutputText.contains("Finished: SUCCESS"));
     }
 
+    @TmsLink("sXhRdNk6")
+    @Owner("Evan Mai")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the description for Pipeline project on the Pipeline page is displayed if add description")
     @Test
     public void testPipelineAddDescription() {
         PipelineStatusPage pipelineProjectPage = new HomePage(getDriver())
@@ -275,6 +285,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(pipelineProjectPage.getDescriptionText(), TestDataUtils.DESCRIPTION);
     }
 
+    @TmsLink("sXhRdNk6")
+    @Owner("Evan Mai")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the description for Pipeline project on the Pipeline page is displayed if add description to existing project")
     @Test
     public void testAddDescriptionInExistPipeline() {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
@@ -289,6 +304,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(actualDescription, TestDataUtils.NEW_DESCRIPTION);
     }
 
+    @TmsLink("STsFVsxz")
+    @Owner("Evan Mai")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify the description for Pipeline project on the Pipeline page is displayed if edit description")
     @Test(dependsOnMethods = "testPipelineAddDescription")
     public void testEditPipelineDescription() {
 
@@ -301,6 +321,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(actualDescription, TestDataUtils.NEW_DESCRIPTION);
     }
 
+    @TmsLink("Yaj0J3gE")
+    @Owner("Liudmila Plucci ")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Function")
+    @Description("Verify after clicking on the 'Existing Job' we can see left panel with Side Menu links: Changes, Build Now,Configure, Delete Pipeline, Full Stage View, Rename, Pipeline Syntax")
     @Test
     public void testPipelineSideMenuLinks() {
         List<String> expectedResult = List.of("Status", "Changes", "Build Now", "Configure", "Delete Pipeline",
@@ -315,6 +340,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(pipelineSideMenuOptionsLinks, expectedResult);
     }
 
+    @TmsLink("xgZWTWRN")
+    @Owner("Irina Irico")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify last Success text is 'N/A' if build with sample 'Hello World'")
     @Test
     public void testBuildNewPipeline() {
         final String expectedLastSuccess = "N/A";
@@ -336,6 +366,11 @@ public class PipelineTest extends BaseTest {
         Assert.assertEquals(actualSuccessText, expectedLastSuccess);
     }
 
+    @TmsLink("xgZWTWRN")
+    @Owner("Irina Irico")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify pipeline status is 'Success' if build with sample 'Hello World'")
     @Test(dependsOnMethods = "testBuildNewPipeline")
     public void testBuildNewPipelineSuccess() {
         final String expectedCheckIcon = "Success";

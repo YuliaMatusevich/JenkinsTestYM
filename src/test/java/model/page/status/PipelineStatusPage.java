@@ -52,6 +52,7 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
         super(driver);
     }
 
+    @Step("Click on the 'Edit description' button, clear the text from the 'Preview' field and input text '{text}' into this field")
     public PipelineStatusPage editDescription(String text) {
         getWait(5).until(ExpectedConditions.elementToBeClickable(editDescriptionButton)).click();
         getWait(5).until(ExpectedConditions.elementToBeClickable(descriptionArea)).clear();
@@ -60,6 +61,7 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
         return this;
     }
 
+    @Step("Click on the 'Save' button under the 'Preview' field")
     public PipelineStatusPage clickSaveButton() {
         saveButton.click();
 
@@ -106,6 +108,7 @@ public class PipelineStatusPage extends BaseStatusPage<PipelineStatusPage, Pipel
         return messageDisabledProject.getText().split("\n")[0];
     }
 
+    @Step("Click on the 'Last Build' link")
     public BuildStatusPage clickLastBuildLink() {
         getDriver().navigate().refresh();
         lastBuildLink.click();

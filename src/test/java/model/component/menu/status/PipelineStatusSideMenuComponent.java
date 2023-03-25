@@ -47,6 +47,7 @@ public class PipelineStatusSideMenuComponent extends BaseStatusSideMenuComponent
         return gitHub.getAttribute(attribute);
     }
 
+    @Step("Get pipeline side menu links")
     public List<String> getPipelineSideMenuLinks() {
         List<String> pipelineProjectText = new ArrayList<>();
         for (WebElement list : pipelineSideMenuLinks) {
@@ -56,6 +57,7 @@ public class PipelineStatusSideMenuComponent extends BaseStatusSideMenuComponent
         return pipelineProjectText;
     }
 
+    @Step("Click on 'Build with Parameters' link")
     public BuildWithParametersPage<PipelineStatusPage> clickBuildWithParameters() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(buildWithParameters)).click();
 

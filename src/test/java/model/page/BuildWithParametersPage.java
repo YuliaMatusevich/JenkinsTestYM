@@ -67,12 +67,14 @@ public class BuildWithParametersPage<StatusPage extends BaseStatusPage<?, ?>> ex
         return defaultValueCheckbox.isSelected();
     }
 
+    @Step("Select parameter '{text}' from dropdown")
     public BuildWithParametersPage<StatusPage> selectParameterByText(String text) {
         new Select(selectParameter).selectByVisibleText(text);
 
         return this;
     }
 
+    @Step("Click on 'Build' button")
     public StatusPage clickBuildButton() {
         buildButton.click();
 
