@@ -160,6 +160,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new DropdownMenu<>(getDriver(), new PipelineStatusPage(getDriver())).clickRename();
     }
 
+    @Step("Select the 'Rename' option from the multi-configuration's dropdown menu")
     public RenameItemPage<MultiConfigurationProjectStatusPage> clickRenameMultiConfigurationDropdownMenu() {
         return new DropdownMenu<>(getDriver(), new MultiConfigurationProjectStatusPage(getDriver())).clickRename();
     }
@@ -284,6 +285,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return new DropdownMenu<>(getDriver(), new FreestyleProjectConfigPage(getDriver())).clickConfigure();
     }
 
+    @Step("Select 'project' in dropdown menu")
     public HomePage clickProjectDropdownMenu(String projectName) {
         getWait(5).until(ExpectedConditions
                 .elementToBeClickable(By.xpath("//a[@href='job/" + projectName + "/']/button"))).click();
@@ -291,6 +293,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         return this;
     }
 
+    @Step("Verify that 'build now' button is displayed")
     public boolean buildNowButtonIsDisplayed() {
 
         return getWait(5).until(ExpectedConditions.visibilityOf(buildNowButton)).isDisplayed();

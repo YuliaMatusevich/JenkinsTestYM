@@ -90,6 +90,7 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return new MultiConfigurationProjectConfigPage(getDriver());
     }
 
+    @Step("Scroll and click build steps")
     public MultiConfigurationProjectConfigPage scrollAndClickBuildSteps() {
         getWait(5).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[text()='Add build step']")));
         TestUtils.scrollToElement(getDriver(), addBuildStepButton);
@@ -99,18 +100,21 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return this;
     }
 
+    @Step("Select and click 'execute windows' in the build steps")
     public MultiConfigurationProjectConfigPage selectionAndClickExecuteWindowsFromBuildSteps() {
         executeWindowsFromBuildSteps.click();
 
         return this;
     }
 
+    @Step("Select and click 'Execute Shell' from the build steps")
     public MultiConfigurationProjectConfigPage selectionAndClickExecuteShellFromBuildSteps() {
         executeShellFromBuildSteps.click();
 
         return this;
     }
 
+    @Step("Enter the {'name'} command in the 'execute windows' build steps")
     public MultiConfigurationProjectConfigPage enterCommandInExecuteWindowsBuildSteps(String command) {
         getWait(10).until(ExpectedConditions.elementToBeClickable(advancedBuildStepsLastButton));
         executeWindowsTextArea.sendKeys(command);
@@ -118,6 +122,7 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return this;
     }
 
+    @Step("Enter the {'name'} command in the 'execute shell' build steps")
     public MultiConfigurationProjectConfigPage enterCommandInExecuteShellBuildSteps(String command) {
         getWait(10).until(ExpectedConditions.elementToBeClickable(advancedBuildStepsLastButton));
         getWait(5).until(ExpectedConditions.visibilityOf(activateShellTextArea));
@@ -129,12 +134,14 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return this;
     }
 
+    @Step("Click 'Enable' or 'Disable' button on multi-configuration project configuration page")
     public MultiConfigurationProjectConfigPage clickEnableOrDisableButton() {
         enableOrDisableButton.click();
 
         return this;
     }
 
+    @Step("Scroll and click the 'Add Axis' button")
     public MultiConfigurationProjectConfigPage scrollAndClickButtonAddAxis() {
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), configurationMatrixSection);
         getWait(3).until(TestUtils.ExpectedConditions.elementIsNotMoving(buttonAddAxis));
@@ -143,6 +150,7 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return this;
     }
 
+    @Step("select user defined axis")
     public MultiConfigurationProjectConfigPage selectUserDefinedAxis() {
         userDefinedAxis.click();
         TestUtils.scrollToElement_PlaceInCenter(getDriver(), buttonAddAxis);
@@ -151,6 +159,7 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return this;
     }
 
+    @Step("Set project name {'name'}, user defined{'name'}, axis {'number of section'}")
     public MultiConfigurationProjectConfigPage enterNameUserDefinedAxis(String projectName, String name, int numberOfSection) {
         getDriver().findElement(By.xpath
                         (String.format("//div[" + numberOfSection + "]/div/div[3]/div[2]/input[contains(@checkurl,'/job/%s/')]", projectName)))
@@ -159,6 +168,7 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return this;
     }
 
+    @Step("Set value {'name'}, axis defined by user {'number of sections'}")
     public MultiConfigurationProjectConfigPage enterValueUserDefinedAxis(String value, int numberOfSection) {
         getDriver().findElement(
                         By.xpath("//div[" + numberOfSection + "]/div/div[4]/div[2]/div/div[1]/input[@name='_.valueString']"))
@@ -167,6 +177,7 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return this;
     }
 
+    @Step("Scroll and click the last 'Advanced' button in the 'Build Steps' section")
     public MultiConfigurationProjectConfigPage scrollAndClickLastAdvancedButtonInBuildStepsSection() {
         getWait(5).until(ExpectedConditions.presenceOfAllElementsLocatedBy(
                 By.xpath("//div[@id='build-steps']/..//div[@class='advancedLink']//button")));
@@ -179,6 +190,7 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return this;
     }
 
+    @Step("Scroll and click the specific 'Advanced' button in the 'Build Steps' section")
     public MultiConfigurationProjectConfigPage scrollAndClickSpecificAdvancedButtonInBuildStepsSection(
             int numberOfStep) {
         getWait(5).until(ExpectedConditions.presenceOfAllElementsLocatedBy(
@@ -191,12 +203,14 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return this;
     }
 
+    @Step("Select and click 'Set Build Status' on GitHub commit from build steps")
     public MultiConfigurationProjectConfigPage selectionAndClickSetBuildStatusOnGitHubCommitFromBuildSteps() {
         buildStatusOnGitHubCommitFromBuildSteps.click();
 
         return this;
     }
 
+    @Step("Set last content fields in build steps build status on GitHub commit")
     public MultiConfigurationProjectConfigPage setLastContentFieldsInBuildStepsBuildStatusOnGitHubCommit(
             String content) {
         WebElement lastContentField = contentFieldsInBuildStepsBuildStatusOnGitHubCommit.get(
@@ -209,6 +223,7 @@ public class MultiConfigurationProjectConfigPage extends BaseConfigPage<MultiCon
         return this;
     }
 
+    @Step("Get last content fields in build steps build status on GitHub commit")
     public String getContentFieldsInBuildStepsBuildStatusOnGitHubCommit(int numberOfStepBuildStatusOnGitHubCommit) {
         WebElement contentField = contentFieldsInBuildStepsBuildStatusOnGitHubCommit.get(
                 numberOfStepBuildStatusOnGitHubCommit - 1);

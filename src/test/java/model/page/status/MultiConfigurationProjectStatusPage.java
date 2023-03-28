@@ -48,6 +48,7 @@ public class MultiConfigurationProjectStatusPage extends BaseStatusPage<MultiCon
         super(driver);
     }
 
+    @Step("Input '{Description}' into the 'Description' field")
     public MultiConfigurationProjectStatusPage fillDescription(String desc) {
         getWait(5).until(ExpectedConditions.visibilityOf(description));
         description.sendKeys(desc);
@@ -55,6 +56,7 @@ public class MultiConfigurationProjectStatusPage extends BaseStatusPage<MultiCon
         return this;
     }
 
+    @Step("Click 'Save' button on the configuration project page")
     public MultiConfigurationProjectStatusPage clickSave() {
         saveDescriptionButton.click();
 
@@ -67,6 +69,7 @@ public class MultiConfigurationProjectStatusPage extends BaseStatusPage<MultiCon
         return getDriver().findElement(By.xpath("//li[@class='item']//a[@href='/job/" + name + "/']")).getText();
     }
 
+    @Step("Confirm alert and click 'delete' button")
     public HomePage confirmAlertAndDeleteProject() {
         getDriver().switchTo().alert().accept();
 
@@ -88,39 +91,46 @@ public class MultiConfigurationProjectStatusPage extends BaseStatusPage<MultiCon
         return new MultiConfigurationProjectStatusPage(getDriver());
     }
 
+    @Step("click the 'newest build' button on the navigation page of the build history page")
     public MultiConfigurationProjectStatusPage clickBuildHistoryPageNavigationNewestBuild() {
         buildHistoryPageNavigation.click();
 
         return this;
     }
 
+    @Step("verify that icon 'project disabled' is displayed")
     public boolean iconProjectDisabledIsDisplayed() {
         getWait(10).until(ExpectedConditions.visibilityOf(iconProjectDisabled));
 
         return iconProjectDisabled.isDisplayed();
     }
 
+    @Step("verify that icon 'project enabled' is displayed")
     public boolean iconProjectEnabledIsDisplayed() {
         getWait(10).until(ExpectedConditions.visibilityOf(iconProjectEnabled));
 
         return iconProjectEnabled.isDisplayed();
     }
 
+    @Step("Get a warning text about project disabled")
     public String getTextDisabledWarning() {
 
         return disabledWarning.getText();
     }
 
+    @Step("Verify that 'disable' button is displayed")
     public boolean disableButtonIsDisplayed() {
 
         return disableButton.isDisplayed();
     }
 
+    @Step("verify that field 'configuration matrix' is displayed")
     public boolean configurationMatrixIsDisplayed() {
 
         return configurationMatrixTable.isDisplayed();
     }
 
+    @Step("verify that button 'newest build' is displayed")
     public boolean NewestBuildIsDisplayed() {
 
         return buildHistoryPageNavigation.isDisplayed();

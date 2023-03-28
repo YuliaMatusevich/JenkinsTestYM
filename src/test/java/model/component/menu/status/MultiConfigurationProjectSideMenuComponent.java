@@ -1,5 +1,6 @@
 package model.component.menu.status;
 
+import io.qameta.allure.Step;
 import model.page.ConsoleOutputPage;
 import model.component.base.BaseStatusSideMenuComponent;
 import model.page.config.MultiConfigurationProjectConfigPage;
@@ -35,6 +36,7 @@ public class MultiConfigurationProjectSideMenuComponent extends BaseStatusSideMe
         super(driver, statusPage);
     }
 
+    @Step("Click 'BuildNow' button on the side menu")
     public MultiConfigurationProjectStatusPage clickBuildNow() {
         buildNow.click();
         getWait(60).until(ExpectedConditions.visibilityOf((buildLoadingIconSuccess)));
@@ -43,6 +45,7 @@ public class MultiConfigurationProjectSideMenuComponent extends BaseStatusSideMe
         return new MultiConfigurationProjectStatusPage(getDriver());
     }
 
+    @Step("Get a quantity of builds in BuildHistory on the side menu")
     public int countBuildsInBuildHistory() {
         getWait(10).until(ExpectedConditions.attributeContains(buildHistory, "style", "display"));
         int countBuilds = 0;
@@ -53,6 +56,7 @@ public class MultiConfigurationProjectSideMenuComponent extends BaseStatusSideMe
         return countBuilds;
     }
 
+    @Step("Click on the 'Build' icon on the side menu")
     public ConsoleOutputPage clickBuildIcon() {
         getWait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='build-icon']"))).click();
 

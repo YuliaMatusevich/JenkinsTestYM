@@ -113,6 +113,7 @@ public class HeaderComponent extends BaseComponent {
         return new SearchResultPage(getDriver());
     }
 
+    @Step("set 'search' and click 'enter' button")
     public MultiConfigurationProjectStatusPage setSearchAndClickEnter(String request) {
         searchField.sendKeys(request);
         getWait(3).until(TestUtils.ExpectedConditions.elementIsNotMoving(searchField)).sendKeys(Keys.ENTER);
