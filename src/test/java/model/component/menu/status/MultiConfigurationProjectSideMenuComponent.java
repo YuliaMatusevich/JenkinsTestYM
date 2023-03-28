@@ -27,7 +27,7 @@ public class MultiConfigurationProjectSideMenuComponent extends BaseStatusSideMe
     private WebElement buildLoadingIconSuccess;
 
     @Override
-    protected MultiConfigurationProjectConfigPage createConfigPage() {
+    public MultiConfigurationProjectConfigPage getConfigPage() {
         return new MultiConfigurationProjectConfigPage(getDriver());
     }
 

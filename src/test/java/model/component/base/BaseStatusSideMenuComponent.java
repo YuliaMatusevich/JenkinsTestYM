@@ -1,30 +1,23 @@
 package model.component.base;
 
 import io.qameta.allure.Step;
-import model.component.menu.IMenu;
 import model.page.DeletePage;
 import model.page.HomePage;
 import model.page.MovePage;
 import model.page.base.BaseConfigPage;
-import model.page.base.BasePage;
 import model.page.base.BaseStatusPage;
 import model.page.status.FolderStatusPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusPage<?, ?>, ConfigPage extends BaseConfigPage<?, ?>> extends BaseSideMenuWithGenericComponent<StatusPage> implements IMenu<StatusPage> {
-
-    @FindBy(xpath = "//div[@id='tasks']//span[contains(., 'Delete')]")
-    private WebElement delete;
+public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusPage<?, ?>, ConfigPage extends BaseConfigPage<?, ?>>
+        extends BaseSideMenuWithGenericComponent<StatusPage> implements IMenu<StatusPage, ConfigPage> {
 
     @FindBy(linkText = "Move")
     private WebElement move;
 
-    @FindBy(linkText = "Configure")
-    private WebElement configure;
-
-    protected abstract ConfigPage createConfigPage();
+    public abstract ConfigPage getConfigPage();
 
     public BaseStatusSideMenuComponent(WebDriver driver, StatusPage statusPage) {
         super(driver, statusPage);
@@ -34,13 +27,7 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
         return page;
     }
 
-    private <T extends BasePage> T clickDelete(T toPage) {
-        delete.click();
-
-        return toPage;
-    }
-
-    @Step ("Click 'Delete' on the side menu")
+    @Step("Click 'Delete' on the side menu")
     public StatusPage clickDeleteToMyStatusPage() {
         return clickDelete(page);
     }
@@ -60,12 +47,5 @@ public abstract class BaseStatusSideMenuComponent<StatusPage extends BaseStatusP
         move.click();
 
         return new MovePage<>(getDriver(), page);
-    }
-
-    @Step("Click 'Configure' on side menu")
-    public ConfigPage clickConfigure() {
-        configure.click();
-
-        return createConfigPage();
     }
 }

@@ -205,7 +205,7 @@ public class PipelineTest extends BaseTest {
         ProjectMethodsUtils.createNewPipelineProject(getDriver(), TestDataUtils.PIPELINE_NAME);
         PipelineStatusPage pipelineProjectPage = new HomePage(getDriver())
                 .clickJobDropdownMenu(TestDataUtils.PIPELINE_NAME)
-                .clickConfigureDropDownMenu()
+                .clickConfigurePipelineDropDownMenu()
                 .clickGitHubCheckbox()
                 .setGitHubRepo(TestDataUtils.GITHUB_REPOSITORY_URL)
                 .clickSaveButton();
@@ -244,7 +244,7 @@ public class PipelineTest extends BaseTest {
     public void testBuildParametrizedProject() {
         String consoleOutputText = new HomePage(getDriver())
                 .clickJobDropdownMenu(TestDataUtils.PIPELINE_NAME)
-                .clickConfigureDropDownMenu()
+                .clickConfigurePipelineDropDownMenu()
                 .clickParameterizationCheckbox()
                 .clickAddParameter()
                 .clickChoiceParameter()

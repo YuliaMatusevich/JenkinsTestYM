@@ -17,7 +17,7 @@ public class MultibranchPipelineStatusSideMenuComponent extends BaseStatusSideMe
     private List<WebElement> menuOptions;
 
     @Override
-    protected MultibranchPipelineConfigPage createConfigPage() {
+    public MultibranchPipelineConfigPage getConfigPage() {
         return new MultibranchPipelineConfigPage(getDriver());
     }
 

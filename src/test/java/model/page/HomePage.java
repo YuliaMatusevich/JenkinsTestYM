@@ -2,7 +2,8 @@ package model.page;
 
 import io.qameta.allure.Step;
 import model.component.base.BaseComponent;
-import model.component.menu.IMenu;
+import model.component.base.IMenu;
+import model.page.base.BaseConfigPage;
 import model.page.base.BaseStatusPage;
 import model.component.menu.HomeSideMenuComponent;
 import model.page.base.MainBasePageWithSideMenu;
@@ -25,29 +26,40 @@ import static runner.TestUtils.scrollToElement;
 
 public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
-    public static class DropdownMenu<StatusPage extends BaseStatusPage<?, ?>> extends BaseComponent implements IMenu<StatusPage> {
+    private static class DropdownMenu<StatusPage extends BaseStatusPage<?, ?>,
+            ConfigPage extends BaseConfigPage<?, ?>> extends BaseComponent implements IMenu<StatusPage, ConfigPage> {
 
-        private final StatusPage statusPage;
+        private StatusPage statusPage;
+
+        private ConfigPage configPage;
+
+        public DropdownMenu(WebDriver driver) {
+            super(driver);
+        }
 
         public DropdownMenu(WebDriver driver, StatusPage statusPage) {
-            super(driver);
+            this(driver);
             this.statusPage = statusPage;
+        }
+
+        public DropdownMenu(WebDriver driver, ConfigPage configPage) {
+            this(driver);
+            this.configPage = configPage;
         }
 
         @Override
         public StatusPage getStatusPage() {
             return statusPage;
         }
+
+        @Override
+        public ConfigPage getConfigPage() {
+            return configPage;
+        }
     }
 
     @FindBy(css = "tr td a.model-link")
     private List<WebElement> jobList;
-
-    @FindBy(linkText = "Configure")
-    private WebElement configureDropDownMenu;
-
-    @FindBy(xpath = "//span[contains(text(),'Delete')]")
-    private WebElement deleteButtonInDropDownMenu;
 
     @FindBy(tagName = "h1")
     private WebElement header;
@@ -108,7 +120,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
     public int getNumberOfJobsContainingString(String string) {
 
-        return (int) jobList
+        return (int)jobList
                 .stream()
                 .filter(element -> element.getText().contains(string))
                 .count();
@@ -161,12 +173,10 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
     public RenameItemPage<MultibranchPipelineStatusPage> clickRenameMultibranchPipelineDropDownMenu() {
         return new DropdownMenu<>(getDriver(), new MultibranchPipelineStatusPage(getDriver())).clickRename();
     }
-    
-    @Step("Click on 'Configure' dropdown menu")
-    public ConfigurationGeneralPage clickConfigDropDownMenu() {
-        getWait(6).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
 
-        return new ConfigurationGeneralPage(getDriver());
+    @Step("Click on 'Configure' dropdown menu")
+    public FolderConfigPage clickConfigureFolderDropDownMenu() {
+        return new DropdownMenu<>(getDriver(), new FolderConfigPage(getDriver())).clickConfigure();
     }
 
     @Step("Click on pipeline project name")
@@ -178,10 +188,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
     @Step("Click Delete in the drop-down menu")
     public DeletePage<HomePage> clickDeleteDropDownMenu() {
-        getWait(3).until(ExpectedConditions.elementToBeClickable(deleteButtonInDropDownMenu));
-        deleteButtonInDropDownMenu.click();
-
-        return new DeletePage<>(getDriver(), this);
+        return new DropdownMenu<>(getDriver()).clickDelete(new DeletePage<>(getDriver(), this));
     }
 
     @Step("Click on MultibranchPipeline name '{name}' on the dashboard")
@@ -192,10 +199,8 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
     }
 
     @Step("Click configure in the drop-down menu")
-    public PipelineConfigPage clickConfigureDropDownMenu() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
-
-        return new PipelineConfigPage(getDriver());
+    public PipelineConfigPage clickConfigurePipelineDropDownMenu() {
+        return new DropdownMenu<>(getDriver(), new PipelineConfigPage(getDriver())).clickConfigure();
     }
 
     @Step("Get Header Text")
@@ -209,13 +214,6 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
         getDriver().findElement(By.xpath("//span[text()='" + folderName + "']")).click();
 
         return new FolderStatusPage(getDriver());
-    }
-
-    @Step("Click on 'Configure' in the dropdown menu")
-    public FolderConfigPage clickConfigureDropDownMenuForFolder() {
-        getWait(5).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
-
-        return new FolderConfigPage(getDriver());
     }
 
     @Step("Get job build status on the Home page")
@@ -282,10 +280,8 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
     }
 
     @Step("Select 'Configure' in the dropdown menu")
-    public FreestyleProjectConfigPage clickConfigDropDownMenuFreestyle() {
-        getWait(6).until(ExpectedConditions.elementToBeClickable(configureDropDownMenu)).click();
-
-        return new FreestyleProjectConfigPage(getDriver());
+    public FreestyleProjectConfigPage clickConfigureFreestyleDropDownMenu() {
+        return new DropdownMenu<>(getDriver(), new FreestyleProjectConfigPage(getDriver())).clickConfigure();
     }
 
     public HomePage clickProjectDropdownMenu(String projectName) {
@@ -350,7 +346,7 @@ public class HomePage extends MainBasePageWithSideMenu<HomeSideMenuComponent> {
 
     @Step("Get 'System Message' from dashboard")
     public String getSystemMessageFromDashboard() {
-       return systemMessage.getText();
+        return systemMessage.getText();
     }
 
     @Step("Click on 'Set up an agent' on dashboard")

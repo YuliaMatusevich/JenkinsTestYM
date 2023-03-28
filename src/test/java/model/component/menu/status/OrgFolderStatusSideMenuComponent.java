@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 public class OrgFolderStatusSideMenuComponent extends BaseStatusSideMenuComponent<OrgFolderStatusPage, OrgFolderConfigPage> {
 
     @Override
-    protected OrgFolderConfigPage createConfigPage() {
+    public OrgFolderConfigPage getConfigPage() {
         return new OrgFolderConfigPage(getDriver());
     }
 

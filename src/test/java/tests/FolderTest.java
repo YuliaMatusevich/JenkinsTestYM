@@ -71,7 +71,7 @@ public class FolderTest extends BaseTest {
 
         List<String> projectNamesOnDashboard = new HomePage(getDriver())
                 .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
-                .clickConfigureDropDownMenuForFolder()
+                .clickConfigureFolderDropDownMenu()
                 .setDisplayName(TestDataUtils.DISPLAY_NAME)
                 .setDescription("change name")
                 .clickSaveButton()
@@ -174,8 +174,8 @@ public class FolderTest extends BaseTest {
         ProjectMethodsUtils.createNewFolder(getDriver(), TestDataUtils.FOLDER_NAME);
         HomePage homePage = new HomePage(getDriver())
                 .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME)
-                .clickConfigDropDownMenu()
-                .setProjectName(TestDataUtils.FOLDER_NAME_2)
+                .clickConfigureFolderDropDownMenu()
+                .setDisplayName(TestDataUtils.FOLDER_NAME_2)
                 .clickSaveButton()
                 .getBreadcrumbs()
                 .clickDashboard();
@@ -445,7 +445,7 @@ public class FolderTest extends BaseTest {
 
         String folderDescription = new HomePage(getDriver())
                 .clickJobDropdownMenu(TestDataUtils.FOLDER_NAME_2)
-                .clickConfigDropDownMenu()
+                .clickConfigureFolderDropDownMenu()
                 .setDescription(TestDataUtils.DESCRIPTION)
                 .clickSaveButton()
                 .getAdditionalDescriptionText();

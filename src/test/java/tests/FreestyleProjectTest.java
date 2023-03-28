@@ -195,7 +195,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         FreestyleProjectConfigPage freestyleProjectConfigPage = new HomePage(getDriver())
                 .clickJobDropdownMenu(TestDataUtils.FREESTYLE_PROJECT_NAME)
-                .clickConfigDropDownMenuFreestyle();
+                .clickConfigureFreestyleDropDownMenu();
 
         Assert.assertEquals(freestyleProjectConfigPage.getHeadlineText(), "Configuration");
     }

@@ -60,7 +60,7 @@ public class FreestyleProjectStatusSideMenuComponent extends BaseStatusSideMenuC
     private List<WebElement> listOfBuildNames;
 
     @Override
-    protected FreestyleProjectConfigPage createConfigPage() {
+    public FreestyleProjectConfigPage getConfigPage() {
         return new FreestyleProjectConfigPage(getDriver());
     }
 

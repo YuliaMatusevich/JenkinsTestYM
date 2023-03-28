@@ -15,7 +15,7 @@ public class FolderStatusSideMenuComponent extends BaseStatusSideMenuComponent<F
     private WebElement newItem;
 
     @Override
-    protected FolderConfigPage createConfigPage() {
+    public FolderConfigPage getConfigPage() {
         return new FolderConfigPage(getDriver());
     }
 

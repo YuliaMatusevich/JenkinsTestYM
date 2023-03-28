@@ -31,7 +31,7 @@ public class PipelineStatusSideMenuComponent extends BaseStatusSideMenuComponent
     private WebElement buildsInformation;
 
     @Override
-    protected PipelineConfigPage createConfigPage() {
+    public PipelineConfigPage getConfigPage() {
         return new PipelineConfigPage(getDriver());
     }
 
