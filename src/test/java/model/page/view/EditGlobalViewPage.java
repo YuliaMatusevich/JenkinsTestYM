@@ -1,5 +1,6 @@
 package model.page.view;
 
+import io.qameta.allure.Step;
 import model.page.base.BaseEditViewPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -46,6 +47,7 @@ public class EditGlobalViewPage extends BaseEditViewPage {
         return this;
     }
 
+    @Step("Get note text in the 'View name' section")
     public String getUniqueTextOnGlobalViewEditPage() {
 
         return uniqueTextOnGlobalViewEditPage.getText();
@@ -73,11 +75,13 @@ public class EditGlobalViewPage extends BaseEditViewPage {
         return filterBuildExecutorsCheckBoxInput.getAttribute("checked").equals("true");
     }
 
+    @Step("Get 'Error page' header text")
     public String getErrorPageHeader() {
 
         return errorPageHeader.getText();
     }
 
+    @Step("Is 'Error page' text equals to the text that contains a specified special character")
     public boolean isCorrectErrorPageDetailsText(char illegalCharacter) {
 
         return errorPageDetailsText.getText().equals(String.format("‘%c’ is an unsafe character", illegalCharacter));

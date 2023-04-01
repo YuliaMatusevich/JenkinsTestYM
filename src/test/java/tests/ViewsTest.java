@@ -204,6 +204,11 @@ public class ViewsTest extends BaseTest {
         Assert.assertTrue(viewPage.getListViewsNames().contains(TestDataUtils.VIEW_RENAME));
     }
 
+    @Owner("SergeDot")
+    @Severity(SeverityLevel.CRITICAL)
+    @Feature("Function")
+    @Description("Verify that Error message appears when is trying to rename " +
+            "a List view with the name that contains invalid special characters")
     @Test(dataProvider = "specialCharacters", dataProviderClass = TestDataUtils.class)
     public void testIllegalCharacterRenameView(Character specialCharacter, String errorMessage) {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -241,6 +246,10 @@ public class ViewsTest extends BaseTest {
         Assert.assertTrue(checksList.stream().allMatch(element -> element == true));
     }
 
+    @Owner("Nadia Ludanik")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verify if the 'View name' section text of the 'Global View' view is equals to the expected text")
     @Test
     public void testEditGlobalViewPageViewNameLabelContainsDescription() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -255,6 +264,10 @@ public class ViewsTest extends BaseTest {
                 "The name of a global view that will be shown.");
     }
 
+    @Owner("Nadia Ludanik")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verify if the 'List view' edit page contains the section 'Job Filters'")
     @Test
     public void testEditListViewPageContainsTitleJobFilters() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -269,6 +282,10 @@ public class ViewsTest extends BaseTest {
                 "Job Filters");
     }
 
+    @Owner("Nadia Ludanik")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("UI")
+    @Description("Verify if side menu options of the 'List View' view is equal to a default list")
     @Test
     public void testListViewSideMenu() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -281,7 +298,10 @@ public class ViewsTest extends BaseTest {
 
         Assert.assertEqualsNoOrder(viewPage.getSideMenuTextList(), viewPage.getActualSideMenu());
     }
-
+    @Owner("Liudmila Plucci")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verify if description of 'My views' page is saved")
     @Test
     public void testAddDescription() {
         String actualResult = new HomePage(getDriver())
@@ -296,6 +316,10 @@ public class ViewsTest extends BaseTest {
         Assert.assertEquals(actualResult, "Description");
     }
 
+    @Owner("Liudmila Plucci")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verify if description of 'My views' page is edited")
     @Test(dependsOnMethods = "testAddDescription")
     public void testEditDescription() {
         String actualResult = new HomePage(getDriver())

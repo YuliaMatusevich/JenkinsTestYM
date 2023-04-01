@@ -85,6 +85,7 @@ public class ViewPage extends MainBasePage {
         return descriptionText.getText();
     }
 
+    @Step("Collect a list of actual side menu options on the View page")
     public ArrayList<String> getSideMenuTextList() {
         ArrayList<String> sideMenuText = new ArrayList<>();
         List<WebElement> sideMenu = sideMenuList;
@@ -94,6 +95,7 @@ public class ViewPage extends MainBasePage {
         return sideMenuText;
     }
 
+    @Step("Collect a list of default side menu options on the View page")
     public ArrayList<String> getActualSideMenu() {
         ArrayList<String> actualSideMenu = new ArrayList<>();
         actualSideMenu.add("New Item");
@@ -125,6 +127,7 @@ public class ViewPage extends MainBasePage {
         return this;
     }
 
+    @Step("Click the 'Edit View' menu on side menu")
     public EditGlobalViewPage clickEditGlobalView() {
         editViewLink.click();
 

@@ -104,35 +104,41 @@ public class MyViewsPage extends MainBasePage {
         return listProjectsNames.toString().trim();
     }
 
+    @Step("Click 'Add description' link")
     public MyViewsPage clickAddDescription() {
         descriptionLink.click();
 
         return this;
     }
 
+    @Step("Enter description text int description field")
     public MyViewsPage setDescription(String descriptionText) {
         descriptionField.sendKeys(descriptionText);
 
         return this;
     }
 
+    @Step("Click 'Save' button")
     public MyViewsPage clickSaveButton() {
         saveButton.click();
 
         return this;
     }
 
+    @Step("Clear the description field")
     public MyViewsPage clearDescriptionField() {
         getWait(3).until(ExpectedConditions.visibilityOf(descriptionField)).clear();
 
         return this;
     }
 
+    @Step("Get description text")
     public String getDescriptionText() {
 
         return displayedDescriptionText.getText();
     }
 
+    @Step("Click 'Edit description' link")
     public MyViewsPage clickEditDescription() {
         editDescriptionButton.click();
 
