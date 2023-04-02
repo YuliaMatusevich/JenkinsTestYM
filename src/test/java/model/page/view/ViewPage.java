@@ -170,6 +170,7 @@ public class ViewPage extends MainBasePage {
                 .collect(Collectors.toList());
     }
 
+    @Step("Get active filters list")
     public List<String> getActiveFiltersList() {
 
         return listViewActiveFilters.stream().map(WebElement::getText).collect(Collectors.toList());

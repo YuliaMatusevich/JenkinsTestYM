@@ -334,6 +334,10 @@ public class ViewsTest extends BaseTest {
         Assert.assertEquals(actualResult, "New Description");
     }
 
+    @Owner("Radas Ivan")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verify that all button icon sizes are displayed")
     @Test
     public void testLettersSMLClickableMyViews() {
         ProjectMethodsUtils.createNewFreestyleProject(getDriver(), TestDataUtils.FREESTYLE_PROJECT_NAME);
@@ -355,6 +359,10 @@ public class ViewsTest extends BaseTest {
         Assert.assertTrue(myViewsPageSizeL.tableSizeL());
     }
 
+    @Owner("Den Sebrovsky")
+    @Severity(SeverityLevel.MINOR)
+    @Feature("UI")
+    @Description("Verify that 'Filtered Build Queue' is displayed after creating a global view with an option 'Filter build queue'")
     @Test
     public void testGlobalViewAddFilterBuildQueue() {
         createAllSixItems();

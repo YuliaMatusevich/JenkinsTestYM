@@ -20,6 +20,7 @@ public class NewViewFromMyViewsPage<EditViewPage extends BaseEditViewPage> exten
         this.editViewPage = editViewPage;
     }
 
+    @Step("Select Global view type")
     public NewViewFromMyViewsPage<EditGlobalViewPage> selectGlobalViewType() {
         globalViewType.click();
 

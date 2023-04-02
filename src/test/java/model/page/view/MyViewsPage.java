@@ -145,32 +145,38 @@ public class MyViewsPage extends MainBasePage {
         return this;
     }
 
+    @Step("Click the 'Medium' icon size button")
     public MyViewsPage clickSizeM() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(buttonSizeM)).click();
 
         return this;
     }
 
+    @Step("Verify that 'Medium' size table is displayed")
     public boolean tableSizeM() {
         return tableSizeM.isDisplayed();
     }
 
+    @Step("Click the 'Small' icon size button")
     public MyViewsPage clickSizeS() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(buttonSizeS)).click();
 
         return this;
     }
 
+    @Step("Verify that 'Small' size table is displayed")
     public boolean tableSizeS() {
         return tableSizeS.isDisplayed();
     }
 
+    @Step("Click the 'Large' icon size button")
     public MyViewsPage clickSizeL() {
         getWait(5).until(ExpectedConditions.elementToBeClickable(buttonSizeL)).click();
 
         return this;
     }
 
+    @Step("Verify that 'Large' size table is displayed")
     public boolean tableSizeL() {
         return tableSizeL.isDisplayed();
     }

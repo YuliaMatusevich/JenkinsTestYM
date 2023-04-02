@@ -59,6 +59,7 @@ public class EditGlobalViewPage extends BaseEditViewPage {
         return this;
     }
 
+    @Step("Check the checkbox for the 'Filter Build Queue' option")
     public EditGlobalViewPage selectFilterBuildQueueOptionCheckBox() {
         filterBuildQueueOptionCheckBox.click();
 
