@@ -105,4 +105,4 @@ jobs:
             Hello ${{ github.event.pull_request.user.login }} !
             Your pull request #${{ github.event.pull_request.number }} has been tested.            
             Here are the test results on github: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            Here are allure report: https://redroverschool.github.io/JenkinsQA_05/index.html          
+                
